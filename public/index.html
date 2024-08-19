@@ -8,43 +8,69 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" media="screen" href="css/style.css">
-    <link rel="stylesheet"  href="css/site.css">
+    <link rel="stylesheet" href="css/site.css">
     <link rel="icon" href="assets/icon/mini.svg">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">     
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
 
     <div id="particles-js">
-        <div class="header">
-            <ul class="options">
-                <li class="option">Início</li>
-                <li class="divisor">/</li>
-                <li class="option">Sobre</li>
-                <li class="divisor">/</li>
-                <li class="option">Serviços</li>
-                <li class="divisor">/</li>
-                <li class="option">Contato</li>
-            </ul>
-            <div class="headerLogo">
-                <img src="./assets/icon/headerLogo.svg" class="headerLogo">
+        <div id="inicio">
+            <div class="header">
+                <ul class="options">
+                    <li class="option">Início</li>
+                    <li class="divisor">/</li>
+                    <li class="option">Sobre</li>
+                    <li class="divisor">/</li>
+                    <li class="option">Serviços</li>
+                    <li class="divisor">/</li>
+                    <li class="option">Contato</li>
+                </ul>
+
+                <div class="headerLogo">
+                    <img src="./assets/icon/headerLogo.svg" class="headerLogo">
+                </div>
+                <div class="loginContainer">
+                    <button class="btnLogin">Entrar</button>
+                </div>
             </div>
-            <div class="loginContainer">
-                <button class="btnLogin">Entrar</button>
+
+            <div class="welcome">
+                <span class="Apresentation" data-aos="fade-up" data-aos-duration="1000"
+                    data-aos-easing="ease-in-sine">Revolucionando a <div class="healthStyled">saúde</div>
+                </span>
+                <span class="Apresentation" data-aos="fade-up" data-aos-duration="1000"
+                    data-aos-easing="ease-in-sine">com Inteligência Artificial</span>
+                <p class="desc" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">Otimizando
+                    processos, melhorando diagnósticos e elevando a qualidade do atendimento,
+                    transformando a experiência tanto para profissionais de saúde quanto para pacientes.</p>
+
+            </div>
+            <div class="moreContainer">
+                <a href="#sobre">
+                    <button class="Start" data-aos="fade-up" data-aos-duration="1200"
+                        data-aos-easing="ease-in-sine">Saiba
+                        mais!</button>
+                </a>
             </div>
         </div>
 
-        <div class="welcome">
-            <span class="Apresentation" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">Revolucionando a <div class="healthStyled">saúde</div>
-            </span>
-            <span class="Apresentation" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">com Inteligência Artificial</span>
-            <p class="desc" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">Otimizando processos, melhorando diagnósticos e elevando a qualidade do atendimento, 
-                transformando a experiência tanto para profissionais de saúde quanto para pacientes.</p>
-            
+
+    </div>
+    <div id="sobre">
+        <div class="descricaoEmpresa">
+            <div class="textos">
+                <span id="title" data-aos="fade-right" data-aos-duration="1200"></span>
+                <span id="descricao" data-aos="fade-right" data-aos-duration="1200">
+                </span>
             </div>
-            <div class="moreContainer">
-                <button class="Start" data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-in-sine">Saiba mais!</button>
+            <div class="buttons">
+                <button id="btnVG" class="btnSobre" onclick="changedesc(this)" value="0">Visão Geral</button>
+                <button id="btnMissao" class="btnSobre" onclick="changedesc(this)" value="1">Missão</button>
+                <button id="btnObj" class="btnSobre" onclick="changedesc(this)" value="2">Objetivo</button>
             </div>
+        </div>
     </div>
 
     <script type="application/javascript" src="js/particles.js"></script>
@@ -56,4 +82,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();
-  </script>
+</script>
+<script src="./json/descricaoEmpresa.js"></script>
+<script src="./js/site.js"></script>

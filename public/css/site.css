@@ -8,6 +8,15 @@ body{
     width: 100%;
 }
 
+#inicio{
+    height: 100vh;
+    width: 100%;
+    position: absolute; 
+}
+#sobre{
+    height: 100vh;
+    width: 100%;
+}
 .header{
     display: flex;
     height: 100px;
@@ -16,7 +25,8 @@ body{
     justify-content: space-around;
     align-items: center;
     position: fixed;
-    z-index: 10000;
+    z-index: 1 ;
+    background-color: #f1f1f1;
 }
 
 .options{
@@ -126,7 +136,8 @@ body{
     color: #FFF;
     box-shadow: #3b236c 0 2px 4px;
     transition: all ease-in-out .4s;
-}
+    cursor: pointer;
+    }
 .Start:active{
     transform: scale(.95);
 }
@@ -137,4 +148,55 @@ body{
     display: flex;
     align-items: flex-end;
     justify-content: center;
+}
+
+.descricaoEmpresa{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    height: 65%;    
+}
+
+.textos{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+#title{
+    font-family: "Exo 2";
+    font-size: 60px;
+    font-weight: 600;
+    color: #864ef2;
+}
+
+#descricao{
+    font-family: "Exo 2";
+    font-size: 20px;
+    font-weight: 400;
+    color: #292929;
+    margin-top: 20px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.btnSobre{
+    margin-top: 20px;
+    width: 300px;
+    height: 60px;
+    border: none;
+    background-color: #FFF;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px #c4a6ff;
+    color: #FF88EE;
+    font-family: "Exo 2";
+    font-size: 20px;
+    font-weight: 600;
+}
+.active{
+    background-color: #864ef2;
+    color: #FFF
 }
