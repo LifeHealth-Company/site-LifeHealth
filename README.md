@@ -1,4 +1,7 @@
-# site-LifeHealth
+# :pill: Projeto LifeHeath 
+
+## 📦 Clientes:
+Hospitais e Organizações da saúde;
 
 ## 🛠️ Construído com:
 
@@ -9,11 +12,11 @@
 
 <img align="center" height="30" width="40" alt="logo HTML" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
 
-<img align="center" height="30" width="40" alt="logo MySql" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" /><br>
+<img align="center" height="30" width="40" alt="logo MySql" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg" />
 
-[![My Skills](https://skillicons.dev/icons?i=java&theme=light)](https://skillicons.dev)
+<img align="center" height="30" width="40" alt="Java" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" /><br>
 
-🖇️ Colaboradores
+### 🖇️ Colaboradores <br>
 Lais Aroucca: <a href="https://github.com/LaisAroucca05" target="_blank"><img align="center" height="30" width="40" alt="logo GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
 </a>
 
