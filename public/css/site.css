@@ -155,7 +155,7 @@ body{
     justify-content: space-evenly;
     width: 100%;
     align-items: center;
-    height: 65%;    
+    /* height: 65%;     */
 }
 
 .textos{
@@ -199,4 +199,64 @@ body{
 .active{
     background-color: #864ef2;
     color: #FFF
+}
+
+#valores {
+    width: 100%;
+    padding: 60px 0;
+    background-color: #f1f1f1;
+}
+
+.valoresContainer {
+    width: 90%;
+    margin: 0 auto;
+    text-align: left; 
+    height: 65%; 
+    margin-left: 8%;
+}
+
+.valoresTitle {
+    font-family: "Exo 2", sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+    color: #5d36cf;
+    margin-bottom: 40px;
+}
+
+.valoresItems {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.valorItem {
+    background-color: #6c3ac5;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: left; 
+}
+
+.valorItem:hover {
+    transform: translateY(-5px);
+}
+
+.valorName {
+    font-family: "Exo 2", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.valorDesc {
+    font-family: "Exo 2", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #e0e0e0;
 }
