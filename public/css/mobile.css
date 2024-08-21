@@ -16,16 +16,21 @@ body{
 #sobre{
     height: 100vh;
     width: 100%;
+
 }
 .header{
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+}
+.mainHeader{
     display: flex;
     height: 100px;
     width: 100%;
     box-shadow: 0 .5px 4px #939393 ;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    position: fixed;
-    z-index: 1 ;
+    z-index: 10;
     background-color: #f1f1f1;
 }
 
@@ -33,61 +38,90 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 33%;
+    width: 0;
+    display: none;
  }
  .option{
-     font-family: "Exo 2";
-     font-weight: 600;
-     font-size: 16px;
-     transition: all .4s ease-in-out;
-     color: #939393;
-     cursor: pointer;
+    font-family: "Exo 2";
+    font-weight: 600;
+    font-size: 18px;
+    transition: all .4s ease-in-out;
+    color: #939393;
+    cursor: pointer;
+    margin-bottom: 10px;
  }
  .option:hover{
     color: #864ef2;
   }
-.headerLogo{
-    width: 30%;
-    display: flex;
+ 
+  .menu{
+    width: 100%;
+    visibility: hidden;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 .5px 4px #939393;
+    background-color: #f1f1f1;
+    transform : translateX(380px);
+    transition: transform .6s ease-in-out; 
 }
-.loginContainer{
+
+
+.headerLogo{
+    width: 50%;
     display: flex;
-    width: 33%;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    padding-left: 20px;
 }
+
 .btnLogin{
-    width: 130px;
-    height: 40px;
+    display: none;
+}
+.btnLoginMobile{
+    width: 80px;
+    height: 30px;
     background-color: #FF88EE;
-    border-radius:14px;
+    border-radius:5px;
     border: 0;
     color: #FFF;
     box-shadow: #939393 1px 1px 4px;
     transition: all .4s ease-in-out;
     font-family: "Exo 2";
     font-weight: 600;
-    font-size: 18px;
-    margin-right: 50px;
+    font-size: 14px;
+    cursor: pointer;
 }
-.btnLogin:hover{
+.btnLoginMobile:hover{
    background-color: #864ef2;
 }
-.btnLogin:active{
+.btnLoginMobile:active{
     transform: scale(.95);
 }
 
 .divisor{
     font-family: "Exo 2";
     font-weight: 200;
-    font-size:30px;
+    font-size:0px;
     padding: 10px;
     color: #939393;
 }
+.mobileMenu{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.icon{
+    font-size: 20px;
+}
+
 .healthStyled{
     background-color: #864ef2;
-    width: 300px;
-    height: 100px;
+    width: 110px;
+    height: 30px;
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
     display: flex;
@@ -112,35 +146,34 @@ body{
     color: #292929;
     font-family: "Exo 2";
     font-weight: 600;
-    font-size: 80px;
+    font-size: 26px;
 }
 .desc{
     font-family: "Exo 2";
     font-weight: 600;
-    font-size: 26px;
+    font-size: 16px;
     color: #5e5e5e;
-    width: 800px;
+    width: 300px;
     text-align: center;
     margin-top: 20px;
 }
 
 .Start{
-    width: 300px;
-    height: 60px;
+    width: 200px;
+    height: 40px;
     border: none;
     background-color: #864ef2;
     border-radius: 6px;
     font-family: "Exo 2";
     font-weight: 600;
-    font-size: 26px;
+    font-size: 20px;
     color: #FFF;
     box-shadow: #3b236c 0 2px 4px;
     transition: all ease-in-out .4s;
     cursor: pointer;
+    display: none;
     }
-.Start:active{
-    transform: scale(.95);
-}
+
 .moreContainer{
     position: absolute;
     height: 90vh;
@@ -152,48 +185,49 @@ body{
 
 .descricaoEmpresa{
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
     width: 100%;
     align-items: center;
-    /* height: 65%;     */
 }
 
 .textos{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 80%;
 }
 #title{
     font-family: "Exo 2";
-    font-size: 60px;
+    font-size: 24px;
     font-weight: 600;
     color: #864ef2;
 }
 
 #descricao{
     font-family: "Exo 2";
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 400;
     color: #292929;
     margin-top: 20px;
+    text-align: justify;
 }
 
 .buttons{
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .btnSobre{
     margin-top: 20px;
-    width: 300px;
-    height: 60px;
+    width: 200px;
+    height: 40px;
     border: none;
     background-color: #FFF;
     border-radius: 4px;
     box-shadow: 0 2px 4px #c4a6ff;
     color: #FF88EE;
     font-family: "Exo 2";
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
 }
 .active{
@@ -210,37 +244,38 @@ body{
 .valoresContainer {
     width: 90%;
     margin: 0 auto;
-    text-align: left; 
+    text-align: center; 
     height: 65%; 
-    margin-left: 8%;
 }
 
 .valoresTitle {
     font-family: "Exo 2", sans-serif;
-    font-size: 64px;
+    font-size: 30px;
     font-weight: 600;
-    color: #5d36cf;
+    color: #864ef2;
     margin-bottom: 40px;
 }
 
 .valoresItems {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
 .valorItem {
-    background-color: #6c3ac5;
+    background-color: #864ef2;
     color: white;
     padding: 20px;
     border-radius: 10px;
     flex: 1;
-    min-width: 250px;
+    min-width: 220px;
     max-width: 30%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    text-align: left; 
+    box-shadow: #3b236c 0 2px 4px;
 }
 
 .valorItem:hover {
@@ -249,14 +284,14 @@ body{
 
 .valorName {
     font-family: "Exo 2", sans-serif;
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
 .valorDesc {
     font-family: "Exo 2", sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: #e0e0e0;
 }

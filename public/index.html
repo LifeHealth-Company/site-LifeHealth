@@ -19,24 +19,37 @@
     <div id="particles-js">
         <div id="inicio">
             <div class="header">
-                <ul class="options">
-                    <li class="option">Início</li>
-                    <li class="divisor">/</li>
-                    <li class="option">Sobre</li>
-                    <li class="divisor">/</li>
-                    <li class="option">Serviços</li>
-                    <li class="divisor">/</li>
-                    <li class="option">Contato</li>
-                </ul>
+                <div class="mainHeader">
+                    <ul class="options">
+                        <li class="option">Início</li>
+                        <li class="divisor">/</li>
+                        <li class="option">Sobre</li>
+                        <li class="divisor">/</li>
+                        <li class="option">Serviços</li>
+                        <li class="divisor">/</li>
+                        <li class="option">Contato</li>
+                    </ul>
 
-                <div class="headerLogo">
-                    <img src="./assets/icon/headerLogo.svg" class="headerLogo">
+                    <div class="headerLogo">
+                        <img src="./assets/icon/headerLogo.svg" class="headerLogo">
+                    </div>
+                    <div class="loginContainer">
+                        <button class="btnLogin">Entrar</button>
+                    </div>
+                    <div  class="mobileMenu" onclick="openMobileMenu()"><i id="menuIcon" class="fa-solid fa-bars icon" style="color: #FF88EE; "></i></div>
                 </div>
-                <div class="loginContainer">
-                    <button class="btnLogin">Entrar</button>
+                <div class="menu effect" id="menu">
+                    <ul class="optionsMobile">
+                        <li class="option">Início</li>
+                        <li class="option">Sobre</li>
+                        <li class="option">Serviços</li>
+                        <li class="option">Contato</li>
+                    </ul>
+                    <div class="loginContainer">
+                        <button class="btnLoginMobile">Entrar</button>
+                    </div>
                 </div>
             </div>
-
             <div class="welcome">
                 <span class="Apresentation" data-aos="fade-up" data-aos-duration="1000"
                     data-aos-easing="ease-in-sine">Revolucionando a <div class="healthStyled">saúde</div>
@@ -78,19 +91,22 @@
                 <div class="valoresItems">
                     <div class="valorItem" data-aos="fade-up" data-aos-duration="1000">
                         <h3 class="valorName">Inovação</h3>
-                        <p class="valorDesc">Estamos na vanguarda da tecnologia, sempre buscando novas maneiras de aplicar IA para resolver os desafios mais urgentes da saúde.</p>
+                        <p class="valorDesc">Estamos na vanguarda da tecnologia, sempre buscando novas maneiras de
+                            aplicar IA para resolver os desafios mais urgentes da saúde.</p>
                     </div>
                     <div class="valorItem" data-aos="fade-up" data-aos-duration="1200">
                         <h3 class="valorName">Compromisso</h3>
-                        <p class="valorDesc">Cada produto que entregamos passa por rigorosos padrões de qualidade, garantindo segurança e eficácia.</p>
+                        <p class="valorDesc">Cada produto que entregamos passa por rigorosos padrões de qualidade,
+                            garantindo segurança e eficácia.</p>
                     </div>
                     <div class="valorItem" data-aos="fade-up" data-aos-duration="1400">
                         <h3 class="valorName">Parceria</h3>
-                        <p class="valorDesc">Acreditamos que a melhor maneira de inovar é colaborando com nossos clientes, entendendo suas necessidades e construindo juntos o futuro da saúde.</p>
+                        <p class="valorDesc">Acreditamos que a melhor maneira de inovar é colaborando com nossos
+                            clientes, entendendo suas necessidades e construindo juntos o futuro da saúde.</p>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 
 
@@ -106,3 +122,4 @@
 </script>
 <script src="./json/descricaoEmpresa.js"></script>
 <script src="./js/site.js"></script>
+<script src="https://kit.fontawesome.com/77b47374b3.js" crossorigin="anonymous"></script>

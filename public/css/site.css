@@ -18,13 +18,16 @@ body{
     width: 100%;
 }
 .header{
+    position: fixed;
+    width: 100%;
+}
+.mainHeader{
     display: flex;
     height: 100px;
     width: 100%;
     box-shadow: 0 .5px 4px #939393 ;
     justify-content: space-around;
     align-items: center;
-    position: fixed;
     z-index: 1 ;
     background-color: #f1f1f1;
 }
@@ -46,6 +49,7 @@ body{
  .option:hover{
     color: #864ef2;
   }
+
 .headerLogo{
     width: 30%;
     display: flex;
@@ -105,6 +109,7 @@ body{
     justify-content: center;
     align-items: center;
     position: absolute;
+    
 }
 .Apresentation{
     display: flex;
@@ -176,6 +181,7 @@ body{
     font-weight: 400;
     color: #292929;
     margin-top: 20px;
+    text-align: justify;
 }
 
 .buttons{
@@ -259,4 +265,10 @@ body{
     font-size: 18px;
     font-weight: 400;
     color: #e0e0e0;
+}
+.mobileMenu{
+    display: none;
+}
+.menu{
+    display: none;
 }
