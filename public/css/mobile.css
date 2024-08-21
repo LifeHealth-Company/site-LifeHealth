@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+}
+
+#inicio{
+    height: 100vh;
+    width: 100%;
+    position: absolute; 
+}
+#sobre{
+    height: 100vh;
+    width: 100%;
+}
+.header{
+    display: flex;
+    height: 100px;
+    width: 100%;
+    box-shadow: 0 .5px 4px #939393 ;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    z-index: 1 ;
+    background-color: #f1f1f1;
+}
+
+.options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33%;
+ }
+ .option{
+     font-family: "Exo 2";
+     font-weight: 600;
+     font-size: 16px;
+     transition: all .4s ease-in-out;
+     color: #939393;
+     cursor: pointer;
+ }
+ .option:hover{
+    color: #864ef2;
+  }
+.headerLogo{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+.loginContainer{
+    display: flex;
+    width: 33%;
+    justify-content: flex-end;
+}
+.btnLogin{
+    width: 130px;
+    height: 40px;
+    background-color: #FF88EE;
+    border-radius:14px;
+    border: 0;
+    color: #FFF;
+    box-shadow: #939393 1px 1px 4px;
+    transition: all .4s ease-in-out;
+    font-family: "Exo 2";
+    font-weight: 600;
+    font-size: 18px;
+    margin-right: 50px;
+}
+.btnLogin:hover{
+   background-color: #864ef2;
+}
+.btnLogin:active{
+    transform: scale(.95);
+}
+
+.divisor{
+    font-family: "Exo 2";
+    font-weight: 200;
+    font-size:30px;
+    padding: 10px;
+    color: #939393;
+}
+.healthStyled{
+    background-color: #864ef2;
+    width: 300px;
+    height: 100px;
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    color: #FFF;
+    box-shadow: #3b236c 0 2px 4px;
+}
+.welcome{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+.Apresentation{
+    display: flex;
+    align-items: center;
+    color: #292929;
+    font-family: "Exo 2";
+    font-weight: 600;
+    font-size: 80px;
+}
+.desc{
+    font-family: "Exo 2";
+    font-weight: 600;
+    font-size: 26px;
+    color: #5e5e5e;
+    width: 800px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Start{
+    width: 300px;
+    height: 60px;
+    border: none;
+    background-color: #864ef2;
+    border-radius: 6px;
+    font-family: "Exo 2";
+    font-weight: 600;
+    font-size: 26px;
+    color: #FFF;
+    box-shadow: #3b236c 0 2px 4px;
+    transition: all ease-in-out .4s;
+    cursor: pointer;
+    }
+.Start:active{
+    transform: scale(.95);
+}
+.moreContainer{
+    position: absolute;
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.descricaoEmpresa{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    /* height: 65%;     */
+}
+
+.textos{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+#title{
+    font-family: "Exo 2";
+    font-size: 60px;
+    font-weight: 600;
+    color: #864ef2;
+}
+
+#descricao{
+    font-family: "Exo 2";
+    font-size: 20px;
+    font-weight: 400;
+    color: #292929;
+    margin-top: 20px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.btnSobre{
+    margin-top: 20px;
+    width: 300px;
+    height: 60px;
+    border: none;
+    background-color: #FFF;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px #c4a6ff;
+    color: #FF88EE;
+    font-family: "Exo 2";
+    font-size: 20px;
+    font-weight: 600;
+}
+.active{
+    background-color: #864ef2;
+    color: #FFF
+}
+
+#valores {
+    width: 100%;
+    padding: 60px 0;
+    background-color: #f1f1f1;
+}
+
+.valoresContainer {
+    width: 90%;
+    margin: 0 auto;
+    text-align: left; 
+    height: 65%; 
+    margin-left: 8%;
+}
+
+.valoresTitle {
+    font-family: "Exo 2", sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+    color: #5d36cf;
+    margin-bottom: 40px;
+}
+
+.valoresItems {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.valorItem {
+    background-color: #6c3ac5;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: left; 
+}
+
+.valorItem:hover {
+    transform: translateY(-5px);
+}
+
+.valorName {
+    font-family: "Exo 2", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.valorDesc {
+    font-family: "Exo 2", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #e0e0e0;
+}
