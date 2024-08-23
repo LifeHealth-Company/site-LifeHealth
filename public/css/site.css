@@ -2,6 +2,19 @@
 html {
     scroll-behavior: smooth;
 }
+:root{
+   --primaria: #193D65;
+   --sobre: linear-gradient(180deg, rgba(50,123,203,1) 2%, rgba(25,61,101,1) 86%);
+   --header: #f1f1f1;
+   --botton: #327BCB;
+   --letras: #292929;
+   --barraHeader: #ffffff;
+}
+/* cor valores: #864ef2
+    cor primaria: #6c3ac5
+    cor header: #f1f1f1
+    cor botton: #FF88EE
+*/
 
 body{
     height: 100vh;
@@ -11,15 +24,19 @@ body{
 #inicio{
     height: 100vh;
     width: 100%;
-    position: absolute; 
+    position: absolute;
 }
 #sobre{
     height: 100vh;
     width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
 }
 .header{
     position: fixed;
     width: 100%;
+    z-index: 1;
 }
 .mainHeader{
     display: flex;
@@ -29,7 +46,7 @@ body{
     justify-content: space-around;
     align-items: center;
     z-index: 1 ;
-    background-color: #f1f1f1;
+    background-color: var(--barraHeader);
 }
 
 .options{
@@ -47,7 +64,7 @@ body{
      cursor: pointer;
  }
  .option:hover{
-    color: #864ef2;
+    color: var(--primaria);
   }
 
 .headerLogo{
@@ -63,7 +80,7 @@ body{
 .btnLogin{
     width: 130px;
     height: 40px;
-    background-color: #FF88EE;
+    background-color: var(--botton);
     border-radius:14px;
     border: 0;
     color: #FFF;
@@ -75,7 +92,7 @@ body{
     margin-right: 50px;
 }
 .btnLogin:hover{
-   background-color: #864ef2;
+   background-color: var(--primaria);
 }
 .btnLogin:active{
     transform: scale(.95);
@@ -89,7 +106,7 @@ body{
     color: #939393;
 }
 .healthStyled{
-    background-color: #864ef2;
+    background-color: var(--primaria);
     width: 300px;
     height: 100px;
     border-top-left-radius: 40px;
@@ -99,11 +116,12 @@ body{
     align-items: center;
     margin-left: 10px;
     color: #FFF;
-    box-shadow: #3b236c 0 2px 4px;
+    box-shadow: #193D65 0 2px 4px;
 }
 .welcome{
     width: 100%;
-    height: 100vh;
+    height: 20vh;
+    margin-top: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -114,7 +132,8 @@ body{
 .Apresentation{
     display: flex;
     align-items: center;
-    color: #292929;
+    
+    color: var(--letras);
     font-family: "Exo 2";
     font-weight: 600;
     font-size: 80px;
@@ -133,13 +152,13 @@ body{
     width: 300px;
     height: 60px;
     border: none;
-    background-color: #864ef2;
+    background-color: var(--primaria);
     border-radius: 6px;
     font-family: "Exo 2";
     font-weight: 600;
     font-size: 26px;
     color: #FFF;
-    box-shadow: #3b236c 0 2px 4px;
+    box-shadow: #193D65 0 2px 4px;
     transition: all ease-in-out .4s;
     cursor: pointer;
     }
@@ -147,7 +166,7 @@ body{
     transform: scale(.95);
 }
 .moreContainer{
-    position: absolute;
+    /* position: absolute; */
     height: 90vh;
     width: 100%;
     display: flex;
@@ -160,7 +179,7 @@ body{
     justify-content: space-evenly;
     width: 100%;
     align-items: center;
-    /* height: 65%;     */
+    height: 65%;    
 }
 
 .textos{
@@ -172,14 +191,14 @@ body{
     font-family: "Exo 2";
     font-size: 60px;
     font-weight: 600;
-    color: #864ef2;
+    color: var(--primaria);
 }
 
 #descricao{
     font-family: "Exo 2";
     font-size: 20px;
     font-weight: 400;
-    color: #292929;
+    color: var(--letras);
     margin-top: 20px;
     text-align: justify;
 }
@@ -196,21 +215,22 @@ body{
     border: none;
     background-color: #FFF;
     border-radius: 4px;
-    box-shadow: 0 2px 4px #c4a6ff;
-    color: #FF88EE;
+    box-shadow: 0 2px 4px #327BCB;
+    color: var(--botton);
     font-family: "Exo 2";
     font-size: 20px;
     font-weight: 600;
 }
 .active{
-    background-color: #864ef2;
+    background-color: var(--primaria);
     color: #FFF
 }
 
 #valores {
     width: 100%;
     padding: 60px 0;
-    background-color: #f1f1f1;
+    background-color: var(--header);
+    
 }
 
 .valoresContainer {
@@ -225,7 +245,7 @@ body{
     font-family: "Exo 2", sans-serif;
     font-size: 64px;
     font-weight: 600;
-    color: #5d36cf;
+    color: #193D65;
     margin-bottom: 40px;
 }
 
@@ -237,7 +257,7 @@ body{
 }
 
 .valorItem {
-    background-color: #6c3ac5;
+    background: linear-gradient(180deg, rgba(50,123,203,1) 2%, rgba(25,61,101,1) 86%);
     color: white;
     padding: 20px;
     border-radius: 10px;
