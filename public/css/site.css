@@ -1,20 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('./variaveis.css');
 html {
     scroll-behavior: smooth;
 }
-:root{
-   --primaria: #193D65;
-   --sobre: linear-gradient(180deg, rgba(50,123,203,1) 2%, rgba(25,61,101,1) 86%);
-   --header: #f1f1f1;
-   --botton: #327BCB;
-   --letras: #292929;
-   --barraHeader: #ffffff;
-}
-/* cor valores: #864ef2
-    cor primaria: #6c3ac5
-    cor header: #f1f1f1
-    cor botton: #FF88EE
-*/
 
 body{
     height: 100vh;
@@ -68,7 +56,7 @@ body{
   }
 
 .headerLogo{
-    width: 30%;
+    width: 35%;
     display: flex;
     justify-content: center;
 }
@@ -120,7 +108,7 @@ body{
 }
 .welcome{
     width: 100%;
-    height: 20vh;
+    height: 30vh;
     margin-top: 30vh;
     display: flex;
     flex-direction: column;
@@ -136,7 +124,7 @@ body{
     color: var(--letras);
     font-family: "Exo 2";
     font-weight: 600;
-    font-size: 80px;
+    font-size: 70px;
 }
 .desc{
     font-family: "Exo 2";

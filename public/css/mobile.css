@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('./variaveis.css');
 html {
     scroll-behavior: smooth;
 }
@@ -21,7 +22,7 @@ body{
 .header{
     width: 100%;
     position: fixed;
-    z-index: 10;
+    z-index: 1;
 }
 .mainHeader{
     display: flex;
@@ -30,8 +31,7 @@ body{
     box-shadow: 0 .5px 4px #939393 ;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
-    background-color: #f1f1f1;
+    background-color: var(--header);
 }
 
 .options{
@@ -51,7 +51,7 @@ body{
     margin-bottom: 10px;
  }
  .option:hover{
-    color: #864ef2;
+    color: var(--primaria);
   }
  
   .menu{
@@ -63,7 +63,7 @@ body{
     text-align: center;
     padding: 20px 0;
     box-shadow: 0 .5px 4px #939393;
-    background-color: #f1f1f1;
+    background-color: var(--header);
     transform : translateX(380px);
     transition: transform .6s ease-in-out; 
 }
@@ -82,7 +82,7 @@ body{
 .btnLoginMobile{
     width: 80px;
     height: 30px;
-    background-color: #FF88EE;
+    background-color: var(--botton);
     border-radius:5px;
     border: 0;
     color: #FFF;
@@ -94,7 +94,7 @@ body{
     cursor: pointer;
 }
 .btnLoginMobile:hover{
-   background-color: #864ef2;
+   background-color: var(--primaria);
 }
 .btnLoginMobile:active{
     transform: scale(.95);
@@ -119,7 +119,7 @@ body{
 }
 
 .healthStyled{
-    background-color: #864ef2;
+    background-color: var(--primaria);
     width: 110px;
     height: 30px;
     border-top-left-radius: 40px;
@@ -129,7 +129,7 @@ body{
     align-items: center;
     margin-left: 10px;
     color: #FFF;
-    box-shadow: #3b236c 0 2px 4px;
+    box-shadow: #292929 0 2px 4px;
 }
 .welcome{
     width: 100%;
@@ -162,13 +162,13 @@ body{
     width: 200px;
     height: 40px;
     border: none;
-    background-color: #864ef2;
+    background-color: var(--primaria);
     border-radius: 6px;
     font-family: "Exo 2";
     font-weight: 600;
     font-size: 20px;
     color: #FFF;
-    box-shadow: #3b236c 0 2px 4px;
+    box-shadow: #292929 0 2px 4px;
     transition: all ease-in-out .4s;
     cursor: pointer;
     display: none;
@@ -199,7 +199,7 @@ body{
     font-family: "Exo 2";
     font-size: 24px;
     font-weight: 600;
-    color: #864ef2;
+    color: var(--primaria);
 }
 
 #descricao{
@@ -224,14 +224,14 @@ body{
     border: none;
     background-color: #FFF;
     border-radius: 4px;
-    box-shadow: 0 2px 4px #c4a6ff;
-    color: #FF88EE;
+    box-shadow: 0 1px 4px #112a47;
+    color: var(--botton);
     font-family: "Exo 2";
     font-size: 14px;
     font-weight: 600;
 }
 .active{
-    background-color: #864ef2;
+    background-color: var(--primaria);
     color: #FFF
 }
 
@@ -252,7 +252,7 @@ body{
     font-family: "Exo 2", sans-serif;
     font-size: 30px;
     font-weight: 600;
-    color: #864ef2;
+    color: var(--primaria);
     margin-bottom: 40px;
 }
 
@@ -266,7 +266,7 @@ body{
 }
 
 .valorItem {
-    background-color: #864ef2;
+    background-color: var(--primaria);
     color: white;
     padding: 20px;
     border-radius: 10px;
