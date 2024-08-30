@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <title>LifeHealth - Pagina Inicial</title>
     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" media="screen" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 430px)">
     <link rel="stylesheet" href="css/ipad.css" media="screen and (min-width:768px) and (max-width:1180px)">
@@ -34,7 +33,7 @@
                             <li class="option">Serviços</li>
                         </a>
                         <li class="divisor">/</li>
-                        <a href="">   
+                        <a href="#contato">   
                             <li class="option">Contato</li>
                         </a>
                     </ul>
@@ -45,7 +44,7 @@
                     <div class="loginContainer">
                         <button class="btnLogin">Entrar</button>
                     </div>
-                    <div  class="mobileMenu" onclick="openMobileMenu()"><i id="menuIcon" class="fa-solid fa-bars icon" style="color: #327BCB; "></i></div>
+                    <div class="mobileMenu" onclick="openMobileMenu()"><i id="menuIcon" class="fa-solid fa-bars icon" style="color: #327BCB;"></i></div>
                 </div>
                 <div class="menu effect" id="menu">
                     <ul class="optionsMobile">
@@ -118,6 +117,40 @@
         </div>
     </div>
 
+    <div id="contato">
+        <h2 class="contatoTitle">Entre em Contato</h2>
+        <p class="contatoDesc">Estamos aqui para ajudar! Preencha o formulário abaixo e nossa equipe entrará em contato com você em breve.</p>
+        <div class="contatoWrapper">
+            <div class="contatoContainer">
+                <div class="contatoItem">
+                    <i class="fas fa-envelope contatoIcon"></i>
+                    <h3 class="contatoSubtitle">E-mail</h3>
+                    <p class="contatoText">contato@lifehealth.com</p>
+                    <h3 class="contatoSubtitle">Telefone</h3>
+                    <p class="contatoText">+55 (11) 1234-5678</p>
+                </div>
+                <div class="contatoItem">
+                    <i class="fas fa-map-marker-alt contatoIcon"></i>
+                    <h3 class="contatoSubtitle">Endereço</h3>
+                    <p class="contatoText">Av. Saúde, 123 - São Paulo, SP</p>
+                </div>
+            </div>
+            <div class="contatoFormContainer">
+                <h3 class="contatoSubtitle">Envie uma Mensagem</h3>
+                <form class="contatoForm">
+                    <input type="text" name="name" placeholder="Seu Nome" required>
+                    <input type="email" name="email" placeholder="Seu E-mail" required>
+                    <textarea name="message" rows="5" placeholder="Sua Mensagem" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    
+    </div>
 
     <script type="application/javascript" src="js/particles.js"></script>
     <script type="application/javascript" src="js/app.js"></script>

@@ -1,75 +1,84 @@
+/* CSS existente */
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('./variaveis.css');
+
 html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     height: 100vh;
     width: 100%;
 }
 
-#inicio{
+#inicio {
     height: 100vh;
     width: 100%;
     position: absolute;
 }
-#sobre{
+
+#sobre {
     height: 100vh;
     width: 100%;
     flex-direction: column;
     display: flex;
     justify-content: center;
 }
-.header{
+
+.header {
     position: fixed;
     width: 100%;
     z-index: 1;
 }
-.mainHeader{
+
+.mainHeader {
     display: flex;
     height: 100px;
     width: 100%;
-    box-shadow: 0 .5px 4px #939393 ;
+    box-shadow: 0 .5px 4px #939393;
     justify-content: space-around;
     align-items: center;
-    z-index: 1 ;
+    z-index: 1;
     background-color: var(--barraHeader);
 }
 
-.options{
+.options {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 33%;
- }
- .option{
-     font-family: "Exo 2";
-     font-weight: 600;
-     font-size: 16px;
-     transition: all .4s ease-in-out;
-     color: #939393;
-     cursor: pointer;
- }
- .option:hover{
-    color: var(--primaria);
-  }
+}
 
-.headerLogo{
+.option {
+    font-family: "Exo 2";
+    font-weight: 600;
+    font-size: 16px;
+    transition: all .4s ease-in-out;
+    color: #939393;
+    cursor: pointer;
+}
+
+.option:hover {
+    color: var(--primaria);
+}
+
+.headerLogo {
     width: 35%;
     display: flex;
     justify-content: center;
 }
-.loginContainer{
+
+.loginContainer {
     display: flex;
     width: 33%;
     justify-content: flex-end;
 }
-.btnLogin{
+
+.btnLogin {
     width: 130px;
     height: 40px;
     background-color: var(--botton);
-    border-radius:14px;
+    border-radius: 14px;
     border: 0;
     color: #FFF;
     box-shadow: #939393 1px 1px 4px;
@@ -79,21 +88,24 @@ body{
     font-size: 18px;
     margin-right: 50px;
 }
-.btnLogin:hover{
-   background-color: var(--primaria);
+
+.btnLogin:hover {
+    background-color: var(--primaria);
 }
-.btnLogin:active{
+
+.btnLogin:active {
     transform: scale(.95);
 }
 
-.divisor{
+.divisor {
     font-family: "Exo 2";
     font-weight: 200;
-    font-size:30px;
+    font-size: 30px;
     padding: 10px;
     color: #939393;
 }
-.healthStyled{
+
+.healthStyled {
     background-color: var(--primaria);
     width: 300px;
     height: 100px;
@@ -106,7 +118,8 @@ body{
     color: #FFF;
     box-shadow: #193D65 0 2px 4px;
 }
-.welcome{
+
+.welcome {
     width: 100%;
     height: 30vh;
     margin-top: 30vh;
@@ -115,18 +128,18 @@ body{
     justify-content: center;
     align-items: center;
     position: absolute;
-    
 }
-.Apresentation{
+
+.Apresentation {
     display: flex;
     align-items: center;
-    
     color: var(--letras);
     font-family: "Exo 2";
     font-weight: 600;
     font-size: 70px;
 }
-.desc{
+
+.desc {
     font-family: "Exo 2";
     font-weight: 600;
     font-size: 26px;
@@ -136,7 +149,7 @@ body{
     margin-top: 20px;
 }
 
-.Start{
+.Start {
     width: 300px;
     height: 60px;
     border: none;
@@ -149,12 +162,13 @@ body{
     box-shadow: #193D65 0 2px 4px;
     transition: all ease-in-out .4s;
     cursor: pointer;
-    }
-.Start:active{
+}
+
+.Start:active {
     transform: scale(.95);
 }
-.moreContainer{
-    /* position: absolute; */
+
+.moreContainer {
     height: 90vh;
     width: 100%;
     display: flex;
@@ -162,27 +176,28 @@ body{
     justify-content: center;
 }
 
-.descricaoEmpresa{
+.descricaoEmpresa {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     align-items: center;
-    height: 65%;    
+    height: 65%;
 }
 
-.textos{
+.textos {
     display: flex;
     flex-direction: column;
     width: 50%;
 }
-#title{
+
+#title {
     font-family: "Exo 2";
     font-size: 60px;
     font-weight: 600;
     color: var(--primaria);
 }
 
-#descricao{
+#descricao {
     font-family: "Exo 2";
     font-size: 20px;
     font-weight: 400;
@@ -191,12 +206,12 @@ body{
     text-align: justify;
 }
 
-.buttons{
+.buttons {
     display: flex;
     flex-direction: column;
 }
 
-.btnSobre{
+.btnSobre {
     margin-top: 20px;
     width: 300px;
     height: 60px;
@@ -209,23 +224,23 @@ body{
     font-size: 20px;
     font-weight: 600;
 }
-.active{
+
+.active {
     background-color: var(--primaria);
-    color: #FFF
+    color: #FFF;
 }
 
 #valores {
     width: 100%;
     padding: 60px 0;
     background-color: var(--header);
-    
 }
 
 .valoresContainer {
     width: 90%;
     margin: 0 auto;
-    text-align: left; 
-    height: 65%; 
+    text-align: left;
+    height: 65%;
     margin-left: 8%;
 }
 
@@ -245,7 +260,7 @@ body{
 }
 
 .valorItem {
-    background: linear-gradient(180deg, rgba(50,123,203,1) 2%, rgba(25,61,101,1) 86%);
+    background: linear-gradient(180deg, rgba(50, 123, 203, 1) 2%, rgba(25, 61, 101, 1) 86%);
     color: white;
     padding: 20px;
     border-radius: 10px;
@@ -254,7 +269,7 @@ body{
     max-width: 30%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    text-align: left; 
+    text-align: left;
 }
 
 .valorItem:hover {
@@ -274,9 +289,182 @@ body{
     font-weight: 400;
     color: #e0e0e0;
 }
-.mobileMenu{
+
+.mobileMenu {
     display: none;
 }
-.menu{
+
+.menu {
     display: none;
+}
+
+#contato {
+    padding: 100px 0;
+    background-color: #f0f4f8;
+    text-align: center;
+    font-family: "Exo 2", sans-serif;
+}
+
+.contatoTitle {
+    font-size: 48px;
+    color: #193D65;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.contatoDesc {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 50px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.contatoWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contatoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contatoItem {
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: left;
+    flex: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    min-width: 300px;
+}
+
+.contatoItem:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.contatoIcon {
+    font-size: 40px;
+    color: #327BCB;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+.contatoSubtitle {
+    font-size: 24px;
+    color: #193D65;
+    margin-bottom: 10px;
+}
+
+.contatoText {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.contatoFormContainer {
+    flex: 1;
+    min-width: 300px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+}
+
+.contatoForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contatoForm input,
+.contatoForm textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contatoForm input:focus,
+.contatoForm textarea:focus {
+    border-color: #327BCB;
+    box-shadow: 0 0 8px rgba(50, 123, 203, 0.2);
+    outline: none;
+}
+
+.contatoForm button {
+    padding: 15px;
+    background-color: #327BCB;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contatoForm button:hover {
+    background-color: #193D65;
+}
+
+.contatoForm button:active {
+    transform: scale(0.96);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .contatoWrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contatoItem, .contatoFormContainer {
+        margin-bottom: 20px;
+    }
 }
