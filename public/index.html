@@ -29,7 +29,7 @@
                             <li class="option">Sobre</li>
                         </a>
                         <li class="divisor">/</li>
-                        <a href="">
+                        <a href="#servico">
                             <li class="option">Serviços</li>
                         </a>
                         <li class="divisor">/</li>
@@ -116,7 +116,23 @@
             </div>
         </div>
     </div>
-
+    <div id="servico">
+        <div class="circleContainer">
+            <div onclick="rotateCircle(this)" data-value="negative" class="btnCircle">
+                <i class="fa-solid fa-arrow-left icon"></i>
+            </div>
+            <div id="circulo">
+                <img src="./assets/services/ai.svg" class="circle-image" id="image1" >
+                <img src="./assets/services/data.svg" class="circle-image" id="image2" >
+                <img src="./assets/services/data.svg" class="circle-image" id="image3" >
+                <img src="./assets/services/ai.svg" class="circle-image" id="image4" >
+            
+            </div>
+            <div onclick="rotateCircle(this)" data-value="positive" class="btnCircle">
+                <i class="fa-solid fa-arrow-right icon"></i>
+            </div>
+        </div>
+    </div>
     <div id="contato">
         <h2 class="contatoTitle">Entre em Contato</h2>
         <p class="contatoDesc">Estamos aqui para ajudar! Preencha o formulário abaixo e nossa equipe entrará em contato com você em breve.</p>

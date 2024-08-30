@@ -468,3 +468,91 @@ body {
         margin-bottom: 20px;
     }
 }
+
+#servico{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+   }
+
+.circleContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    height: 1100px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0; 
+   }
+
+#circulo{
+    width: 1400px;
+    height: 1400px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #292929 0%, #8f8f8f 100%);
+    transition: transform .5s ease-in-out;
+    position: absolute;
+    bottom: -950px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    transform: rotate(45deg);
+}
+.circle-image {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    z-index: 1;
+    }
+    
+ 
+#image1 {
+    top: 0;
+    left: 0;
+    transform: rotate(-45deg);
+}
+
+#image2 {
+    top: 0;
+    right: 0;
+    transform: rotate(-315deg);
+}
+
+#image3 {
+    bottom: 0;
+    left: 0;
+    transform: rotate(225deg);
+}
+
+#image4 {
+    bottom: 0;
+    right: 0;
+    transform: rotate(135deg);
+}
+.btnCircle{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #939393;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    background: 'transparent';
+    transition: all .6s ease-in-out;
+}
+
+.icon{
+    font-size: 30px;
+    color: #939393;
+    transition: color .6s ease-in-out;
+}
+.btnCircle:hover{
+    background: var(--sobre);
+    .icon{
+        color: var(--barraHeader);
+    };
+}

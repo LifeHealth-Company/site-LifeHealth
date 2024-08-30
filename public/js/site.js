@@ -5,6 +5,7 @@ const btnMissao = document.querySelector("#btnMissao")
 const btnObj = document.querySelector("#btnObj")
 const menuIcon = document.querySelector("#menuIcon")
 const menu = document.querySelector("#menu")
+const circulo = document.querySelector("#circulo")
 
 let isOpenMenu = false
 
@@ -12,6 +13,7 @@ title.textContent = desc[0].title
 descricao.textContent = desc[0].desc
 btnVG.classList.add("active")
 
+let circlePosition = 45
 function changedesc(res) {
     title.textContent = desc[res.value].title
     descricao.textContent = desc[res.value].desc
@@ -47,4 +49,9 @@ function openMobileMenu() {
         menu.style.visibility = "hidden"
         
     }
+}
+
+function rotateCircle(res){
+    res.dataset.value == "negative" ? circlePosition += 90 : circlePosition -= 90
+    circulo.style.transform = `rotate(${circlePosition}deg)`
 }
