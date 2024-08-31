@@ -63,7 +63,7 @@ body {
 }
 
 .headerLogo {
-    width: 35%;
+    width: 30%;
     display: flex;
     justify-content: center;
 }
@@ -480,7 +480,7 @@ body {
     justify-content: space-between;
     align-items: flex-end;
     width: 100%;
-    height: 1100px;
+    height: 700px;
     overflow: hidden;
     position: absolute;
     bottom: 0; 
@@ -555,4 +555,24 @@ body {
     .icon{
         color: var(--barraHeader);
     };
+}
+
+.infoServicos{
+    padding-top: 14%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#titulo{
+    font-size: 70px;
+    color: var(--botton);
+    width: 650px;
+    font-weight: 600;
+}
+
+#descricaoServico{
+    font-size: 36px;
+    color: var(--primaria);
+    width: 700px;
+    text-align: justify;
 }

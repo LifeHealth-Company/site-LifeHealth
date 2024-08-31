@@ -1,14 +1,14 @@
 const visao =  {
     title :"Visão Geral",
-    desc :"A LifeHealth é uma empresa inovadora e dinâmica que surgiu em 2024 com a missão de transformar o setor da saúde por meio da inteligência artificial. Nossa empresa combina expertise em tecnologia com um profundo entendimento das necessidades do setor de saúde, criando soluções avançadas que promovem a eficiência, a precisão e a qualidade no atendimento ao paciente."
+    desc :"A LifeHealth é uma empresa inovadora de tecnologia, fundada em 2024, que se dedica a revolucionar o setor de saúde por meio da análise de dados. Com uma equipe multidisciplinar de especialistas em tecnologia, saúde e análise de dados, oferecemos soluções personalizadas que atendem às necessidades específicas de nossos clientes."
 }
 const missao = {
     title : "Missão",
-    desc :"Nossa missão é melhorar a vida das pessoas ao revolucionar o modo como as informações de saúde são geridas e utilizadas. Utilizamos a inteligência artificial para desenvolver ferramentas que otimizam processos clínicos, facilitam diagnósticos precisos e promovem uma gestão eficiente dos recursos de saúde."
+    desc :"Proporcionar soluções tecnológicas que transformem a gestão da saúde por meio da análise de dados, promovendo um atendimento mais eficiente, acessível e humanizado."
 }
 const objetivo = {
     title : "Objetivo",
-    desc :"Queremos ser reconhecidos como líderes globais na integração da inteligência artificial com a prática médica e a administração de saúde. Nossa visão é criar um futuro onde a tecnologia e a medicina caminham lado a lado, proporcionando um atendimento mais eficaz e personalizado para todos.    "
+    desc :"Nosso principal objetivo é ser a referência em tecnologia de saúde, capacitando instituições e profissionais de saúde a utilizarem dados de forma estratégica para melhorar resultados clínicos, otimizar processos e promover a saúde preventiva."
 }
 
  const desc = [visao, missao, objetivo]

@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <title>LifeHealth - Pagina Inicial</title>
     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" media="screen" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 430px)">
     <link rel="stylesheet" href="css/ipad.css" media="screen and (min-width:768px) and (max-width:1180px)">
@@ -33,7 +34,7 @@
                             <li class="option">Serviços</li>
                         </a>
                         <li class="divisor">/</li>
-                        <a href="#contato">   
+                        <a href="#contato">
                             <li class="option">Contato</li>
                         </a>
                     </ul>
@@ -44,7 +45,8 @@
                     <div class="loginContainer">
                         <button class="btnLogin">Entrar</button>
                     </div>
-                    <div class="mobileMenu" onclick="openMobileMenu()"><i id="menuIcon" class="fa-solid fa-bars icon" style="color: #327BCB;"></i></div>
+                    <div class="mobileMenu" onclick="openMobileMenu()"><i id="menuIcon" class="fa-solid fa-bars icon"
+                            style="color: #327BCB;"></i></div>
                 </div>
                 <div class="menu effect" id="menu">
                     <ul class="optionsMobile">
@@ -63,7 +65,7 @@
                     data-aos-easing="ease-in-sine">Revolucionando a <div class="healthStyled">saúde</div>
                 </span>
                 <span class="Apresentation" data-aos="fade-up" data-aos-duration="1000"
-                    data-aos-easing="ease-in-sine">com Inteligência Artificial</span>
+                    data-aos-easing="ease-in-sine">com Análise de dados</span>
                 <p class="desc" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">Otimizando
                     processos, melhorando diagnósticos e elevando a qualidade do atendimento,
                     transformando a experiência tanto para profissionais de saúde quanto para pacientes.</p>
@@ -100,7 +102,7 @@
                     <div class="valorItem" data-aos="fade-up" data-aos-duration="1000">
                         <h3 class="valorName">Inovação</h3>
                         <p class="valorDesc">Estamos na vanguarda da tecnologia, sempre buscando novas maneiras de
-                            aplicar IA para resolver os desafios mais urgentes da saúde.</p>
+                            aplicar data analysis para resolver os desafios mais urgentes da saúde.</p>
                     </div>
                     <div class="valorItem" data-aos="fade-up" data-aos-duration="1200">
                         <h3 class="valorName">Compromisso</h3>
@@ -117,16 +119,24 @@
         </div>
     </div>
     <div id="servico">
+
+        <div class="infoServicos">
+            <span id="titulo">Diagnóstico Assistido por IA</span>
+            <span id="descricaoServico">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi,
+                ipsa! Reprehenderit vero necessitatibus ullam, unde doloribus, rem amet inventore assumenda
+                sit praesentium accusamus tempora, deserunt alias quis harum optio in?
+            </span>
+        </div>
         <div class="circleContainer">
             <div onclick="rotateCircle(this)" data-value="negative" class="btnCircle">
                 <i class="fa-solid fa-arrow-left icon"></i>
             </div>
             <div id="circulo">
-                <img src="./assets/services/ai.svg" class="circle-image" id="image1" >
-                <img src="./assets/services/data.svg" class="circle-image" id="image2" >
-                <img src="./assets/services/data.svg" class="circle-image" id="image3" >
-                <img src="./assets/services/ai.svg" class="circle-image" id="image4" >
-            
+                <img src="" class="circle-image" id="image1">
+                <img src="" class="circle-image" id="image2">
+                <img src="" class="circle-image" id="image3">
+                <img src="" class="circle-image" id="image4">
             </div>
             <div onclick="rotateCircle(this)" data-value="positive" class="btnCircle">
                 <i class="fa-solid fa-arrow-right icon"></i>
@@ -135,7 +145,8 @@
     </div>
     <div id="contato">
         <h2 class="contatoTitle">Entre em Contato</h2>
-        <p class="contatoDesc">Estamos aqui para ajudar! Preencha o formulário abaixo e nossa equipe entrará em contato com você em breve.</p>
+        <p class="contatoDesc">Estamos aqui para ajudar! Preencha o formulário abaixo e nossa equipe entrará em contato
+            com você em breve.</p>
         <div class="contatoWrapper">
             <div class="contatoContainer">
                 <div class="contatoItem">
@@ -162,10 +173,10 @@
             </div>
         </div>
     </div>
-    
-    
 
-    
+
+
+
     </div>
 
     <script type="application/javascript" src="js/particles.js"></script>
@@ -179,5 +190,6 @@
     AOS.init();
 </script>
 <script src="./json/descricaoEmpresa.js"></script>
+<script src="./json/servicos.js"></script>
 <script src="./js/site.js"></script>
 <script src="https://kit.fontawesome.com/77b47374b3.js" crossorigin="anonymous"></script>
