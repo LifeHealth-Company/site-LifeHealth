@@ -300,7 +300,7 @@ body {
 
 #contato {
     padding: 100px 0;
-    background-color: #f0f4f8;
+    /* background-color: #f0f4f8; */
     text-align: center;
     font-family: "Exo 2", sans-serif;
 }
@@ -387,12 +387,12 @@ body {
 .contatoForm {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 33px;
 }
 
 .contatoForm input,
 .contatoForm textarea {
-    width: 100%;
+    width: 95%;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
