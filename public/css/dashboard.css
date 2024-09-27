@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('./variaveis.css');
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #F6F6F6;
+    font-family: 'Exo 2'
+}
+.mainClass{
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display:flex;
+    flex-direction: row;
+    height: 2%;
+    width: 100%;
+    align-items: center;
+}
+
+#selectEstados{
+    color: #a6a0a0;
+    width: 120px;
+    height: 25px;
+    border: 1px solid #8d8787;
+    border-radius: 5px;
+}
+.rankingPrincipaisAfetados h1{
+    display: flex;
+    justify-content: start;
+    width: 50%;
+    height: 0;
+    margin-left: 2vw;
+    color: #193D65;
+    font-size: 30px;
+}
+
+.rankingPrincipaisAfetados{
+    background-color: white;
+    width: 80%;
+    height: 15%;
+    margin-top: 5%;
+    color: #193D65;
+    display: flex;
+    flex-direction:column;
+    border-radius: 25px;
+    box-shadow: 1px 5px 3px rgb(168, 162, 162);
+}
+
+.classesDosAfetados{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.rankingUnitario{
+    color: #193D65;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-right: 50px;
+}
+
+.rankingUnitario h2{
+    font-weight: bold;
+    padding: 10px;
+}
+
+
+.graficosDashboard{
+    display: flex;
+    flex-direction: row;
+    height: 15%;
+    justify-content: space-between;
+}
+
+/* .tipagemVirus{
+    width: 100px;
+    height: 50%;
+} */
+
+#myRadarChart{
+width: 100%;
+box-shadow: 1px 5px 3px rgb(168, 162, 162);
+border-radius: 25px;
+padding: 15px;
+margin-top: 5vh;
+background-color: var(--boxDash);
+font-weight: bold;
+}
