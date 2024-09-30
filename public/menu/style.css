@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('../css/variaveis.css');
 *{
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@
 }
 
 body{
-  background-color: #DDD;
+  background-color: var(--bgColorSystemLight);
   font-family: "Exo 2";
 }
 
@@ -21,9 +21,10 @@ body{
   left: 0;
   height: 100vh;
   width: 90px;
-  background-color: #ffffff;
+  background-color: var(--bgColorSystemLight);
   padding: .4rem .8rem;
   transition: all 0.5s ease-in-out;
+  border-right: #d9d9d9 2px solid;
 }
 
 .sidebar i{

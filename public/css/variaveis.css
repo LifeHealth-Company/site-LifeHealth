@@ -5,6 +5,14 @@
     --botton: #327BCB;
     --letras: #292929;
     --barraHeader: #ffffff;
+
+    --bgColorSystemLight: #F6F6F6;
+    --titleSystemLight: #193D65;
+    --bgColorIndicatorsLight: linear-gradient(130deg, rgba(255,255,255,1) 47%, rgba(215,215,215,1) 91%);
+
+    --bgColorSystemDark: #212121;
+    --titleSystemDark: #FFF;
+    --bgColorIndicatorsDark: #292929;
  }
  /* cor valores: #864ef2
      cor primaria: #6c3ac5
