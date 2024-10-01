@@ -74,6 +74,24 @@ body {
   justify-content: flex-end;
 }
 
+.loginClick
+{
+  color: #0450a7;
+  font-size: medium;
+ cursor: pointer;
+}
+
+.loginClick2
+{
+  margin-top: 10px;
+  color: #0450a7;
+  font-size: medium;
+ margin-left: 190px;
+ cursor: pointer;
+}
+
+
+
 .btnLogin {
   width: 130px;
   height: 40px;
@@ -691,9 +709,16 @@ select {
   transition: background-color 0.3s ease;
 }
 
+
 .input-wrapper {
   position: relative;
-  height: 250px;
+  height: 110px;
+}
+
+.input-wrapper2 {
+  position: relative;
+  height: 90px;
+ 
 }
 
 .cadastro-container,
@@ -725,6 +750,14 @@ select {
   margin-top: 20px;
 }
 
+.dots-container2 {
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
 .dot {
   width: 15px;
   height: 15px;
@@ -736,6 +769,20 @@ select {
 
 .dot.active {
   background-color: #193d65;
+}
+
+
+.dot2 {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #D9D9D9;
+  transition: background-color 0.3s ease;
+ 
+}
+
+.dot2.active {
+  background-color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -768,6 +815,10 @@ select {
   }
 
   .btnContinuar {
+    font-size: 16px;
+  }
+
+  .btnEntrar {
     font-size: 16px;
   }
 }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>LifeHealth - Pagina Inicial</title>
+    <meta
+      name="description"
+      content="particles.js is a lightweight JavaScript library for creating particles."
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" media="screen" href="css/style.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="icon" href="assets/icon/mini.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="inicio">
+      <div class="header">
+        <div class="mainHeader">
+          <ul class="options">
+            <a href="#inicio">
+              <li class="option">Início</li>
+            </a>
+            <li class="divisor">/</li>
+            <a href="#sobre">
+              <li class="option">Sobre</li>
+            </a>
+            <li class="divisor">/</li>
+            <a href="#servico">
+              <li class="option">Serviços</li>
+            </a>
+            <li class="divisor">/</li>
+            <a href="#contato">
+              <li class="option">Contato</li>
+            </a>
+          </ul>
+
+          <div class="headerLogo">
+            <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
+          </div>
+          <div class="loginContainer">
+          </div>
+        </div>
+      </div>
+      <div class="content-register">
+        <div class="cadastro-container">
+          <div class="cadastro-text">
+            <h1>Bem vindo!</h1>
+            <p>Ainda não tem cadastro? <b class="loginClick">Crie uma conta.</b> </p>
+            <form class="cadastro-form">
+              <!-- Passo 1 -->
+              <div class="input-wrapper">
+                <div id="inputContainer" class="inputs-step1">
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Insira seu email"/>
+                </div>
+               </div>
+                 <!-- Passo 2 -->
+                 <div class="input-wrapper">
+                    <div id="inputContainer" class="inputs-step1">
+                        <label for="email">Senha</label>
+                        <input
+                          type="password"
+                          id="senha"
+                          placeholder="*****"/>
+                          <b><li class="loginClick2">Esqueceu sua senha?</li></b>
+                    </div>
+                  
+                 </div>
+              
+              
+
+              <button type="button" class="btnContinuar" id="btnContinuar">
+                Entrar
+              </button>
+              <div class="dots-container2"></div>
+                <div class="dot2" id="dot1"></div>
+                <div class="dot2" id="dot2"></div>
+                <div class="dot2" id="dot3"></div>
+                <div class="dot2" id="dot4"></div>
+            </form>
+          </div>
+        </div>
+        <div class="teste">
+          <div class="carousel-container">
+            <div class="carousel">
+              <div
+                class="slide"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1562619425-c307bb83bc42?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                "
+              ></div>
+              <div
+                class="slide"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                "
+              ></div>
+              <div
+                class="slide"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                "
+              ></div>
+            </div>
+            <button class="prev" >❮</button>
+            <button class="next">❯</button>
+          </div>
+        </div>
+      </div>
+    
+    <script src="js/script.js"></script>
+  </body>
+</html>
