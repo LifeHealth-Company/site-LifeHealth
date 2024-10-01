@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #F4F6FA;
+    color: #2F4F6A;
+}
+
+/* Reset e configurações básicas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #F4F6FA;
+    color: #2F4F6A;
+}
+
+/* Efeito Glassmorphism na sidebar */
+.sidebar {
+    width: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    transition: width 0.4s ease-in-out, background-color 0.4s ease;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0 15px 15px 0;
+}
+
+.sidebar:hover {
+    width: 250px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Estilização dos ícones e itens do menu */
+.sidebar ul {
+    list-style-type: none;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.sidebar ul li {
+    margin-bottom: 25px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 500;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar ul li a:hover {
+    background: linear-gradient(90deg, #5DC2D1 0%, #4FA9B2 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.sidebar ul li a span {
+    display: none;
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
+.sidebar ul li a i {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Exibe o texto ao expandir a sidebar */
+.sidebar:hover ul li a span {
+    display: inline-block;
+}
+
+.sidebar:hover ul li a i {
+    transform: rotate(360deg);
+}
+
+/* Efeito para a logo */
+.logo {
+    margin-bottom: 40px;
+}
+
+.logo img {
+    width: 50px;
+    transition: transform 0.4s ease;
+}
+
+.sidebar:hover .logo img {
+    transform: rotate(720deg);
+}
+
+/* Chat input e responsividade */
+.chat-input {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.chat-input input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    font-size: 1rem;
+    background-color: transparent;
+    outline: none;
+    color: #ffffff;
+}
+
+.chat-input input::placeholder {
+    color: #A0A0A0;
+}
+
+/* Mobile responsividade */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+    
+    .sidebar:hover {
+        width: 180px;
+    }
+}
+
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+}
+
+header .profile img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.buttons button {
+    padding: 15px 25px;
+    background-color: #fff;
+    border: 2px solid #E5E5E5;
+    border-radius: 10px;
+    color: #2F4F6A;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #E6F7F8;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 30px;
+}
+
+.chat-input input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #E5E5E5;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-input input:focus {
+    border-color: #5DC2D1;
+}
+
+.chat-input input::placeholder {
+    color: #A0A0A0;
+}
+
+@media (max-width: 768px) {
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .content h1 {
+        font-size: 1.8rem;
+    }
+}
