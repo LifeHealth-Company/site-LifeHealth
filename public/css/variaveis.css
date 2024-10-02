@@ -6,6 +6,8 @@
     --letras: #292929;
     --barraHeader: #ffffff;
     --boxDash: background: linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(212,212,212,1) 100%);
+    --default-bgColor: #F6F6F6;
+    --borderColor: #8d8787;
  }
  /* cor valores: #864ef2
      cor primaria: #6c3ac5

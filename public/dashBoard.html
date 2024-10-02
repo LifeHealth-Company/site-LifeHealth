@@ -3,29 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
     <link rel="stylesheet" href="./css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- <style>
-        .gauge-container {
-            width: 500px;
-            height: 250px;
-        }
-    </style> -->
 </head>
 <body>
     <div class="mainClass">
         <div class="header">
-            <select  id="selectEstados">
+            <select id="selectEstados">
                 <option value="">São Paulo</option>
                 <option value="">Rio de Janeiro</option>
                 <option value="">Pernambuco</option>
                 <option value="">Pará</option>
                 <option value="">Goiás</option>
             </select>
-
+            <div class="dataFiltroGrafico">
+                <div class="colunaData">
+                    <h3>De</h3>
+                    <p>10/07/2022</p>
+                </div>
+                <div class="colunaData">
+                    <h3>Até</h3>
+                    <p>31/07/2022</p>
+                </div>
+                <div class="dateClass">
+                    <input type="date">
+                </div>    
+            </div>
         </div>
         <div class="rankingPrincipaisAfetados">
             <h1 class="tituloMaiorAfetado">Maiores afetados</h1>
@@ -35,8 +41,8 @@
                     <p>Gestantes - 1.600 milhões</p>
                 </div>
                 <div class="rankingUnitario">
-                    <H2>2º</H2>
-                    <p>idosos - 1.200 milhões</p>
+                    <h2>2º</h2>
+                    <p>Idosos - 1.200 milhões</p>
                 </div>
                 <div class="rankingUnitario">
                     <h2>3º</h2>
@@ -49,142 +55,28 @@
             </div>    
         </div>
         <div class="graficosDashboard">
-            <div class="tipagemVirus">
+            <div class="boxGraphic">
                 <canvas id="myRadarChart"></canvas>
             </div>
-            <!-- <div class="gauge-container">
-                <div id="gauge"></div>
-            </div> -->
-            <div>
 
+            <div class="boxGraphic">
+                <div class="gaugeTitle">População infectada</div>
+                <div id="gauge"></div>
+            </div>
+
+            <div class="boxGraphic">
+                <canvas id="pizzaGraphic"></canvas>
             </div>
         </div>
-
-
-       
+        <div class="dashboardCasos">
+            <div class="boxGraficosFooter">
+                <canvas id="graficoLinhaBox"></canvas>
+            </div>
+            <div class="boxGraficosFooter">
+                <canvas id="graficoBarraBox"></canvas>
+            </div>
+        </div>
     </div>
-    
-    <script>
- const data = { 
-
-labels: ['Denv 4', 'Não identificado', 'Denv 1', 'Denv 2', 'Denv 3'], 
-
-datasets: [{ 
-
-    data: [0, 25, 50, 75, 100], 
-
-    borderColor: '#193D65', 
-
-    borderWidth: 2 
-
-}] 
-
-}; 
-
-
-
-
-const config = { 
-
-type: 'radar', 
-
-data: data, 
-
-options: { 
-
-    scales: { 
-
-    r: { 
-
-        ticks: { 
-
-            stepSize: 25, // Define o intervalo de linhas 
-
-            beginAtZero: true // Começar em zero 
-
-        }, 
-
-        grid: { 
-
-            circular: true // Faz as linhas da grade serem circulares 
-
-        } 
-
-    } 
-
-}, 
-
-    plugins: { 
-
-        filler: { 
-
-            propagate: false 
-
-        }, 
-
-        'samples-filler-analyser': { 
-
-            target: 'chart-analyser' 
-
-        } 
-
-    }, 
-
-    interaction: { 
-
-        intersect: false 
-
-    } 
-
-} 
-
-}; 
-
-
-
-
-const ctx = document.getElementById('myRadarChart').getContext('2d'); 
-
-const meuGraficoRadar = new Chart(ctx, config); 
-
-
-        
-    //   window.onload = function() {
-    //     var g = new JustGage({
-    //       id: "gauge",
-    //       value: 67,
-    //       min: 0,
-    //       max: 100,
-    //       title: "Visitors",
-    //       pointer: true,
-    //     pointerOptions: {
-    //       toplength: 15,
-    //       bottomlength: 8,
-    //       bottomwidth: 10,
-    //       color: '#273380',
-    //       stroke: '#ffffff',
-    //       stroke_width: 3,
-    //       stroke_linecap: 'square'
-    //     },
-    //       valueFontColor: "#000000",
-    //       titleFontColor: "#FF0000",
-    //       labelFontColor: "#000000",
-    //       gaugeColor: "#FFFFFF",
-    //       levelColors: ["#FF0000", "#FFFF00", "#00FF00"],
-    //       gaugeWidthScale: 0.8,
-    //       customSectors: [
-    //         { color: "#FF0000", lo: 0, hi: 33 },
-    //         { color: "#FFFF00", lo: 34, hi: 66 },
-    //         { color: "#00FF00", lo: 67, hi: 100 }
-    //       ]
-    //     });
-
-    //     // Função para atualizar o valor aleatoriamente
-    //     setInterval(function() {
-    //       var randomValue = Math.floor(Math.random() * 101); // Gera um valor aleatório entre 0 e 100
-    //       g.refresh(randomValue); // Atualiza o medidor com o novo valor
-    //     }, 2000); // Atualiza a cada 2 segundos
-    //   };
-    </script>
+    <script src="./js/graphics.js"></script>
 </body>
 </html>
