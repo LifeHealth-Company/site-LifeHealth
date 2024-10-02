@@ -93,77 +93,20 @@ document.getElementById("dot3").addEventListener("click", function () {
   navigateToStep(3);
 });
 
-// function updateLabels(stepNumber) {
-//     const passwordLabel = document.getElementById('campo1').previousElementSibling;
-//     const confirmPasswordLabel = document.getElementById('campo2').previousElementSibling;
 
-//     if (stepNumber === 1) {
-//         passwordLabel.textContent = 'Senha';
-//         confirmPasswordLabel.textContent = 'Confirmar Senha';
-//     } else if (stepNumber === 2) {
-//         passwordLabel.textContent = 'Senha do Novo Passo';
-//         confirmPasswordLabel.textContent = 'Confirmar Senha do Novo Passo';
-//     } else if (stepNumber === 3) {
-//         passwordLabel.textContent = 'Nova Senha';
-//         confirmPasswordLabel.textContent = 'Confirmar Nova Senha';
-//     }
-// }
-document.addEventListener("DOMContentLoaded", () => {
-  const carousel = document.querySelector(".carousel");
-  const slides = document.querySelectorAll(".slide");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
-  const indicators = document.querySelectorAll(".indicator");
-  let currentIndex = 0;
-  const autoplayInterval = 3000; // Interval in milliseconds (e.g., 3000ms = 3 seconds)
-  let autoplay;
+let currentIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
 
-  function updateCarousel() {
-    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-    updateIndicators();
-  }
+function showNextSlide() {
+    slides[currentIndex].classList.remove('active');
+    dots.forEach(dot => dot.classList.remove('active'));
 
-  function updateIndicators() {
-    indicators.forEach((indicator, index) => {
-      if (index === currentIndex) {
-        indicator.classList.add("active");
-      } else {
-        indicator.classList.remove("active");
-      }
-    });
-  }
-
-  function startAutoplay() {
-    autoplay = setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateCarousel();
-    }, autoplayInterval);
-  }
-
-  function stopAutoplay() {
-    clearInterval(autoplay);
-  }
-
-  prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateCarousel();
-  });
-
-  nextBtn.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel();
-  });
+    
+    slides[currentIndex].classList.add('active');
+    dots[currentIndex].classList.add('active');
+}
 
-  carousel.addEventListener("mouseenter", stopAutoplay);
-  carousel.addEventListener("mouseleave", startAutoplay);
+setInterval(showNextSlide, 4000);
 
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      currentIndex = index;
-      updateCarousel();
-    });
-  });
-
-  startAutoplay();
-  updateCarousel();
-});

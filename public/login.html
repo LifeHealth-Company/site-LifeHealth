@@ -58,7 +58,7 @@
             <form class="cadastro-form">
               <!-- Passo 1 -->
               <div class="input-wrapper">
-                <div id="inputContainer" class="inputs-step1">
+                <div class="inputs-step1">
                     <label for="email">Email</label>
                     <input
                       type="email"
@@ -68,12 +68,12 @@
                </div>
                  <!-- Passo 2 -->
                  <div class="input-wrapper">
-                    <div id="inputContainer" class="inputs-step1">
+                    <div  class="inputs-step1">
                         <label for="email">Senha</label>
                         <input
                           type="password"
                           id="senha"
-                          placeholder="*****"/>
+                          placeholder="Insira sua senha"/>
                           <b><li class="loginClick2">Esqueceu sua senha?</li></b>
                     </div>
                   
@@ -81,43 +81,70 @@
               
               
 
-              <button type="button" class="btnContinuar" id="btnContinuar">
+              <button type="button" class="btnContinuar2" id="btnContinuar">
                 Entrar
               </button>
-              <div class="dots-container2"></div>
-                <div class="dot2" id="dot1"></div>
-                <div class="dot2" id="dot2"></div>
-                <div class="dot2" id="dot3"></div>
-                <div class="dot2" id="dot4"></div>
             </form>
           </div>
         </div>
-        <div class="teste">
-          <div class="carousel-container">
-            <div class="carousel">
-              <div
-                class="slide"
-                style="
-                  background-image: url('https://images.unsplash.com/photo-1562619425-c307bb83bc42?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                "
-              ></div>
-              <div
-                class="slide"
-                style="
-                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                "
-              ></div>
-              <div
-                class="slide"
-                style="
-                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                "
-              ></div>
-            </div>
-            <button class="prev" >❮</button>
-            <button class="next">❯</button>
+       <div class="slideshow-container">
+          <div class="slideshow">
+              <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1562619425-c307bb83bc42?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                  <div class="text-container">
+                      <h1>Gráficos simples e fáceis de entender!</h1>
+                      <p>Visualizações claras para monitorar e <br>
+                          prever epidemias. Proteja sua comunidade hoje!</p>
+                          <div class="custom-dots-container">
+                            <span class="custom-dot"></span>
+                            <span class="custom-dot custom-dot-active"></span>
+                            <span class="custom-dot"></span>
+                            <span class="custom-dot"></span>
+                        </div>
+                  </div>
+              </div>
+              
+              <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1579267217516-b73084bd79a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                  <div class="text-container">
+                      <h1>Gráficos precisos e detalhados!</h1>
+                      <p>Dados apresentados de maneira eficiente <br>
+                          para tomadas de decisão rápidas.</p>
+                      <div class="custom-dots-container">
+                        <span class="custom-dot custom-dot-active"></span>
+                          <span class="custom-dot"></span>
+                          <span class="custom-dot"></span>
+                          <span class="custom-dot"></span>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                  <div class="text-container">
+                      <h1>Gráficos interativos!</h1>
+                      <p>Interaja com os dados em tempo real e<br>
+                          descubra insights valiosos.</p>
+                      <div class="custom-dots-container">
+                          <span class="custom-dot"></span>
+                          <span class="custom-dot custom-dot-active"></span>
+                          <span class="custom-dot"></span>
+                          <span class="custom-dot"></span>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1598557470924-a2979fcdf017?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                  <div class="text-container">
+                      <h1>Gráficos avançados e personalizados!</h1>
+                      <p>Gráficos que se adaptam às suas necessidades<br>
+                          com alta precisão e detalhes.</p>
+                      <div class="custom-dots-container">
+                        <span class="custom-dot"></span>
+                        <span class="custom-dot"></span>
+                        <span class="custom-dot custom-dot-active"></span>
+                          <span class="custom-dot"></span>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
     
     <script src="js/script.js"></script>
