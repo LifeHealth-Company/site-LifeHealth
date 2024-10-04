@@ -94,19 +94,35 @@ document.getElementById("dot3").addEventListener("click", function () {
 });
 
 
-let currentIndex = 0;
 const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
+const dots = document.querySelectorAll('.custom-dot');
+let currentSlide = 0; 
 
-function showNextSlide() {
-    slides[currentIndex].classList.remove('active');
-    dots.forEach(dot => dot.classList.remove('active'));
+function showSlide(index) {
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('custom-dot-active'));
 
-    currentIndex = (currentIndex + 1) % slides.length;
-    
-    slides[currentIndex].classList.add('active');
-    dots[currentIndex].classList.add('active');
+  slides[index].classList.add('active');
+  dots[index].classList.add('custom-dot-active');
 }
 
-setInterval(showNextSlide, 4000);
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
 
+function previousSlide() {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length; 
+  showSlide(currentSlide);
+}
+
+showSlide(currentSlide);
+
+setInterval(nextSlide, 5000);
+
+dots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    showSlide(index);
+    currentSlide = index; 
+  });
+});
