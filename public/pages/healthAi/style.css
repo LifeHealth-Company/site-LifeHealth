@@ -27,94 +27,167 @@ body {
     color: #2F4F6A;
 }
 
-/* Efeito Glassmorphism na sidebar */
-.sidebar {
-    width: 80px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    transition: width 0.4s ease-in-out, background-color 0.4s ease;
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0 15px 15px 0;
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('../css/variaveis.css');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.sidebar:hover {
-    width: 250px;
-    background: rgba(255, 255, 255, 0.3);
+body{
+  background-color: var(--bgColorSystemLight);
+  font-family: "Exo 2";
 }
 
-/* Estilização dos ícones e itens do menu */
-.sidebar ul {
-    list-style-type: none;
-    width: 100%;
-    padding-top: 30px;
+.logo img{
+  width: 150px;
 }
 
-.sidebar ul li {
-    margin-bottom: 25px;
-    width: 100%;
-    text-align: center;
+.sidebar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 90px;
+  background-color: var(--bgColorSystemLight);
+  padding: .4rem .8rem;
+  transition: all 0.5s ease-in-out;
+  border-right: #d9d9d9 2px solid;
 }
 
-.sidebar ul li a {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 12px 15px;
-    text-decoration: none;
-    font-size: 1rem;
-    color: #ffffff;
-    font-weight: 500;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+.sidebar i{
+  font-size: 30px;
+}
+.sidebar.active ~ .main-content{
+  left: 250px;
+  width: calc(100% - 250px);
 }
 
-.sidebar ul li a:hover {
-    background: linear-gradient(90deg, #5DC2D1 0%, #4FA9B2 100%);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    color: #ffffff;
-    transform: translateX(5px);
+.sidebar.active{
+  width: 250px;
+}
+.sidebar #btn{
+  position: absolute;
+  /* color: #000000; */
+  top: 1.2rem;
+  left: 50%;
+  line-height: 50px;
+  transform: translateX(-50%);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+.sidebar.active #btn{
+  left: 70%;
+  scale: -1;
 }
 
-.sidebar ul li a span {
-    display: none;
-    margin-left: 20px;
-    white-space: nowrap;
+.sidebar .top .logo{
+  color: #000000;
+  display: flex;
+  height: 100%;
+  width: 0;
+  align-items: center;
+  pointer-events: none;
+  opacity: 1;
+  overflow: hidden;
+  transition: all .4s ease-in-out;
 }
 
-.sidebar ul li a i {
-    font-size: 20px;
-    transition: transform 0.3s ease;
+.sidebar.active .top .logo{
+  opacity: 1;
+  width: 100%;
+}
+.top .logo {
+  font-size: 2rem;
+  margin-right: 5px;
 }
 
-/* Exibe o texto ao expandir a sidebar */
-.sidebar:hover ul li a span {
-    display: inline-block;
+.logo img{
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.5s ease-in-out;
 }
 
-.sidebar:hover ul li a i {
-    transform: rotate(360deg);
+.sidebar.active p{
+  opacity: 1;
+}
+.sidebar ul{
+  height: 85%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 48px;
+  overflow: hidden;
+  transition: all .5s ease-in-out;
 }
 
-/* Efeito para a logo */
-.logo {
-    margin-bottom: 40px;
+.sidebar.active ul{
+  width: 100%;
+  text-wrap: nowrap;
+  transition: all .5s ease-in-out;
+}
+.sidebar ul li{
+  position: relative;
+  list-style-type: none;
+  height: 50px;
+  width: 90%;
+  margin: 0.8rem auto;
+  line-height: 50px;
+  transition: all .5s ease-in-out;
+}
+.sidebar ul li a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 0.8rem;
+  color: #193D65;
+  font-weight: 600;
+  font-size: 18px;
+
+}
+a img{
+  margin-left: 12px;
+}
+.sidebar ul li a:hover{
+  background-color: #00abab38;
+  ;
+}
+.sidebar ul li a{
+  min-width: 50px;
+  text-align: center;
+  height: 50px;
+  border-radius: 12px;
+  line-height: 50px;
 }
 
-.logo img {
-    width: 50px;
-    transition: transform 0.4s ease;
+.sidebar .nav-item{
+  opacity: 0;
+}
+.sidebar.active .nav-item{
+  opacity: 1;
+  margin-left: 12px;
+}
+.sidebar ul li .tooltip{
+  position: absolute;
+  left: 125px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+  box-sizing: .6rem;
+  padding: .4rem 1.2rem;
+  line-height: 1.8rem;
+  z-index: 20;
+  opacity: 0;
+}
+.sidebar ul li:hover .tooltip{
+  opacity: 1;
+}
+.sidebar.active ul li .tooltip{
+  display: none;
 }
 
-.sidebar:hover .logo img {
-    transform: rotate(720deg);
-}
+
 
 /* Chat input e responsividade */
 .chat-input {
