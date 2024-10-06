@@ -12,6 +12,7 @@
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <link rel="stylesheet" media="screen" href="css/style.css" />
+    <link rel="stylesheet" media="screen" href="css/modal.css" />
     <link rel="stylesheet" href="css/site.css" />
     <link rel="icon" href="assets/icon/mini.svg" />
     <link
@@ -46,40 +47,41 @@
           <div class="headerLogo">
             <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
           </div>
-          <div class="loginContainer">
-          </div>
+          <div class="loginContainer"></div>
         </div>
       </div>
       <div class="content-register">
         <div class="cadastro-container">
           <div class="cadastro-text">
             <h1>Bem vindo!</h1>
-            <p>Ainda não tem cadastro? <b class="loginClick">Crie uma conta.</b> </p>
+            <p>
+              Ainda não tem cadastro?
+              <b class="loginClick" onclick="openModal()">Crie uma conta.</b>
+            </p>
             <form class="cadastro-form">
               <!-- Passo 1 -->
               <div class="input-wrapper">
                 <div class="inputs-step1">
-                    <label for="email">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="Insira seu email"/>
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Insira seu email"
+                  />
                 </div>
-               </div>
-                 <!-- Passo 2 -->
-                 <div class="input-wrapper">
-                    <div  class="inputs-step1">
-                        <label for="email">Senha</label>
-                        <input
-                          type="password"
-                          id="senha"
-                          placeholder="Insira sua senha"/>
-                          <b><li class="loginClick2">Esqueceu sua senha?</li></b>
-                    </div>
-                  
-                 </div>
-              
-              
+              </div>
+              <!-- Passo 2 -->
+              <div class="input-wrapper">
+                <div class="inputs-step1">
+                  <label for="email">Senha</label>
+                  <input
+                    type="password"
+                    id="senha"
+                    placeholder="Insira sua senha"
+                  />
+                  <b><li class="loginClick2">Esqueceu sua senha?</li></b>
+                </div>
+              </div>
 
               <button type="button" class="btnContinuar2" id="btnContinuar">
                 Entrar
@@ -88,7 +90,11 @@
           </div>
           <div class="slideshow-container">
             <div class="slideshow">
-              <img src="./assets/services/chart.svg" class="chartImage" alt="Chart Icon">
+              <img
+                src="./assets/services/chart.svg"
+                class="chartImage"
+                alt="Chart Icon"
+              />
               <div
                 class="slide active"
                 style="
@@ -98,8 +104,8 @@
                 <div class="text-container">
                   <h1>Gráficos simples e fáceis de entender!</h1>
                   <p>
-                    Visualizações claras para monitorar e 
-                    prever epidemias. Proteja sua comunidade hoje!
+                    Visualizações claras para monitorar e prever epidemias.
+                    Proteja sua comunidade hoje!
                   </p>
                 </div>
               </div>
@@ -113,8 +119,8 @@
                 <div class="text-container">
                   <h1>Gráficos precisos e detalhados!</h1>
                   <p>
-                    Dados apresentados de maneira eficiente
-                    para tomadas de decisão rápidas.
+                    Dados apresentados de maneira eficiente para tomadas de
+                    decisão rápidas.
                   </p>
                 </div>
               </div>
@@ -128,8 +134,8 @@
                 <div class="text-container">
                   <h1>Gráficos interativos!</h1>
                   <p>
-                    Interaja com os dados em tempo real e
-                    descubra insights valiosos.
+                    Interaja com os dados em tempo real e descubra insights
+                    valiosos.
                   </p>
                 </div>
               </div>
@@ -143,12 +149,11 @@
                 <div class="text-container">
                   <h1>Gráficos avançados e personalizados!</h1>
                   <p>
-                    Gráficos que se adaptam às suas necessidades
-                    com alta precisão e detalhes.
+                    Gráficos que se adaptam às suas necessidades com alta
+                    precisão e detalhes.
                   </p>
                 </div>
               </div>
-              <!-- Dots fora dos slides individuais -->
               <div class="custom-dots-container">
                 <span class="custom-dot"></span>
                 <span class="custom-dot"></span>
@@ -157,6 +162,97 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" style="display: none">
+      <div class="glass-effect"></div>
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">
+          <img
+            src="./assets/icon/close.svg"
+            alt="Close"
+            width="18"
+            height="18"
+          />
+        </button>
+        <div class="modal-header">
+          <div class="header-square">
+            <img src="./assets/services/Vector.svg" alt="" />
+          </div>
+          <div class="header-container">
+            <h2 class="header-text">Selecione como deseja se cadastrar</h2>
+            <p class="header-description">
+              Simples e flexível para atender suas necessidades
+            </p>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="opcoes">
+          <div class="opcao-quadrado" id="option1">
+            <div
+              class="select-circle"
+              onclick="toggleSelection(this, 'option1', 'option2')"
+            ></div>
+            <div class="main-text">
+              <span class="opcao-description">Esta opção inclui</span>
+              <span class="opcao-title">Instituição Hospitalar</span>
+              <span class="opcao-description">Esta opção inclui</span>
+            </div>
+            <ul class="opcao-list">
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+            </ul>
+          </div>
+          <div class="opcao-quadrado" id="option2">
+            <div
+              class="select-circle"
+              onclick="toggleSelection(this, 'option2', 'option1')"
+            ></div>
+            <div class="main-text">
+              <span class="opcao-description">Esta opção inclui</span>
+              <span class="opcao-title">Insituição Farmacêutica</span>
+              <span class="opcao-description">Esta opção inclui</span>
+            </div>
+            <ul class="opcao-list">
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                inclui
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="cancel-btn">Cancelar</button>
+          <button class="select-plan-btn">Selecionar um plano</button>
         </div>
       </div>
     </div>

@@ -93,17 +93,16 @@ document.getElementById("dot3").addEventListener("click", function () {
   navigateToStep(3);
 });
 
-
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.custom-dot');
-let currentSlide = 0; 
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".custom-dot");
+let currentSlide = 0;
 
 function showSlide(index) {
-  slides.forEach(slide => slide.classList.remove('active'));
-  dots.forEach(dot => dot.classList.remove('custom-dot-active'));
+  slides.forEach((slide) => slide.classList.remove("active"));
+  dots.forEach((dot) => dot.classList.remove("custom-dot-active"));
 
-  slides[index].classList.add('active');
-  dots[index].classList.add('custom-dot-active');
+  slides[index].classList.add("active");
+  dots[index].classList.add("custom-dot-active");
 }
 
 function nextSlide() {
@@ -112,7 +111,7 @@ function nextSlide() {
 }
 
 function previousSlide() {
-  currentSlide = (currentSlide - 1 + slides.length) % slides.length; 
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
   showSlide(currentSlide);
 }
 
@@ -121,8 +120,66 @@ showSlide(currentSlide);
 setInterval(nextSlide, 5000);
 
 dots.forEach((dot, index) => {
-  dot.addEventListener('click', () => {
+  dot.addEventListener("click", () => {
     showSlide(index);
-    currentSlide = index; 
+    currentSlide = index;
   });
+});
+
+function toggleSelection(circle, selectedOptionId, otherOptionId) {
+  const selectedOption = document.getElementById(selectedOptionId);
+  const otherOption = document.getElementById(otherOptionId);
+
+  if (selectedOption.classList.contains("selected")) {
+    selectedOption.classList.remove("selected");
+    circle.classList.remove("selected-circle");
+    otherOption.classList.remove("blocked");
+  } else {
+    selectedOption.classList.add("selected");
+    circle.classList.add("selected-circle");
+    otherOption.classList.add("blocked");
+  }
+}
+
+function closeModal() {
+  document.querySelector(".modal").style.display = "none";
+}
+
+function cancelSelection() {
+  if (selected) {
+    selected.classList.remove("selected");
+    selected = null;
+  }
+  document.getElementById("selectPlanBtn").classList.add("disabled");
+  document.getElementById("selectPlanBtn").disabled = true;
+}
+
+function openModal() {
+  const modal = document.querySelector(".modal");
+  if (modal) {
+    modal.style.display = "flex";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const closeBtn = document.querySelector(".close-btn");
+  const glassEffect = document.querySelector(".glass-effect");
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      const modal = document.querySelector(".modal");
+      if (modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+
+  if (glassEffect) {
+    glassEffect.addEventListener("click", function () {
+      const modal = document.querySelector(".modal");
+      if (modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
 });
