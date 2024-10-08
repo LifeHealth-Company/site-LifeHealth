@@ -126,20 +126,35 @@ dots.forEach((dot, index) => {
   });
 });
 
-function toggleSelection(circle, selectedOptionId, otherOptionId) {
-  const selectedOption = document.getElementById(selectedOptionId);
-  const otherOption = document.getElementById(otherOptionId);
+//function toggleSelection(circle, selectedOptionId, otherOptionId, element) {
+//  const selectedOption = document.getElementById(selectedOptionId);
+//  const otherOption = document.getElementById(otherOptionId);
 
-  if (selectedOption.classList.contains("selected")) {
-    selectedOption.classList.remove("selected");
-    circle.classList.remove("selected-circle");
-    otherOption.classList.remove("blocked");
-  } else {
-    selectedOption.classList.add("selected");
-    circle.classList.add("selected-circle");
-    otherOption.classList.add("blocked");
-  }
+//  if (selectedOption.classList.contains("selected")) {
+//    selectedOption.classList.remove("selected");
+//    circle.classList.remove("selected-circle");
+//    otherOption.classList.remove("blocked");
+//  } else {
+//    selectedOption.classList.add("selected");
+//    circle.classList.add("selected-circle");
+//    otherOption.classList.add("blocked");
+//  }
+//}
+
+function toggleSelection(element, option1, option2) {
+    // Remove a classe 'checked' de todos os elementos
+    document.querySelectorAll('.select-circle').forEach(circle => {
+        circle.classList.remove('checked');
+    });
+
+    // Adiciona a classe 'checked' ao elemento clicado
+    element.classList.add('checked');
+
+    // Lógica adicional para manipular as opções
+    document.getElementById(option1).classList.add('selected');
+    document.getElementById(option2).classList.remove('selected');
 }
+
 
 function closeModal() {
   document.querySelector(".modal").style.display = "none";
@@ -183,3 +198,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+function redirectToCadastro() {
+    window.location.href = 'cadastro.html'; 
+}

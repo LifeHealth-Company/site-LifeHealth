@@ -190,40 +190,34 @@
         <div class="divider"></div>
 
         <div class="opcoes">
-          <div class="opcao-quadrado" id="option1">
-            <div
-              class="select-circle"
-              onclick="toggleSelection(this, 'option1', 'option2')"
-            ></div>
-            <div class="main-text">
-              <span class="opcao-description">Esta opção inclui</span>
-              <span class="opcao-title">Instituição Hospitalar</span>
-              <span class="opcao-description">Esta opção inclui</span>
+            <div class="opcao-quadrado" id="option1">
+                <div class="select-circle" onclick="selecionarOpcao('option1')"></div>
+               <div class="main-text">
+                    <span class="opcao-description">Esta opção inclui</span>
+                    <span class="opcao-title">Instituição Hospitalar</span>
+                    <span class="opcao-description">Esta opção inclui</span>
+                </div>
+                <ul class="opcao-list">
+                    <li>
+                        <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                        inclui
+                    </li>
+                    <li>
+                        <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                        inclui
+                    </li>
+                    <li>
+                        <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                        inclui
+                    </li>
+                    <li>
+                        <img src="./assets/icon/option-check.svg" alt="" />Esta opção
+                        inclui
+                    </li>
+                </ul>
             </div>
-            <ul class="opcao-list">
-              <li>
-                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
-                inclui
-              </li>
-              <li>
-                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
-                inclui
-              </li>
-              <li>
-                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
-                inclui
-              </li>
-              <li>
-                <img src="./assets/icon/option-check.svg" alt="" />Esta opção
-                inclui
-              </li>
-            </ul>
-          </div>
           <div class="opcao-quadrado" id="option2">
-            <div
-              class="select-circle"
-              onclick="toggleSelection(this, 'option2', 'option1')"
-            ></div>
+              <div class="select-circle" onclick="selecionarOpcao('option2')"></div>
             <div class="main-text">
               <span class="opcao-description">Esta opção inclui</span>
               <span class="opcao-title">Insituição Farmacêutica</span>
@@ -249,13 +243,17 @@
             </ul>
           </div>
         </div>
-
         <div class="modal-footer">
-          <button class="cancel-btn">Cancelar</button>
-          <button class="select-plan-btn">Selecionar um plano</button>
+            <button class="cancel-btn">Cancelar</button>
+            <button class="select-plan-btn" onclick="redirectToCadastro()">Selecionar um plano</button>
         </div>
       </div>
     </div>
     <script src="js/script.js"></script>
   </body>
 </html>
+<script>
+    function selecionarOpcao(opcao) {
+        window.location.href = `cadastro.html?selectedOption=${opcao}`;
+    }
+</script>

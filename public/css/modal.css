@@ -234,3 +234,15 @@ body {
   pointer-events: none;
   opacity: 0.5;
 }
+.check-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: none; /* Escondido por padrão */
+}
+
+.selected .check-icon {
+  display: block; /* Exibe o ícone de check quando selecionado */
+}
