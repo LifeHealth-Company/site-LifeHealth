@@ -86,14 +86,20 @@
                                        id="telefone"
                                        placeholder="Insira o CEP da Instituição" />
 
-                                <label for="email">Email de Contato</label>
-                                <input type="email"
-                                       id="email"
-                                       placeholder="Insira seu email" />
+                                <label for="estado">Estado de Residência</label>
+                                <input type="estado"
+                                       id="estado"
+                                       placeholder="Insira seu estado"/>
                             </div>
 
                             <!-- Passo 3 -->
                             <div id="finalStep" class="inputs-step3 hidden">
+
+                                <label for="email">Email de Contato</label>
+                                <input type="email"
+                                       id="email"
+                                       placeholder="Insira seu email" />
+
                                 <label for="campo1">Senha</label>
                                 <input type="text"
                                        id="campo1"
@@ -197,27 +203,33 @@
             return;
         }
 
+        
         if (selectedOption === 'option2') {
+
+        inputWrapper.innerHTML = '';
+
             inputWrapper.innerHTML = `
-            <div class="input-wrapper">
-                <label for="nomeFarmacia">Nome da Farmácia</label>
-                <input type="text" id="nomeFarmacia" placeholder="Insira o nome da sua Farmácia">
-            </div>
-            <div class="input-wrapper">
-                <label for="nomeResponsavel">Nome do Responsável</label>
-                <input type="text" id="nomeResponsavel" placeholder="Insira o nome do Responsável">
-            </div>
-            <div class="input-wrapper">
-                <label for="tipoFarmacia">Tipo de Farmácia</label>
-                <select id="tipoFarmacia">
-                    <option value="" disabled selected>Selecione uma opção</option>
-                    <option value="local">Local</option>
-                    <option value="rede">Rede</option>
-                </select>
-            </div>
-        `;
+                <div class="input-field">
+                    <label for="nomeFarmacia">Nome da Farmácia</label>
+                    <input type="text" id="nomeFarmacia" placeholder="Insira o nome da sua Farmácia">
+                </div>
+                <div class="input-field">
+                    <label for="nomeResponsavel">Nome do Responsável</label>
+                    <input type="text" id="nomeResponsavel" placeholder="Insira o nome do Responsável">
+                </div>
+                <div class="input-field">
+                    <label for="tipoFarmacia">Tipo de Farmácia</label>
+                    <select id="tipoFarmacia">
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="local">Local</option>
+                        <option value="rede">Rede</option>
+                    </select>
+                </div>
+            `;
         }
+
+        document.querySelectorAll('.input-field').forEach(field => {
+            field.style.marginBottom = '20px'; 
+        });
     });
-
-
 </script>

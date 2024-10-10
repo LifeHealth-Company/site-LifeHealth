@@ -240,9 +240,15 @@ body {
   position: absolute;
   top: 10px;
   left: 10px;
-  display: none; /* Escondido por padrão */
+  display: none;
 }
 
 .selected .check-icon {
-  display: block; /* Exibe o ícone de check quando selecionado */
+  display: block;
+}
+
+.select-circle.checked {
+  background-image: url('../assets/icon/checked.svg');
+  background-size: cover;
+  border: none;
 }
