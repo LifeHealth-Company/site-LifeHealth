@@ -7,12 +7,9 @@
     <link rel="stylesheet" href="./css/home.css">
     <title>Document</title>
 </head>
-
 <body>
     <div id="menu-container"></div>
-    <script src="./js/menubehavior.js"></script>
-    <script src="./js/menu.js"></script>
-
+    
     <div class="home">
         <div class="header">
             <span class="WelcomeMessage">Bem vindo Bruninho</span>
@@ -26,7 +23,7 @@
                     <span class="startEnd">Até</span>
                     <span class="date">30/12/2022</span>
                 </div>
-
+                
                 <img src="./assets/icon/calender.svg" class="iconCalendar" />
             </div>
         </div>
@@ -52,7 +49,7 @@
                     </span>
                 </div>
             </div>
-
+            
             <div class="country">
                 <div class="countryHeader">
                     <span class="indicatorTitle">Brasil</span>
@@ -109,9 +106,39 @@
                 </div>
             </div>
 
-            <div class="mostCasesRegion"></div>
+            <div class="mostCasesRegion">
+                <span class="indicatorTitle graphcAdjustment">Regiões com mais casos</span>
+                <div class="chart">
+                    <canvas id="regions"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="lineChartCases">
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Número de casos</span>
+                    <span class="indicatorTitle max">BRASIL</span>
+                </div>
+                <div class="chart">
+                    <canvas id="country"></canvas>
+                </div>
+            </div>
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Número de casos</span>
+                    <span class="indicatorTitle max">São Paulo</span>
+                </div>
+                <div class="chart">
+                    <canvas id="state"></canvas>
+                </div>
+            </div>
         </div>
     </div>
+    
 </body>
-
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/menubehavior.js"></script>
+<script src="./js/menu.js"></script>
