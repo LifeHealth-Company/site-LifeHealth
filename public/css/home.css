@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("./variaveis.css");
+
+.home{
+    padding-left: 250px;
+}
+.indicators{
+display: flex;
+}
+.mostAffected{
+    height: 380px;
+    width: 380px;
+    background: var(--bgColorIndicatorsLight);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px #00000058;
+    margin-right: 20px;
+}
+.datas{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+}
+
+.indicatorTitle{
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--primaria);
+}
+
+.data{
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--primaria);
+    margin-top: 30px;
+}
+
+.country{
+    height: 380px;
+    width: 380px;
+    background: var(--bgColorIndicatorsLight);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px #00000058;
+}
+.growth{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.countryHeader{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 36px;
+}

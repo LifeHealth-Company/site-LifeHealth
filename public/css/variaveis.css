@@ -6,6 +6,14 @@
     --letras: #292929;
     --barraHeader: #ffffff;
     --boxDash: background: linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(212,212,212,1) 100%);
+
+    --bgColorSystemLight: #F6F6F6;
+    --titleSystemLight: #193D65;
+    --bgColorIndicatorsLight: linear-gradient(130deg, rgba(255,255,255,1) 47%, rgba(215,215,215,1) 91%);
+
+    --bgColorSystemDark: #212121;
+    --titleSystemDark: #FFF;
+    --bgColorIndicatorsDark: #292929;
  }
  /* cor valores: #864ef2
      cor primaria: #6c3ac5

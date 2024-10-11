@@ -1,170 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>LifeHealth - Pagina Inicial</title>
-    <meta
-      name="description"
-      content="particles.js is a lightweight JavaScript library for creating particles."
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="description"
+          content="particles.js is a lightweight JavaScript library for creating particles." />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" media="screen" href="css/style.css" />
     <link rel="stylesheet" href="css/site.css" />
     <link rel="icon" href="assets/icon/mini.svg" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="inicio">
-      <div class="header">
-        <div class="mainHeader">
-          <ul class="options">
-            <a href="#inicio">
-              <li class="option">Início</li>
-            </a>
-            <li class="divisor">/</li>
-            <a href="#sobre">
-              <li class="option">Sobre</li>
-            </a>
-            <li class="divisor">/</li>
-            <a href="#servico">
-              <li class="option">Serviços</li>
-            </a>
-            <li class="divisor">/</li>
-            <a href="#contato">
-              <li class="option">Contato</li>
-            </a>
-          </ul>
+        <div class="header">
+            <div class="mainHeader">
+                <ul class="options">
+                    <a href="#inicio">
+                    <li class="option">Início</li>
+                    </a>
+                    <li class="divisor">/</li>
+                    <a href="#sobre">
+                    <li class="option">Sobre</li>
+                    </a>
+                    <li class="divisor">/</li>
+                    <a href="#servico">
+                    <li class="option">Serviços</li>
+                    </a>
+                    <li class="divisor">/</li>
+                    <a href="#contato">
+                    <li class="option">Contato</li>
+                    </a>
+                </ul>
 
-          <div class="headerLogo">
-            <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
-          </div>
-          <div class="loginContainer">
-            <button class="btnLogin">Entrar</button>
-          </div>
-        </div>
-      </div>
-      <div class="content-register">
-        <div class="cadastro-container">
-          <div class="cadastro-text">
-            <h1>Cadastre-se</h1>
-            <p>Insira suas informações abaixo para criar sua conta e começar</p>
-            <form class="cadastro-form">
-              <!-- Passo 1 -->
-              <div class="input-wrapper">
-                <div id="inputContainer" class="inputs-step1">
-                  <label for="nomeInstituicao">Nome da instituição</label>
-                  <input
-                    type="text"
-                    id="nomeInstituicao"
-                    placeholder="Insira o nome da sua Instituição"
-                  />
-
-                  <label for="nomeResponsavel">Nome do Responsável</label>
-                  <input
-                    type="text"
-                    id="nomeResponsavel"
-                    placeholder="Insira o nome do Responsável"
-                  />
-
-                  <label for="tipoInstituicao">Tipo de Instituição</label>
-                  <select id="tipoInstituicao">
-                    <option value="" disabled selected>
-                      Selecione uma opção
-                    </option>
-                    <option value="privada">Privada</option>
-                    <option value="publica">Pública</option>
-                  </select>
+                <div class="headerLogo">
+                    <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
                 </div>
-
-                <!-- Passo 2 -->
-                <div id="hiddenInputs" class="inputs-step2 hidden">
-                  <label for="endereco">CNPJ</label>
-                  <input
-                    type="text"
-                    id="endereco"
-                    placeholder="Insira o CNPJ da Insituição"
-                  />
-
-                  <label for="telefone">CEP</label>
-                  <input
-                    type="text"
-                    id="telefone"
-                    placeholder="Insira o CEP da Instituição"
-                  />
-
-                  <label for="email">Email de Contato</label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="Insira seu email"
-                  />
+                <div class="loginContainer">
+                    <button class="btnLogin">Entrar</button>
                 </div>
-
-                <!-- Passo 3 -->
-                <div id="finalStep" class="inputs-step3 hidden">
-                  <label for="campo1">Senha</label>
-                  <input
-                    type="text"
-                    id="campo1"
-                    placeholder="Insira sua senha"
-                  />
-
-                  <label for="campo2">Confirmar senha</label>
-                  <input
-                    type="text"
-                    id="campo2"
-                    placeholder="Insira sua senha novamente"
-                  />
-                </div>
-              </div>
-
-              <button type="button" class="btnContinuar" id="btnContinuar">
-                Continuar
-              </button>
-              <div class="dots-container">
-                <div class="dot" id="dot1"></div>
-                <div class="dot" id="dot2"></div>
-                <div class="dot" id="dot3"></div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="teste">
-          <div class="carousel-container">
-            <div class="carousel">
-              <div
-                class="slide"
-                style="
-                  background-image: url('https://images.unsplash.com/photo-1562619425-c307bb83bc42?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                "
-              ></div>
-              <div
-                class="slide"
-                style="
-                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                "
-              ></div>
-              <div
-                class="slide"
-                style="
-                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                "
-              ></div>
             </div>
-            <button class="prev">❮</button>
-            <button class="next">❯</button>
-          </div>
         </div>
-      </div>
+        <div class="content-register">
+            <div class="cadastro-container">
+                <div class="cadastro-text">
+                    <h1>Cadastre-se</h1>
+                    <p>Insira suas informações abaixo para criar sua conta e começar</p>
+                    <form class="cadastro-form">
+                        <!-- Passo 1 -->
+                        <div class="input-wrapper">
+                            <div class="inputs-step1" id="inputContainer">
+                                <label for="nomeInstituicao">Nome da instituição</label>
+                                <input type="text"
+                                       id="nomeInstituicao"
+                                       placeholder="Insira o nome da sua Instituição" />
+
+                                <label for="nomeResponsavel">Nome do Responsável</label>
+                                <input type="text"
+                                       id="nomeResponsavel"
+                                       placeholder="Insira o nome do Responsável" />
+
+                                <label for="tipoInstituicao">Tipo de Instituição</label>
+                                <select id="tipoInstituicao">
+                                    <option value="" disabled selected>
+                                        Selecione uma opção
+                                    </option>
+                                    <option value="privada">Privada</option>
+                                    <option value="publica">Pública</option>
+                                </select>
+                            </div>
+
+                            <!-- Passo 2 -->
+                            <div id="hiddenInputs" class="inputs-step2 hidden">
+                                <label for="endereco">CNPJ</label>
+                                <input type="text"
+                                       id="endereco"
+                                       placeholder="Insira o CNPJ da Insituição" />
+
+                                <label for="telefone">CEP</label>
+                                <input type="text"
+                                       id="telefone"
+                                       placeholder="Insira o CEP da Instituição" />
+
+                                <label for="estado">Estado de Residência</label>
+                                <input type="estado"
+                                       id="estado"
+                                       placeholder="Insira seu estado"/>
+                            </div>
+
+                            <!-- Passo 3 -->
+                            <div id="finalStep" class="inputs-step3 hidden">
+
+                                <label for="email">Email de Contato</label>
+                                <input type="email"
+                                       id="email"
+                                       placeholder="Insira seu email" />
+
+                                <label for="campo1">Senha</label>
+                                <input type="text"
+                                       id="campo1"
+                                       placeholder="Insira sua senha" />
+
+                                <label for="campo2">Confirmar senha</label>
+                                <input type="text"
+                                       id="campo2"
+                                       placeholder="Insira sua senha novamente" />
+                            </div>
+                        </div>
+
+                        <button type="button" class="btnContinuar" id="btnContinuar">
+                            Continuar
+                        </button>
+                        <div class="dots-container">
+                            <div class="dot" id="dot1"></div>
+                            <div class="dot" id="dot2"></div>
+                            <div class="dot" id="dot3"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="slideshow-container">
+                    <div class="slideshow">
+                        <img src="./assets/services/chart.svg" class="chartImage" alt="Chart Icon">
+                        <div class="slide active"
+                             style="
+                  background-image: url('https://images.unsplash.com/photo-1562619425-c307bb83bc42?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                ">
+                            <div class="text-container">
+                                <h1>Gráficos simples e fáceis de entender!</h1>
+                                <p>
+                                    Visualizações claras para monitorar e
+                                    prever epidemias. Proteja sua comunidade hoje!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="slide"
+                             style="
+                  background-image: url('https://images.unsplash.com/photo-1579267217516-b73084bd79a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                ">
+                            <div class="text-container">
+                                <h1>Gráficos precisos e detalhados!</h1>
+                                <p>
+                                    Dados apresentados de maneira eficiente
+                                    para tomadas de decisão rápidas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="slide"
+                             style="
+                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                ">
+                            <div class="text-container">
+                                <h1>Gráficos interativos!</h1>
+                                <p>
+                                    Interaja com os dados em tempo real e
+                                    descubra insights valiosos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="slide"
+                             style="
+                  background-image: url('https://images.unsplash.com/photo-1598557470924-a2979fcdf017?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                ">
+                            <div class="text-container">
+                                <h1>Gráficos avançados e personalizados!</h1>
+                                <p>
+                                    Gráficos que se adaptam às suas necessidades
+                                    com alta precisão e detalhes.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Dots fora dos slides individuais -->
+                        <div class="custom-dots-container">
+                            <span class="custom-dot"></span>
+                            <span class="custom-dot"></span>
+                            <span class="custom-dot"></span>
+                            <span class="custom-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="js/script.js"></script>
-  </body>
+</body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedOption = urlParams.get('selectedOption');
+        const inputWrapper = document.getElementById('inputContainer');
+        console.log(selectedOption);
+
+        if (!inputWrapper) {
+            console.error('Elemento com ID "inputContainer" não encontrado.');
+            return;
+        }
+
+        
+        if (selectedOption === 'option2') {
+
+        inputWrapper.innerHTML = '';
+
+            inputWrapper.innerHTML = `
+                <div class="input-field">
+                    <label for="nomeFarmacia">Nome da Farmácia</label>
+                    <input type="text" id="nomeFarmacia" placeholder="Insira o nome da sua Farmácia">
+                </div>
+                <div class="input-field">
+                    <label for="nomeResponsavel">Nome do Responsável</label>
+                    <input type="text" id="nomeResponsavel" placeholder="Insira o nome do Responsável">
+                </div>
+                <div class="input-field">
+                    <label for="tipoFarmacia">Tipo de Farmácia</label>
+                    <select id="tipoFarmacia">
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="local">Local</option>
+                        <option value="rede">Rede</option>
+                    </select>
+                </div>
+            `;
+        }
+
+        document.querySelectorAll('.input-field').forEach(field => {
+            field.style.marginBottom = '20px'; 
+        });
+    });
+</script>

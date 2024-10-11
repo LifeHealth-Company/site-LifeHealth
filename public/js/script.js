@@ -93,77 +93,111 @@ document.getElementById("dot3").addEventListener("click", function () {
   navigateToStep(3);
 });
 
-// function updateLabels(stepNumber) {
-//     const passwordLabel = document.getElementById('campo1').previousElementSibling;
-//     const confirmPasswordLabel = document.getElementById('campo2').previousElementSibling;
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".custom-dot");
+let currentSlide = 0;
 
-//     if (stepNumber === 1) {
-//         passwordLabel.textContent = 'Senha';
-//         confirmPasswordLabel.textContent = 'Confirmar Senha';
-//     } else if (stepNumber === 2) {
-//         passwordLabel.textContent = 'Senha do Novo Passo';
-//         confirmPasswordLabel.textContent = 'Confirmar Senha do Novo Passo';
-//     } else if (stepNumber === 3) {
-//         passwordLabel.textContent = 'Nova Senha';
-//         confirmPasswordLabel.textContent = 'Confirmar Nova Senha';
-//     }
-// }
-document.addEventListener("DOMContentLoaded", () => {
-  const carousel = document.querySelector(".carousel");
-  const slides = document.querySelectorAll(".slide");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
-  const indicators = document.querySelectorAll(".indicator");
-  let currentIndex = 0;
-  const autoplayInterval = 3000; // Interval in milliseconds (e.g., 3000ms = 3 seconds)
-  let autoplay;
+function showSlide(index) {
+  slides.forEach((slide) => slide.classList.remove("active"));
+  dots.forEach((dot) => dot.classList.remove("custom-dot-active"));
 
-  function updateCarousel() {
-    carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-    updateIndicators();
+  slides[index].classList.add("active");
+  dots[index].classList.add("custom-dot-active");
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+function previousSlide() {
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
+}
+
+showSlide(currentSlide);
+
+setInterval(nextSlide, 5000);
+
+dots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    showSlide(index);
+    currentSlide = index;
+  });
+});
+
+//function toggleSelection(circle, selectedOptionId, otherOptionId, element) {
+//  const selectedOption = document.getElementById(selectedOptionId);
+//  const otherOption = document.getElementById(otherOptionId);
+
+//  if (selectedOption.classList.contains("selected")) {
+//    selectedOption.classList.remove("selected");
+//    circle.classList.remove("selected-circle");
+//    otherOption.classList.remove("blocked");
+//  } else {
+//    selectedOption.classList.add("selected");
+//    circle.classList.add("selected-circle");
+//    otherOption.classList.add("blocked");
+//  }
+//}
+
+function toggleSelection(element, option1, option2) {
+    // Remove a classe 'checked' de todos os elementos
+    document.querySelectorAll('.select-circle').forEach(circle => {
+        circle.classList.remove('checked');
+    });
+
+    // Adiciona a classe 'checked' ao elemento clicado
+    element.classList.add('checked');
+
+    // Lógica adicional para manipular as opções
+    document.getElementById(option1).classList.add('selected');
+    document.getElementById(option2).classList.remove('selected');
+}
+
+
+function closeModal() {
+  document.querySelector(".modal").style.display = "none";
+}
+
+function cancelSelection() {
+  if (selected) {
+    selected.classList.remove("selected");
+    selected = null;
   }
+  document.getElementById("selectPlanBtn").classList.add("disabled");
+  document.getElementById("selectPlanBtn").disabled = true;
+}
 
-  function updateIndicators() {
-    indicators.forEach((indicator, index) => {
-      if (index === currentIndex) {
-        indicator.classList.add("active");
-      } else {
-        indicator.classList.remove("active");
+function openModal() {
+  const modal = document.querySelector(".modal");
+  if (modal) {
+    modal.style.display = "flex";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const closeBtn = document.querySelector(".close-btn");
+  const glassEffect = document.querySelector(".glass-effect");
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      const modal = document.querySelector(".modal");
+      if (modal) {
+        modal.style.display = "none";
       }
     });
   }
 
-  function startAutoplay() {
-    autoplay = setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      updateCarousel();
-    }, autoplayInterval);
-  }
-
-  function stopAutoplay() {
-    clearInterval(autoplay);
-  }
-
-  prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    updateCarousel();
-  });
-
-  nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateCarousel();
-  });
-
-  carousel.addEventListener("mouseenter", stopAutoplay);
-  carousel.addEventListener("mouseleave", startAutoplay);
-
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      currentIndex = index;
-      updateCarousel();
+  if (glassEffect) {
+    glassEffect.addEventListener("click", function () {
+      const modal = document.querySelector(".modal");
+      if (modal) {
+        modal.style.display = "none";
+      }
     });
-  });
-
-  startAutoplay();
-  updateCarousel();
+  }
 });
+function redirectToCadastro() {
+    window.location.href = 'cadastro.html'; 
+}
