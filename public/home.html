@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +9,136 @@
 </head>
 <body>
     <div id="menu-container"></div>
-    <script src="./js/menubehavior.js"></script>
-    <script src="./js/menu.js"></script>
-
+    
     <div class="home">
+        <div class="header">
+            <span class="WelcomeMessage">Bem vindo Bruninho</span>
+            <div class="calendar">
+                <div class="timeIndicator">
+                    <span class="startEnd">De</span>
+                    <span class="date">10/07/2022</span>
+                </div>
+                <img src="./assets/icon/longArrow.svg" class="arrow" />
+                <div class="timeIndicator">
+                    <span class="startEnd">Até</span>
+                    <span class="date">30/12/2022</span>
+                </div>
+                
+                <img src="./assets/icon/calender.svg" class="iconCalendar" />
+            </div>
+        </div>
         <div class="indicators">
             <div class="mostAffected">
                 <span class="indicatorTitle">Maiores afetados</span>
                 <div class="datas">
-                    <span class="data">1° Gestantes - 1.600 milhões</span>
-                    <span class="data">2° Idosos - 1.600 milhões</span>
-                    <span class="data">3° Crianças - 1.600 milhões</span>
-                    <span class="data">4° Adultos - 1.600 milhões</span>
+                    <span class="data">
+                        <span class="order">1°</span>
+                        Gestantes - 1.600 milhões
+                    </span>
+                    <span class="data">
+                        <span class="order">2°</span>
+                        Idosos - 1.600 milhões
+                    </span>
+                    <span class="data">
+                        <span class="order">3°</span>
+                        Crianças - 1.600 milhões
+                    </span>
+                    <span class="data">
+                        <span class="order">4°</span>
+                        Adultos - 1.600 milhões
+                    </span>
+                </div>
+            </div>
+            
+            <div class="country">
+                <div class="countryHeader">
+                    <span class="indicatorTitle">Brasil</span>
+                    <div class="growth">
+                        <img src="./assets/icon/arrowUp.svg" />
+                        <span class="growthPercentage">7%</span>
+                    </div>
+                </div>
+                <div class="casesContainer">
+                    <span class="cases">
+                        <span class="order">6</span>
+                        milhões de casos
+                    </span>
+                    <div class="maxCasesContainer">
+                        <span class="maxCases">
+                            <span class="max">MAX:</span>
+                            12 milhões
+                        </span>
+                        <span class="order">2017</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="states">
+                <div class="state">
+                    <div class="stateInfo">
+                        <span class="indicatorTitle">São Paulo</span>
+                        <span class="data">2 milhões de casos</span>
+                    </div>
+                    <div class="growth">
+                        <img src="./assets/icon/arrowUp.svg" class="stateIcon"/>
+                        <span class="growthPercentage stateGrowth">7%</span>
+                    </div>
+                </div>
+                <div class="state">
+                    <div class="stateInfo">
+                        <span class="indicatorTitle">São Paulo</span>
+                        <span class="data">2 milhões de casos</span>
+                    </div>
+                    <div class="growth">
+                        <img src="./assets/icon/arrowUp.svg" class="stateIcon"/>
+                        <span class="growthPercentage stateGrowth">7%</span>
+                    </div>
+                </div>
+                <div class="state">
+                    <div class="stateInfo">
+                        <span class="indicatorTitle">São Paulo</span>
+                        <span class="data">2 milhões de casos</span>
+                    </div>
+                    <div class="growth">
+                        <img src="./assets/icon/arrowUp.svg" class="stateIcon"/>
+                        <span class="growthPercentage stateGrowth">7%</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="country">
-                <div class="countryHeader">
-                <span class="indicatorTitle">Brasil</span>
-                <div class="growth">
-                    <img src="./assets/icon/arrowUp.svg"/>
-                    <span class="growthPercentage">7%</span>
+            <div class="mostCasesRegion">
+                <span class="indicatorTitle graphcAdjustment">Regiões com mais casos</span>
+                <div class="chart">
+                    <canvas id="regions"></canvas>
                 </div>
-                </div>
-                <span class="cases">6 milhões de casos</span>
-                <span></span>
             </div>
 
         </div>
+        <div class="lineChartCases">
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Número de casos</span>
+                    <span class="indicatorTitle max">BRASIL</span>
+                </div>
+                <div class="chart">
+                    <canvas id="country"></canvas>
+                </div>
+            </div>
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Número de casos</span>
+                    <span class="indicatorTitle max">São Paulo</span>
+                </div>
+                <div class="chart">
+                    <canvas id="state"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
+    
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/menubehavior.js"></script>
+<script src="./js/menu.js"></script>
