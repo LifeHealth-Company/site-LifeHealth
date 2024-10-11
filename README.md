@@ -29,7 +29,7 @@ Mauricio Marcelino: <a href="https://github.com/MauricioAlmeida03" target="_blan
 Anne Morita: <a href="https://github.com/annemorita" target="_blank"><img align="center" height="30" width="40" alt="logo GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
 </a>
 
-Thomaz albuquerque: <a href="https://github.com/Thomas-Albuquerque" target="_blank"><img align="center" height="30" width="40" alt="logo GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
+Thomas Albuquerque: <a href="https://github.com/Thomas-Albuquerque" target="_blank"><img align="center" height="30" width="40" alt="logo GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
 </a>
 
 Rayane Reis: <a href="https://github.com/raygrs" target="_blank"><img align="center" height="30" width="40" alt="logo GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
