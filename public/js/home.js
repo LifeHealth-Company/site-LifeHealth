@@ -140,6 +140,3 @@ function loadLineCountryChart(){
         config
     );
 }
-    
-    
-    
