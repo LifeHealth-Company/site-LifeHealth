@@ -235,3 +235,68 @@ display: flex;
     width: 600px;
     margin-top: 20px;   
 }
+dialog{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.dialog {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-content{
+    margin-top: 6%;
+    width: 470px;
+    height: 470px;
+    background-color: var(--bgColorSystemLight);
+    border-radius: 20px;
+    padding: 30px;
+}
+.modal-content::backdrop{
+    background-color: #1e1e1e;
+}
+
+.calendarHeader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+.day {
+    padding: 10px;
+    text-align: center;
+}
+.weekendDays{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0 17px 0;
+    border-bottom: 1px #EBEBF0 solid;
+    margin-bottom: 10px;
+}
+.dayOff{
+    padding: 10px;
+    text-align: center;
+    background-color: #EBEBF0;
+}
+.prev-month {
+    color: #a0a0a0; /* Cor mais clara para dias do mês anterior */
+}
+
+.current-month {
+    color: #000000; /* Cor normal para dias do mês atual */
+}
+
+.next-month {
+    color: #a0a0a0; /* Cor mais clara para dias do próximo mês */
+}
