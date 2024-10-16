@@ -101,7 +101,7 @@
     const dataPizza = {
         labels: ['Confirmados', 'Não Confirmados'],
         datasets: [{
-            label: 'Casos confirmados',
+            label: 'Tipos de casos',
             data: [300, 50],
             backgroundColor: ['#327BCB', '#273380'],
             hoverOffset: 4
@@ -115,7 +115,14 @@
             plugins: {
                 legend: {
                     display: true,
-                    position: 'right'
+                    position: 'right',
+                    labels: {
+                        color: '#273380',
+                        font: {
+                            weight: 'bold',
+                            size:11
+                        }
+                    }
                 },
                 title: {
                     display: true,
@@ -157,14 +164,21 @@
         options: {
           responsive: true,
           scales: {
+            x:{
+                grid: {
+                    display: false // Remove as linhas de grade verticais
+                }
+            },
             y: {
                 beginAtZero: true,
                 max: 7,
                 ticks: {
                     callback: function(value) {
                         return value + ' milhões'; // Formato personalizado dos rótulos
-                    }
-                }
+                    },
+                    stepSize: 1, // Tamanho do passo entre os ticks
+                },
+                suggestedTicks: [1, 3, 5, 7],
             }
             },
           plugins: {
