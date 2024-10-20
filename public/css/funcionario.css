@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+
+.Inicial {
+    padding-left: 150px;
+    padding-right: 50px;
+}
+
+.titulo-incial {
+    margin-top: 2.5%;
+    color: #193D65;
+    font-size: 50px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.retangulo {
+    width: 1680px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+    padding: 30px; 
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.input-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    color: #193D65;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input {
+    font-family: "Poppins", sans-serif;
+    width: 463px;
+    height: 50px;
+    border: 1px solid #000;
+    padding-left: 10px; 
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    outline: none; 
+}
+
+input::placeholder {
+    color: #193c65a8; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+select {
+    width: 463px;
+    height: 50px;
+    border: 1px solid #000; 
+    padding-left: 10px; 
+    font-size: 16px;
+    background-color: #FFF;
+    color: #193D65;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+select:focus {
+    outline: none;
+}
+
+
+.botao-container {
+    display: flex;
+    justify-content: center; 
+}
+
+.botao-cadastrar {
+    width: 275px;
+    height: 52px;
+    background-color: #014466;
+    color: #F6F6F6;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.botao-cadastrar:hover {
+    background-color: #012F48; 
+}
+
+.texto-pesquisar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1680px; 
+    margin: 20px auto; 
+}
+
+.texto-inferior {
+    color: #193D65;
+    font-size: 40px;
+    font-weight: 600; 
+    font-family: "Poppins", sans-serif;
+}
+
+.botao-pesquisar {
+    width: 275px;
+    height: 52px;
+    background-color: #014466;
+    color: #F6F6F6;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    transition: background-color 0.3s;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.botao-pesquisar i {
+    font-size: 18px;
+}
+
+.botao-pesquisar:hover {
+    background-color: #012F48;
+}
+
+.table-container {
+    width: 1680px; 
+    margin: 50px auto; 
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+th {
+    font-weight: 600;
+    color: #1a2b4c;
+    text-align: left;
+    font-size: 18px;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 18px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
