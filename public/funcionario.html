@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/funcionario.css">
-    <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Cadastrar Funcionário</title>
 </head>
 
@@ -45,7 +43,7 @@
                             <option value="administrador">Administrador</option>
                         </select>
                     </div>
-                </div>                    
+                </div>
                 <div class="input-coluna">
                     <div class="input-group">
                         <label for="cargo">Senha</label>
@@ -57,13 +55,56 @@
                     </div>
                 </div>
             </div>
-             <!-- Botão de Cadastrar -->
-             <div class="botao-container">
+            <!-- Botão de Cadastrar -->
+            <div class="botao-container">
                 <button class="botao-cadastrar">Cadastrar</button>
             </div>
         </div>
     </div>
-
+    <!-- Texto e Botão Pesquisar alinhados -->
+    <div class="texto-pesquisar-container">
+        <p class="texto-inferior">Funcionários cadastrados</p>
+        <button class="botao-pesquisar">
+            Pesquisar
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do funcionário</th>
+                    <th>Sobrenome do funcionário</th>
+                    <th>Email funcionário</th>
+                    <th>Cargo funcionário</th>
+                    <th>Data de cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Stanford</td>
+                    <td>Pines</td>
+                    <td>Brainiac@gmail.com</td>
+                    <td>Comum</td>
+                    <td>19/10/2024</td>
+                </tr>
+                <tr>
+                    <td>Stanley</td>
+                    <td>Pines</td>
+                    <td>grunkle.funkle@gmail.com</td>
+                    <td>Comum</td>
+                    <td>19/10/2024</td>
+                </tr>
+                <tr>
+                    <td>William</td>
+                    <td>Lucipher Pines</td>
+                    <td>cipher.bill@gmail.com</td>
+                    <td>Administrador</td>
+                    <td>19/10/2024</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>
