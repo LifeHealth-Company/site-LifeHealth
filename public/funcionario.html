@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/funcionario.css">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+    <title>Cadastrar Funcionário</title>
+</head>
+
+<body>
+    <div id="menu-container"></div>
+
+    <div class="Inicial">
+        <h1 class="titulo-incial">Cadastro de Funcionários</h1>
+    </div>
+
+    <div class="container">
+        <div class="retangulo">
+            <div class="form-container">
+                <div class="input-coluna">
+                    <div class="input-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="Digite o nome">
+                    </div>
+                    <div class="input-group">
+                        <label for="sobrenome">Sobrenome</label>
+                        <input type="text" id="sobrenome" placeholder="Digite o sobrenome">
+                    </div>
+                </div>
+                <div class="input-coluna">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Digite o email">
+                    </div>
+                    <div class="input-group">
+                        <label for="cargo">Cargo</label>
+                        <select id="cargo">
+                            <option value="" disabled selected>Selecione o seu cargo</option>
+                            <option value="funcionario">Funcionário Comum</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+                </div>                    
+                <div class="input-coluna">
+                    <div class="input-group">
+                        <label for="cargo">Senha</label>
+                        <input type="text" id="senha" placeholder="Digite a senha">
+                    </div>
+                    <div class="input-group">
+                        <label for="departamento">Confirmar senha</label>
+                        <input type="text" id="confirmarSenha" placeholder="Digite a senha novamente">
+                    </div>
+                </div>
+            </div>
+             <!-- Botão de Cadastrar -->
+             <div class="botao-container">
+                <button class="botao-cadastrar">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/menubehavior.js"></script>
+<script src="./js/menu.js"></script>
