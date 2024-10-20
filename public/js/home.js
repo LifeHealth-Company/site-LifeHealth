@@ -1,4 +1,4 @@
-
+const calendar = document.querySelector("#calendarModal")
 loadPieChart()
 loadLineCountryChart()
 loadLineStateChart()
@@ -140,3 +140,8 @@ function loadLineCountryChart(){
         config
     );
 }
+    
+function openCalendar(){
+  calendar.showModal();
+}
+    
