@@ -25,14 +25,17 @@ fkEndereco INT,
 CONSTRAINT enderecoEmpresa FOREIGN KEY(fkEndereco) REFERENCES Endereco (idEndereco) 
 );
 
-CREATE TABLE Franquia (
-idFranquia INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Usuario (
+idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
+sobrenome VARCHAR(45),
+cargo VARCHAR(45),
+CONSTRAINT usuarioCheck CHECK(cargo IN ('Funcionário comum', 'Administrador')),
+dataCadastroFuncionario DATE,
 fkEmpresa INT,
-CONSTRAINT franquiaEmpresa FOREIGN KEY(fkEmpresa) REFERENCES Empresa(idEmpresa),
-fkEndereco INT,
-CONSTRAINT franquiaEndereco FOREIGN KEY(fkEndereco) REFERENCES Endereco(idEndereco)
+CONSTRAINT empresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES Empresa (idEmpresa)
 );
+
 
 CREATE TABLE Telefone (
 idTelefone INT PRIMARY KEY AUTO_INCREMENT,
@@ -41,7 +44,9 @@ ddi VARCHAR(3),
 prefixo VARCHAR(5),
 sufixo VARCHAR(4),
 fkEmpresa INT,
-CONSTRAINT telefoneEmpresa FOREIGN KEY(fkEmpresa) REFERENCES Empresa(idEmpresa)
+CONSTRAINT telefoneEmpresa FOREIGN KEY(fkEmpresa) REFERENCES Empresa(idEmpresa),
+fkUsuario INT,
+CONSTRAINT telefoneUsuario FOREIGN KEY(fkUsuario) REFERENCES Usuario (idUsuario)
 );
 
 CREATE TABLE Caso (
@@ -61,11 +66,23 @@ CONSTRAINT evolucaoCasoCheck CHECK(evolucaoCaso IN ('Cura', 'Ignorado',  'Óbito
 dataObito DATE
 );
 
+
 CREATE TABLE Contato (
 idContato INT PRIMARY KEY AUTO_INCREMENT,
 assunto VARCHAR(100),
 solicitante VARCHAR(45),
 emailSolicitante VARCHAR(45)
+);
+
+CREATE TABLE Populacao (
+idPopulacao INT PRIMARY KEY AUTO_INCREMENT,
+qtdPopulacao INT,
+estado VARCHAR(45)
+);
+
+-- AINDA TEMOS QUE AJUSTAR COM O PROFESSOR POIS OS PARAMETROS VARIAM DE POPULAÇÃO E ESTADO 
+CREATE TABLE Parametro (
+idParametro INT PRIMARY KEY AUTO_INCREMENT
 );
 
 
