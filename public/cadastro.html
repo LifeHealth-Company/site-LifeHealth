@@ -192,6 +192,64 @@
 </body>
 </html>
 <script>
+      function cadastrar() {
+         var nomeInstituicaoVar = input_nomeInstituicao.value;
+         var nomeResponsavelVar = input_nomeResponsavel.value; 
+         var tipoInstituicaoVar = input_tipoInstituicao.value;
+         var cnpjVar = input_cnpj.value;
+         var cepVar = input_cep.value;
+         var estadoVar = input_estado.value;
+         var emailVar = input_email_cadastrar.value;
+         var senhaVar = input_senha_cadastro.value;
+         var confirmacaoSenhaVar = input_confirma_senha.value;
+        
+
+        //  if (
+        //     nomeVar == "" ||
+        //     emailVar == "" ||
+        //     senhaVar == "" ||
+        //     confirmacaoSenhaVar == "" ||
+        //     empresaVar == ""
+        //  ) {
+        //     alert("Todos os campos devem ser preenchidos.");
+        //     return false;
+        //  }
+
+         fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               emailServer: emailVar,
+               nomeInstituicaoServer: nomeInstituicaoVar,
+               senhaServer: senhaVar,
+               estadoServer: estadoVar,
+               cepServer: cepVar,
+               cnpjServer: cnpjVar,
+               tipoInstituicaoServer:  tipoInstituicaoVar,
+               nomeResponsavelServer: nomeResponsavelVar
+            }),
+         })
+            .then(function (resposta) {
+               if (resposta.ok) {
+                  alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+                  setTimeout(() => {
+                     window.location = "loginCadastro.html";
+                  }, 2000);
+               } else {
+                  resposta.text().then(texto => {
+                     console.log(`Erro ao cadastrar: ${texto}`);
+                  });
+               }
+            })
+            .catch(function (erro) {
+               console.log(erro);
+            });
+
+         return false;
+      }
+
     document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const selectedOption = urlParams.get('selectedOption');
