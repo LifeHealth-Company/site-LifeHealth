@@ -116,7 +116,7 @@ select:focus {
 
 .texto-pesquisar-container {
     display: flex;
-    justify-content: space-between;
+    gap:48%;
     align-items: center;
     width: 1680px; 
     margin: 20px auto; 
@@ -348,11 +348,11 @@ tbody tr:last-child td {
     transition: width 0.5s ease;
     width: 0;
     opacity: 0;
-    display: inline-block; /* Adicione essa linha para garantir que ele esteja no mesmo nível que o botão */
+    display: inline-block;
 }
 
 #searchInput.show {
-    width: 200px; /* Ajuste o tamanho conforme necessário */
+    width: 200px; 
     opacity: 1;
 }
 

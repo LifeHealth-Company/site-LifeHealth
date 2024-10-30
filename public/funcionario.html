@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/funcionario.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="assets/icon/mini.svg">
     <title>Cadastrar Funcionário</title>
 </head>
 
@@ -120,6 +121,7 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Editar Funcionário</h2>
+        <br>
         <div class="input-coluna">
             <div class="input-group">
                 <label for="edit-nome">Nome</label>
@@ -261,20 +263,30 @@ window.onclick = function (event) {
 }
 
 var pesquisarInput = document.getElementById("pesquisarInput");
+let timeout = null; // Variável para armazenar o timeout
 
-pesquisarInput.addEventListener("input", function () {
-    let filter = pesquisarInput.value.toLowerCase();
-    let tableRows = document.querySelectorAll("table tbody tr");
+pesquisarInput.addEventListener("keyup", function () {
+    // Limpa o timeout anterior
+    clearTimeout(timeout);
 
-    tableRows.forEach(row => {
-        let nome = row.cells[0].textContent.toLowerCase();
-        let sobrenome = row.cells[1].textContent.toLowerCase();
+    // Define um novo timeout
+    timeout = setTimeout(function () {
+        let filter = pesquisarInput.value.toLowerCase();
+        let tableRows = document.querySelectorAll("table tbody tr");
 
-        if (nome === filter || sobrenome === filter) {
-            row.style.display = ""; 
-        } else {
-            row.style.display = "none"; 
-        }
-    });
+        tableRows.forEach(row => {
+            let nome = row.cells[0].textContent.toLowerCase();
+            let sobrenome = row.cells[1].textContent.toLowerCase();
+
+            // Verifica se o nome ou sobrenome contém o filtro
+            if (nome.includes(filter) || sobrenome.includes(filter)) {
+                row.style.display = ""; // Mostra a linha
+            } else {
+                row.style.display = "none"; // Esconde a linha
+            }
+        });
+    }, 300); // Ajuste o tempo conforme necessário
 });
+
+
 </script>
