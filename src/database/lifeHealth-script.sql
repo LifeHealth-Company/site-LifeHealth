@@ -31,6 +31,8 @@ nome VARCHAR(45),
 sobrenome VARCHAR(45),
 cargo VARCHAR(45),
 CONSTRAINT usuarioCheck CHECK(cargo IN ('Funcionário comum', 'Administrador')),
+email VARCHAR(45),
+senha VARCHAR(45),
 dataCadastroFuncionario DATE,
 fkEmpresa INT,
 CONSTRAINT empresaUsuario FOREIGN KEY (fkEmpresa) REFERENCES Empresa (idEmpresa)

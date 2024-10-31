@@ -58,7 +58,7 @@
             </div>
             <!-- Botão de Cadastrar -->
             <div class="botao-container">
-                <button class="botao-cadastrar">Cadastrar</button>
+                <button onclick="cadastrarFuncionario()" class="botao-cadastrar">Cadastrar</button>
             </div>
         </div>
     </div>
@@ -287,6 +287,66 @@ pesquisarInput.addEventListener("keyup", function () {
         });
     }, 300); // Ajuste o tempo conforme necessário
 });
+
+
+// funcionario cadastro
+
+function cadastrarFuncionario() {
+        let nomeVar = document.getElementById('nome').value;
+        let sobrenomeVar = document.getElementById('sobrenome').value;
+        let emailVar = document.getElementById('email').value;
+        let cargoVar = document.getElementById('cargo').value;
+        let senhaVar = document.getElementById('senha').value;
+
+        console.log(nomeVar, sobrenomeVar, emailVar, cargoVar, senhaVar);
+
+
+        // if (
+        //     empresaVar == "" ||
+        //     nomeVar == "" ||
+        //     emailVar == "" ||
+        //     celularVar == "" ||
+        //     senhaVar == "" ||
+        //     cnpjVar == ""
+        // ) {
+        //     alert("Por favor, insira seus dados.");
+        //     return;
+        // } else {
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrarFuncionario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                sobrenomeServer: sobrenomeVar,
+                emailServer: emailVar,
+                cargoServer:cargoVar,
+                senhaServer: senhaVar,
+                
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+                    setTimeout(() => {
+                        window.location = "./cadastro.html";
+                    }, "2000");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+    }
 
 
 </script>
