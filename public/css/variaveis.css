@@ -1,5 +1,6 @@
 :root{
     --primaria: #193D65;
+    --primariaLight: #193c6568;
     --sobre: linear-gradient(180deg, rgba(50,123,203,1) 2%, rgba(25,61,101,1) 86%);
     --header: #f1f1f1;
     --botton: #327BCB;

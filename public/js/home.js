@@ -140,7 +140,7 @@ function loadLineCountryChart(){
         config
     );
 }
-    
+
 function openCalendar(){
   calendar.showModal();
 }

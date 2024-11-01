@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="./css/home.css">
     <title>Document</title>
 </head>
+
 <body>
     <div id="menu-container"></div>
-    
+
     <div class="home">
         <div class="header">
             <span class="WelcomeMessage">Bem vindo Bruninho</span>
@@ -23,29 +24,43 @@
                     <span class="startEnd">Até</span>
                     <span class="date">30/12/2022</span>
                 </div>
-                
-                <img src="./assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="calendar"/>
+
+                <img src="./assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="calendar" />
 
             </div>
         </div>
-        <dialog id="calendarModal" >
+        <dialog id="calendarModal">
             <div class="dialog">
                 <div class="modal-content">
-                 <div class="calendarHeader" id="calendar">
-                    <img class="changeMounth" id="prev" src="./assets/calendarIcons/previews.svg"/>
-                    <span class="date" id="monthAndYear"></span>
-                    <img class="changeMounth" id="next" src="./assets/calendarIcons/next.svg"/>
-                </div>
+                    <div class="calendarHeader" id="calendar">
+                        <img class="changeMounth" id="prev" src="./assets/calendarIcons/previews.svg" />
+                        <span class="mounth" id="monthAndYear"></span>
+                        <img class="changeMounth" id="next" src="./assets/calendarIcons/next.svg" />
+                    </div>
                     <div class="weekendDays">
-                        <span class="day">SEG</span>                        
-                        <span class="day">TER</span>                        
-                        <span class="day">QUA</span>                        
-                        <span class="day">QUI</span>                        
-                        <span class="day">SEX</span>                        
-                        <span class="day">SAB</span>                        
-                        <span class="day">DOM</span>                        
+                        <span class="day">DOM</span>
+                        <span class="day">SEG</span>
+                        <span class="day">TER</span>
+                        <span class="day">QUA</span>
+                        <span class="day">QUI</span>
+                        <span class="day">SEX</span>
+                        <span class="day">SAB</span>
                     </div>
                     <div class="days" id="days"></div>
+
+                    <div class="timeIndicators">
+                        <div class="timeIndicatorModal">
+                            <span class="startEnd">De</span>
+                            <span class="date" id="startDate">--/--/----</span>
+                        </div>
+                        <img src="./assets/icon/longArrow.svg" class="arrow" />
+                        <div class="timeIndicatorModal">
+                            <span class="startEnd">Até</span>
+                            <span class="date" id="endDate">--/--/----</span>
+                        </div>
+        
+        
+                    </div>
                 </div>
             </div>
         </dialog>
@@ -71,7 +86,7 @@
                     </span>
                 </div>
             </div>
-            
+
             <div class="country">
                 <div class="countryHeader">
                     <span class="indicatorTitle">Brasil</span>
@@ -94,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="states">
                 <div class="state">
                     <div class="stateInfo">
@@ -102,7 +117,7 @@
                         <span class="data">2 milhões de casos</span>
                     </div>
                     <div class="growth">
-                        <img src="./assets/icon/arrowUp.svg" class="stateIcon"/>
+                        <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
                         <span class="growthPercentage stateGrowth">7%</span>
                     </div>
                 </div>
@@ -112,7 +127,7 @@
                         <span class="data">2 milhões de casos</span>
                     </div>
                     <div class="growth">
-                        <img src="./assets/icon/arrowUp.svg" class="stateIcon"/>
+                        <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
                         <span class="growthPercentage stateGrowth">7%</span>
                     </div>
                 </div>
@@ -122,7 +137,7 @@
                         <span class="data">2 milhões de casos</span>
                     </div>
                     <div class="growth">
-                        <img src="./assets/icon/arrowUp.svg" class="stateIcon"/>
+                        <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
                         <span class="growthPercentage stateGrowth">7%</span>
                     </div>
                 </div>
@@ -157,8 +172,9 @@
             </div>
         </div>
     </div>
-    
+
 </body>
+
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/home.js"></script>
