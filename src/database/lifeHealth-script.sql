@@ -5,14 +5,15 @@ CREATE TABLE Empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
 nomeinstituicao VARCHAR(45),
 nomeResponsavel VARCHAR(45),
-cnpj CHAR(14),
 tipoInstituicao VARCHAR(45),
-CONSTRAINT tipoInstituicaoCheck CHECK(tipoInstituicao IN ('Pública', 'Privada')),
-email VARCHAR(80),
-senha VARCHAR(45),
+CONSTRAINT tipoInstituicaoCheck CHECK(tipoInstituicao IN ('Pública', 'Privada', 'Rede', 'Local')),
+cnpj CHAR(14),
 cep char(8),
-estado varchar(45)
+estado varchar(45),
+email VARCHAR(80),
+senha VARCHAR(45)
 );
+
 
 CREATE TABLE Usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -75,7 +76,4 @@ idParametro INT PRIMARY KEY AUTO_INCREMENT
 );
 
 
-
-
-
-
+SELECT * FROM empresa;
