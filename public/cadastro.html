@@ -17,35 +17,7 @@
 
 <body>
     <div id="inicio">
-        <div class="header">
-            <div class="mainHeader">
-                <ul class="options">
-                    <a href="#inicio">
-                    <li class="option">Início</li>
-                    </a>
-                    <li class="divisor">/</li>
-                    <a href="#sobre">
-                    <li class="option">Sobre</li>
-                    </a>
-                    <li class="divisor">/</li>
-                    <a href="#servico">
-                    <li class="option">Serviços</li>
-                    </a>
-                    <li class="divisor">/</li>
-                    <a href="#contato">
-                    <li class="option">Contato</li>
-                    </a>
-                </ul>
-
-                <div class="headerLogo">
-                    <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
-                </div>
-                <div class="loginContainer">
-                    <button class="btnLogin">Entrar</button>
-                </div>
-            </div>
-        </div>
-        <div class="content-register">
+         <div class="content-register">
             <div class="cadastro-container">
                 <div class="cadastro-text">
                     <h1>Cadastre-se</h1>
@@ -56,16 +28,16 @@
                             <div class="inputs-step1" id="inputContainer">
                                 <label for="nomeInstituicao">Nome da instituição</label>
                                 <input type="text"
-                                       id="nomeInstituicao"
+                                       id="input_nomeInstituicao"
                                        placeholder="Insira o nome da sua Instituição" />
 
                                 <label for="nomeResponsavel">Nome do Responsável</label>
                                 <input type="text"
-                                       id="nomeResponsavel"
+                                       id="input_nomeResponsavel"
                                        placeholder="Insira o nome do Responsável" />
 
                                 <label for="tipoInstituicao">Tipo de Instituição</label>
-                                <select id="tipoInstituicao">
+                                <select id="input_tipoInstituicao">
                                     <option value="" disabled selected>
                                         Selecione uma opção
                                     </option>
@@ -78,17 +50,17 @@
                             <div id="hiddenInputs" class="inputs-step2 hidden">
                                 <label for="endereco">CNPJ</label>
                                 <input type="text"
-                                       id="endereco"
+                                       id="input_cnpj"
                                        placeholder="Insira o CNPJ da Insituição" />
 
                                 <label for="telefone">CEP</label>
                                 <input type="text"
-                                       id="telefone"
+                                       id="input_cep"
                                        placeholder="Insira o CEP da Instituição" />
 
                                 <label for="estado">Estado de Residência</label>
                                 <input type="estado"
-                                       id="estado"
+                                       id="input_estado"
                                        placeholder="Insira seu estado"/>
                             </div>
 
@@ -97,17 +69,17 @@
 
                                 <label for="email">Email de Contato</label>
                                 <input type="email"
-                                       id="email"
+                                       id="input_email_cadastrar"
                                        placeholder="Insira seu email" />
 
                                 <label for="campo1">Senha</label>
                                 <input type="text"
-                                       id="campo1"
+                                       id="input_senha_cadastro"
                                        placeholder="Insira sua senha" />
 
                                 <label for="campo2">Confirmar senha</label>
                                 <input type="text"
-                                       id="campo2"
+                                       id="input_confirma_senha"
                                        placeholder="Insira sua senha novamente" />
                             </div>
                         </div>
@@ -235,7 +207,7 @@
                if (resposta.ok) {
                   alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
                   setTimeout(() => {
-                     window.location = "loginCadastro.html";
+                     window.location = "login.html";
                   }, 2000);
                } else {
                   resposta.text().then(texto => {

@@ -1,29 +1,19 @@
 CREATE DATABASE lifeHealth;
 USE lifeHealth;
 
-
-CREATE TABLE Endereco(
-idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-cep CHAR(8),
-logradouro VARCHAR(100),
-numero VARCHAR(10),
-uf CHAR(2),
-nome VARCHAR(200)
-);
-
 CREATE TABLE Empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
-instituicao VARCHAR(45),
-cnpj CHAR(14),
+nomeinstituicao VARCHAR(45),
+nomeResponsavel VARCHAR(45),
 tipoInstituicao VARCHAR(45),
-CONSTRAINT tipoInstituicaoCheck CHECK(tipoInstituicao IN ('Pública', 'Privada')),
+CONSTRAINT tipoInstituicaoCheck CHECK(tipoInstituicao IN ('Pública', 'Privada', 'Rede', 'Local')),
+cnpj CHAR(14),
+cep char(8),
+estado varchar(45),
 email VARCHAR(80),
-senha VARCHAR(45),
-qtdPolos INT,
-fkEndereco INT,
-CONSTRAINT enderecoEmpresa FOREIGN KEY(fkEndereco) REFERENCES Endereco (idEndereco) 
+senha VARCHAR(45)
 );
+
 
 CREATE TABLE Usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -88,4 +78,4 @@ idParametro INT PRIMARY KEY AUTO_INCREMENT
 );
 
 
-
+SELECT * FROM empresa;
