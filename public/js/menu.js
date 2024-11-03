@@ -15,3 +15,11 @@ function loadMenu() {
 
 document.addEventListener('DOMContentLoaded', loadMenu);
 
+let trilho = document.getElementById('trilho');
+let body = document.querySelector('body');
+trilho.addEventListener('click', () => {
+  trilho.classList.toggle('dark')
+  body.classList.toggle('dark')
+  sidebar.classList.toggle('dark')
+
+})

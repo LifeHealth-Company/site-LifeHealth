@@ -10,7 +10,9 @@ body{
     height: 100vh;
     width: 100%;
     background-color: var(--default-bgColor);
-    font-family: 'Exo 2'
+    font-family: 'Exo 2';
+    margin-left: 6vw;
+    overflow: hidden;
 }
 canvas{
     width: 100%;
@@ -20,15 +22,17 @@ canvas{
 .mainClass{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .header{
     display:flex;
     flex-direction: row;
     justify-content:space-between;
-    height: 2%;
+    align-items: center;
+    height: 4%;
     width: 100%;
-
+    margin-top: 4vh;
 }
 #selectEstados{
     color: var(--borderColor);
@@ -70,7 +74,7 @@ canvas{
 .rankingPrincipaisAfetados h1{
     display: flex;
     justify-content: start;
-    width: 50%;
+    width: 90%;
     height: 0;
     margin-left: 2vw;
     color: var(--primaria);
@@ -79,20 +83,22 @@ canvas{
 
 .rankingPrincipaisAfetados{
     background-color: var(--default-bgColor);
-    width: 80%;
-    height: 12%;
-    margin-top: 5%;
+    width: 90%;
+    height: 10vh;
+    margin-top: 3%;
     color: var(--primaria);
     display: flex;
     flex-direction:column;
     border-radius: 25px;
     box-shadow: 1px 5px 3px var(--borderColor);
+    
 }
 
 .classesDosAfetados{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    width: 100%;
+    margin-left: 2vw;
 }
 
 .rankingUnitario{
@@ -100,8 +106,9 @@ canvas{
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
-    margin-right: 50px;
+    font-size: 20px;
+    margin-top: 4vh;
+    width: 25%;
 }
 
 .rankingUnitario h2{
@@ -113,8 +120,9 @@ canvas{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
+    width: 90%;
     height: 10%;
+    margin-top: 2vh;
 }
 
 .boxGraphic{
@@ -135,8 +143,7 @@ background-color: var(--boxDash);
 }
 
 #gauge{
-    padding: 30px;
-    width: 50vw; /* Ajuste conforme necessário */
+    width: 50vw;
     height: 200px;
 }
 
@@ -153,8 +160,9 @@ background-color: var(--boxDash);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
+    width: 90%;
     height: 10%;
+    margin-top: 2vh;
 }
 
 .boxGraficosFooter{

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/funcionario.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="assets/icon/mini.svg">
     <title>Cadastrar Funcionário</title>
 </head>
 
@@ -64,11 +65,12 @@
     <!-- Texto e Botão Pesquisar alinhados -->
     <div class="texto-pesquisar-container">
         <p class="texto-inferior">Funcionários cadastrados</p>
-        <button class="botao-pesquisar">
-            Buscar
-            <i class="fas fa-search"></i>
-        </button>
+        <div class="pesquisa-container">
+            <input type="text" id="pesquisarInput" placeholder="Pesquise um funcionário...">
+        </div>
+        
     </div>
+    
     <div class="table-container">
         <table>
             <thead>
@@ -78,6 +80,8 @@
                     <th>Email funcionário</th>
                     <th>Cargo funcionário</th>
                     <th>Data de cadastro</th>
+                    <th>Editar usuário</th>
+                    <th>Excluir usuário</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,6 +91,8 @@
                     <td>Brainiac@gmail.com</td>
                     <td>Comum</td>
                     <td>19/10/2024</td>
+                    <td> <img class="editar"   src="./assets/icon/edit.svg" alt=""> </td>
+                    <td> <img class="deletar"   src="./assets/icon/Delete.svg" alt=""> </td>
                 </tr>
                 <tr>
                     <td>Stanley</td>
@@ -94,17 +100,71 @@
                     <td>grunkle.funkle@gmail.com</td>
                     <td>Comum</td>
                     <td>19/10/2024</td>
-                </tr>
+               <div><td> <img  class="editar" src="./assets/icon/edit.svg" alt=""> </td></div>  
+               <td> <img  class="deletar"       src="./assets/icon/Delete.svg" alt=""> </td>
+            </tr>
                 <tr>
                     <td>William</td>
                     <td>Lucipher Pines</td>
                     <td>cipher.bill@gmail.com</td>
                     <td>Administrador</td>
                     <td>19/10/2024</td>
+                    <td> <img class="editar" src="./assets/icon/edit.svg" alt=""> </td>
+                    <td> <img  class="deletar"    src="./assets/icon/Delete.svg" alt=""> </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <!-- Modal editar -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Funcionário</h2>
+        <br>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-nome">Nome</label>
+                <input type="text" id="edit-nome" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label for="edit-sobrenome">Sobrenome</label>
+                <input type="text" id="edit-sobrenome" placeholder="Digite o sobrenome">
+            </div>
+        </div>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" placeholder="Digite o email">
+            </div>
+            <div class="input-group">
+                <label for="edit-cargo">Cargo</label>
+                <select id="edit-cargo">
+                    <option value="funcionario">Funcionário Comum</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <div class="botao-container">
+            <button id="saveChanges" class="botao-cadastrar">Salvar Alterações</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmação de exclusão -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content-delete">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir este funcionário?</p>
+        <div class="modal-buttons">
+            <button  id="cancelDelete" class="cancel-btn">Cancelar</button>
+            <button  id="confirmDelete" class="delete-btn">Excluir</button>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 
 </html>
@@ -112,3 +172,121 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/menubehavior.js"></script>
 <script src="./js/menu.js"></script>
+
+<script>
+//edit modal
+var modal = document.getElementById("editModal");
+
+var span = document.getElementsByClassName("close")[0];
+
+var editButtons = document.querySelectorAll(".editar");
+
+editButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        var row = this.closest("tr");
+        var nome = row.cells[0].textContent;
+        var sobrenome = row.cells[1].textContent;
+        var email = row.cells[2].textContent;
+        var cargo = row.cells[3].textContent;
+
+        document.getElementById("edit-nome").value = nome;
+        document.getElementById("edit-sobrenome").value = sobrenome;
+        document.getElementById("edit-email").value = email;
+        document.getElementById("edit-cargo").value = cargo === "Administrador" ? "administrador" : "funcionario";
+
+        modal.classList.add("show");
+    });
+});
+
+span.onclick = function () {
+    modal.classList.remove("show");
+}
+
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.classList.remove("show");
+    }
+}
+
+document.getElementById("saveChanges").addEventListener("click", function () {
+    var nome = document.getElementById("edit-nome").value;
+    var sobrenome = document.getElementById("edit-sobrenome").value;
+    var email = document.getElementById("edit-email").value;
+    var cargo = document.getElementById("edit-cargo").value;
+
+    modal.classList.remove("show");
+});
+
+//delete modal
+
+var deleteModal = document.getElementById("deleteModal");
+
+var deleteButtons = document.querySelectorAll(".deletar");
+
+var confirmDelete = document.getElementById("confirmDelete");
+
+var cancelDelete = document.getElementById("cancelDelete");
+
+var rowToDelete = null;
+
+deleteButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        rowToDelete = this.closest("tr");
+        
+        deleteModal.classList.add("show");
+    });
+});
+
+confirmDelete.addEventListener("click", function () {
+    if (rowToDelete) {
+        rowToDelete.remove();  
+        rowToDelete = null;
+    }
+    deleteModal.classList.remove("show");  
+});
+
+cancelDelete.addEventListener("click", function () {
+    deleteModal.classList.remove("show");  
+    rowToDelete = null; 
+});
+
+var spanDelete = deleteModal.getElementsByClassName("close")[0];
+spanDelete.onclick = function () {
+    deleteModal.classList.remove("show");
+}
+
+window.onclick = function (event) {
+    if (event.target == deleteModal) {
+        deleteModal.classList.remove("show");
+    }
+}
+
+var pesquisarInput = document.getElementById("pesquisarInput");
+let timeout = null; // Variável para armazenar o timeout
+
+pesquisarInput.addEventListener("keyup", function () {
+    // Limpa o timeout anterior
+    clearTimeout(timeout);
+
+    // Define um novo timeout
+    timeout = setTimeout(function () {
+        let filter = pesquisarInput.value.toLowerCase();
+        let tableRows = document.querySelectorAll("table tbody tr");
+
+        tableRows.forEach(row => {
+            let nome = row.cells[0].textContent.toLowerCase();
+            let sobrenome = row.cells[1].textContent.toLowerCase();
+
+            // Verifica se o nome ou sobrenome contém o filtro
+            if (nome.includes(filter) || sobrenome.includes(filter)) {
+                row.style.display = ""; // Mostra a linha
+            } else {
+                row.style.display = "none"; // Esconde a linha
+            }
+        });
+    }, 300); // Ajuste o tempo conforme necessário
+});
+
+
+</script>
