@@ -156,7 +156,7 @@ select:focus {
 
 .table-container {
     width: 1680px; 
-    margin: 50px auto; 
+    margin: 30px auto; 
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -363,4 +363,28 @@ tbody tr:last-child td {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination button {
+    background-color:#193D65;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.pagination button:hover {
+    background-color: #3c70ac;
+}
+
+.pagination span {
+    margin: 0 10px;
 }

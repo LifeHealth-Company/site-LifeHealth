@@ -220,49 +220,53 @@
 
 
     function entrar() {
-         var emailVar = input_email_login.value;
-         var senhaVar = input_senha_login.value;
+    var emailVar = input_email_login.value;
+    var senhaVar = input_senha_login.value;
 
-         console.log("FORM LOGIN: ", emailVar);
-         console.log("FORM SENHA: ", senhaVar);
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
 
-         fetch(`/usuarios/autenticar`, {
-            method: "POST",
-            headers: {
-               "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-               emailServer: emailVar,
-               senhaServer: senhaVar
-            })
-         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!");
+    fetch(`/usuarios/autenticar`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: emailVar,
+            senhaServer: senhaVar
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!");
 
-            if (resposta.ok) {
-               console.log(resposta);
+        if (resposta.ok) {
+            console.log(resposta);
 
-               resposta.json().then(json => {
-                  console.log(json);
-                  console.log(JSON.stringify(json));
-                  sessionStorage.EMAIL_USUARIO = json.email;
-                  sessionStorage.NOME_USUARIO = json.nome;
-                  sessionStorage.ID_USUARIO = json.id;
+            resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
 
-                  setTimeout(function () {
-                     window.location = "home.html";
-                  }, 1000); 
-               });
-            } else {
-               console.log("Houve um erro ao tentar realizar o login!");
+                // Atribuindo o ID da empresa aqui
+                sessionStorage.ID_EMPRESA = json.id; // Mova essa linha aqui
 
-               resposta.text().then(texto => {
-                  console.error(texto);
-               });
-            }
-         }).catch(function (erro) {
-            console.log(erro);
-         });
+                console.log("ID_EMPRESA armazenada:", sessionStorage.ID_EMPRESA);
+                
+                // Continue com o redirecionamento após armazenar a informação
+                setTimeout(function () {
+                    window.location = "home.html";
+                }, 1000); 
+            });
+        } else {
+            console.log("Houve um erro ao tentar realizar o login!");
 
-         return false;
-      }
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+
+    return false;
+}
+
 </script>

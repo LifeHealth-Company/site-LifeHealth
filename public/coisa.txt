@@ -1,0 +1,167 @@
+//edit modal
+var modal = document.getElementById("editModal");
+
+var span = document.getElementsByClassName("close")[0];
+
+var editButtons = document.querySelectorAll(".editar");
+
+editButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        var row = this.closest("tr");
+        var nome = row.cells[0].textContent;
+        var sobrenome = row.cells[1].textContent;
+        var email = row.cells[2].textContent;
+        var cargo = row.cells[3].textContent;
+
+        document.getElementById("edit-nome").value = nome;
+        document.getElementById("edit-sobrenome").value = sobrenome;
+        document.getElementById("edit-email").value = email;
+        document.getElementById("edit-cargo").value = cargo === "Administrador" ? "administrador" : "funcionario";
+
+        modal.classList.add("show");
+    });
+});
+
+span.onclick = function () {
+    modal.classList.remove("show");
+}
+
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.classList.remove("show");
+    }
+}
+
+document.getElementById("saveChanges").addEventListener("click", function () {
+    var nome = document.getElementById("edit-nome").value;
+    var sobrenome = document.getElementById("edit-sobrenome").value;
+    var email = document.getElementById("edit-email").value;
+    var cargo = document.getElementById("edit-cargo").value;
+
+    modal.classList.remove("show");
+});
+
+//delete modal
+
+var deleteModal = document.getElementById("deleteModal");
+
+var deleteButtons = document.querySelectorAll(".deletar");
+
+var confirmDelete = document.getElementById("confirmDelete");
+
+var cancelDelete = document.getElementById("cancelDelete");
+
+var rowToDelete = null;
+
+deleteButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        rowToDelete = this.closest("tr");
+        
+        deleteModal.classList.add("show");
+    });
+});
+
+confirmDelete.addEventListener("click", function () {
+    if (rowToDelete) {
+        rowToDelete.remove();  
+        rowToDelete = null;
+    }
+    deleteModal.classList.remove("show");  
+});
+
+cancelDelete.addEventListener("click", function () {
+    deleteModal.classList.remove("show");  
+    rowToDelete = null; 
+});
+
+var spanDelete = deleteModal.getElementsByClassName("close")[0];
+spanDelete.onclick = function () {
+    deleteModal.classList.remove("show");
+}
+
+window.onclick = function (event) {
+    if (event.target == deleteModal) {
+        deleteModal.classList.remove("show");
+    }
+}
+
+var pesquisarInput = document.getElementById("pesquisarInput");
+let timeout = null; // Variável para armazenar o timeout
+
+pesquisarInput.addEventListener("keyup", function () {
+    // Limpa o timeout anterior
+    clearTimeout(timeout);
+
+    // Define um novo timeout
+    timeout = setTimeout(function () {
+        let filter = pesquisarInput.value.toLowerCase();
+        let tableRows = document.querySelectorAll("table tbody tr");
+
+        tableRows.forEach(row => {
+            let nome = row.cells[0].textContent.toLowerCase();
+            let sobrenome = row.cells[1].textContent.toLowerCase();
+
+            // Verifica se o nome ou sobrenome contém o filtro
+            if (nome.includes(filter) || sobrenome.includes(filter)) {
+                row.style.display = ""; // Mostra a linha
+            } else {
+                row.style.display = "none"; // Esconde a linha
+            }
+        });
+    }, 300); // Ajuste o tempo conforme necessário
+});
+
+
+
+
+
+
+
+    <!-- Modal editar -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Funcionário</h2>
+        <br>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-nome">Nome</label>
+                <input type="text" id="edit-nome" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label for="edit-sobrenome">Sobrenome</label>
+                <input type="text" id="edit-sobrenome" placeholder="Digite o sobrenome">
+            </div>
+        </div>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" placeholder="Digite o email">
+            </div>
+            <div class="input-group">
+                <label for="edit-cargo">Cargo</label>
+                <select id="edit-cargo">
+                    <option value="Funcionário comum">Funcionário Comum</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <div class="botao-container">
+            <button id="saveChanges" class="botao-cadastrar">Salvar Alterações</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmação de exclusão -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content-delete">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir este funcionário?</p>
+        <div class="modal-buttons">
+            <button  id="cancelDelete" class="cancel-btn">Cancelar</button>
+            <button  id="confirmDelete" class="delete-btn">Excluir</button>
+        </div>
+    </div>
+</div>
+

@@ -25,6 +25,10 @@ router.get('/nomeUsuario', function(req, res) {
     usuarioController.nomeUsuario(req, res);
 });
 
+router.get('/buscarFuncionarios', function(req, res) {
+    usuarioController.buscarFuncionarios(req, res);
+});
+
 router.get('/obterArmazens', function (req, res) {
     usuarioController.obterArmazens(req, res); 
 });

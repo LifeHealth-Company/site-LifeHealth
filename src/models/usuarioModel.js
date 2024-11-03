@@ -41,8 +41,23 @@ function cadastrarFuncionario(nome, sobrenome, cargo, email, senha, fkEmpresa) {
 }
 
 
+function buscarFuncionarios(fkEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Buscando funcionários para a empresa com ID: ", fkEmpresa);
+    
+    var instrucaoSql = `
+      SELECT idUsuario, nome, sobrenome, cargo, email, 
+             DATE_FORMAT(dataCadastroFuncionario, '%d/%m/%Y') AS dataCadastroFuncionario
+      FROM Usuario 
+      WHERE fkEmpresa = ${fkEmpresa};
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    cadastrarFuncionario
+    cadastrarFuncionario,
+    buscarFuncionarios
 };
