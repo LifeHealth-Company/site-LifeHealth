@@ -31,5 +31,5 @@ function cadastrar(nomeInstituicao, nomeResponsavel, email, senha, estado, cnpj,
 module.exports = {
     autenticar,
     cadastrar,
-    verificarCadastro
+
 };

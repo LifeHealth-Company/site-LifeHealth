@@ -59,10 +59,6 @@ body{
 .sidebar i{
   font-size: 30px;
 }
-.sidebar.active ~ .main-content{
-  left: 250px;
-  width: calc(100% - 250px);
-}
 
 .sidebar.active{
   width: 250px;
@@ -208,7 +204,8 @@ a img{
     font-size: 1rem;
     background-color: transparent;
     outline: none;
-    color: #ffffff;
+    color: var(--letras); 
+    font-weight: 500;
 }
 
 .chat-input input::placeholder {
@@ -228,8 +225,6 @@ a img{
 
 
 .main-content {
-    flex: 1;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
