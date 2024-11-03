@@ -245,12 +245,10 @@
                 console.log(json);
                 console.log(JSON.stringify(json));
 
-                // Atribuindo o ID da empresa aqui
-                sessionStorage.ID_EMPRESA = json.id; // Mova essa linha aqui
+                sessionStorage.ID_EMPRESA = json.id; 
 
                 console.log("ID_EMPRESA armazenada:", sessionStorage.ID_EMPRESA);
                 
-                // Continue com o redirecionamento após armazenar a informação
                 setTimeout(function () {
                     window.location = "home.html";
                 }, 1000); 

@@ -122,6 +122,53 @@
         <button id="nextPage" onclick="mudarPagina(1)">❯</button>
     </div>
 
+     <!-- Modal editar -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Funcionário</h2>
+        <br>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-nome">Nome</label>
+                <input type="text" id="edit-nome" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label for="edit-sobrenome">Sobrenome</label>
+                <input type="text" id="edit-sobrenome" placeholder="Digite o sobrenome">
+            </div>
+        </div>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" placeholder="Digite o email">
+            </div>
+            <div class="input-group">
+                <label for="edit-cargo">Cargo</label>
+                <select id="edit-cargo">
+                    <option value="Funcionário comum">Funcionário Comum</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <div class="botao-container">
+            <button id="saveChanges" class="botao-cadastrar">Salvar Alterações</button>
+        </div>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content-delete">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir este funcionário?</p>
+        <div class="modal-buttons">
+            <button  id="cancelDelete" class="cancel-btn">Cancelar</button>
+            <button  id="confirmDelete" class="delete-btn">Excluir</button>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 </html>
@@ -131,7 +178,9 @@
 <script src="./js/menu.js"></script>
 
 <script>
-    
+
+
+
 function cadastrarFuncionario() {
     let nomeVar = document.getElementById('nome').value;
     let sobrenomeVar = document.getElementById('sobrenome').value;
@@ -179,6 +228,25 @@ function cadastrarFuncionario() {
         console.log(`#ERRO: ${resposta}`);
     });
 }
+
+function abrirModalEditar(id) {
+    const funcionario = funcionarios.find(func => func.idUsuario === id);
+
+    if (funcionario) {
+        console.log("ID do funcionário selecionado para edição:", funcionario.idUsuario); 
+        document.getElementById('edit-nome').value = funcionario.nome;
+        document.getElementById('edit-sobrenome').value = funcionario.sobrenome;
+        document.getElementById('edit-email').value = funcionario.email;
+        document.getElementById('edit-cargo').value = funcionario.cargo;
+
+        document.getElementById('saveChanges').setAttribute('data-id', funcionario.idUsuario);
+
+        document.getElementById('editModal').classList.add('show');
+    } else {
+        console.error("Funcionário não encontrado para o ID:", id);
+    }
+}
+
 
 let funcionarios = []; 
 let paginaAtual = 1;
@@ -231,7 +299,7 @@ function renderizarTabela() {
             <td>${funcionario.email}</td>
             <td>${funcionario.cargo}</td>
             <td>${funcionario.dataCadastroFuncionario}</td>
-            <td><img class="editar" src="./assets/icon/edit.svg" alt=""></td>
+            <td><img class="editar" src="./assets/icon/edit.svg" alt="" onclick="abrirModalEditar(${funcionario.idUsuario})"></td>
             <td><img class="deletar" src="./assets/icon/Delete.svg" alt=""></td>
         `;
         tbody.appendChild(tr);
@@ -250,5 +318,61 @@ function mudarPagina(direcao) {
 }
 
 document.addEventListener("DOMContentLoaded", buscarFuncionarios);
+
+document.getElementById('saveChanges').addEventListener('click', editarFuncionario);
+
+function editarFuncionario() {
+    const id = document.getElementById('saveChanges').getAttribute('data-id');
+    const nome = document.getElementById('edit-nome').value || '';
+    const sobrenome = document.getElementById('edit-sobrenome').value || '';
+    const email = document.getElementById('edit-email').value || '';
+    const cargo = document.getElementById('edit-cargo').value || '';
+
+    console.log("Antes de enviar:", { id, nome, sobrenome, email, cargo });
+
+    if (!id || !nome || !sobrenome || !email || !cargo) {
+        console.error("Erro: Um ou mais campos estão vazios ou inválidos.");
+        return;
+    }
+
+    fetch(`/usuarios/editarFuncionario/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeServer: nome,
+            sobrenomeServer: sobrenome,
+            emailServer: email,
+            cargoServer: cargo
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao editar funcionário');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Funcionário editado com sucesso:', data);
+        buscarFuncionarios();
+        document.getElementById('editModal').classList.remove('show');
+    })
+    .catch(error => {
+        console.error(`#ERRO: ${error}`);
+    });
+}
+
+document.querySelector('.close').onclick = function() {
+    document.getElementById('editModal').classList.remove('show');
+};
+
+window.onclick = function(event) {
+    const modal = document.getElementById('editModal');
+    if (event.target === modal) {
+        modal.classList.remove('show');
+    }
+};
+
 
 </script>

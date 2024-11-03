@@ -20,17 +20,14 @@ function autenticar(req, res) {
             console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
             if (resultadoAutenticar.length === 1) {
-                // Login bem-sucedido
                 res.json({
                     id: resultadoAutenticar[0].id,
                     email: resultadoAutenticar[0].email,
                     nome: resultadoAutenticar[0].nome,
                 });
             } else if (resultadoAutenticar.length === 0) {
-                // Nenhum usuário encontrado
                 res.status(403).send("Email e/ou senha inválido(s)");
             } else {
-                // Mais de um usuário com o mesmo login e senha
                 res.status(403).send("Mais de um usuário com o mesmo login e senha!");
             }
         })
@@ -76,12 +73,10 @@ function cadastrar(req, res) {
     const email = req.body.emailServer;
     const cnpj = req.body.cnpjServer;
 
-    // Verifica se os campos foram enviados
     if (!email || !cnpj) {
         return res.status(400).send("E-mail e/ou CNPJ não foram fornecidos.");
     }
 
-    // Chama o modelo para verificar se o cadastro já existe
     usuarioModel.verificarCadastro(email, cnpj)
         .then(resultado => {
             if (resultado.existe) {
@@ -102,9 +97,8 @@ function cadastrarFuncionario(req, res) {
   var cargo = req.body.cargoServer;
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
-  var fkEmpresa = req.body.fkEmpresaServer; // Obtém o fkEmpresa do request
+  var fkEmpresa = req.body.fkEmpresaServer; 
 
-  // Faça as validações dos valores
   if (nome == undefined) {
       res.status(400).send("Seu nome está undefined!");
   } else if (email == undefined) {
@@ -148,10 +142,37 @@ function buscarFuncionarios(req, res) {
       });
 }
 
+function editarFuncionario(req, res) {
+  const idFuncionario = req.params.id;
+  const nome = req.body.nomeServer;
+  const sobrenome = req.body.sobrenomeServer;
+  const cargo = req.body.cargoServer;
+  const email = req.body.emailServer;
+
+  if (!idFuncionario) {
+      return res.status(400).send("ID do funcionário não fornecido!");
+  }
+
+  usuarioModel.editarFuncionario(idFuncionario, { nome, sobrenome, email, cargo })
+      .then(function (resultado) {
+          if (resultado.affectedRows === 0) {
+              return res.status(404).send("Funcionário não encontrado para o ID fornecido.");
+          }
+          res.status(200).send("Funcionário atualizado com sucesso!");
+      })
+      .catch(function (erro) {
+          console.log(erro);
+          console.log("\nHouve um erro ao editar o funcionário! Erro: ", erro.sqlMessage);
+          res.status(500).json(erro.sqlMessage);
+      });
+}
+
+
 module.exports = {
     autenticar,
     cadastrar, 
     cadastrarFuncionario,
     verificarCadastro,
-    buscarFuncionarios
+    buscarFuncionarios,
+    editarFuncionario
 }

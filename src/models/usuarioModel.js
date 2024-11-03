@@ -30,9 +30,7 @@ function cadastrar(nomeInstituicao, nomeResponsavel, email, senha, estado, cnpj,
 
 function cadastrarFuncionario(nome, sobrenome, cargo, email, senha, fkEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, fkEmpresa);
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
+  
     var instrucaoSql = `
         INSERT INTO Usuario (nome, sobrenome,cargo, email, senha, dataCadastroFuncionario, fkEmpresa) VALUES ('${nome}', '${sobrenome}', '${cargo}', '${email}', '${senha}', NOW(), '${fkEmpresa}');
     `;
@@ -55,9 +53,25 @@ function buscarFuncionarios(fkEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function editarFuncionario(idFuncionario, nome, sobrenome, email, cargo) {
+    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Editando funcionário com ID: ", idFuncionario);
+    
+    var instrucaoSql = `
+      UPDATE Usuario 
+      SET nome = '${nome}', sobrenome = '${sobrenome}', email = '${email}', cargo = '${cargo}' 
+      WHERE idUsuario = ${idFuncionario};
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     autenticar,
     cadastrar,
     cadastrarFuncionario,
-    buscarFuncionarios
+    buscarFuncionarios,
+    editarFuncionario
 };
