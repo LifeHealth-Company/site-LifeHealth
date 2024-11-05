@@ -3,124 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Epidemia</title>
+    <title>Dashboard</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style copy.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Bem vindo, Travis</h1>
-            <div class="date-range">
-                <p>De <span>10/07/2022</span> até <span>31/07/2022</span></p>
-                <div class="calendar-icon">
-                    <!-- Ícone do calendário -->
-                </div>
-            </div>
-        </header>
 
-        <div class="content">
-            <!-- Casos por idade -->
-            <div class="card-casosIdade">
-                <h2>Casos por idade</h2>
-                <canvas id="ageChart"></canvas>
-            </div>
-
-            <!-- Maiores afetados -->
-            <div class="card">
-                <h2>Maiores afetados</h2>
-                <ul>
-                    <li>Gestantes - 1.600 milhões</li>
-                    <li>Idosos - 1.200 milhões</li>
-                    <li>Crianças - 900 mil</li>
-                    <li>Adultos até 60 anos - 400 mil</li>
-                </ul>
-            </div>
-
-            <!-- Risco de Epidemia por Calor nos Estados -->
-            <div class="card">
-                <h2>Risco de Epidemia por Calor nos Estados</h2>
-                <ol>
-                    <li>Amazonas</li>
-                    <li>Piauí</li>
-                    <li>Roraima</li>
-                    <li>Tocantis</li>
-                    <li>Mato Grosso do Sul</li>
-                </ol>
-            </div>
-
-            <!-- Número de casos -->
-            <div class="card full-width">
-                <h2>Número de casos</h2>
-                <p class="country">Brasil</p>
-                <canvas id="casesChart"></canvas>
-            </div>
-
-            <!-- Principais sintomas -->
-            <div class="card full-width">
-                <h2>Principais sintomas dos afetados</h2>
-                <ul>
-                    <li>Dor de cabeça</li>
-                    <li>Dores no corpo</li>
-                    <li>Febre alta</li>
-                    <li>Vômitos constantes</li>
-                    <li>Dengue hemorrágica</li>
-                    <li>Síndrome do choque</li>
-                </ul>
-            </div>
+    <div class="sidebar">
+        <div class="top">
+          <div class="logo">
+            <img src="../menu/headerLogo.svg" alt="">
+          </div>
+          <!-- <i class="bx bx-menu" id="btn"></i> -->
+          <img src="../menu/eva_menu-arrow-fill.svg" lt="" id="btn">
         </div>
-    </div>
+        <ul>
+          <div>
+            <li>
+              <a href="../home.html">
+                <i class="bx bx-home-alt icon" style="margin-left: 10px;"></i>
+                <span class="nav-item" style="margin-left: 16px;">Home</span>
+              </a>
+              <span class="tooltip">Home</span>
+            </li>
+    
+            <li>
+              <a href="../dashBoard.html">
+                <!-- <i class="bx bxs-grid-alt icon"></i> -->
+                <img src="../menu/radix-icons_dashboard.svg" alt="">
+                <span class="nav-item">Dashboard</span>
+              </a>
+              <span class="tooltip">Dashboard</span>
+            </li>
+    
+            <li>
+              <a href="">
+                <img src="../menu/mingcute_ai-line.svg" alt="">
+                <span class="nav-item">Health AI</span>
+              </a>
+              <span class="tooltip " style="width: 190%;">Health AI</span>
+            </li>
+    
+            <li>
+              <a href="../funcionario.html">
+                <img src="../menu/Vector.svg" alt="">
+                <span class="nav-item">Usuários</span>
+              </a>
+              <span class="tooltip " style="width: 190%;">Usuários</span>
+            </li>
+          </div>
+    
+          <div>
+            <li>
+              <a href="#">
+                <img src="../menu/material-symbols_help-outline.svg" alt="">
+                <span class="nav-item">Ajuda</span>
+              </a>
+              <span class="tooltip">Ajuda</span>
+            </li>
+            <li>
+              <a href="#">
+                <!-- <i class="bx bxs-cog "></i> -->
+                <img src="../menu/carbon_settings.svg" alt="">
+                <span class="nav-item">Configurações</span>
+              </a>
+              <span class="tooltip">Configurações</span>
+            </li>
+          </div>
+        </ul>
+        <div class="trilho" id="trilho">
+          <div class="indicador"></div>
+        </div>
+      </div>
 
-    <!-- Script para os gráficos -->
-    <script>
-        // Gráfico de Casos por Idade
-        const ageCtx = document.getElementById('ageChart').getContext('2d');
-        const ageChart = new Chart(ageCtx, {
-            type: 'bar',
-            data: {
-                labels: ['1-12 anos', '12-35 anos', '35-60 anos', '60+ anos'],
-                datasets: [{
-                    label: 'Número de Casos (milhões)',
-                    data: [6.5, 4.5, 2.5, 5.5],
-                    backgroundColor: ['#9b59b6', '#9b59b6', '#9b59b6', '#2c3e50'],
-                    borderColor: ['#8e44ad', '#8e44ad', '#8e44ad', '#34495e'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+<div class="container">
+    <header class="header">
+        <h1>Bem vindo, Travis</h1>
+        <div class="date-range">
+            <span>De</span>
+            <span>10/07/2022</span>
+            <span>Até</span>
+            <span>31/07/2022</span>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="card casos-por-idade">
+            <h2>Casos por idade</h2>
+            <canvas id="idadeChart"></canvas>
+        </div>
+        
+        <div class="card maiores-afetados">
+            <h2>Maiores afetados</h2>
+            <ul>
+                <li>1º Gestantes - 1.600 milhões</li>
+                <li>2º Idosos - 1.200 milhões</li>
+                <li>3º Crianças - 900 mil</li>
+                <li>4º Adultos até 60 anos - 400 mil</li>
+            </ul>
+        </div>
+        
+        <div class="card risco-epidemia">
+            <h2>Risco de Epidemia por Calor nos Estados</h2>
+            <ol>
+                <li>Amazonas</li>
+                <li>Piauí</li>
+                <li>Roraima</li>
+                <li>Tocantins</li>
+                <li>Mato Grosso do Sul</li>
+            </ol>
+        </div>
+        
+        <div class="card numero-de-casos">
+            <h2>Número de casos</h2>
+            <canvas id="casosChart"></canvas>
+        </div>
+        
+        <div class="card sintomas-afetados">
+            <h2>Principais sintomas dos afetados</h2>
+            <ul>
+                <li>Dor de cabeça</li>
+                <li>Dores no corpo</li>
+                <li>Febre Alta</li>
+                <li>Vômitos constantes</li>
+                <li>Dengue hemorrágica</li>
+                <li>Síndrome do choque</li>
+            </ul>
+        </div>
+    </main>
+</div>
 
-        // Gráfico de Número de Casos
-        const casesCtx = document.getElementById('casesChart').getContext('2d');
-        const casesChart = new Chart(casesCtx, {
-            type: 'line',
-            data: {
-                labels: ['2019', '2020', '2021', '2022'],
-                datasets: [{
-                    label: 'Número de Casos (milhões)',
-                    data: [2.5, 3.8, 4.2, 2.9],
-                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                    borderColor: '#2980b9',
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3
-                }]
+<script>
+    // Gráfico de Barras (Casos por Idade)
+    const idadeCtx = document.getElementById('idadeChart').getContext('2d');
+    new Chart(idadeCtx, {
+        type: 'bar',
+        data: {
+            labels: ['1-12 anos', '12-35 anos', '35-60 anos', '60+ anos'],
+            datasets: [{
+                label: 'Casos',
+                data: [7000000, 5000000, 3000000, 6000000],
+                backgroundColor: ['#7b4fdf', '#7b4fdf', '#4a63df', '#4a63df']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+            scales: {
+                y: { beginAtZero: true }
             }
-        });
-    </script>
+        }
+    });
+
+    // Gráfico de Linha (Número de Casos)
+    const casosCtx = document.getElementById('casosChart').getContext('2d');
+    new Chart(casosCtx, {
+        type: 'line',
+        data: {
+            labels: ['2019', '2020', '2021', '2022', '2023'],
+            datasets: [{
+                label: 'Casos',
+                data: [1000000, 2000000, 4000000, 3000000, 2000000],
+                borderColor: '#274a7d',
+                fill: false,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+<script src="main.js"></script>
 </body>
 </html>
