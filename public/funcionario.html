@@ -212,17 +212,17 @@ function cadastrarFuncionario() {
         }),
     })
     .then(function (resposta) {
-        console.log("resposta: ", resposta);
+    console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-            console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+    if (resposta.ok) {
+        console.log("Cadastro realizado com sucesso! Recarregando a página...");
 
-            setTimeout(() => {
-                window.location = "./cadastro.html";
-            }, 2000);
-        } else {
-            throw "Houve um erro ao tentar realizar o cadastro!";
-        }
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    } else {
+        throw "Houve um erro ao tentar realizar o cadastro!";
+    }
     })
     .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);

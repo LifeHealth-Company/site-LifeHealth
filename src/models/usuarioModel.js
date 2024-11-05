@@ -38,6 +38,27 @@ function cadastrarFuncionario(nome, sobrenome, cargo, email, senha, fkEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function verificarCadastro(email, cnpj) {
+    console.log("Verificando cadastro com email e CNPJ:", email, cnpj);
+
+    const instrucaoSql = `
+        SELECT COUNT(*) AS count 
+        FROM Empresa 
+        WHERE email = '${email}' OR cnpj = '${cnpj}';
+    `;
+    
+    console.log("Executando instrução SQL:", instrucaoSql);
+    return database.executar(instrucaoSql, [email, cnpj])
+        .then(resultado => {
+            return {
+                existe: resultado[0].count > 0 
+            };
+        })
+        .catch(erro => {
+            console.error("Erro ao verificar cadastro:", erro);
+            throw erro;
+        });
+}
 
 function buscarFuncionarios(fkEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Buscando funcionários para a empresa com ID: ", fkEmpresa);
@@ -73,5 +94,6 @@ module.exports = {
     cadastrar,
     cadastrarFuncionario,
     buscarFuncionarios,
-    editarFuncionario
+    editarFuncionario,
+    verificarCadastro
 };
