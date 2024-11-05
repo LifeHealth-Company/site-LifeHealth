@@ -52,7 +52,7 @@ body {
 .option {
   font-family: "Exo 2";
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1.8rem;
   transition: all 0.4s ease-in-out;
   color: #939393;
   cursor: pointer;
@@ -171,6 +171,7 @@ body {
   border-radius: 6px;
   font-family: "Exo 2";
   font-weight: 600;
+  margin-top: 30px;
   font-size: 26px;
   color: #fff;
   box-shadow: #193d65 0 2px 4px;
@@ -206,14 +207,14 @@ body {
 
 #title {
   font-family: "Exo 2";
-  font-size: 60px;
+  font-size: 4rem;
   font-weight: 600;
   color: var(--primaria);
 }
 
 #descricao {
   font-family: "Exo 2";
-  font-size: 20px;
+  font-size: 2.8rem;
   font-weight: 400;
   color: var(--letras);
   margin-top: 20px;
@@ -235,7 +236,7 @@ body {
   box-shadow: 0 2px 4px #327bcb;
   color: var(--botton);
   font-family: "Exo 2";
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 600;
 }
 
@@ -296,14 +297,14 @@ body {
 
 .valorName {
   font-family: "Exo 2", sans-serif;
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 .valorDesc {
   font-family: "Exo 2", sans-serif;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   color: #e0e0e0;
 }
@@ -318,20 +319,20 @@ body {
 
 #contato {
   padding: 100px 0;
-  background-color: #f0f4f8;
   text-align: center;
   font-family: "Exo 2", sans-serif;
+  margin-top: 10%;
 }
 
 .contatoTitle {
-  font-size: 48px;
+  font-size: 3rem;
   color: #193d65;
   margin-bottom: 20px;
   animation: fadeInDown 1s ease-in-out;
 }
 
 .contatoDesc {
-  font-size: 20px;
+  font-size: 2rem;
   color: #666;
   margin-bottom: 50px;
   line-height: 1.6;
@@ -382,13 +383,13 @@ body {
 }
 
 .contatoSubtitle {
-  font-size: 24px;
+  font-size: 2rem;
   color: #193d65;
   margin-bottom: 10px;
 }
 
 .contatoText {
-  font-size: 16px;
+  font-size: 2rem;
   color: #666;
   line-height: 1.6;
 }
@@ -399,7 +400,7 @@ body {
   background-color: #ffffff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  padding: 40px;
+  padding: 80px;
 }
 
 .contatoForm {
@@ -414,7 +415,7 @@ body {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1.8rem;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -430,7 +431,7 @@ body {
   padding: 15px;
   background-color: #327bcb;
   color: #fff;
-  font-size: 18px;
+  font-size: 1.6rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -491,7 +492,8 @@ body {
 
 #servico {
   width: 100%;
-  height: 100vh;
+
+  height: 100%;
   position: relative;
 }
 
@@ -577,7 +579,7 @@ body {
 }
 
 .infoServicos {
-  padding-top: 14%;
+  padding-top: 5%;
   display: flex;
   justify-content: space-around;
 }
