@@ -52,7 +52,7 @@ body {
 .option {
   font-family: "Exo 2";
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 18px;
   transition: all 0.4s ease-in-out;
   color: #939393;
   cursor: pointer;
@@ -207,14 +207,14 @@ body {
 
 #title {
   font-family: "Exo 2";
-  font-size: 4rem;
+  font-size: 70px;
   font-weight: 600;
   color: var(--primaria);
 }
 
 #descricao {
   font-family: "Exo 2";
-  font-size: 2.8rem;
+  font-size: 26px;
   font-weight: 400;
   color: var(--letras);
   margin-top: 20px;
@@ -579,7 +579,7 @@ body {
 }
 
 .infoServicos {
-  padding-top: 5%;
+  padding-top: 12%;
   display: flex;
   justify-content: space-around;
 }
