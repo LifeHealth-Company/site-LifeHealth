@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/funcionario.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="assets/icon/mini.svg">
     <title>Cadastrar Funcionário</title>
 </head>
 
@@ -39,8 +40,8 @@
                         <label for="cargo">Cargo</label>
                         <select id="cargo">
                             <option value="" disabled selected>Selecione o seu cargo</option>
-                            <option value="funcionario">Funcionário Comum</option>
-                            <option value="administrador">Administrador</option>
+                            <option value="Funcionário comum">Funcionário Comum</option>
+                            <option value="Administrador">Administrador</option>
                         </select>
                     </div>
                 </div>
@@ -57,18 +58,19 @@
             </div>
             <!-- Botão de Cadastrar -->
             <div class="botao-container">
-                <button class="botao-cadastrar">Cadastrar</button>
+                <button onclick="cadastrarFuncionario()" class="botao-cadastrar">Cadastrar</button>
             </div>
         </div>
     </div>
     <!-- Texto e Botão Pesquisar alinhados -->
     <div class="texto-pesquisar-container">
         <p class="texto-inferior">Funcionários cadastrados</p>
-        <button class="botao-pesquisar">
-            Buscar
-            <i class="fas fa-search"></i>
-        </button>
+        <div class="pesquisa-container">
+            <input type="text" id="pesquisarInput" placeholder="Pesquise um funcionário...">
+        </div>
+        
     </div>
+    
     <div class="table-container">
         <table>
             <thead>
@@ -78,6 +80,8 @@
                     <th>Email funcionário</th>
                     <th>Cargo funcionário</th>
                     <th>Data de cadastro</th>
+                    <th>Editar usuário</th>
+                    <th>Excluir usuário</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,6 +91,8 @@
                     <td>Brainiac@gmail.com</td>
                     <td>Comum</td>
                     <td>19/10/2024</td>
+                    <td> <img class="editar"   src="./assets/icon/edit.svg" alt=""> </td>
+                    <td> <img class="deletar"   src="./assets/icon/Delete.svg" alt=""> </td>
                 </tr>
                 <tr>
                     <td>Stanley</td>
@@ -94,17 +100,75 @@
                     <td>grunkle.funkle@gmail.com</td>
                     <td>Comum</td>
                     <td>19/10/2024</td>
-                </tr>
+               <div><td> <img  class="editar" src="./assets/icon/edit.svg" alt=""> </td></div>  
+               <td> <img  class="deletar"       src="./assets/icon/Delete.svg" alt=""> </td>
+            </tr>
                 <tr>
                     <td>William</td>
                     <td>Lucipher Pines</td>
                     <td>cipher.bill@gmail.com</td>
                     <td>Administrador</td>
                     <td>19/10/2024</td>
+                    <td> <img class="editar" src="./assets/icon/edit.svg" alt=""> </td>
+                    <td> <img  class="deletar"    src="./assets/icon/Delete.svg" alt=""> </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <div class="pagination">
+        <button id="prevPage" onclick="mudarPagina(-1)">❮</button>
+        <span id="pageCounter">1</span>
+        <button id="nextPage" onclick="mudarPagina(1)">❯</button>
+    </div>
+
+     <!-- Modal editar -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Funcionário</h2>
+        <br>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-nome">Nome</label>
+                <input type="text" id="edit-nome" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label for="edit-sobrenome">Sobrenome</label>
+                <input type="text" id="edit-sobrenome" placeholder="Digite o sobrenome">
+            </div>
+        </div>
+        <div class="input-coluna">
+            <div class="input-group">
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" placeholder="Digite o email">
+            </div>
+            <div class="input-group">
+                <label for="edit-cargo">Cargo</label>
+                <select id="edit-cargo">
+                    <option value="Funcionário comum">Funcionário Comum</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <div class="botao-container">
+            <button id="saveChanges" class="botao-cadastrar">Salvar Alterações</button>
+        </div>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content-delete">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir este funcionário?</p>
+        <div class="modal-buttons">
+            <button  id="cancelDelete" class="cancel-btn">Cancelar</button>
+            <button  id="confirmDelete" class="delete-btn">Excluir</button>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 </html>
@@ -112,3 +176,203 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/menubehavior.js"></script>
 <script src="./js/menu.js"></script>
+
+<script>
+
+
+
+function cadastrarFuncionario() {
+    let nomeVar = document.getElementById('nome').value;
+    let sobrenomeVar = document.getElementById('sobrenome').value;
+    let emailVar = document.getElementById('email').value;
+    let cargoVar = document.getElementById('cargo').value;
+    let senhaVar = document.getElementById('senha').value;
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
+
+    if (!fkEmpresa || isNaN(fkEmpresa)) {
+        console.error("ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage.");
+        alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+        return;
+    }
+
+    console.log(nomeVar, sobrenomeVar, emailVar, cargoVar, senhaVar, fkEmpresa);
+
+    fetch("/usuarios/cadastrarFuncionario", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeServer: nomeVar,
+            sobrenomeServer: sobrenomeVar,
+            emailServer: emailVar,
+            cargoServer: cargoVar,
+            senhaServer: senhaVar,
+            fkEmpresaServer: fkEmpresa 
+        }),
+    })
+    .then(function (resposta) {
+    console.log("resposta: ", resposta);
+
+    if (resposta.ok) {
+        console.log("Cadastro realizado com sucesso! Recarregando a página...");
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    } else {
+        throw "Houve um erro ao tentar realizar o cadastro!";
+    }
+    })
+    .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+}
+
+function abrirModalEditar(id) {
+    const funcionario = funcionarios.find(func => func.idUsuario === id);
+
+    if (funcionario) {
+        console.log("ID do funcionário selecionado para edição:", funcionario.idUsuario); 
+        document.getElementById('edit-nome').value = funcionario.nome;
+        document.getElementById('edit-sobrenome').value = funcionario.sobrenome;
+        document.getElementById('edit-email').value = funcionario.email;
+        document.getElementById('edit-cargo').value = funcionario.cargo;
+
+        document.getElementById('saveChanges').setAttribute('data-id', funcionario.idUsuario);
+
+        document.getElementById('editModal').classList.add('show');
+    } else {
+        console.error("Funcionário não encontrado para o ID:", id);
+    }
+}
+
+
+let funcionarios = []; 
+let paginaAtual = 1;
+const funcionariosPorPagina = 3;
+
+function buscarFuncionarios() {
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
+
+    if (!fkEmpresa || isNaN(fkEmpresa)) {
+        console.error("ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage.");
+        return;
+    }
+
+    fetch(`/usuarios/buscarFuncionarios?idEmpresa=${fkEmpresa}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Erro ao buscar funcionários");
+        }
+        return response.json();
+    })
+    .then(data => {
+        funcionarios = data; 
+        renderizarTabela(); 
+    })
+    .catch(error => {
+        console.error(`#ERRO: ${error}`);
+    });
+}
+
+function renderizarTabela() {
+    const tbody = document.querySelector("table tbody");
+    tbody.innerHTML = ""; 
+
+    const totalFuncionarios = funcionarios.length;
+    const totalPaginas = Math.ceil(totalFuncionarios / funcionariosPorPagina);
+    const inicio = (paginaAtual - 1) * funcionariosPorPagina;
+    const fim = inicio + funcionariosPorPagina;
+    const funcionariosPagados = funcionarios.slice(inicio, fim); 
+
+    funcionariosPagados.forEach(funcionario => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${funcionario.nome}</td>
+            <td>${funcionario.sobrenome}</td>
+            <td>${funcionario.email}</td>
+            <td>${funcionario.cargo}</td>
+            <td>${funcionario.dataCadastroFuncionario}</td>
+            <td><img class="editar" src="./assets/icon/edit.svg" alt="" onclick="abrirModalEditar(${funcionario.idUsuario})"></td>
+            <td><img class="deletar" src="./assets/icon/Delete.svg" alt=""></td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById('pageCounter').innerText = `${paginaAtual} / ${totalPaginas}`;
+}
+
+function mudarPagina(direcao) {
+    const totalPaginas = Math.ceil(funcionarios.length / funcionariosPorPagina);
+    
+    if (paginaAtual + direcao >= 1 && paginaAtual + direcao <= totalPaginas) {
+        paginaAtual += direcao;
+        renderizarTabela(); 
+    }
+}
+
+document.addEventListener("DOMContentLoaded", buscarFuncionarios);
+
+document.getElementById('saveChanges').addEventListener('click', editarFuncionario);
+
+function editarFuncionario() {
+    const id = document.getElementById('saveChanges').getAttribute('data-id');
+    const nome = document.getElementById('edit-nome').value || '';
+    const sobrenome = document.getElementById('edit-sobrenome').value || '';
+    const email = document.getElementById('edit-email').value || '';
+    const cargo = document.getElementById('edit-cargo').value || '';
+
+    console.log("Antes de enviar:", { id, nome, sobrenome, email, cargo });
+
+    if (!id || !nome || !sobrenome || !email || !cargo) {
+        console.error("Erro: Um ou mais campos estão vazios ou inválidos.");
+        return;
+    }
+
+    fetch(`/usuarios/editarFuncionario/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeServer: nome,
+            sobrenomeServer: sobrenome,
+            emailServer: email,
+            cargoServer: cargo
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao editar funcionário');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Funcionário editado com sucesso:', data);
+        buscarFuncionarios();
+        document.getElementById('editModal').classList.remove('show');
+    })
+    .catch(error => {
+        console.error(`#ERRO: ${error}`);
+    });
+}
+
+document.querySelector('.close').onclick = function() {
+    document.getElementById('editModal').classList.remove('show');
+};
+
+window.onclick = function(event) {
+    const modal = document.getElementById('editModal');
+    if (event.target === modal) {
+        modal.classList.remove('show');
+    }
+};
+
+
+</script>

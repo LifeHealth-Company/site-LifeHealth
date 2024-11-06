@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("./variaveis.css");
-
+body.dark {
+    background-color: #212121;
+    color: #ffffff;
+  }
 .home{
      padding-left: 200px;
      padding-right: 50px;
@@ -97,7 +100,7 @@ display: flex;
     margin-top: 25px;
 }
 .timeIndicator{
-    display: flex;
+display: flex;
     flex-direction: column;
     margin-right: 30px;
     font-size: 24px;
@@ -243,7 +246,7 @@ display: flex;
     margin-top: 20px;   
 }
 dialog{
-    width: 100%;
+width: 100%;
     background-color: transparent;
     border: none;
     outline: none;
