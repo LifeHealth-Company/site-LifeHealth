@@ -33,10 +33,9 @@ router.get('/buscarFuncionarios', function(req, res) {
     usuarioController.buscarFuncionarios(req, res);
 });
 
-router.get('/obterArmazens', function (req, res) {
-    usuarioController.obterArmazens(req, res); 
+router.get('/buscarInstituicao/:empresaId', function (req, res) {
+    usuarioController.buscarInstituicao(req, res);
 });
-
 
 
 module.exports = router;
