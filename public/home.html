@@ -17,12 +17,12 @@
             <div class="calendar">
                 <div class="timeIndicator">
                     <span class="startEnd">De</span>
-                    <span class="date">10/07/2022</span>
+                    <span class="date" id="start">10/07/2022</span>
                 </div>
                 <img src="./assets/icon/longArrow.svg" class="arrow" />
                 <div class="timeIndicator">
                     <span class="startEnd">Até</span>
-                    <span class="date">30/12/2022</span>
+                    <span class="date" id="end">30/12/2022</span>
                 </div>
 
                 <img src="./assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="calendar" />
@@ -58,8 +58,10 @@
                             <span class="startEnd">Até</span>
                             <span class="date" id="endDate">--/--/----</span>
                         </div>
-        
-        
+                        <div class="options">
+                            <button class="modalBtn cancel" onclick="closeModal()">Cancelar</button>
+                            <button class="modalBtn" onclick="apply()">Aplicar</button>
+                        </div> 
                     </div>
                 </div>
             </div>

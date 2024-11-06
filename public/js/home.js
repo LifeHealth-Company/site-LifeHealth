@@ -145,3 +145,7 @@ function openCalendar(){
   calendar.showModal();
 }
     
+function closeModal(){
+  calendar.close();
+}
+    

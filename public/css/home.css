@@ -91,9 +91,9 @@ display: flex;
     font-weight: 600;
 }
 .arrow{
-    width: 48px;
-    margin-right: 30px;
-    margin-left: 30px;
+    width: 28px;
+    margin-right: 20px;
+    margin-left: 20px;
     margin-top: 25px;
 }
 .timeIndicator{
@@ -104,6 +104,7 @@ display: flex;
 }
 .iconCalendar{
     width: 50px;
+    cursor: pointer;
 }
 .startEnd{
     font-family: var(--font);
@@ -256,7 +257,7 @@ dialog{
 
 .modal-content{
     margin-top: 6%;
-    width: 470px;
+    width: 510px;
     height: 530px;
     background-color: var(--bgColorSystemLight);
     border-radius: 20px;
@@ -331,4 +332,24 @@ dialog{
     font-size: 18x;
     display: flex;
     flex-direction: column;
+}
+.options{
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.modalBtn{
+    width: 80px;
+    height: 36px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--primaria);
+    color: var(--titleSystemDark);
+    outline: none;
+    cursor: pointer;
+}
+.cancel{
+    background-color: var(--negative);
 }

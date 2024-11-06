@@ -1,5 +1,7 @@
 const start = document.getElementById('startDate');
 const end = document.getElementById('endDate');
+const startIndicator = document.querySelector("#start")
+const endIndicator = document.querySelector("#end")
 
 document.addEventListener('DOMContentLoaded', function () {
     const monthAndYear = document.getElementById('monthAndYear');
@@ -171,4 +173,27 @@ function selectDate(res) {
         endDayElement.classList.add("selectedDate");
     }
   
+}
+
+function apply(){
+    if(startDate.getMonth() + 1 >= 1 && startDate.getMonth() + 1 <= 9 && startDate.getDate() + 1 >= 1 && startDate.getDate() + 1 <= 9){
+        startIndicator.textContent = `0${startDate.getDate()}/0${startDate.getMonth() + 1}/${startDate.getFullYear()}`
+    }else if(startDate.getMonth() + 1 >= 1 && startDate.getMonth() + 1 <= 9){
+        startIndicator.textContent = `${startDate.getDate()}/0${startDate.getMonth() + 1}/${startDate.getFullYear()}`
+    }else if(startDate.getDate() + 1 >= 1 && startDate.getDate() + 1 <= 9){
+        startIndicator.textContent = `${startDate.getDate()}/0${startDate.getMonth() + 1}/${startDate.getFullYear()}`
+    }else{
+        startIndicator.textContent = `${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`
+    }
+
+    if(endDate.getMonth() + 1 >= 1 && endDate.getMonth() + 1 <= 9 && endDate.getDate() + 1 >= 1 && endDate.getDate() + 1 <= 9){
+        endIndicator.textContent = `0${endDate.getDate()}/0${endDate.getMonth() + 1}/${endDate.getFullYear()}`
+    }else if(endDate.getMonth() + 1 >= 1 && endDate.getMonth() + 1 <= 9){
+        endIndicator.textContent = `${endDate.getDate()}/0${endDate.getMonth() + 1}/${endDate.getFullYear()}`
+    }else if(endDate.getDate() + 1 >= 1 && endDate.getDate() + 1 <= 9){
+        endIndicator.textContent = `${endDate.getDate()}/0${endDate.getMonth() + 1}/${endDate.getFullYear()}`
+    }else{
+        endIndicator.textContent = `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`
+    }
+    closeModal()
 }
