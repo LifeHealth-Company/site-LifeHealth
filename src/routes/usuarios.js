@@ -33,8 +33,8 @@ router.get('/buscarFuncionarios', function(req, res) {
     usuarioController.buscarFuncionarios(req, res);
 });
 
-router.get('/buscarInstituicao/:empresaId', function (req, res) {
-    usuarioController.buscarInstituicao(req, res);
+router.get("/tipoInstituicao/:idEmpresa", function (req, res) {
+    usuarioController.obterTipoInstituicao(req, res);
 });
 
 

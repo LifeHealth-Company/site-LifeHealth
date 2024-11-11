@@ -167,39 +167,23 @@ function editarFuncionario(req, res) {
       });
 }
 
-function buscarInstituicao(req, res) {
-    var empresaId = req.params.empresaId;
 
-    if (empresaId === undefined) {
-        return res.status(400).send("O ID da empresa está indefinido!");
-    }
+function obterTipoInstituicao(req, res) {
+    const idEmpresa = req.params.idEmpresa;
 
-    usuarioModel.buscarInstituicao(empresaId)
-        .then(function (resultadoTipoInstituicao) {
-            console.log(`\nResultados encontrados: ${resultadoTipoInstituicao.length}`);
-            console.log(`Resultados: ${JSON.stringify(resultadoTipoInstituicao)}`);
-
-            if (resultadoTipoInstituicao.length === 1) {
-                const tipoInstituicao = resultadoTipoInstituicao[0].tipoInstituicao;
-
-                const redirectUrl = (tipoInstituicao === "Rede" || tipoInstituicao === "Local")
-                    ? "../dashboard.html"
-                    : "../dashBoard.html";
-
-                res.json({ redirectUrl: redirectUrl });
-            } else if (resultadoTipoInstituicao.length === 0) {
-                res.status(404).send("Tipo de instituição não encontrado para o ID fornecido.");
+    usuarioModel.buscarTipoInstituicao(idEmpresa)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json({ tipoInstituicao: resultado[0].tipoInstituicao });
             } else {
-                res.status(500).send("Mais de um registro encontrado para o mesmo ID de empresa.");
+                res.status(404).send("Tipo de instituição não encontrado para o ID fornecido.");
             }
         })
         .catch(function (erro) {
-            console.error("Erro ao obter o tipo de instituição:", erro);
-            res.status(500).send("Erro ao obter o tipo de instituição. Tente novamente mais tarde.");
+            console.log(erro);
+            res.status(500).send("Erro ao buscar o tipo de instituição.");
         });
 }
-
-
 
 module.exports = {
     autenticar,
@@ -208,5 +192,5 @@ module.exports = {
     verificarCadastro,
     buscarFuncionarios,
     editarFuncionario,
-    buscarInstituicao
+    obterTipoInstituicao
 }

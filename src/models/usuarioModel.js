@@ -88,13 +88,13 @@ function editarFuncionario(idFuncionario, nome, sobrenome, email, cargo) {
     return database.executar(instrucaoSql);
 }
 
-function buscarInstituicao(empresaId) {
-    console.log("ACESSEI O EMPRESA MODEL \n\n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n\t\t >> verifique suas credenciais de acesso ao banco\n\t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarInstituicao(): ", empresaId);
+function buscarTipoInstituicao(idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Buscando tipo de instituição para a empresa com ID: ", idEmpresa);
     
     var instrucaoSql = `
-        SELECT tipoInstituicao 
-        FROM Empresa 
-        WHERE idEmpresa = '${empresaId}';
+      SELECT tipoInstituicao
+      FROM Empresa
+      WHERE idEmpresa = ${idEmpresa};
     `;
     
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -110,5 +110,5 @@ module.exports = {
     buscarFuncionarios,
     editarFuncionario,
     verificarCadastro,
-    buscarInstituicao
+    buscarTipoInstituicao
 };
