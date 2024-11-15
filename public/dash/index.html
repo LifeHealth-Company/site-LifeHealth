@@ -3,95 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Epidemias</title>
+    <title>Dashboard Farmacêutico</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="menu-container"></div>
-    <div class="dashboard">
-        <div class="header">
-            <h1>Bem vindo, Travis</h1>
-            <div class="date">De 10/07/2022 até 31/07/2022</div>
-        </div>
-
-        <div class="cards">
-            <div class="card large">
-                <h2>Casos por idade</h2>
-                <div class="bar-chart-container">
-                    <canvas id="barChart" class="chart"></canvas>
-                </div>
-            </div>
-            <div class="card medium">
-                <h2>Maiores afetados</h2>
-                <p class="text-content">1º Gestantes - 1.600 milhões<br>2º Idosos - 1.200 milhões<br>3º Crianças - 900 mil<br>4º Adultos até 60 anos - 400 mil</p>
-            </div>
-            <div class="card medium">
-                <h2>Risco de Epidemia por Calor nos Estados</h2>
-                <p class="text-content">1º Amazonas<br>2º Piauí<br>3º Roraima<br>4º Tocantins<br>5º Mato Grosso do Sul</p>
+    <div class="home">
+        <div class="lineChart">
+            <div class="chart">
+              <canvas id="state1"></canvas>
             </div>
         </div>
-
-        <div class="bottom-cards">
-            <div class="card large">
-                <h2>Número de casos</h2>
-                <div class="line-chart-container">
-                    <canvas id="lineChart" class="chart"></canvas>
-                </div>
+        <div class="lineChart">
+            <div class="chart">
+              <canvas id="state2"></canvas>
             </div>
-            <div class="card medium">
-                <h2>Principais sintomas dos afetados</h2>
-                <p class="text-content">Dor de cabeça<br>Dores no corpo<br>Febre Alta<br>Vômitos constantes<br>Dengue hemorrágica<br>Síndrome do choque</p>
+        </div>
+        <div class="lineChart">
+            <div class="chart">
+              <canvas id="state3"></canvas>
+            </div>
+        </div>
+        <div class="lineChart">
+            <div class="chart">
+              <canvas id="state4"></canvas>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        const barChart = new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: ['1 - 12 anos', '12 - 35 anos', '35 - 60 anos', '60+ anos'],
-                datasets: [{
-                    label: 'Casos',
-                    data: [7, 5, 2.5, 6],
-                    backgroundColor: ['#8A2BE2', '#8A2BE2', '#4B0082', '#4B0082']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-
-        
-        const lineCtx = document.getElementById('lineChart').getContext('2d');
-        const lineChart = new Chart(lineCtx, {
-            type: 'line',
-            data: {
-                labels: ['2019', '2020', '2021', '2022', '2023'],
-                datasets: [{
-                    label: 'Casos',
-                    data: [1, 2, 4, 3.5, 2.5],
-                    borderColor: '#4B0082',
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-    </script>
 </body>
 </html>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/menubehavior.js"></script>
 <script src="../js/menu.js"></script>
+    

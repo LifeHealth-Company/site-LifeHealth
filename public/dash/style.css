@@ -1,105 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+@import url(".../css/variaveis.css");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F2F6FA;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
-
-.dashboard {
-    max-width: 1200px;
-    width: 100%;
+.home {
     display: grid;
-    grid-template-rows: auto;
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr); /* Cria 2 colunas de tamanho igual */
+    grid-template-rows: repeat(2, 1fr); /* Cria 2 linhas de tamanho igual */
+    gap: 3px; /* Espaçamento entre os itens */
+    height: 100vh; /* Defina o tamanho total da altura para usar o espaço disponível */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    justify-items: center; /* Alinha os itens horizontalmente ao centro */
+    padding-left: 50px; /* Ajusta o padding da esquerda */
+    padding-right: 50px; /* Ajusta o padding da direita */
 }
 
-.header {
+.lineChart {
+    height: 367px;
+    width: 714px; /* Define uma largura fixa para os gráficos */
+    background: var(--bgColorIndicatorsLight);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-}
-
-.header h1 {
-    font-size: 28px;
-    color: #2A3E66;
-    font-weight: 600;
-}
-
-.date {
-    font-size: 16px;
-    color: #6B7280;
-    font-weight: 300;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 20px;
-}
-
-.card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-}
-
-.card:hover {
-    transform: scale(1.02);
-}
-
-.card.large {
-    height: 300px;
-}
-
-.card.medium {
-    height: 300px;
-}
-
-.card h2 {
-    font-size: 20px;
-    color: #2A3E66;
-    font-weight: 500;
-    margin-bottom: 15px;
+    justify-content: center; /* Garante que o conteúdo dentro de lineChart será centralizado */
+    border-radius: 10px;
+    box-shadow: 0 4px 4px #00000058;
+    margin: 0;
 }
 
 .chart {
-    width: 100%;
-    height: 200px;
+    width: 100%; /* Garante que o canvas ocupe a largura total disponível dentro de .chart */
+    height: 100%; /* Garante que o canvas ocupe a altura total disponível dentro de .chart */
 }
-
-.text-content {
-    font-size: 18px;
-    color: #333;
-    line-height: 1.8;
-    font-weight: 400;
-}
-
-.bar-chart-container, .line-chart-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bottom-cards {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-}
-
-.highlight {
-    color: #D9534F;
-    font-weight: bold;
-}
-
