@@ -92,8 +92,8 @@ function excluirFuncionario(idFuncionario){
     console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Editando funcionário com ID: ", idFuncionario);
     
     var instrucaoSql = `
-     DELETE FROM Usuario WHERE idUsuario = ${idFuncionario}
-    `;
+    DELETE FROM Usuario WHERE idUsuario = ${idFuncionario}
+`;
     
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
 

@@ -25,9 +25,10 @@ router.put("/editarFuncionario/:id", function (req, res) {
     usuarioController.editarFuncionario(req, res);
 });
 
-router.delete("/excluirFuncionario/:id"), function (req, res) {
+router.delete("/excluirFuncionario/:idUsuario", function (req, res) {
     usuarioController.excluirFuncionario(req, res);
-}
+});
+
 
 router.get('/nomeUsuario', function(req, res) {
     usuarioController.nomeUsuario(req, res);
