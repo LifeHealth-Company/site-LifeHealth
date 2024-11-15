@@ -212,8 +212,9 @@
 
 <script>
 
-function abrirModalDeletar() {
+function abrirModalDeletar(id) {
   const deleteModal = document.getElementById("deleteModal");
+  deleteModal.setAttribute("data-id", id);
   deleteModal.classList.add("show");
 
   window.onclick = function (event) {
@@ -221,8 +222,7 @@ function abrirModalDeletar() {
       deleteModal.classList.remove("show");
     }
   };
-  const cancelDelete = document.getElementById("cancelDelete");
-  cancelDelete.onclick = function () {
+  document.getElementById("cancelDelete").onclick = function () {
     deleteModal.classList.remove("show");
   };
 }
@@ -321,23 +321,23 @@ function abrirModalDeletar() {
 
     fetch(`/usuarios/buscarFuncionarios?idEmpresa=${fkEmpresa}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erro ao buscar funcionários");
-        }
-        return response.json();
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((data) => {
-        funcionarios = data;
-        renderizarTabela();
-      })
-      .catch((error) => {
-        console.error(`#ERRO: ${error}`);
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Erro ao buscar funcionários");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          funcionarios = data;
+          renderizarTabela();
+        })
+        .catch((error) => {
+          console.error(`#ERRO: ${error}`);
+        });
   }
 
   function renderizarTabela() {
@@ -380,55 +380,7 @@ function abrirModalDeletar() {
 
   document.addEventListener("DOMContentLoaded", buscarFuncionarios);
 
-  document
-    .getElementById("saveChanges")
-    .addEventListener("click", editarFuncionario);
 
-  function editarFuncionario() {
-    const id = document.getElementById("saveChanges").getAttribute("data-id");
-    const nome = document.getElementById("edit-nome").value || "";
-    const sobrenome = document.getElementById("edit-sobrenome").value || "";
-    const email = document.getElementById("edit-email").value || "";
-    const cargo = document.getElementById("edit-cargo").value || "";
-
-    console.log("Antes de enviar:", { id, nome, sobrenome, email, cargo });
-
-    if (!id || !nome || !sobrenome || !email || !cargo) {
-      console.error("Erro: Um ou mais campos estão vazios ou inválidos.");
-      return;
-    }
-
-    fetch(`/usuarios/editarFuncionario/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeServer: nome,
-        sobrenomeServer: sobrenome,
-        emailServer: email,
-        cargoServer: cargo,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Erro ao editar funcionário");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Funcionário editado com sucesso:", data);
-        buscarFuncionarios();
-        document.getElementById("editModal").classList.remove("show");
-      })
-      .catch((error) => {
-        console.error(`#ERRO: ${error}`);
-      });
-  }
-
-  document.querySelector(".close").onclick = function () {
-    document.getElementById("editModal").classList.remove("show");
-  };
 
   window.onclick = function (event) {
     const modal = document.getElementById("editModal");
@@ -436,4 +388,53 @@ function abrirModalDeletar() {
       modal.classList.remove("show");
     }
   };
+  function excluirFuncionario(id){
+
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
+
+    if (!fkEmpresa||isNaN(fkEmpresa) ) {
+      
+      console.error("ID INDEFINIDO")
+
+      return;
+    }
+
+    fetch(`/usuarios/excluirFuncionario/${id}`,
+    {method:"DELETE",
+    headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao excluir funcionários");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Sucesso!")
+        buscarFuncionarios();
+        document.getElementById("deleteModal").classList.remove("show");
+      })
+      .catch((error) => {
+        console.error(`#ERRO: ${error}`);
+      });}
+
+      document.getElementById("confirmDelete").onclick=function(){
+        const idFuncionario = document.getElementById("deleteModal").getAttribute("data-id");
+
+        if (idFuncionario) {
+          excluirFuncionario(idFuncionario);
+
+      
+        }
+
+        else{
+          console.error("ID não encontrado")
+        }
+
+      }
+
+    
+  
 </script>

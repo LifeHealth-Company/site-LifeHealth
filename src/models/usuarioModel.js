@@ -88,6 +88,19 @@ function editarFuncionario(idFuncionario, nome, sobrenome, email, cargo) {
     return database.executar(instrucaoSql);
 }
 
+function excluirFuncionario(idFuncionario){
+    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Editando funcionário com ID: ", idFuncionario);
+    
+    var instrucaoSql = `
+     DELETE FROM Usuario WHERE idUsuario = ${idFuncionario}
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql);
+
+}
+
 function buscarTipoInstituicao(idEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Buscando tipo de instituição para a empresa com ID: ", idEmpresa);
     
@@ -110,5 +123,6 @@ module.exports = {
     buscarFuncionarios,
     editarFuncionario,
     verificarCadastro,
-    buscarTipoInstituicao
+    buscarTipoInstituicao,
+    excluirFuncionario
 };

@@ -167,6 +167,25 @@ function editarFuncionario(req, res) {
       });
 }
 
+function excluirFuncionario(req, res){
+ const idFuncionario = req.params.id;
+
+ usuarioModel.excluirFuncionario(idFuncionario)
+        .then(function (resultado) {
+            if (resultado.affectedRows===0) {
+                res.status(404).send("Funcionário não encontrado");
+            } else {
+               res.send("Sucesso!")
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).send("Erro ao excluir funcionário");
+        });
+}
+
+
+
 
 function obterTipoInstituicao(req, res) {
     const idEmpresa = req.params.idEmpresa;
@@ -192,5 +211,6 @@ module.exports = {
     verificarCadastro,
     buscarFuncionarios,
     editarFuncionario,
-    obterTipoInstituicao
+    obterTipoInstituicao,
+    excluirFuncionario
 }
