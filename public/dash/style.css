@@ -2,31 +2,178 @@
 @import url(".../css/variaveis.css");
 
 .home {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Cria 2 colunas de tamanho igual */
-    grid-template-rows: repeat(2, 1fr); /* Cria 2 linhas de tamanho igual */
-    gap: 3px; /* Espaçamento entre os itens */
-    height: 100vh; /* Defina o tamanho total da altura para usar o espaço disponível */
-    align-items: center; /* Alinha os itens verticalmente ao centro */
-    justify-items: center; /* Alinha os itens horizontalmente ao centro */
-    padding-left: 50px; /* Ajusta o padding da esquerda */
-    padding-right: 50px; /* Ajusta o padding da direita */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header {
+  max-width: 78%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.home h1 {
+  font-family: "Exo 2", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #193d65;
+  margin: 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.kpi {
+  flex: 1;
+  max-width: 385px;
+  height: 120px;
+  background: var(--bgColorIndicatorsLight);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px #00000058;
+  margin: 0;
+  text-align: left;
+  position: relative;
+}
+
+.kpi h4 {
+  font-family: "Exo 2", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #193d65;
+  margin: 0;
+}
+
+.kpi p {
+  font-family: "Exo 2", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #193d65;
+  margin: 5px 0;
+}
+
+.indicator {
+  font-family: "Exo 2", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff1744;
+  gap: 4px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.indicator.up::before {
+  content: "▲";
+  font-size: 20px;
+  color: #ff1744;
+}
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  width: 100%;
+}
+
+.chart-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2%;
 }
 
 .lineChart {
-    height: 367px;
-    width: 714px; /* Define uma largura fixa para os gráficos */
-    background: var(--bgColorIndicatorsLight);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Garante que o conteúdo dentro de lineChart será centralizado */
-    border-radius: 10px;
-    box-shadow: 0 4px 4px #00000058;
-    margin: 0;
+  width: 780px;
+  height: 380px;
+  background: var(--bgColorIndicatorsLight);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px #00000058;
+  margin: 2px;
+  position: relative;
 }
 
 .chart {
-    width: 100%; /* Garante que o canvas ocupe a largura total disponível dentro de .chart */
-    height: 100%; /* Garante que o canvas ocupe a altura total disponível dentro de .chart */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.lineChart h2 {
+  position: absolute;
+  top: 20px;
+  left: 43px;
+  color: #193d65;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.lineChart .chart canvas {
+  width: 90% !important;
+  height: 80% !important;
+}
+
+canvas {
+  font-size: 34px;
+  color: #193d65;
+}
+
+#selectEstados {
+  color: var(--borderColor);
+  width: 20%;
+  height: 4vh;
+  border: 1px solid var(--borderColor);
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.chartjs-tooltip {
+  font-family: "Exo 2", sans-serif;
+  font-size: 24px;
+  color: #193d65;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .charts-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .lineChart {
+    width: 100%;
+    height: 250px;
+  }
 }
