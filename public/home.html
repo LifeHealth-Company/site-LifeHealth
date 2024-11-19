@@ -1,192 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/home.css" />
-    <link rel="icon" href="assets/icon/mini.svg" />
-    <title>Home</title>
-  </head>
-  <body id="body">
-    <div id="menu-container"></div>
-    <div class="home">
-      <div class="header">
-        <span class="WelcomeMessage">Bem vindo Bruninho</span>
-        <div class="calendar">
-          <div class="timeIndicator">
-            <span class="startEnd">De</span>
-            <span class="date" id="start">10/07/2022</span>
-          </div>
-          <img src="./assets/icon/longArrow.svg" class="arrow" />
-          <div class="timeIndicator">
-            <span class="startEnd">Até</span>
-            <span class="date" id="end">30/12/2022</span>
-          </div>
-          <img
-            src="./assets/icon/calender.svg"
-            class="iconCalendar"
-            onclick="openCalendar()"
-            id="calendar"
-          />
-        </div>
-      </div>
-      <dialog id="calendarModal">
-        <div class="dialog">
-          <div class="modal-content">
-            <div class="calendarHeader" id="calendar">
-              <img
-                class="changeMounth"
-                id="prev"
-                src="./assets/calendarIcons/previews.svg"
-              />
-              <span class="mounth" id="monthAndYear"></span>
-              <img
-                class="changeMounth"
-                id="next"
-                src="./assets/calendarIcons/next.svg"
-              />
-            </div>
-            <div class="weekendDays">
-              <span class="day">DOM</span>
-              <span class="day">SEG</span>
-              <span class="day">TER</span>
-              <span class="day">QUA</span>
-              <span class="day">QUI</span>
-              <span class="day">SEX</span>
-              <span class="day">SAB</span>
-            </div>
-            <div class="days" id="days"></div>
 
-            <div class="timeIndicators">
-              <div class="timeIndicatorModal">
-                <span class="startEnd">De</span>
-                <span class="date" id="startDate">--/--/----</span>
-              </div>
-              <img src="./assets/icon/longArrow.svg" class="arrow" />
-              <div class="timeIndicatorModal">
-                <span class="startEnd">Até</span>
-                <span class="date" id="endDate">--/--/----</span>
-              </div>
-              <div class="options">
-                <button class="modalBtn cancel" onclick="closeModal()">
-                  Cancelar
-                </button>
-                <button class="modalBtn" onclick="apply()">Aplicar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog>
-      <div class="indicators">
-        <div class="mostAffected">
-          <span class="indicatorTitle">Maiores afetados</span>
-          <div class="datas">
-            <span class="data">
-              <span class="order">1°</span>
-              Gestantes - 1.600 milhões
-            </span>
-            <span class="data">
-              <span class="order">2°</span>
-              Idosos - 1.600 milhões
-            </span>
-            <span class="data">
-              <span class="order">3°</span>
-              Crianças - 1.600 milhões
-            </span>
-            <span class="data">
-              <span class="order">4°</span>
-              Adultos - 1.600 milhões
-            </span>
-          </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/home.css" />
+  <link rel="icon" href="assets/icon/mini.svg" />
+  <title>Home</title>
+</head>
 
-        <div class="country">
-          <div class="countryHeader">
-            <span class="indicatorTitle">Brasil</span>
-            <div class="growth">
-              <img src="./assets/icon/arrowUp.svg" />
-              <span class="growthPercentage">7%</span>
-            </div>
+<body id="body">
+  <div id="menu-container"></div>
+  <div class="home">
+    
+    <div class="indicators">
+      <div class="country">
+        <div class="countryHeader">
+          <span class="indicatorTitle">Brasil</span>
+          <div class="growth">
+            <img src="./assets/icon/arrowUp.svg" />
+            <span class="growthPercentage">7%</span>
           </div>
-          <div class="casesContainer">
-            <span class="cases">
-              <span class="order">6</span>
-              milhões de casos
+        </div>
+        <div class="casesContainer">
+          <span class="cases">
+            <span class="order">6</span>
+            milhões de casos
+          </span>
+          <div class="maxCasesContainer">
+            <span class="maxCases">
+              <span class="max">MAX:</span>
+              12 milhões
             </span>
-            <div class="maxCasesContainer">
-              <span class="maxCases">
-                <span class="max">MAX:</span>
-                12 milhões
-              </span>
-              <span class="order">2017</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="states">
-          <div class="state">
-            <div class="stateInfo">
-              <span class="indicatorTitle">São Paulo</span>
-              <span class="data">2 milhões de casos</span>
-            </div>
-            <div class="growth">
-              <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
-              <span class="growthPercentage stateGrowth">7%</span>
-            </div>
-          </div>
-          <div class="state">
-            <div class="stateInfo">
-              <span class="indicatorTitle">Minas Gerais</span>
-              <span class="data">1,5 milhões de casos</span>
-            </div>
-            <div class="growth">
-              <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
-              <span class="growthPercentage stateGrowth">7%</span>
-            </div>
-          </div>
-          <div class="state">
-            <div class="stateInfo">
-              <span class="indicatorTitle">Goiás</span>
-              <span class="data">1 milhões de casos</span>
-            </div>
-            <div class="growth">
-              <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
-              <span class="growthPercentage stateGrowth">7%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="mostCasesRegion">
-          <span class="indicatorTitle graphcAdjustment"
-            >Regiões com mais casos</span
-          >
-          <div class="chart">
-            <canvas id="regions"></canvas>
           </div>
         </div>
       </div>
-      <div class="lineChartCases">
-        <div class="lineChart">
-          <div class="lineChartHeader">
-            <span class="indicatorTitle">Número de casos</span>
-            <span class="indicatorTitle max">BRASIL</span>
+      <div class="mostAffected">
+        <span class="indicatorTitle">Maiores afetados</span>
+        <div class="datas">
+          <span class="data">
+            <span class="order">1°</span>
+            Gestantes - 1.600 milhões
+          </span>
+          <span class="data">
+            <span class="order">2°</span>
+            Idosos - 1.600 milhões
+          </span>
+          <span class="data">
+            <span class="order">3°</span>
+            Crianças - 1.600 milhões
+          </span>
+        </div>
+      </div>
+
+      <div class="alertContainer">
+        <div class="alert">
+          <img src="./assets/icon/alert.svg" class="alertIcon"/> 
+         <div class="alertMessage">
+          <span class="titleAlert">Possível epidemia no próximo ano</span>
+          <span class="message">Crescente de casos indica possível epidemia no próximo ano</span>
+         </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="lineOneCharts">
+      <div class="lineChart">
+        <div class="lineChartHeader">
+          <span class="indicatorTitle">Taxa de incidência</span>
+          <span class="indicatorTitle max">BRASIL</span>
+        </div>
+        <div class="chart">
+          <canvas id="incidence"></canvas>
+        </div>
+      </div>
+      <div class="mostCasesRegion">
+        <span class="indicatorTitle graphcAdjustment">Regiões com mais casos</span>
+        <div class="chart">
+          <canvas id="regions"></canvas>
+        </div>
+      </div>
+      <div class="states">
+        <div class="state">
+          <div class="stateInfo">
+            <span class="indicatorTitle">São Paulo</span>
+            <span class="data">2 milhões de casos</span>
           </div>
-          <div class="chart">
-            <canvas id="country"></canvas>
+          <div class="growth">
+            <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
+            <span class="growthPercentage stateGrowth">7%</span>
           </div>
         </div>
-        <div class="lineChart">
-          <div class="lineChartHeader">
-            <span class="indicatorTitle">Número de casos</span>
-            <span class="indicatorTitle max">São Paulo</span>
+        <div class="state">
+          <div class="stateInfo">
+            <span class="indicatorTitle">Minas Gerais</span>
+            <span class="data">1,5 milhões de casos</span>
           </div>
-          <div class="chart">
-            <canvas id="state"></canvas>
+          <div class="growth">
+            <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
+            <span class="growthPercentage stateGrowth">7%</span>
+          </div>
+        </div>
+        <div class="state">
+          <div class="stateInfo">
+            <span class="indicatorTitle">Goiás</span>
+            <span class="data">1 milhões de casos</span>
+          </div>
+          <div class="growth">
+            <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
+            <span class="growthPercentage stateGrowth">7%</span>
           </div>
         </div>
       </div>
     </div>
-  </body>
+
+    <div class="lineChartCases">
+      <div class="lineChart">
+        <div class="lineChartHeader">
+          <span class="indicatorTitle">Previsão de ocupação de leitos</span>
+          <span class="indicatorTitle max">BRASIL</span>
+        </div>
+        <div class="chart">
+          <canvas id="country"></canvas>
+        </div>
+      </div>
+      <div class="lineChart">
+        <div class="lineChartHeader">
+          <span class="indicatorTitle">Percentual de crescimento em relação ao último ano</span>
+        </div>
+        <div class="chart">
+          <canvas id="state"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/home.js"></script>
