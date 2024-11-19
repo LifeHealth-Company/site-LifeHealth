@@ -1,5 +1,5 @@
-// var ambiente_processo = 'producao';
-var ambiente_processo = 'desenvolvimento';
+//var ambiente_processo = 'producao';
+ var ambiente_processo = 'desenvolvimento';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
@@ -11,7 +11,8 @@ var express = require("express");
 var cors = require("cors");
 var path = require("path");
 var PORTA_APP = process.env.APP_PORT;
-var HOST_APP = process.env.APP_HOST;
+var HOST_APP = process.env.APP_HOST || '0.0.0.0';
+var NUVEM_APP = process.env.APP_NUVEM;
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.listen(PORTA_APP, function () {
     console.log(`
               
     Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
+    Caso esteja acessando pelo ambiente da nuvem, acesse o caminho : http://${NUVEM_APP}:${PORTA_APP} :. \n\n
     Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:`);
 });
 

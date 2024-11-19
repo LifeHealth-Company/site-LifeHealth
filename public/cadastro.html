@@ -12,39 +12,18 @@
     <link rel="icon" href="assets/icon/mini.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
           rel="stylesheet" />
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="inicio">
-        <div class="header">
-            <div class="mainHeader">
-                <ul class="options">
-                    <a href="#inicio">
-                    <li class="option">Início</li>
-                    </a>
-                    <li class="divisor">/</li>
-                    <a href="#sobre">
-                    <li class="option">Sobre</li>
-                    </a>
-                    <li class="divisor">/</li>
-                    <a href="#servico">
-                    <li class="option">Serviços</li>
-                    </a>
-                    <li class="divisor">/</li>
-                    <a href="#contato">
-                    <li class="option">Contato</li>
-                    </a>
-                </ul>
-
-                <div class="headerLogo">
-                    <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
-                </div>
-                <div class="loginContainer">
-                    <button class="btnLogin">Entrar</button>
-                </div>
-            </div>
-        </div>
+        <div class="top-bar">
+            <a href="login.html">
+                <i class="fas fa-arrow-left"></i>
+                Voltar para o login
+            </a>
+        </div>    
         <div class="content-register">
             <div class="cadastro-container">
                 <div class="cadastro-text">
@@ -56,21 +35,21 @@
                             <div class="inputs-step1" id="inputContainer">
                                 <label for="nomeInstituicao">Nome da instituição</label>
                                 <input type="text"
-                                       id="nomeInstituicao"
+                                       id="input_nomeInstituicao"
                                        placeholder="Insira o nome da sua Instituição" />
 
                                 <label for="nomeResponsavel">Nome do Responsável</label>
                                 <input type="text"
-                                       id="nomeResponsavel"
+                                       id="input_nomeResponsavel"
                                        placeholder="Insira o nome do Responsável" />
 
                                 <label for="tipoInstituicao">Tipo de Instituição</label>
-                                <select id="tipoInstituicao">
+                                <select id="input_tipoInstituicao">
                                     <option value="" disabled selected>
                                         Selecione uma opção
                                     </option>
-                                    <option value="privada">Privada</option>
-                                    <option value="publica">Pública</option>
+                                    <option value="Privada">Privada</option>
+                                    <option value="Pública">Pública</option>
                                 </select>
                             </div>
 
@@ -78,17 +57,17 @@
                             <div id="hiddenInputs" class="inputs-step2 hidden">
                                 <label for="endereco">CNPJ</label>
                                 <input type="text"
-                                       id="endereco"
+                                       id="input_cnpj"
                                        placeholder="Insira o CNPJ da Insituição" />
 
                                 <label for="telefone">CEP</label>
                                 <input type="text"
-                                       id="telefone"
+                                       id="input_cep"
                                        placeholder="Insira o CEP da Instituição" />
 
                                 <label for="estado">Estado de Residência</label>
                                 <input type="estado"
-                                       id="estado"
+                                       id="input_estado"
                                        placeholder="Insira seu estado"/>
                             </div>
 
@@ -97,17 +76,17 @@
 
                                 <label for="email">Email de Contato</label>
                                 <input type="email"
-                                       id="email"
+                                       id="input_email_cadastrar"
                                        placeholder="Insira seu email" />
 
                                 <label for="campo1">Senha</label>
                                 <input type="text"
-                                       id="campo1"
+                                       id="input_senha_cadastro"
                                        placeholder="Insira sua senha" />
 
                                 <label for="campo2">Confirmar senha</label>
                                 <input type="text"
-                                       id="campo2"
+                                       id="input_confirma_senha"
                                        placeholder="Insira sua senha novamente" />
                             </div>
                         </div>
@@ -192,6 +171,93 @@
 </body>
 </html>
 <script>
+      function cadastrar() {
+    var nomeInstituicaoVar = input_nomeInstituicao.value.trim();
+    var nomeResponsavelVar = input_nomeResponsavel.value.trim(); 
+    var tipoInstituicaoVar = input_tipoInstituicao.value.trim();
+    var cnpjVar = input_cnpj.value.trim();
+    var cepVar = input_cep.value.trim();
+    var estadoVar = input_estado.value.trim();
+    var emailVar = input_email_cadastrar.value.trim();
+    var senhaVar = input_senha_cadastro.value.trim();
+    var confirmacaoSenhaVar = input_confirma_senha.value.trim();
+
+    // Verificar se todos os campos estão preenchidos
+    if (!nomeInstituicaoVar || !nomeResponsavelVar || !tipoInstituicaoVar || !cnpjVar || 
+        !cepVar || !estadoVar || !emailVar || !senhaVar || !confirmacaoSenhaVar) {
+        alert("Por favor, preencha todos os campos.");
+        return; 
+    }
+
+    // Verificar se as senhas coincidem
+    if (senhaVar !== confirmacaoSenhaVar) {
+        alert("As senhas não coincidem.");
+        return;
+    }
+
+    // Verificação de duplicidade dentro da própria função cadastrar
+    fetch("/usuarios/verificarCadastro", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            emailServer: emailVar,
+            cnpjServer: cnpjVar,
+        }),
+    })
+    .then(function (resposta) {
+        if (!resposta.ok) {
+            throw new Error("Erro ao verificar cadastro");
+        }
+        return resposta.json();
+    })
+    .then(function (resultado) {
+        if (resultado.existe) {
+            alert("E-mail ou CNPJ já cadastrados.");
+            return; // Sai da função se o email ou CNPJ já existirem
+        }
+
+        // Prossegue com o cadastro se não houver duplicidade
+        return fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                nomeInstituicaoServer: nomeInstituicaoVar,
+                senhaServer: senhaVar,
+                estadoServer: estadoVar,
+                cepServer: cepVar,
+                cnpjServer: cnpjVar,
+                tipoInstituicaoServer: tipoInstituicaoVar,
+                nomeResponsavelServer: nomeResponsavelVar
+            }),
+        });
+    })
+    .then(function (respostaCadastro) {
+        if (respostaCadastro && respostaCadastro.ok) {
+            alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+            setTimeout(() => {
+                window.location = "login.html";
+            }, 2000);
+        } else if (respostaCadastro) {
+            respostaCadastro.text().then(texto => {
+                alert(`Erro ao cadastrar: ${texto}`);
+                console.log(`Erro ao cadastrar: ${texto}`);
+            });
+        }
+    })
+    .catch(function (erro) {
+        console.log("Erro:", erro);
+        alert("Ocorreu um erro ao tentar cadastrar. Tente novamente mais tarde.");
+    });
+
+    return false;
+}
+
+
     document.addEventListener('DOMContentLoaded', function () {
         const urlParams = new URLSearchParams(window.location.search);
         const selectedOption = urlParams.get('selectedOption');
@@ -210,19 +276,19 @@
 
             inputWrapper.innerHTML = `
                 <div class="input-field">
-                    <label for="nomeFarmacia">Nome da Farmácia</label>
-                    <input type="text" id="nomeFarmacia" placeholder="Insira o nome da sua Farmácia">
+                    <label for="input_nomeInstituicao">Nome da Farmácia</label>
+                    <input type="text" id="input_nomeInstituicao" placeholder="Insira o nome da sua Farmácia">
                 </div>
-                <div class="input-field">
+                <div class="input-field">   
                     <label for="nomeResponsavel">Nome do Responsável</label>
-                    <input type="text" id="nomeResponsavel" placeholder="Insira o nome do Responsável">
+                    <input type="text" id="input_nomeResponsavel" placeholder="Insira o nome do Responsável">
                 </div>
                 <div class="input-field">
-                    <label for="tipoFarmacia">Tipo de Farmácia</label>
-                    <select id="tipoFarmacia">
+                    <label for="input_tipoInstituicao">Tipo de Farmácia</label>
+                    <select id="input_tipoInstituicao">
                         <option value="" disabled selected>Selecione uma opção</option>
-                        <option value="local">Local</option>
-                        <option value="rede">Rede</option>
+                        <option value="Local">Local</option>
+                        <option value="Rede">Rede</option>
                     </select>
                 </div>
             `;
@@ -232,4 +298,73 @@
             field.style.marginBottom = '20px'; 
         });
     });
+    
+
+    function limparCampos() {
+        document.getElementById("input_nomeInstituicao").value = "";
+        document.getElementById("input_nomeResponsavel").value = "";
+        document.getElementById("input_tipoInstituicao").value = "";
+        document.getElementById("input_cnpj").value = "";
+        document.getElementById("input_cep").value = "";
+        document.getElementById("input_estado").value = "";
+        document.getElementById("input_email_cadastrar").value = "";
+        document.getElementById("input_senha_cadastro").value = "";
+        document.getElementById("input_confirma_senha").value = "";
+    }
+
+    function atualizarBotao(step) {
+    const actionButton = document.getElementById('actionButton');
+    
+    if (step === 1) {
+        actionButton.innerText = "Próximo";
+        actionButton.onclick = irParaStep2;
+    } else if (step === 2) {
+        actionButton.innerText = "Próximo";
+        actionButton.onclick = irParaStep3;
+    } else if (step === 3) {
+        actionButton.innerText = "Finalizar";
+        actionButton.onclick = cadastrar;
+    }
+}
+
+function voltarParaStep1() {
+    document.querySelector('.inputs-step1').classList.remove('hidden');
+    document.querySelector('.inputs-step2').classList.add('hidden');
+    document.querySelector('.inputs-step3').classList.add('hidden');
+
+    document.getElementById('dot1').classList.add('active');
+    document.getElementById('dot2').classList.remove('active');
+    document.getElementById('dot3').classList.remove('active');
+
+    atualizarBotao(1); // Configura o botão para Step 1
+}
+
+function irParaStep2() {
+    document.querySelector('.inputs-step1').classList.add('hidden');
+    document.querySelector('.inputs-step2').classList.remove('hidden');
+
+    document.getElementById('dot1').classList.remove('active');
+    document.getElementById('dot2').classList.add('active');
+
+    atualizarBotao(2); // Configura o botão para Step 2
+}
+
+function irParaStep3() {
+    document.querySelector('.inputs-step2').classList.add('hidden');
+    document.querySelector('.inputs-step3').classList.remove('hidden');
+
+    document.getElementById('dot2').classList.remove('active');
+    document.getElementById('dot3').classList.add('active');
+
+    atualizarBotao(3); // Configura o botão para Step 3
+}
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) { 
+            location.reload(); 
+            limparCampos(); 
+            voltarParaStep1();
+        }
+    });
+
+
 </script>

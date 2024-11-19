@@ -1,0 +1,390 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+   overflow-y: hidden;
+}
+
+.Inicial {
+    padding-left: 150px;
+    padding-right: 50px;
+}
+
+.titulo-incial {
+    margin-top: 2.5%;
+    color: #193D65;
+    font-size: 50px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.retangulo {
+    width: 1680px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+    padding: 30px; 
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.input-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    color: #193D65;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input {
+    font-family: "Poppins", sans-serif;
+    width: 463px;
+    height: 50px;
+    border: 1px solid #000;
+    padding-left: 10px; 
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    outline: none; 
+}
+
+input::placeholder {
+    color: #193c65a8; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+select {
+    width: 463px;
+    height: 50px;
+    border: 1px solid #000; 
+    padding-left: 10px; 
+    font-size: 16px;
+    background-color: #FFF;
+    color: #193D65;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+select:focus {
+    outline: none;
+}
+
+
+.botao-container {
+    display: flex;
+    justify-content: center; 
+}
+
+.botao-cadastrar {
+    width: 275px;
+    height: 52px;
+    background-color: #014466;
+    color: #F6F6F6;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.botao-cadastrar:hover {
+    background-color: #012F48; 
+}
+
+.texto-pesquisar-container {
+    display: flex;
+    gap:48%;
+    align-items: center;
+    width: 1680px; 
+    margin: 20px auto; 
+}
+
+.texto-inferior {
+    color: #193D65;
+    font-size: 40px;
+    font-weight: 600; 
+    font-family: "Poppins", sans-serif;
+}
+
+.botao-pesquisar {
+    width: 275px;
+    height: 52px;
+    background-color: #014466;
+    color: #F6F6F6;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    transition: background-color 0.3s;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.botao-pesquisar i {
+    font-size: 18px;
+}
+
+.botao-pesquisar:hover {
+    background-color: #012F48;
+}
+
+.table-container {
+    width: 1680px; 
+    margin: 30px auto; 
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.deletar{
+    margin-left: 2.7rem;
+}
+
+.editar{
+    margin-left: 3rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+th {
+    font-weight: 600;
+    color: #1a2b4c;
+    text-align: left;
+    font-size: 18px;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 18px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+#editModal {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    visibility: hidden;  
+    opacity: 0;
+}
+
+#editModal.show {
+    visibility: visible; 
+    opacity: 1; 
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px; 
+    border-radius: 8px;
+    width: 50%; 
+    max-width: 700px; 
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content input, .modal-content select {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/*modal de exclusão */
+#deleteModal {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    visibility: hidden;  
+    opacity: 0;
+}
+
+#deleteModal.show {
+    visibility: visible; 
+    opacity: 1; 
+}
+
+.modal-content-delete {
+    background-color: #fff;
+    padding: 30px;
+    width: 400px; 
+    max-width: 90%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+.modal-content-delete h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.modal-content-delete p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modal-buttons .cancel-btn {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.modal-buttons .cancel-btn:hover {
+    background-color: #ddd;
+}
+
+.modal-buttons .delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-buttons .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+#searchInput {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    width: 0;
+    opacity: 0;
+    display: inline-block;
+}
+
+#searchInput.show {
+    width: 200px; 
+    opacity: 1;
+}
+
+
+.pesquisa-container input {
+    width: 160%; 
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination button {
+    background-color:#193D65;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.pagination button:hover {
+    background-color: #3c70ac;
+}
+
+.pagination span {
+    margin: 0 10px;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Farmacêutico</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="menu-container"></div>
+    <div class="home">
+      <div class="header">
+        <h1>Média da Evolução Anual da Demanda</h1>
+        <select id="selectEstados">
+          <option value="">São Paulo</option>
+          <option value="">Rio de Janeiro</option>
+          <option value="">Pernambuco</option>
+          <option value="">Pará</option>
+          <option value="">Goiás</option>
+        </select>
+      </div>
+      <div class="header-container">
+        <div class="kpi">
+          <h4>Soro</h4>
+          <p>2 milhões casos</p>
+          <span class="indicator up">20%</span>
+        </div>
+        <div class="kpi">
+          <h4>Repelentes</h4>
+          <p>2 milhões casos</p>
+          <span class="indicator up">20%</span>
+        </div>
+        <div class="kpi">
+          <h4>Paracetamol</h4>
+          <p>2 milhões casos</p>
+          <span class="indicator up">20%</span>
+        </div>
+        <div class="kpi">
+          <h4>Testes</h4>
+          <p>2 milhões casos</p>
+          <span class="indicator up">20%</span>
+        </div>
+      </div>
+      <div class="charts-container">
+        <div class="chart-group">
+          <!-- Grupo de gráficos à esquerda -->
+          <div class="lineChart">
+            <h2>Projeção de Consumo de Repelentes</h2>
+            <div class="chart">
+              <canvas id="state1"></canvas>
+            </div>
+          </div>
+          <div class="lineChart">
+            <h2>Projeção de Consumo de Soro por ano</h2>
+            <div class="chart">
+              <canvas id="state2"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="chart-group">
+          <!-- Grupo de gráficos à direita -->
+          <div class="lineChart">
+            <h2>Demanda de Testes Diagnósticos Anuais</h2>
+            <div class="chart">
+              <canvas id="state3"></canvas>
+            </div>
+          </div>
+          <div class="lineChart">
+            <h2>Previsão de Demanda de Paracetamol Anual</h2>
+            <div class="chart">
+              <canvas id="state4"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/menubehavior.js"></script>
+<script src="../js/menu.js"></script>
+<script src="./main.js"></script>

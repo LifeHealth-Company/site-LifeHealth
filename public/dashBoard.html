@@ -8,8 +8,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
     <link rel="stylesheet" href="./css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="assets/icon/mini.svg">
 </head>
 <body>
+    <div id="menu-container"></div>
+    
     <div class="mainClass">
         <div class="header">
             <select id="selectEstados">
@@ -19,19 +22,55 @@
                 <option value="">Pará</option>
                 <option value="">Goiás</option>
             </select>
-            <div class="dataFiltroGrafico">
-                <div class="colunaData">
-                    <h3>De</h3>
-                    <p>10/07/2022</p>
+            <div class="calendar">
+                <div class="timeIndicator">
+                    <span class="startEnd">De</span>
+                    <span class="date">10/07/2022</span>
                 </div>
-                <div class="colunaData">
-                    <h3>Até</h3>
-                    <p>31/07/2022</p>
+                <img src="./assets/icon/longArrow.svg" class="arrow" />
+                <div class="timeIndicator">
+                    <span class="startEnd">Até</span>
+                    <span class="date">30/12/2022</span>
                 </div>
-                <div class="dateClass">
-                    <input type="date">
-                </div>    
+
+                <img src="./assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="calendar" />
+                
             </div>
+            <dialog id="calendarModal">
+                <div class="dialog">
+                    <div class="modal-content">
+                        <div class="calendarHeader" id="calendar">
+                            <img class="changeMounth" id="prev" src="./assets/calendarIcons/previews.svg" />
+                            <span class="mounth" id="monthAndYear"></span>
+                            <img class="changeMounth" id="next" src="./assets/calendarIcons/next.svg" />
+                        </div>
+                        <div class="weekendDays">
+                            <span class="day">DOM</span>
+                            <span class="day">SEG</span>
+                            <span class="day">TER</span>
+                            <span class="day">QUA</span>
+                            <span class="day">QUI</span>
+                            <span class="day">SEX</span>
+                            <span class="day">SAB</span>
+                        </div>
+                        <div class="days" id="days"></div>
+    
+                        <div class="timeIndicators">
+                            <div class="timeIndicatorModal">
+                                <span class="startEnd">De</span>
+                                <span class="date" id="startDate">--/--/----</span>
+                            </div>
+                            <img src="./assets/icon/longArrow.svg" class="arrow" />
+                            <div class="timeIndicatorModal">
+                                <span class="startEnd">Até</span>
+                                <span class="date" id="endDate">--/--/----</span>
+                            </div>
+            
+            
+                        </div>
+                    </div>
+                </div>
+            </dialog>
         </div>
         <div class="rankingPrincipaisAfetados">
             <h1 class="tituloMaiorAfetado">Maiores afetados</h1>
@@ -58,12 +97,12 @@
             <div class="boxGraphic">
                 <canvas id="myRadarChart"></canvas>
             </div>
-
+            
             <div class="boxGraphic">
                 <div class="gaugeTitle">População infectada</div>
                 <div id="gauge"></div>
             </div>
-
+            
             <div class="boxGraphic">
                 <canvas id="pizzaGraphic"></canvas>
             </div>
@@ -78,5 +117,9 @@
         </div>
     </div>
     <script src="./js/graphics.js"></script>
+    <script src="./js/menubehavior.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/dashboard.js"></script>
+    <script src="./js/calendar.js"></script>
 </body>
 </html>
