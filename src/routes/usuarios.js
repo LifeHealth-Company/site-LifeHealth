@@ -42,5 +42,9 @@ router.get("/tipoInstituicao/:idEmpresa", function (req, res) {
     usuarioController.obterTipoInstituicao(req, res);
 });
 
+router.post("/casos", function (req, res) {
+    usuarioController.atualizarProjecaoRepelente(req, res);
+})
+
 
 module.exports = router;

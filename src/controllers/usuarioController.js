@@ -204,6 +204,29 @@ function obterTipoInstituicao(req, res) {
         });
 }
 
+
+function atualizarProjecaoRepelente(req, res) {
+    var estado = req.body.estadoServer;
+
+    if (estado == undefined) {
+        res.status(400).send("O estado está undefined!");
+    } else {
+        usuarioModel.atualizarProjecaoRepelente(estado)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.json(resultado);
+            } else {
+                res.status(404).send("Nenhum dado encontrado para o estado informado.");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+}
+
+
 module.exports = {
     autenticar,
     cadastrar, 
@@ -212,5 +235,6 @@ module.exports = {
     buscarFuncionarios,
     editarFuncionario,
     obterTipoInstituicao,
-    excluirFuncionario
+    excluirFuncionario,
+    atualizarProjecaoRepelente
 }

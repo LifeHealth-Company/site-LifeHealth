@@ -115,6 +115,21 @@ function buscarTipoInstituicao(idEmpresa) {
 }
 
 
+function atualizarProjecaoRepelente(estado) {
+    console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de casos para o estado: ", estado);
+    
+    var instrucaoSql = `
+        SELECT ano, COUNT(*) AS quantidade
+        FROM Casos
+        WHERE ufNotificacao = '${estado}'
+        GROUP BY ano
+        ORDER BY ano;
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     autenticar,
@@ -124,5 +139,6 @@ module.exports = {
     editarFuncionario,
     verificarCadastro,
     buscarTipoInstituicao,
-    excluirFuncionario
+    excluirFuncionario,
+    atualizarProjecaoRepelente
 };

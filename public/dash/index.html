@@ -13,12 +13,12 @@
     <div class="home">
       <div class="header">
         <h1>Média da Evolução Anual da Demanda</h1>
-        <select id="selectEstados">
-          <option value="">São Paulo</option>
-          <option value="">Rio de Janeiro</option>
-          <option value="">Pernambuco</option>
-          <option value="">Pará</option>
-          <option value="">Goiás</option>
+        <select id="selectEstados" onchange="atualizarProjecaoRepelentes()">
+          <option value="SP">São Paulo</option>
+          <option value="PB">Pernambuco</option>
+          <option value="AL">Alagóas</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="GO">Góias</option>
         </select>
       </div>
       <div class="header-container">
@@ -82,3 +82,78 @@
 <script src="../js/menubehavior.js"></script>
 <script src="../js/menu.js"></script>
 <script src="./main.js"></script>
+
+<script>
+function atualizarProjecaoRepelentes() {
+
+  var estadoVar = document.getElementById("selectEstados").value;
+
+    console.log("Estado selecionado: ", estadoVar);
+
+    fetch(`/usuarios/casos`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            estadoServer: estadoVar
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO atualizarProjecaoRepelentes()!");
+
+        if (resposta.ok) {
+            resposta.json().then(function (dados) {
+                console.log("Dados recebidos:", dados);
+
+                var anos = [];
+                var casos = [];
+
+                dados.forEach(function (dado) {
+                    anos.push(dado.ano);
+                    casos.push(dado.quantidade);
+                });
+
+                var CAGR = calcularCAGR(casos); 
+                var casos2024 = Math.round(casos[casos.length - 1] * (1 + CAGR));
+                anos.push("2024");
+                casos.push(casos2024);
+
+                const chart = Chart.getChart("state1");
+                if (chart) {
+                    chart.data.labels = anos;
+                    chart.data.datasets[0].data = casos;
+
+                    chart.data.datasets[0].backgroundColor = anos.map((ano, index) =>
+                        index % 2 === 0 ? "#AA00FF" : "#193D65"
+                    );
+
+                    chart.update();
+                    console.log("Gráfico atualizado com sucesso!");
+                } else {
+                    console.error("Gráfico não encontrado!");
+                }
+            });
+        } else {
+            console.log("Erro ao buscar dados de casos para o estado selecionado.");
+            resposta.text().then(function (texto) {
+                console.error(texto);
+            });
+        }
+    }).catch(function (erro) {
+        console.log("Erro na requisição:", erro);
+    });
+
+    return false;
+}
+
+function calcularCAGR(casos) {
+    if (casos.length < 2) return 0;
+
+    var V_inicial = casos[0];
+    var V_final = casos[casos.length - 1];
+    var n = casos.length - 1;
+
+    return Math.pow(V_final / V_inicial, 1 / n) - 1;
+}
+
+</script>
