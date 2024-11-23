@@ -76,11 +76,11 @@ const ctx3 = document.getElementById("state3").getContext("2d");
 new Chart(ctx3, {
   type: "line",
   data: {
-    labels: ["2021", "2022", "2023", "2024", "2025"],
+    labels: ["2021", "2022", "2023", "2024", "2025"], 
     datasets: [
       {
         label: "Quantidade de testes vendidos registrados",
-        data: [2, 3, 4.5, 4, 2.5],
+        data: [], 
         borderColor: "#193D65",
         backgroundColor: "rgba(25, 61, 101, 0.1)",
         fill: false,
@@ -88,7 +88,7 @@ new Chart(ctx3, {
       },
       {
         label: "Quantidade de vendas projetadas",
-        data: [2.5, 3, 3.5, 3.8, 4.5],
+        data: [], 
         borderColor: "#FF0000",
         backgroundColor: "rgba(255, 0, 0, 0.1)",
         fill: false,
@@ -157,6 +157,7 @@ new Chart(ctx3, {
     },
   },
 });
+
 
 const ctx2 = document.getElementById("state2").getContext("2d");
 

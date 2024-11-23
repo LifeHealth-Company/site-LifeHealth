@@ -130,6 +130,32 @@ function atualizarProjecaoRepelente(estado) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarProjecaoTestes(estado) {
+    console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de consumo de testes para o estado: ", estado);
+    
+    var instrucaoSql = `
+    SELECT ano, COUNT(*) AS quantidade
+    FROM Casos
+    WHERE ufNotificacao = '${estado}'
+    GROUP BY ano
+    ORDER BY ano;
+`;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarDemanda(estado, anoInicial, anoFinal) {
+    const instrucaoSql = `
+        SELECT ano, COUNT(*) AS quantidade
+        FROM Casos
+        WHERE ufNotificacao = '${estado}' AND ano BETWEEN '${anoInicial}' AND '${anoFinal}'
+        GROUP BY ano
+        ORDER BY ano;
+    `;
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     autenticar,
@@ -140,5 +166,7 @@ module.exports = {
     verificarCadastro,
     buscarTipoInstituicao,
     excluirFuncionario,
-    atualizarProjecaoRepelente
+    atualizarProjecaoRepelente,
+    atualizarProjecaoTestes,
+    buscarDemanda
 };

@@ -46,5 +46,12 @@ router.post("/casos", function (req, res) {
     usuarioController.atualizarProjecaoRepelente(req, res);
 })
 
+router.post('/testes', function(req, res) {
+    usuarioController.atualizarProjecaoTestes(req, res);
+});
+
+router.post("/demanda", function (req, res) {
+    usuarioController.buscarDemanda(req, res);
+});
 
 module.exports = router;

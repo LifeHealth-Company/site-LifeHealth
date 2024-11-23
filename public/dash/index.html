@@ -13,7 +13,24 @@
     <div class="home">
       <div class="header">
         <h1>Média da Evolução Anual da Demanda</h1>
-        <select id="selectEstados" onchange="atualizarProjecaoRepelentes()">
+        <div>
+          <label for="anoInicial">Ano Inicial:</label>
+          <select id="anoInicial" onchange="atualizarKPI()">
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="anoFinal">Ano Final:</label>
+          <select id="anoFinal" onchange="atualizarKPI()">
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+        <select id="selectEstados" onchange="atualizarProjecaoRepelentes(); atualizarProjecaoTestes()">
           <option value="SP">São Paulo</option>
           <option value="PB">Pernambuco</option>
           <option value="AL">Alagóas</option>
@@ -155,5 +172,131 @@ function calcularCAGR(casos) {
 
     return Math.pow(V_final / V_inicial, 1 / n) - 1;
 }
+
+function atualizarProjecaoTestes() {
+    var estadoVar = document.getElementById("selectEstados").value;
+
+    console.log("Estado selecionado: ", estadoVar);
+
+    fetch(`/usuarios/testes`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            estadoServer: estadoVar,
+        }),
+    })
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO atualizarProjecaoTestes()!");
+
+            if (resposta.ok) {
+                resposta.json().then(function (dados) {
+                    console.log("Dados recebidos:", dados);
+
+                    var anos = [];
+                    var vendasReais = [];
+                    var vendasProjetadas = [];
+
+                    dados.forEach(function (dado) {
+                        anos.push(dado.ano);
+                        vendasReais.push(dado.quantidade);
+                    });
+
+                    var populacaoInicial = 1000000;
+                    var crescimentoPopulacional = 0.02;
+
+                    for (let i = 0; i < anos.length; i++) {
+                        let populacaoAno = Math.round(
+                            populacaoInicial * Math.pow(1 + crescimentoPopulacional, i)
+                        );
+                        vendasProjetadas.push((vendasReais[i] / populacaoAno) * populacaoInicial);
+                    }
+
+                    var CAGR = calcularCAGR(vendasReais);
+                    var vendas2024 = Math.round(vendasReais[vendasReais.length - 1] * (1 + CAGR));
+                    var vendas2025 = Math.round(vendas2024 * (1 + CAGR));
+
+                    anos.push("2024", "2025");
+                    vendasProjetadas.push(vendas2024, vendas2025);
+
+                    const chart = Chart.getChart("state3");
+                    if (chart) {
+                        chart.data.labels = anos;
+                        chart.data.datasets[0].data = vendasReais;
+                        chart.data.datasets[1].data = vendasProjetadas;
+
+                        chart.update();
+                        console.log("Gráfico atualizado com sucesso!");
+                    } else {
+                        console.error("Gráfico não encontrado!");
+                    }
+                });
+            } else {
+                console.log("Erro ao buscar dados de testes para o estado selecionado.");
+                resposta.text().then(function (texto) {
+                    console.error(texto);
+                });
+            }
+        })
+        .catch(function (erro) {
+            console.log("Erro na requisição:", erro);
+        });
+
+    return false;
+}
+
+function atualizarKPI() {
+    const estado = document.getElementById("selectEstados").value;
+    const anoInicial = document.getElementById("anoInicial").value;
+    const anoFinal = document.getElementById("anoFinal").value;
+
+    fetch(`/usuarios/demanda`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            estadoServer: estado,
+            anoInicialServer: anoInicial,
+            anoFinalServer: anoFinal
+        })
+    }).then(resposta => {
+        if (resposta.ok) {
+            return resposta.json();
+        } else {
+            console.error("Erro ao buscar dados da demanda.");
+        }
+    }).then(dados => {
+        if (dados) {
+            console.log("Dados recebidos:", dados);
+
+            const mediaDemanda = calcularMediaDemanda(dados);
+            const percentualEvolucao = calcularPercentualEvolucao(dados);
+
+            atualizarKPICard(mediaDemanda, percentualEvolucao);
+        }
+    }).catch(erro => console.error("Erro na requisição:", erro));
+}
+
+
+function calcularPercentualEvolucao(dados) {
+    if (dados.length < 2) return 0;
+
+    const primeiroAno = dados[0].quantidade;
+    const ultimoAno = dados[dados.length - 1].quantidade;
+
+    return ((ultimoAno - primeiroAno) / primeiroAno) * 100;
+}
+
+function atualizarKPICard(mediaDemanda, percentualEvolucao) {
+    const kpiCard = document.querySelector(".kpi");
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} milhões de casos`;
+    const indicador = kpiCard.querySelector(".indicator");
+    indicador.textContent = `${percentualEvolucao.toFixed(2)}%`;
+    indicador.classList.toggle("up", percentualEvolucao >= 0);
+    indicador.classList.toggle("down", percentualEvolucao < 0);
+}
+
 
 </script>

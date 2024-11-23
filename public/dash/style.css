@@ -86,8 +86,16 @@
 .indicator.up::before {
   content: "▲";
   font-size: 20px;
-  color: #ff1744;
 }
+
+.kpi .indicator.up {
+  background-color: #4CAF50; 
+}
+
+.kpi .indicator.down {
+  background-color: #FF5722;
+}
+
 .charts-container {
   display: flex;
   flex-wrap: wrap;
@@ -146,7 +154,7 @@ canvas {
   color: #193d65;
 }
 
-#selectEstados {
+#selectEstados, #anoInicial , #anoFinal {
   color: var(--borderColor);
   width: 20%;
   height: 4vh;
