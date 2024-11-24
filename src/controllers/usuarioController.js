@@ -285,26 +285,53 @@ function atualizarProjecaoTestes(req, res) {
 }
 
 function buscarDemanda(req, res) {
-    const { estadoServer, anoInicial, anoFinal } = req.body;
+  const { estadoServer, anoInicialServer, anoFinalServer } = req.body;
 
-    if (!estadoServer || !anoInicial || !anoFinal) {
-        res.status(400).send("Dados insuficientes!");
-    } else {
-        usuarioModel.buscarDemanda(estadoServer, anoInicial, anoFinal)
-            .then((resultado) => {
-                if (resultado.length > 0) {
-                    res.json(resultado);
-                } else {
-                    res.status(404).send("Nenhum dado encontrado para os parâmetros informados.");
-                }
-            })
-            .catch((erro) => {
-                console.error(erro);
-                res.status(500).json(erro.sqlMessage);
-            });
-    }
+  const estado = estadoServer;
+  const anoInicial = anoInicialServer;
+  const anoFinal = anoFinalServer;
+
+  if (!estado || !anoInicial || !anoFinal) {
+    res.status(400).send("Dados insuficientes!");
+  } else {
+    usuarioModel
+      .buscarDemanda(estado, anoInicial, anoFinal)
+      .then((resultado) => {
+        if (resultado.length > 0) {
+          res.json(resultado);
+        } else {
+          res
+            .status(404)
+            .send("Nenhum dado encontrado para os parâmetros informados.");
+        }
+      })
+      .catch((erro) => {
+        console.error(erro);
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
 }
 
+function buscarEstadoEmpresa(req, res) {
+  const idEmpresa = req.params.idEmpresa;
+
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    return res.status(400).send("ID da empresa inválido.");
+  }
+
+  usuarioModel
+    .buscarEstado(idEmpresa)
+    .then((empresa) => {
+      if (!empresa) {
+        return res.status(404).json({ error: "Empresa não encontrada." });
+      }
+      res.status(200).json(empresa);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados da empresa:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
+    });
+}
 
 module.exports = {
   autenticar,
@@ -317,5 +344,6 @@ module.exports = {
   excluirFuncionario,
   atualizarProjecaoRepelente,
   atualizarProjecaoTestes,
-  buscarDemanda
+  buscarDemanda,
+  buscarEstadoEmpresa
 };

@@ -156,6 +156,16 @@ function buscarDemanda(estado, anoInicial, anoFinal) {
     return database.executar(instrucaoSql);
 }
 
+function buscarEstado(idEmpresa) {
+    const instrucaoSql = `
+      SELECT estado, nomeinstituicao, nomeResponsavel, tipoInstituicao, cnpj, cep, email
+      FROM Empresa
+      WHERE idEmpresa = '${idEmpresa}';
+    `;
+  
+    return database.executar(instrucaoSql);
+  }
+
 
 module.exports = {
     autenticar,
@@ -168,5 +178,6 @@ module.exports = {
     excluirFuncionario,
     atualizarProjecaoRepelente,
     atualizarProjecaoTestes,
-    buscarDemanda
+    buscarDemanda,
+    buscarEstado
 };

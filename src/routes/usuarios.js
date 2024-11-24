@@ -54,4 +54,8 @@ router.post("/demanda", function (req, res) {
     usuarioController.buscarDemanda(req, res);
 });
 
+router.get("/:idEmpresa", function (req, res) {
+    usuarioController.buscarEstadoEmpresa(req, res);
+});
+
 module.exports = router;

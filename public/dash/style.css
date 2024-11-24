@@ -86,15 +86,15 @@
 .indicator.up::before {
   content: "▲";
   font-size: 20px;
+  color: #ff1744; 
 }
 
-.kpi .indicator.up {
-  background-color: #4CAF50; 
+.indicator.down::before {
+  content: "▼";
+  font-size: 20px;
+  color: #00e676; 
 }
 
-.kpi .indicator.down {
-  background-color: #FF5722;
-}
 
 .charts-container {
   display: flex;
@@ -184,4 +184,74 @@ canvas {
     width: 100%;
     height: 250px;
   }
+}
+
+/* Estilo do Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-input {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.modal-input label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.modal-input select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#search-btn {
+  background: #193d65;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#search-btn:hover {
+  background: #14568a;
+}
+
+.icon-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1001;
 }

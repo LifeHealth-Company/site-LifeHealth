@@ -7,57 +7,76 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href=".././assets/icon/mini.svg" />
   </head>
-  
+
   <body>
     <div id="menu-container"></div>
     <div class="home">
       <div class="header">
         <h1>Média da Evolução Anual da Demanda</h1>
-        <div>
-          <label for="anoInicial">Ano Inicial:</label>
-          <select id="anoInicial" onchange="atualizarKPI()">
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
+        <!-- Ícone para abrir o modal -->
+        <div id="open-modal-btn" class="icon-btn">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/483/483408.png"
+            alt="Configurações"
+            width="30px"
+          />
         </div>
-        
-        <div>
-          <label for="anoFinal">Ano Final:</label>
-          <select id="anoFinal" onchange="atualizarKPI()">
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <span id="close-modal" class="close-btn">&times;</span>
+            <h2>Filtrar Dados</h2>
+            <div class="modal-input">
+              <label for="modalAnoInicial">Ano Inicial:</label>
+              <select id="modalAnoInicial">
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <div class="modal-input">
+              <label for="modalAnoFinal">Ano Final:</label>
+              <select id="modalAnoFinal">
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <div class="modal-input">
+              <label for="modalEstado">Estado:</label>
+              <select id="modalEstado">
+                <option value="SP">São Paulo</option>
+                <option value="PB">Pernambuco</option>
+                <option value="AL">Alagoas</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="GO">Goiás</option>
+              </select>
+            </div>
+            <button id="search-btn">Pesquisar</button>
+          </div>
         </div>
-        <select id="selectEstados" onchange="atualizarProjecaoRepelentes(); atualizarProjecaoTestes()">
-          <option value="SP">São Paulo</option>
-          <option value="PB">Pernambuco</option>
-          <option value="AL">Alagóas</option>
-          <option value="DF">Distrito Federal</option>
-          <option value="GO">Góias</option>
-        </select>
       </div>
       <div class="header-container">
-        <div class="kpi">
+        <div class="kpi" id="kpi-soro">
           <h4>Soro</h4>
-          <p>2 milhões casos</p>
-          <span class="indicator up">20%</span>
+          <p>0 sachês</p>
+          <span class="indicator up">0%</span>
         </div>
-        <div class="kpi">
+        <div class="kpi" id="kpi-repelente">
           <h4>Repelentes</h4>
-          <p>2 milhões casos</p>
-          <span class="indicator up">20%</span>
+          <p>0 repelentes</p>
+          <span class="indicator up">0%</span>
         </div>
         <div class="kpi">
           <h4>Paracetamol</h4>
-          <p>2 milhões casos</p>
-          <span class="indicator up">20%</span>
+          <p>0 milhões casos</p>
+          <span class="indicator up">0%</span>
         </div>
         <div class="kpi">
           <h4>Testes</h4>
-          <p>2 milhões casos</p>
-          <span class="indicator up">20%</span>
+          <p>0 milhões casos</p>
+          <span class="indicator up">0%</span>
         </div>
       </div>
       <div class="charts-container">
@@ -101,69 +120,94 @@
 <script src="./main.js"></script>
 
 <script>
-function atualizarProjecaoRepelentes() {
+  function buscarEstadoEmpresa() {
+    const idEmpresa = sessionStorage.ID_EMPRESA;
 
-  var estadoVar = document.getElementById("selectEstados").value;
+    if (!idEmpresa || isNaN(idEmpresa)) {
+      console.error("ID da empresa não definido ou inválido.");
+      alert(
+        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
+      );
+      return;
+    }
 
+    console.log("ID da empresa:", idEmpresa);
+
+    fetch(`/usuarios/${idEmpresa}`)
+      .then(function (resposta) {
+        console.log("Resposta da API:", resposta);
+
+        if (resposta.ok) {
+          resposta.json().then(function (dadosEmpresa) {
+            console.log("Dados da empresa:", dadosEmpresa);
+
+            const estado = dadosEmpresa[0].estado;
+
+            if (estado) {
+              atualizarProjecaoRepelentes(estado);
+              atualizarProjecaoTestes(estado);
+            } else {
+              console.error("Estado não encontrado nos dados da empresa.");
+            }
+          });
+        } else {
+          throw "Erro ao buscar os dados da empresa.";
+        }
+      })
+      .catch(function (erro) {
+        console.log("#ERRO:", erro);
+      });
+  }
+
+  function atualizarProjecaoRepelentes(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
 
     fetch(`/usuarios/casos`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            estadoServer: estadoVar
-        })
-    }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO atualizarProjecaoRepelentes()!");
-
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
+    })
+      .then(function (resposta) {
         if (resposta.ok) {
-            resposta.json().then(function (dados) {
-                console.log("Dados recebidos:", dados);
-
-                var anos = [];
-                var casos = [];
-
-                dados.forEach(function (dado) {
-                    anos.push(dado.ano);
-                    casos.push(dado.quantidade);
-                });
-
-                var CAGR = calcularCAGR(casos); 
-                var casos2024 = Math.round(casos[casos.length - 1] * (1 + CAGR));
-                anos.push("2024");
-                casos.push(casos2024);
-
-                const chart = Chart.getChart("state1");
-                if (chart) {
-                    chart.data.labels = anos;
-                    chart.data.datasets[0].data = casos;
-
-                    chart.data.datasets[0].backgroundColor = anos.map((ano, index) =>
-                        index % 2 === 0 ? "#AA00FF" : "#193D65"
-                    );
-
-                    chart.update();
-                    console.log("Gráfico atualizado com sucesso!");
-                } else {
-                    console.error("Gráfico não encontrado!");
-                }
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var casos = [];
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              casos.push(dado.quantidade);
             });
+
+            var CAGR = calcularCAGR(casos);
+            var casos2024 = Math.round(casos[casos.length - 1] * (1 + CAGR));
+            anos.push("2024");
+            casos.push(casos2024);
+
+            const chart = Chart.getChart("state1");
+            if (chart) {
+              chart.data.labels = anos;
+              chart.data.datasets[0].data = casos;
+              chart.update();
+              console.log("Gráfico de repelentes atualizado com sucesso!");
+            } else {
+              console.error("Gráfico de repelentes não encontrado!");
+            }
+          });
         } else {
-            console.log("Erro ao buscar dados de casos para o estado selecionado.");
-            resposta.text().then(function (texto) {
-                console.error(texto);
-            });
+          console.log(
+            "Erro ao buscar dados de casos para o estado selecionado."
+          );
         }
-    }).catch(function (erro) {
-        console.log("Erro na requisição:", erro);
-    });
+      })
+      .catch(function (erro) {
+        console.log("Erro na requisição de repelentes:", erro);
+      });
+  }
 
-    return false;
-}
-
-function calcularCAGR(casos) {
+  function calcularCAGR(casos) {
     if (casos.length < 2) return 0;
 
     var V_inicial = casos[0];
@@ -171,132 +215,215 @@ function calcularCAGR(casos) {
     var n = casos.length - 1;
 
     return Math.pow(V_final / V_inicial, 1 / n) - 1;
-}
+  }
 
-function atualizarProjecaoTestes() {
-    var estadoVar = document.getElementById("selectEstados").value;
-
+  function atualizarProjecaoTestes(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
 
     fetch(`/usuarios/testes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var vendasReais = [];
+            var vendasProjetadas = [];
+
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              vendasReais.push(dado.quantidade);
+            });
+
+            var populacaoInicial = 1000000;
+            var crescimentoPopulacional = 0.02;
+
+            for (let i = 0; i < anos.length; i++) {
+              let populacaoAno = Math.round(
+                populacaoInicial * Math.pow(1 + crescimentoPopulacional, i)
+              );
+              vendasProjetadas.push(
+                (vendasReais[i] / populacaoAno) * populacaoInicial
+              );
+            }
+
+            var CAGR = calcularCAGR(vendasReais);
+            var vendas2024 = Math.round(
+              vendasReais[vendasReais.length - 1] * (1 + CAGR)
+            );
+            var vendas2025 = Math.round(vendas2024 * (1 + CAGR));
+
+            anos.push("2024", "2025");
+            vendasProjetadas.push(vendas2024, vendas2025);
+
+            const chart = Chart.getChart("state3");
+            if (chart) {
+              chart.data.labels = anos;
+              chart.data.datasets[0].data = vendasReais;
+              chart.data.datasets[1].data = vendasProjetadas;
+              chart.update();
+              console.log("Gráfico de testes atualizado com sucesso!");
+            } else {
+              console.error("Gráfico de testes não encontrado!");
+            }
+          });
+        } else {
+          console.log(
+            "Erro ao buscar dados de testes para o estado selecionado."
+          );
+        }
+      })
+      .catch(function (erro) {
+        console.log("Erro na requisição de testes:", erro);
+      });
+  }
+
+
+function atualizarKPI(estadoVar) {
+    const estadoElement = document.getElementById("modalEstado");
+    const anoInicialElement = document.getElementById("modalAnoInicial");
+    const anoFinalElement = document.getElementById("modalAnoFinal");
+
+    if (!estadoElement || !anoInicialElement || !anoFinalElement) {
+        console.error("Um ou mais elementos do modal não foram encontrados!");
+        return;
+    }
+
+    estadoElement.value = estadoVar || estadoElement.value;
+
+    const estado = estadoElement.value;
+    const anoInicial = anoInicialElement.value || "2022"; 
+    const anoFinal = anoFinalElement.value || "2023"; 
+
+    console.log("Dados a serem enviados:", {
+        estadoServer: estado,
+        anoInicialServer: anoInicial,
+        anoFinalServer: anoFinal,
+    });
+
+    fetch(`/usuarios/demanda`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            estadoServer: estadoVar,
-        }),
-    })
-        .then(function (resposta) {
-            console.log("ESTOU NO THEN DO atualizarProjecaoTestes()!");
-
-            if (resposta.ok) {
-                resposta.json().then(function (dados) {
-                    console.log("Dados recebidos:", dados);
-
-                    var anos = [];
-                    var vendasReais = [];
-                    var vendasProjetadas = [];
-
-                    dados.forEach(function (dado) {
-                        anos.push(dado.ano);
-                        vendasReais.push(dado.quantidade);
-                    });
-
-                    var populacaoInicial = 1000000;
-                    var crescimentoPopulacional = 0.02;
-
-                    for (let i = 0; i < anos.length; i++) {
-                        let populacaoAno = Math.round(
-                            populacaoInicial * Math.pow(1 + crescimentoPopulacional, i)
-                        );
-                        vendasProjetadas.push((vendasReais[i] / populacaoAno) * populacaoInicial);
-                    }
-
-                    var CAGR = calcularCAGR(vendasReais);
-                    var vendas2024 = Math.round(vendasReais[vendasReais.length - 1] * (1 + CAGR));
-                    var vendas2025 = Math.round(vendas2024 * (1 + CAGR));
-
-                    anos.push("2024", "2025");
-                    vendasProjetadas.push(vendas2024, vendas2025);
-
-                    const chart = Chart.getChart("state3");
-                    if (chart) {
-                        chart.data.labels = anos;
-                        chart.data.datasets[0].data = vendasReais;
-                        chart.data.datasets[1].data = vendasProjetadas;
-
-                        chart.update();
-                        console.log("Gráfico atualizado com sucesso!");
-                    } else {
-                        console.error("Gráfico não encontrado!");
-                    }
-                });
-            } else {
-                console.log("Erro ao buscar dados de testes para o estado selecionado.");
-                resposta.text().then(function (texto) {
-                    console.error(texto);
-                });
-            }
-        })
-        .catch(function (erro) {
-            console.log("Erro na requisição:", erro);
-        });
-
-    return false;
-}
-
-function atualizarKPI() {
-    const estado = document.getElementById("selectEstados").value;
-    const anoInicial = document.getElementById("anoInicial").value;
-    const anoFinal = document.getElementById("anoFinal").value;
-
-    fetch(`/usuarios/demanda`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
             estadoServer: estado,
             anoInicialServer: anoInicial,
-            anoFinalServer: anoFinal
+            anoFinalServer: anoFinal,
+        }),
+    })
+        .then((resposta) => {
+            if (resposta.ok) {
+                return resposta.json();
+            } else {
+                console.error("Erro ao buscar dados da demanda.");
+                return null;
+            }
         })
-    }).then(resposta => {
-        if (resposta.ok) {
-            return resposta.json();
-        } else {
-            console.error("Erro ao buscar dados da demanda.");
-        }
-    }).then(dados => {
-        if (dados) {
-            console.log("Dados recebidos:", dados);
+        .then((dados) => {
+            if (dados) {
+                console.log("Dados recebidos:", dados);
 
-            const mediaDemanda = calcularMediaDemanda(dados);
-            const percentualEvolucao = calcularPercentualEvolucao(dados);
+                const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
+                const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
 
-            atualizarKPICard(mediaDemanda, percentualEvolucao);
-        }
-    }).catch(erro => console.error("Erro na requisição:", erro));
+                const mediaDemandaSoro = calcularMediaDemanda(dados);
+                const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
+
+                atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
+                atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
+            }
+        })
+        .catch((erro) => console.error("Erro na requisição:", erro));
 }
 
 
-function calcularPercentualEvolucao(dados) {
+  function calcularMediaDemanda(dados) {
+    const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
+    const totalSoro = totalCasos * 7;
+    return totalSoro / dados.length;
+  }
+
+  function calcularPercentualEvolucao(dados) {
+    if (dados.length < 2) return 0;
+
+    const primeiroAnoCasos = dados[0].quantidade;
+    const ultimoAnoCasos = dados[dados.length - 1].quantidade;
+
+    const primeiroAnoSoro = primeiroAnoCasos * 7;
+    const ultimoAnoSoro = ultimoAnoCasos * 7;
+
+    return ((ultimoAnoSoro - primeiroAnoSoro) / primeiroAnoSoro) * 100;
+  }
+
+  function atualizarKPICard(mediaDemanda, percentualEvolucao) {
+    const kpiCard = document.getElementById("kpi-soro");
+    if (!kpiCard) {
+      console.error("Elemento do KPI de soro não encontrado!");
+      return;
+    }
+
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
+      2
+    )} sachês de soro`;
+    const indicador = kpiCard.querySelector(".indicator");
+    indicador.textContent = `${percentualEvolucao.toFixed(2)}%`;
+
+    indicador.classList.toggle("up", percentualEvolucao >= 0);
+    indicador.classList.toggle("down", percentualEvolucao < 0);
+
+    if (percentualEvolucao < 0) {
+      indicador.style.color = "green";
+    } else {
+      indicador.style.color = "";
+    }
+  }
+
+  function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
+    const kpiCard = document.getElementById("kpi-repelente");
+    if (!kpiCard) {
+      console.error("Elemento do KPI de repelentes não encontrado!");
+      return;
+    }
+
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
+      2
+    )} repelentes`;
+    const indicador = kpiCard.querySelector(".indicator");
+    indicador.textContent = `${percentualEvolucao.toFixed(2)}%`;
+
+    indicador.classList.toggle("up", percentualEvolucao >= 0);
+    indicador.classList.toggle("down", percentualEvolucao < 0);
+
+    if (percentualEvolucao < 0) {
+      indicador.style.color = "green";
+    } else {
+      indicador.style.color = "";
+    }
+  }
+
+  function calcularMediaDemandaRepelente(dados) {
+    const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
+    const mediaRepelentes = total * 2;
+
+    return mediaRepelentes / dados.length;
+  }
+
+  function calcularPercentualEvolucaoRepelente(dados) {
     if (dados.length < 2) return 0;
 
     const primeiroAno = dados[0].quantidade;
     const ultimoAno = dados[dados.length - 1].quantidade;
 
     return ((ultimoAno - primeiroAno) / primeiroAno) * 100;
-}
+  }
 
-function atualizarKPICard(mediaDemanda, percentualEvolucao) {
-    const kpiCard = document.querySelector(".kpi");
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} milhões de casos`;
-    const indicador = kpiCard.querySelector(".indicator");
-    indicador.textContent = `${percentualEvolucao.toFixed(2)}%`;
-    indicador.classList.toggle("up", percentualEvolucao >= 0);
-    indicador.classList.toggle("down", percentualEvolucao < 0);
-}
-
-
+  buscarEstadoEmpresa();
+  atualizarKPI();
 </script>

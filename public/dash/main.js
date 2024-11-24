@@ -1,3 +1,44 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal");
+  const openModalBtn = document.getElementById("open-modal-btn");
+  const closeModalBtn = document.getElementById("close-modal");
+  const searchBtn = document.getElementById("search-btn");
+
+  openModalBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  searchBtn.addEventListener("click", () => {
+    const anoInicial = document.getElementById("modalAnoInicial").value;
+    const anoFinal = document.getElementById("modalAnoFinal").value;
+    const estado = document.getElementById("modalEstado").value;
+
+    console.log("Ano Inicial:", anoInicial);
+    console.log("Ano Final:", anoFinal);
+    console.log("Estado:", estado);
+
+    atualizarKPI(anoInicial, anoFinal, estado);
+    atualizarProjecaoRepelentes(estado);
+    atualizarProjecaoTestes(estado);
+
+    modal.style.display = "none";
+  });
+});
+
+
+
+
+
 Chart.defaults.font.size = 40;
 
 const ctx1 = document.getElementById("state1").getContext("2d");
