@@ -10,18 +10,23 @@
 
   <body>
     <div id="menu-container"></div>
-    <div class="home">
       <div class="header">
         <h1>Média da Evolução Anual da Demanda</h1>
-        <!-- Ícone para abrir o modal -->
-        <div id="open-modal-btn" class="icon-btn">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/483/483408.png"
-            alt="Configurações"
-            width="30px"
-          />
-        </div>
+        <div class="calendar">
+          <div class="timeIndicator">
+              <span class="startEnd">De</span>
+              <span class="date"  id="start-date">2021</span>
+          </div>
+          <img src="../assets/icon/longArrow.svg" class="arrow" />
+          <div class="timeIndicator">
+              <span class="startEnd">Até</span>
+              <span class="date"  id="end-date">2022</span>
+          </div>
+          
+          <img src="../assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="open-modal-btn"/>
 
+      </div>
+  </div>
         <!-- Modal -->
         <div id="modal" class="modal">
           <div class="modal-content">
@@ -83,13 +88,19 @@
         <div class="chart-group">
           <!-- Grupo de gráficos à esquerda -->
           <div class="lineChart">
-            <h2>Projeção de Consumo de Repelentes</h2>
+            <div class="chartHeader">
+              <p>Projeção de Consumo de Repelentes por ano</p>
+              <span class="indicatorTitle estadoAtual">BRASIL</span>
+            </div>
             <div class="chart">
               <canvas id="state1"></canvas>
             </div>
-          </div>
+          </div>                  
           <div class="lineChart">
-            <h2>Projeção de Consumo de Soro por ano</h2>
+            <div class="chartHeader">
+              <p>Projeção de Consumo de Soro por ano</p>
+              <span class="indicatorTitle estadoAtual">BRASIL</span>
+            </div>
             <div class="chart">
               <canvas id="state2"></canvas>
             </div>
@@ -98,19 +109,24 @@
         <div class="chart-group">
           <!-- Grupo de gráficos à direita -->
           <div class="lineChart">
-            <h2>Demanda de Testes Diagnósticos Anuais</h2>
+            <div class="chartHeader">
+              <p>Demanda de Testes Diagnósticos Anuais</p>
+              <span class="indicatorTitle estadoAtual">BRASIL</span>
+            </div>
             <div class="chart">
               <canvas id="state3"></canvas>
             </div>
           </div>
           <div class="lineChart">
-            <h2>Previsão de Demanda de Paracetamol Anual</h2>
+            <div class="chartHeader">
+              <p>Previsão de Demanda de Paracetamol Anual</p>
+              <span class="indicatorTitle estadoAtual">BRASIL</span>
+            </div>
             <div class="chart">
               <canvas id="state4"></canvas>
             </div>
           </div>
         </div>
-      </div>
     </div>
   </body>
 </html>
@@ -284,8 +300,7 @@
       });
   }
 
-
-function atualizarKPI(estadoVar) {
+  function atualizarKPI(estadoVar) {
     const estadoElement = document.getElementById("modalEstado");
     const anoInicialElement = document.getElementById("modalAnoInicial");
     const anoFinalElement = document.getElementById("modalAnoFinal");
@@ -294,8 +309,6 @@ function atualizarKPI(estadoVar) {
         console.error("Um ou mais elementos do modal não foram encontrados!");
         return;
     }
-
-    estadoElement.value = estadoVar || estadoElement.value;
 
     const estado = estadoElement.value;
     const anoInicial = anoInicialElement.value || "2022"; 
@@ -342,7 +355,6 @@ function atualizarKPI(estadoVar) {
         })
         .catch((erro) => console.error("Erro na requisição:", erro));
 }
-
 
   function calcularMediaDemanda(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -424,6 +436,38 @@ function atualizarKPI(estadoVar) {
     return ((ultimoAno - primeiroAno) / primeiroAno) * 100;
   }
 
+  function atualizarEstadoVisualizado() {
+    const estadoSelecionado = document.getElementById('modalEstado').value;
+    const estados = document.querySelectorAll('.estadoAtual'); // Seleciona todos os elementos com a classe 'estadoAtual'
+    
+    // Para cada elemento com a classe 'estadoAtual', atualiza o texto com o estado selecionado
+    estados.forEach(function(estadoTexto) {
+        switch(estadoSelecionado) {
+            case 'SP':
+                estadoTexto.textContent = "São Paulo";
+                break;
+            case 'PB':
+                estadoTexto.textContent = "Pernambuco";
+                break;
+            case 'AL':
+                estadoTexto.textContent = "Alagoas";
+                break;
+            case 'DF':
+                estadoTexto.textContent = "Distrito Federal";
+                break;
+            case 'GO':
+                estadoTexto.textContent = "Goiás";
+                break;
+            default:
+                estadoTexto.textContent = "BRASIL";  // Caso nenhum estado seja selecionado, exibe "BRASIL"
+        }
+    });
+}
+
+document.getElementById('modalEstado').addEventListener('change', atualizarEstadoVisualizado);
+
+
+atualizarEstadoVisualizado(); 
   buscarEstadoEmpresa();
   atualizarKPI();
 </script>

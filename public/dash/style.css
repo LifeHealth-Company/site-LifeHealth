@@ -19,7 +19,7 @@
   width: 100%;
 }
 
-.home h1 {
+h1 {
   font-family: "Exo 2", sans-serif;
   font-size: 32px;
   font-weight: 700;
@@ -27,12 +27,50 @@
   margin: 0;
 }
 
+.indicatorTitle{
+  font-family: var(--font);
+  font-size: 20px;
+  color: var(--negative);
+  font-weight: 900;
+  line-height:38px;
+}
+
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  padding: 0 2%;
+  box-sizing: border-box; 
+}
+
+
+.lineChart h2, .lineChart .indicatorTitle {
+  margin: 0; 
+}
+
+
+
+.lineChart .chartHeader p {
+  color: #193d65;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin: 0;
+  pointer-events: none;
+}
+
+
 .header-container {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
   width: 100%;
+  margin-top: 1%;
 }
 
 .kpi {
@@ -102,6 +140,7 @@
   gap: 40px;
   justify-content: center;
   width: 100%;
+  margin-top: 1%;
 }
 
 .chart-group {
@@ -132,7 +171,12 @@
   height: 100%;
 }
 
-.lineChart h2 {
+.estadoAtual {
+  text-transform: uppercase;
+}
+
+
+/* .lineChart h2 {
   position: absolute;
   top: 20px;
   left: 43px;
@@ -142,11 +186,11 @@
   font-size: 30px;
   margin: 0;
   pointer-events: none;
-}
+} */
 
 .lineChart .chart canvas {
   width: 90% !important;
-  height: 80% !important;
+  height: 95% !important;
 }
 
 canvas {
@@ -254,4 +298,36 @@ canvas {
   right: 20px;
   cursor: pointer;
   z-index: 1001;
+}
+
+.calendar{
+  display: flex;
+  align-items: center;
+}
+
+.timeIndicator{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+.iconCalendar{
+  width: 50px;
+}
+.startEnd{
+  font-family: var(--font);
+  color: var(--borderColor);
+  font-size: 24px;
+  font-weight: 600;
+}
+.date{
+  font-family: var(--font);
+  color: var(--primaria);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.arrow{
+  width: 48px;
+  margin-right: 30px;
+  margin-top: 25px;
 }

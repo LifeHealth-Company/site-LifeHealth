@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const anoFinal = document.getElementById("modalAnoFinal").value;
     const estado = document.getElementById("modalEstado").value;
 
+    document.getElementById("start-date").textContent = anoInicial;
+    document.getElementById("end-date").textContent = anoFinal;
+    
     console.log("Ano Inicial:", anoInicial);
     console.log("Ano Final:", anoFinal);
     console.log("Estado:", estado);
