@@ -25,6 +25,11 @@ router.put("/editarFuncionario/:id", function (req, res) {
     usuarioController.editarFuncionario(req, res);
 });
 
+router.delete("/excluirFuncionario/:idUsuario", function (req, res) {
+    usuarioController.excluirFuncionario(req, res);
+});
+
+
 router.get('/nomeUsuario', function(req, res) {
     usuarioController.nomeUsuario(req, res);
 });
@@ -33,9 +38,24 @@ router.get('/buscarFuncionarios', function(req, res) {
     usuarioController.buscarFuncionarios(req, res);
 });
 
-router.get('/buscarInstituicao/:empresaId', function (req, res) {
-    usuarioController.buscarInstituicao(req, res);
+router.get("/tipoInstituicao/:idEmpresa", function (req, res) {
+    usuarioController.obterTipoInstituicao(req, res);
 });
 
+router.post("/casos", function (req, res) {
+    usuarioController.atualizarProjecaoRepelente(req, res);
+})
+
+router.post('/testes', function(req, res) {
+    usuarioController.atualizarProjecaoTestes(req, res);
+});
+
+router.post("/demanda", function (req, res) {
+    usuarioController.buscarDemanda(req, res);
+});
+
+router.get("/:idEmpresa", function (req, res) {
+    usuarioController.buscarEstadoEmpresa(req, res);
+});
 
 module.exports = router;

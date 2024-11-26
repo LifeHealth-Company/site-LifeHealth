@@ -88,19 +88,83 @@ function editarFuncionario(idFuncionario, nome, sobrenome, email, cargo) {
     return database.executar(instrucaoSql);
 }
 
-function buscarInstituicao(empresaId) {
-    console.log("ACESSEI O EMPRESA MODEL \n\n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n\t\t >> verifique suas credenciais de acesso ao banco\n\t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarInstituicao(): ", empresaId);
+function excluirFuncionario(idFuncionario){
+    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Editando funcionário com ID: ", idFuncionario);
     
     var instrucaoSql = `
-        SELECT tipoInstituicao 
-        FROM Empresa 
-        WHERE idEmpresa = '${empresaId}';
+    DELETE FROM Usuario WHERE idUsuario = ${idFuncionario}
+`;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql);
+
+}
+
+function buscarTipoInstituicao(idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Buscando tipo de instituição para a empresa com ID: ", idEmpresa);
+    
+    var instrucaoSql = `
+      SELECT tipoInstituicao
+      FROM Empresa
+      WHERE idEmpresa = ${idEmpresa};
     `;
     
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
+
+function atualizarProjecaoRepelente(estado) {
+    console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de casos para o estado: ", estado);
+    
+    var instrucaoSql = `
+        SELECT ano, COUNT(*) AS quantidade
+        FROM Casos
+        WHERE ufNotificacao = '${estado}'
+        GROUP BY ano
+        ORDER BY ano;
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function atualizarProjecaoTestes(estado) {
+    console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de consumo de testes para o estado: ", estado);
+    
+    var instrucaoSql = `
+    SELECT ano, COUNT(*) AS quantidade
+    FROM Casos
+    WHERE ufNotificacao = '${estado}'
+    GROUP BY ano
+    ORDER BY ano;
+`;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarDemanda(estado, anoInicial, anoFinal) {
+    const instrucaoSql = `
+        SELECT ano, COUNT(*) AS quantidade
+        FROM Casos
+        WHERE ufNotificacao = '${estado}' AND ano BETWEEN '${anoInicial}' AND '${anoFinal}'
+        GROUP BY ano
+        ORDER BY ano;
+    `;
+    return database.executar(instrucaoSql);
+}
+
+function buscarEstado(idEmpresa) {
+    const instrucaoSql = `
+      SELECT estado, nomeinstituicao, nomeResponsavel, tipoInstituicao, cnpj, cep, email
+      FROM Empresa
+      WHERE idEmpresa = '${idEmpresa}';
+    `;
+  
+    return database.executar(instrucaoSql);
+  }
 
 
 module.exports = {
@@ -110,5 +174,10 @@ module.exports = {
     buscarFuncionarios,
     editarFuncionario,
     verificarCadastro,
-    buscarInstituicao
+    buscarTipoInstituicao,
+    excluirFuncionario,
+    atualizarProjecaoRepelente,
+    atualizarProjecaoTestes,
+    buscarDemanda,
+    buscarEstado
 };
