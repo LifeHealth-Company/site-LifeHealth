@@ -160,7 +160,6 @@ h1 {
   border-radius: 10px;
   box-shadow: 0 4px 4px #00000058;
   margin: 2px;
-  position: relative;
 }
 
 .chart {
@@ -189,8 +188,8 @@ h1 {
 } */
 
 .lineChart .chart canvas {
-  width: 85% !important;
-  height: 95% !important;
+  width: 82% !important;
+  height: 90% !important;
 }
 
 canvas {

@@ -21,15 +21,6 @@ function initializeMenuBehavior() {
   btn.onclick = function () {
     sidebar.classList.toggle('active');
   };
-
-
-  if (trilho && sidebar) {
-    trilho.addEventListener('click', () => {
-      trilho.classList.toggle('dark');
-      body.classList.toggle('dark');
-      sidebar.classList.toggle('dark');
-    });
-  }
 }
 
 function setupDashboardLink() {
