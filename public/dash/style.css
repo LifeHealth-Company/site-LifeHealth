@@ -29,7 +29,7 @@ h1 {
 
 .indicatorTitle{
   font-family: var(--font);
-  font-size: 20px;
+  font-size: 24px;
   color: var(--negative);
   font-weight: 900;
   line-height:38px;
@@ -41,10 +41,10 @@ h1 {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  gap: 10px;
   width: 100%;
-  padding: 0 2%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  padding-left: 3%;
+  margin-top: 2%;
 }
 
 
@@ -70,7 +70,7 @@ h1 {
   gap: 20px;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 1%;
+  margin-top: 10px;
 }
 
 .kpi {
@@ -189,7 +189,7 @@ h1 {
 } */
 
 .lineChart .chart canvas {
-  width: 90% !important;
+  width: 85% !important;
   height: 95% !important;
 }
 
@@ -311,18 +311,18 @@ canvas {
   margin-right: 30px;
 }
 .iconCalendar{
-  width: 50px;
+  width: 40px;
 }
 .startEnd{
   font-family: var(--font);
   color: var(--borderColor);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
 }
 .date{
   font-family: var(--font);
   color: var(--primaria);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
 }
 

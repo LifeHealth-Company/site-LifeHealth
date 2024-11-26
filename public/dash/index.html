@@ -11,7 +11,7 @@
   <body>
     <div id="menu-container"></div>
       <div class="header">
-        <h1>Média da Evolução Anual da Demanda</h1>
+        <h1>Média da Evolução Anual da Demanda <span class="indicatorTitle estadoAtual">BRASIL</span></h1>
         <div class="calendar">
           <div class="timeIndicator">
               <span class="startEnd">De</span>
@@ -53,7 +53,7 @@
               <select id="modalEstado">
                 <option value="SP">São Paulo</option>
                 <option value="PB">Pernambuco</option>
-                <option value="AL">Alagoas</option>
+                <option value="AL">Alagóas</option>
                 <option value="DF">Distrito Federal</option>
                 <option value="GO">Goiás</option>
               </select>
@@ -89,8 +89,7 @@
           <!-- Grupo de gráficos à esquerda -->
           <div class="lineChart">
             <div class="chartHeader">
-              <p>Projeção de Consumo de Repelentes por ano</p>
-              <span class="indicatorTitle estadoAtual">BRASIL</span>
+              <p>Projeção de Consumo de Repelentes Por Ano</p>
             </div>
             <div class="chart">
               <canvas id="state1"></canvas>
@@ -98,8 +97,8 @@
           </div>                  
           <div class="lineChart">
             <div class="chartHeader">
-              <p>Projeção de Consumo de Soro por ano</p>
-              <span class="indicatorTitle estadoAtual">BRASIL</span>
+              <p>Projeção de Consumo de Soro Por Ano</p>
+              <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
             </div>
             <div class="chart">
               <canvas id="state2"></canvas>
@@ -111,7 +110,7 @@
           <div class="lineChart">
             <div class="chartHeader">
               <p>Demanda de Testes Diagnósticos Anuais</p>
-              <span class="indicatorTitle estadoAtual">BRASIL</span>
+              <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
             </div>
             <div class="chart">
               <canvas id="state3"></canvas>
@@ -120,7 +119,7 @@
           <div class="lineChart">
             <div class="chartHeader">
               <p>Previsão de Demanda de Paracetamol Anual</p>
-              <span class="indicatorTitle estadoAtual">BRASIL</span>
+              <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
             </div>
             <div class="chart">
               <canvas id="state4"></canvas>
@@ -438,28 +437,27 @@
 
   function atualizarEstadoVisualizado() {
     const estadoSelecionado = document.getElementById('modalEstado').value;
-    const estados = document.querySelectorAll('.estadoAtual'); // Seleciona todos os elementos com a classe 'estadoAtual'
+    const estados = document.querySelectorAll('.estadoAtual'); 
     
-    // Para cada elemento com a classe 'estadoAtual', atualiza o texto com o estado selecionado
     estados.forEach(function(estadoTexto) {
         switch(estadoSelecionado) {
             case 'SP':
-                estadoTexto.textContent = "São Paulo";
+                estadoTexto.textContent = "(São Paulo)";
                 break;
             case 'PB':
-                estadoTexto.textContent = "Pernambuco";
+                estadoTexto.textContent = "(Pernambuco)";
                 break;
             case 'AL':
-                estadoTexto.textContent = "Alagoas";
+                estadoTexto.textContent = "(Alagoas)";
                 break;
             case 'DF':
-                estadoTexto.textContent = "Distrito Federal";
+                estadoTexto.textContent = "(Distrito Federal)";
                 break;
             case 'GO':
-                estadoTexto.textContent = "Goiás";
+                estadoTexto.textContent = "(Goiás)";
                 break;
             default:
-                estadoTexto.textContent = "BRASIL";  // Caso nenhum estado seja selecionado, exibe "BRASIL"
+                estadoTexto.textContent = "BRASIL";
         }
     });
 }

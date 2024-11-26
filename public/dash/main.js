@@ -18,24 +18,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  searchBtn.addEventListener("click", () => {
-    const anoInicial = document.getElementById("modalAnoInicial").value;
-    const anoFinal = document.getElementById("modalAnoFinal").value;
-    const estado = document.getElementById("modalEstado").value;
+    searchBtn.addEventListener("click", () => {
+      const anoInicial = document.getElementById("modalAnoInicial").value;
+      const anoFinal = document.getElementById("modalAnoFinal").value;
+      const estado = document.getElementById("modalEstado").value;
 
-    document.getElementById("start-date").textContent = anoInicial;
-    document.getElementById("end-date").textContent = anoFinal;
-    
-    console.log("Ano Inicial:", anoInicial);
-    console.log("Ano Final:", anoFinal);
-    console.log("Estado:", estado);
+      if (parseInt(anoFinal) <= parseInt(anoInicial)) {
+        alert("O ano final não pode ser igual ou menor que o ano inicial.");
+        return; 
+    }
 
-    atualizarKPI(anoInicial, anoFinal, estado);
-    atualizarProjecaoRepelentes(estado);
-    atualizarProjecaoTestes(estado);
+      document.getElementById("start-date").textContent = anoInicial;
+      document.getElementById("end-date").textContent = anoFinal;
+      
+      console.log("Ano Inicial:", anoInicial);
+      console.log("Ano Final:", anoFinal);
+      console.log("Estado:", estado);
 
-    modal.style.display = "none";
-  });
+      atualizarKPI(anoInicial, anoFinal, estado);
+      atualizarProjecaoRepelentes(estado);
+      atualizarProjecaoTestes(estado);
+
+      modal.style.display = "none";
+    });
 });
 
 
