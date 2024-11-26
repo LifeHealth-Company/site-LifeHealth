@@ -19,7 +19,7 @@
   width: 100%;
 }
 
-.home h1 {
+h1 {
   font-family: "Exo 2", sans-serif;
   font-size: 32px;
   font-weight: 700;
@@ -27,12 +27,50 @@
   margin: 0;
 }
 
+.indicatorTitle{
+  font-family: var(--font);
+  font-size: 24px;
+  color: var(--negative);
+  font-weight: 900;
+  line-height:38px;
+}
+
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 3%;
+  margin-top: 2%;
+}
+
+
+.lineChart h2, .lineChart .indicatorTitle {
+  margin: 0; 
+}
+
+
+
+.lineChart .chartHeader p {
+  color: #193d65;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin: 0;
+  pointer-events: none;
+}
+
+
 .header-container {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
   width: 100%;
+  margin-top: 10px;
 }
 
 .kpi {
@@ -86,14 +124,23 @@
 .indicator.up::before {
   content: "▲";
   font-size: 20px;
-  color: #ff1744;
+  color: #ff1744; 
 }
+
+.indicator.down::before {
+  content: "▼";
+  font-size: 20px;
+  color: #00e676; 
+}
+
+
 .charts-container {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
   justify-content: center;
   width: 100%;
+  margin-top: 1%;
 }
 
 .chart-group {
@@ -124,7 +171,12 @@
   height: 100%;
 }
 
-.lineChart h2 {
+.estadoAtual {
+  text-transform: uppercase;
+}
+
+
+/* .lineChart h2 {
   position: absolute;
   top: 20px;
   left: 43px;
@@ -134,11 +186,11 @@
   font-size: 30px;
   margin: 0;
   pointer-events: none;
-}
+} */
 
 .lineChart .chart canvas {
-  width: 90% !important;
-  height: 80% !important;
+  width: 85% !important;
+  height: 95% !important;
 }
 
 canvas {
@@ -146,7 +198,7 @@ canvas {
   color: #193d65;
 }
 
-#selectEstados {
+#selectEstados, #anoInicial , #anoFinal {
   color: var(--borderColor);
   width: 20%;
   height: 4vh;
@@ -176,4 +228,106 @@ canvas {
     width: 100%;
     height: 250px;
   }
+}
+
+/* Estilo do Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 600px;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-input {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.modal-input label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.modal-input select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#search-btn {
+  background: #193d65;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#search-btn:hover {
+  background: #14568a;
+}
+
+.icon-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.calendar{
+  display: flex;
+  align-items: center;
+}
+
+.timeIndicator{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+.iconCalendar{
+  width: 40px;
+}
+.startEnd{
+  font-family: var(--font);
+  color: var(--borderColor);
+  font-size: 20px;
+  font-weight: 600;
+}
+.date{
+  font-family: var(--font);
+  color: var(--primaria);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.arrow{
+  width: 48px;
+  margin-right: 30px;
+  margin-top: 25px;
 }

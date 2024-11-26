@@ -115,6 +115,57 @@ function buscarTipoInstituicao(idEmpresa) {
 }
 
 
+function atualizarProjecaoRepelente(estado) {
+    console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de casos para o estado: ", estado);
+    
+    var instrucaoSql = `
+        SELECT ano, COUNT(*) AS quantidade
+        FROM Casos
+        WHERE ufNotificacao = '${estado}'
+        GROUP BY ano
+        ORDER BY ano;
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function atualizarProjecaoTestes(estado) {
+    console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de consumo de testes para o estado: ", estado);
+    
+    var instrucaoSql = `
+    SELECT ano, COUNT(*) AS quantidade
+    FROM Casos
+    WHERE ufNotificacao = '${estado}'
+    GROUP BY ano
+    ORDER BY ano;
+`;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarDemanda(estado, anoInicial, anoFinal) {
+    const instrucaoSql = `
+        SELECT ano, COUNT(*) AS quantidade
+        FROM Casos
+        WHERE ufNotificacao = '${estado}' AND ano BETWEEN '${anoInicial}' AND '${anoFinal}'
+        GROUP BY ano
+        ORDER BY ano;
+    `;
+    return database.executar(instrucaoSql);
+}
+
+function buscarEstado(idEmpresa) {
+    const instrucaoSql = `
+      SELECT estado, nomeinstituicao, nomeResponsavel, tipoInstituicao, cnpj, cep, email
+      FROM Empresa
+      WHERE idEmpresa = '${idEmpresa}';
+    `;
+  
+    return database.executar(instrucaoSql);
+  }
+
 
 module.exports = {
     autenticar,
@@ -124,5 +175,9 @@ module.exports = {
     editarFuncionario,
     verificarCadastro,
     buscarTipoInstituicao,
-    excluirFuncionario
+    excluirFuncionario,
+    atualizarProjecaoRepelente,
+    atualizarProjecaoTestes,
+    buscarDemanda,
+    buscarEstado
 };

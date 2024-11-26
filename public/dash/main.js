@@ -1,3 +1,52 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal");
+  const openModalBtn = document.getElementById("open-modal-btn");
+  const closeModalBtn = document.getElementById("close-modal");
+  const searchBtn = document.getElementById("search-btn");
+
+  openModalBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+    searchBtn.addEventListener("click", () => {
+      const anoInicial = document.getElementById("modalAnoInicial").value;
+      const anoFinal = document.getElementById("modalAnoFinal").value;
+      const estado = document.getElementById("modalEstado").value;
+
+      if (parseInt(anoFinal) <= parseInt(anoInicial)) {
+        alert("O ano final não pode ser igual ou menor que o ano inicial.");
+        return; 
+    }
+
+      document.getElementById("start-date").textContent = anoInicial;
+      document.getElementById("end-date").textContent = anoFinal;
+      
+      console.log("Ano Inicial:", anoInicial);
+      console.log("Ano Final:", anoFinal);
+      console.log("Estado:", estado);
+
+      atualizarKPI(anoInicial, anoFinal, estado);
+      atualizarProjecaoRepelentes(estado);
+      atualizarProjecaoTestes(estado);
+
+      modal.style.display = "none";
+    });
+});
+
+
+
+
+
 Chart.defaults.font.size = 40;
 
 const ctx1 = document.getElementById("state1").getContext("2d");
@@ -76,11 +125,11 @@ const ctx3 = document.getElementById("state3").getContext("2d");
 new Chart(ctx3, {
   type: "line",
   data: {
-    labels: ["2021", "2022", "2023", "2024", "2025"],
+    labels: ["2021", "2022", "2023", "2024", "2025"], 
     datasets: [
       {
         label: "Quantidade de testes vendidos registrados",
-        data: [2, 3, 4.5, 4, 2.5],
+        data: [], 
         borderColor: "#193D65",
         backgroundColor: "rgba(25, 61, 101, 0.1)",
         fill: false,
@@ -88,7 +137,7 @@ new Chart(ctx3, {
       },
       {
         label: "Quantidade de vendas projetadas",
-        data: [2.5, 3, 3.5, 3.8, 4.5],
+        data: [], 
         borderColor: "#FF0000",
         backgroundColor: "rgba(255, 0, 0, 0.1)",
         fill: false,
@@ -157,6 +206,7 @@ new Chart(ctx3, {
     },
   },
 });
+
 
 const ctx2 = document.getElementById("state2").getContext("2d");
 
