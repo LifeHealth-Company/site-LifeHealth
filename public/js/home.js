@@ -197,4 +197,3 @@ function closeModal(){
   calendar.close();
 }
     
-incidence
