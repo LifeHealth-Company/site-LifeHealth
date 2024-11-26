@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,116 +11,95 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="icon" href="assets/icon/mini.svg">
 </head>
+
 <body>
     <div id="menu-container"></div>
-    
     <div class="mainClass">
-        <div class="header">
-            <select id="selectEstados">
-                <option value="">São Paulo</option>
-                <option value="">Rio de Janeiro</option>
-                <option value="">Pernambuco</option>
-                <option value="">Pará</option>
-                <option value="">Goiás</option>
-            </select>
-            <div class="calendar">
-                <div class="timeIndicator">
-                    <span class="startEnd">De</span>
-                    <span class="date">10/07/2022</span>
+        <div class="indicators">
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Taxa de incidência</span>
+                    <span class="descIndicator">2.500</span>
                 </div>
-                <img src="./assets/icon/longArrow.svg" class="arrow" />
-                <div class="timeIndicator">
-                    <span class="startEnd">Até</span>
-                    <span class="date">30/12/2022</span>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" />
+                    <span class="growthPercentage">7%</span>
                 </div>
+            </div>
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Taxa de cura</span>
+                    <span class="descIndicator"></span>
+                </div>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" />
+                    <span class="growthPercentage">7%</span>
+                </div>
+            </div>
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Taxa de aumento de casos</span>
+                    <span class="descIndicator"></span>
+                </div>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" />
+                    <span class="growthPercentage">7%</span>
+                </div>
+            </div>
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Crescimento de uso de soro</span>
+                    <span class="descIndicator">4.500 bolsas</span>
+                </div>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" />
+                    <span class="growthPercentage">7%</span>
+                </div>
+            </div>
+        </div>
+        <div class="LineOfCharts">
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Previsão de aumento de casos</span>
+               </div>
+                <div class="chart">
+                    <canvas id="forecastOfIncreaseInCases"></canvas>
+                </div>
+            </div>
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Previsão de uso de soro</span>
+                </div>
+                <div class="chart">
+                    <canvas id="PredictedSerumUse"></canvas>
+                </div>
+            </div>
 
-                <img src="./assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="calendar" />
-                
-            </div>
-            <dialog id="calendarModal">
-                <div class="dialog">
-                    <div class="modal-content">
-                        <div class="calendarHeader" id="calendar">
-                            <img class="changeMounth" id="prev" src="./assets/calendarIcons/previews.svg" />
-                            <span class="mounth" id="monthAndYear"></span>
-                            <img class="changeMounth" id="next" src="./assets/calendarIcons/next.svg" />
-                        </div>
-                        <div class="weekendDays">
-                            <span class="day">DOM</span>
-                            <span class="day">SEG</span>
-                            <span class="day">TER</span>
-                            <span class="day">QUA</span>
-                            <span class="day">QUI</span>
-                            <span class="day">SEX</span>
-                            <span class="day">SAB</span>
-                        </div>
-                        <div class="days" id="days"></div>
-    
-                        <div class="timeIndicators">
-                            <div class="timeIndicatorModal">
-                                <span class="startEnd">De</span>
-                                <span class="date" id="startDate">--/--/----</span>
-                            </div>
-                            <img src="./assets/icon/longArrow.svg" class="arrow" />
-                            <div class="timeIndicatorModal">
-                                <span class="startEnd">Até</span>
-                                <span class="date" id="endDate">--/--/----</span>
-                            </div>
-            
-            
-                        </div>
-                    </div>
-                </div>
-            </dialog>
         </div>
-        <div class="rankingPrincipaisAfetados">
-            <h1 class="tituloMaiorAfetado">Maiores afetados</h1>
-            <div class="classesDosAfetados">
-                <div class="rankingUnitario">
-                    <h2>1º</h2>
-                    <p>Gestantes - 1.600 milhões</p>
+        <div class="LineOfCharts">
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Estimativa de leitos para o próximo ano</span>
                 </div>
-                <div class="rankingUnitario">
-                    <h2>2º</h2>
-                    <p>Idosos - 1.200 milhões</p>
+                <div class="chart">
+                    <canvas id="BedEstimateForNextYear"></canvas>
                 </div>
-                <div class="rankingUnitario">
-                    <h2>3º</h2>
-                    <p>Crianças - 900 mil</p>
+            </div>
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Percentual de ocupação de leitos em relação ao ultimo ano</span>
                 </div>
-                <div class="rankingUnitario">
-                    <h2>4º</h2>
-                    <p>Adultos até 60 anos - 400 mil</p>
+                <div class="chart">
+                    <canvas id="PercentageOfBedOccupancyInRelationToTheLastYear"></canvas>
                 </div>
-            </div>    
+            </div>
+
         </div>
-        <div class="graficosDashboard">
-            <div class="boxGraphic">
-                <canvas id="myRadarChart"></canvas>
-            </div>
-            
-            <div class="boxGraphic">
-                <div class="gaugeTitle">População infectada</div>
-                <div id="gauge"></div>
-            </div>
-            
-            <div class="boxGraphic">
-                <canvas id="pizzaGraphic"></canvas>
-            </div>
-        </div>
-        <div class="dashboardCasos">
-            <div class="boxGraficosFooter">
-                <canvas id="graficoLinhaBox"></canvas>
-            </div>
-            <div class="boxGraficosFooter">
-                <canvas id="graficoBarraBox"></canvas>
-            </div>
-        </div>
+
     </div>
-    <script src="./js/graphics.js"></script>
     <script src="./js/menubehavior.js"></script>
     <script src="./js/menu.js"></script>
     <script src="./js/dashboard.js"></script>
-    <script src="./js/calendar.js"></script>
 </body>
+
 </html>
