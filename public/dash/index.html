@@ -66,13 +66,13 @@
         <div class="kpi" id="kpi-soro">
           <h4>Soro</h4>
           <p>0 sachês</p>
-          <span class="indicator up">0%</span>
-        </div>
-        <div class="kpi" id="kpi-repelente">
+          <span class="indicator up" data-valor-atual="0">0%</span>
+      </div>
+      <div class="kpi" id="kpi-repelente">
           <h4>Repelentes</h4>
           <p>0 repelentes</p>
-          <span class="indicator up">0%</span>
-        </div>
+          <span class="indicator up" data-valor-atual="0">0%</span>
+      </div>
         <div class="kpi">
           <h4>Paracetamol</h4>
           <p>0 milhões casos</p>
@@ -135,6 +135,30 @@
 <script src="./main.js"></script>
 
 <script>
+
+function animarPercentual(element, valorFinal, duracao = 1000) {
+    const valorInicial = parseFloat(element.getAttribute("data-valor-atual")) || 0;
+
+    element.setAttribute("data-valor-atual", valorFinal.toFixed(2));
+
+    const incremento = (valorFinal - valorInicial) / (duracao / 16); 
+    let valorAtual = valorInicial;
+
+    function atualizar() {
+        valorAtual += incremento;
+
+        if ((incremento > 0 && valorAtual >= valorFinal) || (incremento < 0 && valorAtual <= valorFinal)) {
+            element.textContent = `${valorFinal.toFixed(2)}%`;
+        } else {
+            element.textContent = `${valorAtual.toFixed(2)}%`;
+            requestAnimationFrame(atualizar);
+        }
+    }
+
+    requestAnimationFrame(atualizar);
+}
+
+
   function buscarEstadoEmpresa() {
     const idEmpresa = sessionStorage.ID_EMPRESA;
 
@@ -376,48 +400,46 @@
   function atualizarKPICard(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-soro");
     if (!kpiCard) {
-      console.error("Elemento do KPI de soro não encontrado!");
-      return;
+        console.error("Elemento do KPI de soro não encontrado!");
+        return;
     }
 
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
-      2
-    )} sachês de soro`;
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} sachês de soro`;
+
     const indicador = kpiCard.querySelector(".indicator");
-    indicador.textContent = `${percentualEvolucao.toFixed(2)}%`;
+    animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
 
     if (percentualEvolucao < 0) {
-      indicador.style.color = "green";
+        indicador.style.color = "green";
     } else {
-      indicador.style.color = "";
+        indicador.style.color = "";
     }
-  }
+}
 
-  function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
+function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-repelente");
     if (!kpiCard) {
-      console.error("Elemento do KPI de repelentes não encontrado!");
-      return;
+        console.error("Elemento do KPI de repelentes não encontrado!");
+        return;
     }
 
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
-      2
-    )} repelentes`;
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} repelentes`;
+
     const indicador = kpiCard.querySelector(".indicator");
-    indicador.textContent = `${percentualEvolucao.toFixed(2)}%`;
+    animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
 
     if (percentualEvolucao < 0) {
-      indicador.style.color = "green";
+        indicador.style.color = "green";
     } else {
-      indicador.style.color = "";
+        indicador.style.color = "";
     }
-  }
+}
 
   function calcularMediaDemandaRepelente(dados) {
     const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -468,4 +490,10 @@ document.getElementById('modalEstado').addEventListener('change', atualizarEstad
 atualizarEstadoVisualizado(); 
   buscarEstadoEmpresa();
   atualizarKPI();
+  atualizarKPICard(150.35, 12.78);
+setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
+
+atualizarKPIRepelente(75.50, -8.45);
+setTimeout(() => atualizarKPIRepelente(80.00, -3.25), 2000);
+
 </script>
