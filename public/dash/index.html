@@ -220,15 +220,16 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
             casos.push(dado.quantidade);
           });
 
-          // Calcula a regressão linear
           const regressao = calcularRegressaoLinear(anos, casos);
 
-          // Calcula projeções para 2024
           const casos2024 = calcularProjecao(2024, regressao);
-          anos.push("2024");
+          anos.push(2024);
           casos.push(casos2024);
 
-          // Atualiza o gráfico
+          const casos2025 = calcularProjecao(2025, regressao);
+          anos.push(2025);
+          casos.push(casos2025);
+
           const chart = Chart.getChart("state1");
           if (chart) {
             chart.data.labels = anos;
@@ -240,9 +241,7 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
           }
         });
       } else {
-        console.log(
-          "Erro ao buscar dados de casos para o estado selecionado."
-        );
+        console.log("Erro ao buscar dados de casos para o estado selecionado.");
       }
     })
     .catch(function (erro) {
@@ -250,9 +249,8 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
     });
 }
 
-  function calcularRegressaoLinear(anos, valores) {
+function calcularRegressaoLinear(anos, valores) {
   const n = anos.length;
-
   const mediaX = anos.reduce((soma, x) => soma + x, 0) / n;
   const mediaY = valores.reduce((soma, y) => soma + y, 0) / n;
 
@@ -264,16 +262,17 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
     denominador += Math.pow(anos[i] - mediaX, 2);
   }
 
-  const m = numerador / denominador; 
-  const b = mediaY - m * mediaX; 
+  const m = numerador / denominador;
+  const b = mediaY - m * mediaX;
 
   return { m, b };
 }
 
 function calcularProjecao(ano, regressao) {
-
-  return Math.round(regressao.m * ano + regressao.b);
+  const projRegressao = Math.round(regressao.m * ano + regressao.b);
+  return projRegressao;
 }
+
 
 function atualizarProjecaoTestes(estadoVar) {
   console.log("Estado selecionado: ", estadoVar);
@@ -291,46 +290,72 @@ function atualizarProjecaoTestes(estadoVar) {
       if (resposta.ok) {
         resposta.json().then(function (dados) {
           var anos = [];
-          var vendasReais = [];
-          var vendasProjetadas = [];
+          var vendas = [];
 
           dados.forEach(function (dado) {
             anos.push(dado.ano);
-            vendasReais.push(dado.quantidade);
+            vendas.push(dado.quantidade);
           });
 
-          //meow
+          console.log("Anos reais recebidos: ", anos);
+          console.log("Vendas reais: ", vendas);
 
-          const regressao = calcularRegressaoLinear(anos, vendasReais);
+          const regressao = calcularRegressaoLinear(anos, vendas);
 
-          const vendas2024 = calcularProjecao(2024, regressao);
-          const vendas2025 = calcularProjecao(2025, regressao);
+          const anosProjetados = [2024, 2025];
+          const vendasProjetadas = anosProjetados.map((ano) =>
+          calcularProjecao(ano, regressao)
+                  );
 
-          anos.push("2024", "2025");
-          vendasProjetadas.push(vendas2024, vendas2025);
+          console.log("Anos projetados: ", anosProjetados);
+          console.log("Vendas projetadas: ", vendasProjetadas);
+
+          const todosAnos = [...anos, ...anosProjetados];
+          const todasVendas = [...vendas, ...vendasProjetadas];
 
           const chart = Chart.getChart("state3");
           if (chart) {
-            chart.data.labels = anos;
-            chart.data.datasets[0].data = vendasReais;
-            chart.data.datasets[1].data = vendasProjetadas;
+            chart.data.labels = todosAnos;
+
+            chart.data.datasets = [
+              {
+                label: "Quantidade de testes vendidos (Dados reais)",
+                data: todasVendas,
+                borderColor: "rgb(0, 82, 204)",
+                backgroundColor: "rgba(0, 82, 204, 0.1)",
+                fill: false,
+                tension: 0.4,
+                borderWidth: 2,
+                segment: {
+                  borderDash: (ctx) => {
+                    const index = ctx.p0DataIndex;
+                    return index < vendas.length - 1 ? [] : [5, 5]; 
+                  },
+                },
+              },
+              {
+                label: "Previsão",
+                data: [], 
+                borderColor: "rgb(0, 82, 204)",
+                borderWidth: 2,
+                borderDash: [5, 5], 
+              },
+            ];
+
             chart.update();
-            console.log("Gráfico de testes atualizado com sucesso!");
+            console.log("Gráfico atualizado com sucesso!");
           } else {
-            console.error("Gráfico de testes não encontrado!");
+            console.error("Gráfico não encontrado!");
           }
         });
       } else {
-        console.log(
-          "Erro ao buscar dados de testes para o estado selecionado."
-        );
+        console.error("Erro ao buscar dados para o estado.");
       }
     })
     .catch(function (erro) {
-      console.log("Erro na requisição de testes:", erro);
+      console.error("Erro na requisição de testes:", erro);
     });
 }
-
 
   function atualizarKPI(estadoVar) {
     const estadoElement = document.getElementById("modalEstado");
@@ -390,7 +415,7 @@ function atualizarProjecaoTestes(estadoVar) {
 
   function calcularMediaDemanda(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
-    const totalSoro = totalCasos * 7;
+    const totalSoro = totalCasos * 5;
     return totalSoro / dados.length;
   }
 
@@ -400,10 +425,9 @@ function atualizarProjecaoTestes(estadoVar) {
     const primeiroAnoCasos = dados[0].quantidade;
     const ultimoAnoCasos = dados[dados.length - 1].quantidade;
 
-    const primeiroAnoSoro = primeiroAnoCasos * 7;
-    const ultimoAnoSoro = ultimoAnoCasos * 7;
+    const percentualEvolucao = ((ultimoAnoCasos - primeiroAnoCasos) / primeiroAnoCasos) * 100;
 
-    return ((ultimoAnoSoro - primeiroAnoSoro) / primeiroAnoSoro) * 100;
+    return percentualEvolucao * 0.8;  
   }
 
   function atualizarKPICard(mediaDemanda, percentualEvolucao) {
@@ -450,21 +474,22 @@ function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     }
 }
 
-  function calcularMediaDemandaRepelente(dados) {
+function calcularMediaDemandaRepelente(dados) {
     const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
-    const mediaRepelentes = total * 2;
-
+    const mediaRepelentes = total * 2;  
     return mediaRepelentes / dados.length;
-  }
+}
 
-  function calcularPercentualEvolucaoRepelente(dados) {
+function calcularPercentualEvolucaoRepelente(dados) {
     if (dados.length < 2) return 0;
 
     const primeiroAno = dados[0].quantidade;
     const ultimoAno = dados[dados.length - 1].quantidade;
 
-    return ((ultimoAno - primeiroAno) / primeiroAno) * 100;
-  }
+    const percentualEvolucao = ((ultimoAno - primeiroAno) / primeiroAno) * 100;
+
+    return percentualEvolucao * 1.2;  
+}
 
   function atualizarEstadoVisualizado() {
     const estadoSelecionado = document.getElementById('modalEstado').value;
