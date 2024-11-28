@@ -58,4 +58,12 @@ router.get("/:idEmpresa", function (req, res) {
     usuarioController.buscarEstadoEmpresa(req, res);
 });
 
+router.get("/obterFuncionario/:id", function (req, res) {
+    usuarioController.obterFuncionario(req, res);
+  });
+
+  router.put("/editarFuncionario/:id", function (req, res) {
+    usuarioController.editarFuncionario(req, res);
+  });
+
 module.exports = router;

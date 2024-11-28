@@ -167,37 +167,6 @@ function buscarFuncionarios(req, res) {
     });
 }
 
-function editarFuncionario(req, res) {
-  const idFuncionario = req.params.id;
-  const nome = req.body.nomeServer;
-  const sobrenome = req.body.sobrenomeServer;
-  const cargo = req.body.cargoServer;
-  const email = req.body.emailServer;
-
-  if (!idFuncionario) {
-    return res.status(400).send("ID do funcionário não fornecido!");
-  }
-
-  usuarioModel
-    .editarFuncionario(idFuncionario, { nome, sobrenome, email, cargo })
-    .then(function (resultado) {
-      if (resultado.affectedRows === 0) {
-        return res
-          .status(404)
-          .send("Funcionário não encontrado para o ID fornecido.");
-      }
-      res.status(200).send("Funcionário atualizado com sucesso!");
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log(
-        "\nHouve um erro ao editar o funcionário! Erro: ",
-        erro.sqlMessage
-      );
-      res.status(500).json(erro.sqlMessage);
-    });
-}
-
 function excluirFuncionario(req, res) {
   const idFuncionario = req.params.idUsuario;
 
@@ -333,6 +302,55 @@ function buscarEstadoEmpresa(req, res) {
     });
 }
 
+function obterFuncionario(req, res) {
+  const idUsuario = req.params.id;
+
+  if (!idUsuario || isNaN(idUsuario)) {
+    return res.status(400).send("ID do funcionário inválido.");
+  }
+
+  usuarioModel
+    .buscarFuncionarioPorId(idUsuario)
+    .then((funcionario) => {
+      if (!funcionario) {
+        return res.status(404).json({ error: "Funcionário não encontrado." });
+      }
+      res.status(200).json(funcionario);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do funcionário:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do funcionário." });
+    });
+}
+
+function editarFuncionario(req, res) {
+  const idUsuario = req.params.id;
+  const { nomeServer, sobrenomeServer, emailServer, cargoServer } = req.body;
+
+  if (!idUsuario || isNaN(idUsuario)) {
+    return res.status(400).send("ID do funcionário inválido.");
+  }
+
+  if (!nomeServer || !sobrenomeServer || !emailServer || !cargoServer) {
+    return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+  }
+
+  usuarioModel
+    .editarFuncionario(idUsuario, nomeServer, sobrenomeServer, emailServer, cargoServer)
+    .then((resultado) => {
+      if (resultado.affectedRows === 0) {
+        return res.status(404).json({ error: "Funcionário não encontrado." });
+      }
+      res.status(200).send("Funcionário atualizado com sucesso.");
+    })
+    .catch((erro) => {
+      console.error("Erro ao atualizar o funcionário:", erro);
+      res.status(500).json({ error: "Erro ao atualizar o funcionário." });
+    });
+}
+
+
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -345,5 +363,6 @@ module.exports = {
   atualizarProjecaoRepelente,
   atualizarProjecaoTestes,
   buscarDemanda,
-  buscarEstadoEmpresa
+  buscarEstadoEmpresa,
+  obterFuncionario
 };

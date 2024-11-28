@@ -74,20 +74,6 @@ function buscarFuncionarios(fkEmpresa) {
     return database.executar(instrucaoSql);
 }
 
-function editarFuncionario(idFuncionario, nome, sobrenome, email, cargo) {
-    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Editando funcionário com ID: ", idFuncionario);
-    
-    var instrucaoSql = `
-      UPDATE Usuario 
-      SET nome = '${nome}', sobrenome = '${sobrenome}', email = '${email}', cargo = '${cargo}' 
-      WHERE idUsuario = ${idFuncionario};
-    `;
-    
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-
-    return database.executar(instrucaoSql);
-}
-
 function excluirFuncionario(idFuncionario){
     console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Editando funcionário com ID: ", idFuncionario);
     
@@ -166,6 +152,29 @@ function buscarEstado(idEmpresa) {
     return database.executar(instrucaoSql);
   }
 
+  function buscarFuncionarioPorId(idUsuario) {
+    const instrucaoSql = `
+    SELECT idUsuario, nome, sobrenome, cargo, email
+    FROM Usuario
+    WHERE idUsuario = ${idUsuario};  -- Agora validado como número
+  `;
+  
+    return database.executar(instrucaoSql);
+  }
+  
+  function editarFuncionario(idUsuario, nome, sobrenome, email, cargo) {
+    const instrucaoSql = `
+      UPDATE Usuario
+      SET nome = '${nome}', 
+          sobrenome = '${sobrenome}', 
+          email = '${email}', 
+          cargo = '${cargo}'
+      WHERE idUsuario = ${idUsuario};
+    `;
+  
+    return database.executar(instrucaoSql);
+  }
+  
 
 module.exports = {
     autenticar,
@@ -173,6 +182,7 @@ module.exports = {
     cadastrarFuncionario,
     buscarFuncionarios,
     editarFuncionario,
+    buscarFuncionarioPorId,
     verificarCadastro,
     buscarTipoInstituicao,
     excluirFuncionario,
