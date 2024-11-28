@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
 const express = require("express");
 const router = express.Router();
 
@@ -349,7 +348,28 @@ function editarFuncionario(req, res) {
     });
 }
 
+// --------------------Estrutura de tratativa da Home-------------------------------------------------------------------------------------
 
+function atualizarGraficoRegioes() {
+  const idEmpresa = req.params.idEmpresa;
+
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    return res.status(400).send("ID da empresa inválido.");
+  }
+
+  usuarioModel
+    .buscarEstado(idEmpresa)
+    .then((empresa) => {
+      if (!empresa) {
+        return res.status(404).json({ error: "Empresa não encontrada." });
+      }
+      res.status(200).json(empresa);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados da empresa:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
+    });
+}
 
 module.exports = {
   autenticar,
@@ -365,4 +385,6 @@ module.exports = {
   buscarDemanda,
   buscarEstadoEmpresa,
   obterFuncionario
+  buscarEstadoEmpresa,
+  atualizarGraficoRegioes
 };
