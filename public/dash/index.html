@@ -51,12 +51,29 @@
             <div class="modal-input">
               <label for="modalEstado">Estado:</label>
               <select id="modalEstado">
-                <option value="SP">São Paulo</option>
-                <option value="PB">Pernambuco</option>
-                <option value="AL">Alagóas</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="GO">Goiás</option>
-              </select>
+                                           <option value="AL">Alagoas</option>
+                                           <option value="AC">Acre</option>
+                                           <option value="AP">Amapá</option>
+                                           <option value="AM">Amazonas</option>
+                                           <option value="BA">Bahia</option>
+                                           <option value="CE">Ceará</option>
+                                           <option value="DF">Distrito Federal</option>
+                                           <option value="GO">Goiás</option>
+                                           <option value="MA">Maranhão</option>
+                                           <option value="MG">Minas Gerais</option>
+                                           <option value="SP">São Paulo</option>
+                                           <option value="RS">Rio Grande do Sul</option>
+                                           <option value="SC">Santa Catarina</option>
+                                           <option value="SE">Sergipe</option>
+                                           <option value="TO">Tocantins</option>
+                                           <option value="MT">Mato Grosso</option>
+                                           <option value="PE">Pernambuco</option>
+                                           <option value="MS">Mato Grosso do Sul</option>
+                                           <option value="PA">Pará</option>
+                                           <option value="PR">Paraná</option>
+                                           <option value="PI">Piauí</option>
+                                           <option value="PB">Paraíba</option>
+                                       </select>                    
             </div>
             <button id="search-btn">Pesquisar</button>
           </div>
@@ -158,45 +175,130 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
     requestAnimationFrame(atualizar);
 }
 
+function buscarEstadoEmpresa() {
+  const idEmpresa = sessionStorage.ID_EMPRESA;
 
-  function buscarEstadoEmpresa() {
-    const idEmpresa = sessionStorage.ID_EMPRESA;
-
-    if (!idEmpresa || isNaN(idEmpresa)) {
-      console.error("ID da empresa não definido ou inválido.");
-      alert(
-        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
-      );
-      return;
-    }
-
-    console.log("ID da empresa:", idEmpresa);
-
-    fetch(`/usuarios/${idEmpresa}`)
-      .then(function (resposta) {
-        console.log("Resposta da API:", resposta);
-
-        if (resposta.ok) {
-          resposta.json().then(function (dadosEmpresa) {
-            console.log("Dados da empresa:", dadosEmpresa);
-
-            const estado = dadosEmpresa[0].estado;
-
-            if (estado) {
-              atualizarProjecaoRepelentes(estado);
-              atualizarProjecaoTestes(estado);
-            } else {
-              console.error("Estado não encontrado nos dados da empresa.");
-            }
-          });
-        } else {
-          throw "Erro ao buscar os dados da empresa.";
-        }
-      })
-      .catch(function (erro) {
-        console.log("#ERRO:", erro);
-      });
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    console.error("ID da empresa não definido ou inválido.");
+    alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+    carregarEstadoNaInterface("BRASIL");
+    return;
   }
+
+  document.querySelector("#search-btn").addEventListener("click", () => {
+    const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
+    const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
+    sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
+    carregarEstadoNaInterface(estadoCompleto);
+  });
+
+  console.log("ID da empresa:", idEmpresa);
+
+  fetch(`/usuarios/${idEmpresa}`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar os dados da empresa.";
+      }
+    })
+    .then((dadosEmpresa) => {
+      console.log("Dados da empresa:", dadosEmpresa);
+
+      const estados = {
+        "AL": "Alagoas",
+        "AC": "Acre",
+        "AP": "Amapá",
+        "AM": "Amazonas",
+        "BA": "Bahia",
+        "CE": "Ceará",
+        "DF": "(Distrito Federal)",
+        "GO": "Goiás",
+        "MA": "Maranhão",
+        "MG": "Minas Gerais",
+        "SP": "São Paulo",
+        "RS": "Rio Grande do Sul",
+        "SC": "Santa Catarina",
+        "SE": "Sergipe",
+        "TO": "Tocantins",
+        "MT": "Mato Grosso",
+        "PE": "Pernambuco",
+        "MS": "Mato Grosso do Sul",
+        "PA": "Pará",
+        "PR": "Paraná",
+        "PI": "Piauí",
+        "PB": "Paraíba"
+      };
+
+      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL"; 
+      const estadoCompleto = estados[estadoSigla] || estadoSigla;
+
+      const selectEstado = document.querySelector("#modalEstado");
+      const options = selectEstado.querySelectorAll("option");
+
+      options.forEach(option => {
+        if (option.value === estadoSigla) {
+          option.selected = true;
+        }
+      });
+
+      carregarEstadoNaInterface(estadoCompleto);
+
+      atualizarProjecaoRepelentes(estadoSigla);
+      atualizarProjecaoTestes(estadoSigla);
+    })
+    .catch((erro) => {
+      console.error("#ERRO:", erro);
+      carregarEstadoNaInterface("BRASIL");
+    });
+}
+
+function traduzirSiglaParaNome(sigla) {
+  const estados = {
+    "AL": "Alagoas",
+    "AC": "Acre",
+    "AP": "Amapá",
+    "AM": "Amazonas",
+    "BA": "Bahia",
+    "CE": "Ceará",
+    "DF": "(Distrito Federal)",
+    "GO": "Goiás",
+    "MA": "Maranhão",
+    "MG": "Minas Gerais",
+    "SP": "São Paulo",
+    "RS": "Rio Grande do Sul",
+    "SC": "Santa Catarina",
+    "SE": "Sergipe",
+    "TO": "Tocantins",
+    "MT": "Mato Grosso",
+    "PE": "Pernambuco",
+    "MS": "Mato Grosso do Sul",
+    "PA": "Pará",
+    "PR": "Paraná",
+    "PI": "Piauí",
+    "PB": "Paraíba"
+  };
+
+  return estados[sigla] || sigla;
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  buscarEstadoEmpresa(); 
+});
+
+
+function carregarEstadoNaInterface(estado) {
+  const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
+  
+  if (indicadorTitulo) {
+    indicadorTitulo.textContent = estado;
+  } else {
+    console.error("Elemento para estado não encontrado na interface.");
+  }
+}
+
 
   function atualizarProjecaoRepelentes(estadoVar) {
   console.log("Estado selecionado: ", estadoVar);
@@ -427,7 +529,7 @@ function atualizarProjecaoTestes(estadoVar) {
 
     const percentualEvolucao = ((ultimoAnoCasos - primeiroAnoCasos) / primeiroAnoCasos) * 100;
 
-    return percentualEvolucao * 0.8;  
+    return percentualEvolucao;  
   }
 
   function atualizarKPICard(mediaDemanda, percentualEvolucao) {
@@ -488,41 +590,9 @@ function calcularPercentualEvolucaoRepelente(dados) {
 
     const percentualEvolucao = ((ultimoAno - primeiroAno) / primeiroAno) * 100;
 
-    return percentualEvolucao * 1.2;  
+    return percentualEvolucao;  
 }
 
-  function atualizarEstadoVisualizado() {
-    const estadoSelecionado = document.getElementById('modalEstado').value;
-    const estados = document.querySelectorAll('.estadoAtual'); 
-    
-    estados.forEach(function(estadoTexto) {
-        switch(estadoSelecionado) {
-            case 'SP':
-                estadoTexto.textContent = "(São Paulo)";
-                break;
-            case 'PB':
-                estadoTexto.textContent = "(Pernambuco)";
-                break;
-            case 'AL':
-                estadoTexto.textContent = "(Alagoas)";
-                break;
-            case 'DF':
-                estadoTexto.textContent = "(Distrito Federal)";
-                break;
-            case 'GO':
-                estadoTexto.textContent = "(Goiás)";
-                break;
-            default:
-                estadoTexto.textContent = "BRASIL";
-        }
-    });
-}
-
-document.getElementById('modalEstado').addEventListener('change', atualizarEstadoVisualizado);
-
-
-atualizarEstadoVisualizado(); 
-  buscarEstadoEmpresa();
   atualizarKPI();
   atualizarKPICard(150.35, 12.78);
 setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
