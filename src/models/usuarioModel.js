@@ -114,6 +114,7 @@ function buscarTipoInstituicao(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+// --------------------Estrutura de tratativa da Dashboard da farmácia------------------------------------------------------------------------
 
 function atualizarProjecaoRepelente(estado) {
     console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de casos para o estado: ", estado);

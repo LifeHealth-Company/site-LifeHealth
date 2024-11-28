@@ -10,17 +10,18 @@ require("dotenv").config({ path: caminho_env });
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA_APP = process.env.APP_PORT;
-var HOST_APP = process.env.APP_HOST || '0.0.0.0';
-var NUVEM_APP = process.env.APP_NUVEM;
+var PORTA_APP = process.env.DB_PORT;
+var HOST_APP = process.env.DB_HOST || 'localhost';
+var NUVEM_APP = process.env.DB_NUVEM;
+
+var DOCKER_HOST = process.env.APP_HOST;
+var DOCKER_PORT = process.env.APP_PORT;
 
 var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
-var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 
 app.use(express.json());
@@ -32,15 +33,13 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
-app.use("/medidas", medidasRouter);
-app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
               
     Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
-    Caso esteja acessando pelo ambiente da nuvem, acesse o caminho : http://${NUVEM_APP}:${PORTA_APP} :. \n\n
+    Caso esteja acessando pelo ambiente da nuvem, acesse o caminho : http://${DOCKER_HOST}:${DOCKER_PORT} :. \n\n
     Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:`);
 });
 
