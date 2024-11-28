@@ -90,7 +90,7 @@
           <p>0 repelentes</p>
           <span class="indicator up" data-valor-atual="0">0%</span>
       </div>
-        <div class="kpi">
+        <div class="kpi" id="kpi-paracetamol">
           <h4>Paracetamol</h4>
           <p>0 milhões casos</p>
           <span class="indicator up">0%</span>
@@ -351,6 +351,46 @@ function carregarEstadoNaInterface(estado) {
     });
 }
 
+function calcularMediaParacetamol(dados) {
+    const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
+    const totalParacetamol = totalCasos * 3;
+    return totalParacetamol / dados.length;
+  }
+
+  function calcularPercentualEvolucaoParacetamol(dados) {
+    if (dados.length < 2) return 0;
+
+    const primeiroAnoCasos = dados[0].quantidade;
+    const ultimoAnoCasos = dados[dados.length - 1].quantidade;
+
+    const primeiroAnoParacetamol = primeiroAnoCasos;
+    const ultimoAnoParacetamol = ultimoAnoCasos;
+
+    return ((ultimoAnoParacetamol - primeiroAnoParacetamol) / primeiroAnoParacetamol) * 100;
+  }
+
+  function atualizarKPICardParacetamol(mediaDemanda, percentualEvolucao) {
+    const kpiCard = document.getElementById("kpi-paracetamol");
+    if (!kpiCard) {
+      console.error("Elemento do KPI de paracetamol não encontrado!");
+      return;
+    }
+
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} paracetamóis`;
+
+    const indicador = kpiCard.querySelector(".indicator");
+    animarPercentual(indicador, percentualEvolucao);
+
+    indicador.classList.toggle("up", percentualEvolucao >= 0);
+    indicador.classList.toggle("down", percentualEvolucao < 0);
+
+    if (percentualEvolucao < 0) {
+      indicador.style.color = "green";
+    } else {
+      indicador.style.color = "";
+    }
+  }
+
 function calcularRegressaoLinear(anos, valores) {
   const n = anos.length;
   const mediaX = anos.reduce((soma, x) => soma + x, 0) / n;
@@ -499,21 +539,25 @@ function atualizarProjecaoTestes(estadoVar) {
             }
         })
         .then((dados) => {
-            if (dados) {
-                console.log("Dados recebidos:", dados);
+    if (dados) {
+        console.log("Dados recebidos:", dados);
 
-                const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
-                const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
+        const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
+        const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
 
-                const mediaDemandaSoro = calcularMediaDemanda(dados);
-                const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
+        const mediaDemandaSoro = calcularMediaDemanda(dados);
+        const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
 
-                atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
-                atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
-            }
-        })
-        .catch((erro) => console.error("Erro na requisição:", erro));
-}
+        const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
+        const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
+
+        atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
+        atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
+        atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
+    }
+})
+.catch((erro) => console.error("Erro na requisição:", erro));
+  }
 
   function calcularMediaDemanda(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -599,5 +643,8 @@ setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
 
 atualizarKPIRepelente(75.50, -8.45);
 setTimeout(() => atualizarKPIRepelente(80.00,  -3.25), 2000);
+
+atualizarKPICardParacetamol(75.50, -8.45);
+setTimeout(() => atualizarKPICardParacetamol(80.00, -3.25), 2000);
 
 </script>
