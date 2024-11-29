@@ -15,6 +15,40 @@
 <body>
     <div id="menu-container"></div>
     <div class="mainClass">
+        <div id="modal" class="modal">
+            <div class="modal-content">
+              <span id="close-modal" class="close-btn">&times;</span>
+              <h2>Filtrar Dados</h2>
+              <div class="modal-input">
+                <label for="modalAnoInicial">Ano Inicial:</label>
+                <select id="modalAnoInicial">
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+              <div class="modal-input">
+                <label for="modalAnoFinal">Ano Final:</label>
+                <select id="modalAnoFinal">
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+              <div class="modal-input">
+                <label for="modalEstado">Estado:</label>
+                <select id="modalEstado">
+                  <option value="SP">São Paulo</option>
+                  <option value="PB">Pernambuco</option>
+                  <option value="AL">Alagóas</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="GO">Goiás</option>
+                </select>
+              </div>
+              <button id="search-btn">Pesquisar</button>
+            </div>
+          </div>
+
         <div class="indicators">
             <div class="indicatorContainer">
                 <div class="indicatorInfo">
@@ -46,16 +80,20 @@
                     <span class="growthPercentage">7%</span>
                 </div>
             </div>
-            <div class="indicatorContainer">
-                <div class="indicatorInfo">
-                    <span class="titleIndicator">Crescimento de uso de soro</span>
-                    <span class="descIndicator">4.500 bolsas</span>
-                </div>
-                <div class="growth">
-                    <img src="./assets/icon/arrowUp.svg" />
-                    <span class="growthPercentage">7%</span>
-                </div>
-            </div>
+        <div class="calendar">
+          <div class="timeIndicator">
+              <span class="startEnd">De</span>
+              <span class="date"  id="start-date">2021</span>
+          </div>
+          <img src="../assets/icon/longArrow.svg" class="arrow" />
+          <div class="timeIndicator">
+              <span class="startEnd">Até</span>
+              <span class="date"  id="end-date">2022</span>
+          </div>
+          
+          <img src="../assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="open-modal-btn"/>
+
+      </div>
         </div>
         <div class="LineOfCharts">
             <div class="lineChart">
@@ -87,7 +125,7 @@
             </div>
             <div class="lineChart">
                 <div class="lineChartHeader">
-                    <span class="indicatorTitle">Percentual de ocupação de leitos em relação ao ultimo ano</span>
+                    <span class="indicatorTitle">Evolução dos casos curados</span>
                 </div>
                 <div class="chart">
                     <canvas id="PercentageOfBedOccupancyInRelationToTheLastYear"></canvas>

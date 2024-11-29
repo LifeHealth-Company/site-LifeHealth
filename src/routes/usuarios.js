@@ -57,5 +57,11 @@ router.post("/demanda", function (req, res) {
 router.get("/:idEmpresa", function (req, res) {
     usuarioController.buscarEstadoEmpresa(req, res);
 });
+router.get("/buscarCasosPorEstado/:estado", function (req, res) {
+    usuarioController.buscarCasosPorEstado(req, res);
+});
+router.get("/buscarCasosCurados/:estado", function (req, res) {
+    usuarioController.buscarCasosCurados(req, res);
+});
 
 module.exports = router;

@@ -332,6 +332,38 @@ function buscarEstadoEmpresa(req, res) {
       res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
     });
 }
+function buscarCasosPorEstado(req, res) {
+  const estado = req.params.estado;
+
+  usuarioModel
+    .buscarCasosPorEstado( estado)
+    .then((estado) => {
+      if (!estado) {
+        return res.status(404).json({ error: "Ano não encontrado." });
+      }
+      res.status(200).json(estado);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do ano:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do ano." });
+    });
+}
+function buscarCasosCurados(req, res) {
+  const estado = req.params.estado;
+
+  usuarioModel
+    .buscarCasosCurados( estado)
+    .then((estado) => {
+      if (!estado) {
+        return res.status(404).json({ error: "Ano não encontrado." });
+      }
+      res.status(200).json(estado);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do ano:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do ano." });
+    });
+}
 
 module.exports = {
   autenticar,
@@ -345,5 +377,8 @@ module.exports = {
   atualizarProjecaoRepelente,
   atualizarProjecaoTestes,
   buscarDemanda,
-  buscarEstadoEmpresa
+  buscarEstadoEmpresa,
+  buscarCasosPorEstado,
+  buscarCasosCurados
+
 };

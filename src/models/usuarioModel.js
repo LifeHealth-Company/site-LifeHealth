@@ -164,6 +164,21 @@ function buscarEstado(idEmpresa) {
     `;
   
     return database.executar(instrucaoSql);
+
+  }
+function buscarCasosPorEstado(estado) {
+    const instrucaoSql = `
+      select * from Casos where estadoNotificacao = "${estado}";
+    `;
+  
+    return database.executar(instrucaoSql);
+  }
+function buscarCasosCurados(estado) {
+    const instrucaoSql = `
+   select ano, count(evolucaoCaso) as cura from casos where evolucaoCaso = "Cura" and estadoNotificacao = "${estado}" group by ano;
+    `;
+  
+    return database.executar(instrucaoSql);
   }
 
 
@@ -179,5 +194,7 @@ module.exports = {
     atualizarProjecaoRepelente,
     atualizarProjecaoTestes,
     buscarDemanda,
-    buscarEstado
+    buscarEstado,
+    buscarCasosPorEstado,
+    buscarCasosCurados
 };
