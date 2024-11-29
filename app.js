@@ -1,5 +1,4 @@
 let caminho_env = '.env.dev';
-
 require("dotenv").config({ path: caminho_env });
 
 let express = require("express");
@@ -10,7 +9,7 @@ let LOCAL_PORT = process.env.APP_PORT;
 let LOCAL_HOST = process.env.DB_HOST || "localhost";
 
 let DOCKER_HOST = process.env.APP_HOST;
-let DOCKER_PORT = process.env.DOCKER_PORT;
+let DOCKER_PORT = process.env.APP_PORT;
 
 let app = express();
 
