@@ -384,7 +384,7 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstadoEmpresa,
-  obterFuncionario
+  obterFuncionario,
   buscarEstadoEmpresa,
   atualizarGraficoRegioes
 };
