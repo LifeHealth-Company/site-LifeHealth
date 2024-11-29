@@ -372,24 +372,20 @@ function calcularMediaParacetamol(dados) {
   function atualizarKPICardParacetamol(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-paracetamol");
     if (!kpiCard) {
-      console.error("Elemento do KPI de paracetamol não encontrado!");
-      return;
+        console.error("Elemento do KPI de paracetamol não encontrado!");
+        return;
     }
-
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} paracetamóis`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
+    
+}
 
-    if (percentualEvolucao < 0) {
-      indicador.style.color = "green";
-    } else {
-      indicador.style.color = "";
-    }
-  }
 
 function calcularRegressaoLinear(anos, valores) {
   const n = anos.length;
@@ -586,17 +582,13 @@ function atualizarProjecaoTestes(estadoVar) {
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} sachês de soro`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-        indicador.style.color = "green";
-    } else {
-        indicador.style.color = "";
-    }
 }
+
 
 function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-repelente");
@@ -604,21 +596,16 @@ function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
         console.error("Elemento do KPI de repelentes não encontrado!");
         return;
     }
-
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} repelentes`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-        indicador.style.color = "green";
-    } else {
-        indicador.style.color = "";
-    }
 }
+
 
 function calcularMediaDemandaRepelente(dados) {
     const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);

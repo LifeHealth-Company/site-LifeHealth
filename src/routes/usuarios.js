@@ -66,4 +66,8 @@ router.get("/obterFuncionario/:id", function (req, res) {
     usuarioController.editarFuncionario(req, res);
   });
 
+  router.get("/maioresAfetados", function (req, res) {
+    usuarioController.maioresAfetados(req, res);
+  });
+
 module.exports = router;

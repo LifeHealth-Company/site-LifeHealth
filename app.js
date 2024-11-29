@@ -10,9 +10,9 @@ require("dotenv").config({ path: caminho_env });
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA_APP = process.env.DB_PORT;
-var HOST_APP = process.env.DB_HOST || 'localhost';
-var NUVEM_APP = process.env.DB_NUVEM;
+var PORTA_APP = process.env.APP_PORT;
+var HOST_APP = process.env.APP_HOST || '0.0.0.0';
+var NUVEM_APP = process.env.APP_NUVEM;
 
 var DOCKER_HOST = process.env.APP_HOST;
 var DOCKER_PORT = process.env.APP_PORT;

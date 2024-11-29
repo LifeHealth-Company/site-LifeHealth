@@ -21,11 +21,18 @@ function autenticar(req, res) {
 
       if (resultadoAutenticar.length === 1) {
         res.json({
-          id: resultadoAutenticar[0].id,
-          email: resultadoAutenticar[0].email,
-          nome: resultadoAutenticar[0].nome,
+          idEmpresa: resultadoAutenticar[0].idEmpresa,
+          nomeEmpresa: resultadoAutenticar[0].nomeEmpresa,
+          idUsuario: resultadoAutenticar[0].idUsuario,
+          nomeUsuario: resultadoAutenticar[0].nomeUsuario,
+          sobrenomeUsuario: resultadoAutenticar[0].sobrenomeUsuario,
+          cargoUsuario: resultadoAutenticar[0].cargoUsuario,
+          fkEmpresa: resultadoAutenticar[0].fkEmpresa,
+          emailUsuario: resultadoAutenticar[0].emailUsuario,
+          tipoUsuario: resultadoAutenticar[0].tipoUsuario,
         });
-      } else if (resultadoAutenticar.length === 0) {
+      }
+       else if (resultadoAutenticar.length === 0) {
         res.status(403).send("Email e/ou senha inválido(s)");
       } else {
         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -348,6 +355,7 @@ function editarFuncionario(req, res) {
     });
 }
 
+
 // --------------------Estrutura de tratativa da Home-------------------------------------------------------------------------------------
 
 function atualizarGraficoRegioes() {
@@ -371,6 +379,27 @@ function atualizarGraficoRegioes() {
     });
 }
 
+function maioresAfetados(req, res) {
+  console.log("Requisição recebida para maiores afetados.");
+
+  usuarioModel
+    .maioresAfetados()
+    .then((dados) => {
+      console.log("Dados retornados do modelo:", dados); // Log dos dados retornados
+      
+      if (!dados || dados.length === 0) {
+        return res.status(404).json({ mensagem: "Nenhum dado encontrado sobre os maiores afetados." });
+      }
+
+      res.status(200).json(dados);
+    })
+    .catch((erro) => {
+      console.error("Erro ao carregar os maiores afetados:", erro);
+      res.status(500).json({ error: "Erro ao carregar os maiores afetados" });
+    });
+}
+
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -384,7 +413,7 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstadoEmpresa,
-  obterFuncionario
-  buscarEstadoEmpresa,
-  atualizarGraficoRegioes
+  obterFuncionario,
+  atualizarGraficoRegioes,
+  maioresAfetados
 };
