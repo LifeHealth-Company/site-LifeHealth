@@ -41,21 +41,16 @@ fkUsuario INT,
 CONSTRAINT telefoneUsuario FOREIGN KEY(fkUsuario) REFERENCES Usuario (idUsuario)
 );
 
-CREATE TABLE Caso (
+CREATE TABLE casos (
 idCaso INT PRIMARY KEY AUTO_INCREMENT,
 ano CHAR(4),
 ufNotificacao CHAR(2),
 estadoNotificacao VARCHAR(45),
 anoNascPaciente char(4),
-dtNascimentoPaciente DATE,
-sexoPaciente VARCHAR(45),
-CONSTRAINT sexoPacienteCheck CHECK(sexoPaciente IN ('Feminino', 'Masculino')), 
-gestante VARCHAR(20), 
-datainternacao DATE,
+sexoPaciente VARCHAR(45), 
+isPacienteGestante VARCHAR(50),
 sorotipo VARCHAR(5),
-evolucaoCaso VARCHAR(10),
-CONSTRAINT evolucaoCasoCheck CHECK(evolucaoCaso IN ('Cura', 'Ignorado',  'Óbito por outas causas', 'Óbito em investigação')), 
-dataObito DATE
+evolucaoCaso VARCHAR(50)
 );
 
 
@@ -78,4 +73,4 @@ idParametro INT PRIMARY KEY AUTO_INCREMENT
 );
 
 
-SELECT * FROM empresa;
+SELECT * FROM casos;

@@ -63,5 +63,8 @@ router.get("/buscarCasosPorEstado/:estado", function (req, res) {
 router.get("/buscarCasosCurados/:estado", function (req, res) {
     usuarioController.buscarCasosCurados(req, res);
 });
+router.get("/buscarPopulacao/:estado", function (req, res) {
+    usuarioController.buscarPopulacao(req, res);
+});
 
 module.exports = router;

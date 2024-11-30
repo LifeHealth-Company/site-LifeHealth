@@ -180,6 +180,13 @@ function buscarCasosCurados(estado) {
   
     return database.executar(instrucaoSql);
   }
+function buscarPopulacao(estado, ano) {
+    const instrucaoSql = `
+    SELECT qtdPopulacao FROM populacao where estado = "${estado}";
+    `;
+  
+    return database.executar(instrucaoSql);
+  }
 
 
 module.exports = {
@@ -196,5 +203,6 @@ module.exports = {
     buscarDemanda,
     buscarEstado,
     buscarCasosPorEstado,
-    buscarCasosCurados
+    buscarCasosCurados,
+    buscarPopulacao
 };
