@@ -174,23 +174,23 @@ function atualizarProjecaoRepelente(estado) {
   return database.executar(instrucaoSql);
 }
 
-function atualizarProjecaoTestes(estado) {
-  console.log(
-    "ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de consumo de testes para o estado: ",
-    estado
-  );
+  function atualizarProjecaoTestes(estado) {
+    console.log(
+      "ACESSEI O DADOS MODEL \n\n\t\t >> Buscando projeção de consumo de testes para o estado: ",
+      estado
+    );
 
-  var instrucaoSql = `
-    SELECT ano, COUNT(*) AS quantidade
-    FROM Casos
-    WHERE ufNotificacao = '${estado}'
-    GROUP BY ano
-    ORDER BY ano;
-`;
+    var instrucaoSql = `
+      SELECT ano, COUNT(*) AS quantidade
+      FROM Casos
+      WHERE ufNotificacao = '${estado}'
+      GROUP BY ano
+      ORDER BY ano;
+  `;
 
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
-}
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+  }
 
 function buscarDemanda(estado, anoInicial, anoFinal) {
   const instrucaoSql = `
@@ -236,24 +236,123 @@ function editarFuncionario(idUsuario, nome, sobrenome, email, cargo) {
   return database.executar(instrucaoSql);
 }
 
-function maioresAfetados() {
-    console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Carregando os dados dos maiores afetados");
+function carregarTaxaDeIncidencia(anos) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de incidência de dengue por ano.");
+
+  const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+
+  const instrucaoSql = `
+    SELECT 
+      c.ano, 
+      SUM(c.idCaso) AS total_casos,
+      SUM(p.qtdPopulacao) AS total_populacao,
+      (SUM(c.idCaso) / SUM(p.qtdPopulacao)) * 100000 AS taxa_incidencia
+    FROM Casos c
+    JOIN Populacao p ON c.ano = p.ano
+    WHERE c.ano IN (${anosString})
+    GROUP BY c.ano
+    ORDER BY c.ano;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
   
-    var instrucaoSql = `
-      SELECT
-        SUM(CASE WHEN isPacienteGestante = 'Sim' THEN 1 ELSE 0 END) AS gestantes,
-        SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente >= 60 THEN 1 ELSE 0 END) AS idosos,
-        SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente BETWEEN 0 AND 12 THEN 1 ELSE 0 END) AS criancas
-      FROM Casos
-      WHERE ufNotificacao IS NOT NULL;
-    `;
+  return database.executar(instrucaoSql).then((resultado) => {
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado.");
+    }
+    return resultado;
+  });
+}
+
   
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    
-    return database.executar(instrucaoSql);
+function carregarCasosPorEstado(ano) {
+  console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por estado no ano ${ano}.`);
+
+  const anoString = `'${ano}'`;
+
+  const instrucaoSql = `
+    SELECT 
+      c.estadoNotificacao, 
+      COUNT(c.idCaso) AS casos
+    FROM Casos c
+    WHERE c.ano = ${anoString}
+    GROUP BY c.estadoNotificacao
+    ORDER BY casos ASC;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  
+  return database.executar(instrucaoSql).then((resultado) => {
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado.");
+    }
+    return resultado;
+  });
+}
+
+function carregarCasosPorAno(anos) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos por ano.");
+
+  const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+
+  const instrucaoSql = `
+      SELECT 
+          c.ano, 
+          COUNT(c.idCaso) AS casos
+      FROM Casos c
+      WHERE c.ano IN (${anosString})
+      GROUP BY c.ano
+      ORDER BY c.ano;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+  return database.executar(instrucaoSql).then((resultado) => {
+      if (!resultado || resultado.length === 0) {
+          throw new Error("Nenhum dado encontrado.");
+      }
+      return resultado;  
+  }).catch(function (erro) {
+      console.error(erro);
+      throw new Error("Erro ao buscar dados de casos por ano.");
+  });
+}
+
+function carregarCasosPorRegiao(ano) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos por região.");
+
+  if (!ano) {
+    throw new Error("Ano não foi informado.");
   }
-  
-  
+
+  const anoString = `'${ano}'`;
+
+  const instrucaoSql = `
+      SELECT 
+          c.estadoNotificacao, 
+          COUNT(c.idCaso) AS quantidadeCasos
+      FROM Casos c
+      WHERE c.ano = ${anoString}
+      GROUP BY c.estadoNotificacao
+      ORDER BY quantidadeCasos DESC;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+  return database.executar(instrucaoSql).then((resultado) => {
+    console.log("Resultado da consulta:", resultado); 
+
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado para os casos por região.");
+    }
+
+    return resultado;
+  }).catch(function (erro) {
+    console.error("Erro ao executar a consulta:", erro);
+    throw new Error("Erro ao buscar dados de casos por região.");
+  });
+}
+
 
 module.exports = {
   autenticar,
@@ -269,5 +368,8 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstado,
-  maioresAfetados
+  carregarTaxaDeIncidencia,
+  carregarCasosPorEstado,
+  carregarCasosPorAno,
+  carregarCasosPorRegiao
 };

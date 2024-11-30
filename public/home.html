@@ -40,15 +40,15 @@
           <div class="datas">
               <span class="data">
                   <span class="order">1°</span>
-                  Gestantes - 1.600 milhões
+                  [grupo afetado]   - 0 milhões
               </span>
               <span class="data">
                   <span class="order">2°</span>
-                  Idosos - 1.600 milhões
+                  [grupo afetado]  - 0 milhões
               </span>
               <span class="data">
                   <span class="order">3°</span>
-                  Crianças - 1.600 milhões
+                  [grupo afetado] - 0 milhões
               </span>
           </div>
       </div>
@@ -189,7 +189,7 @@
     <div class="lineChartCases">
       <div class="lineChart">
         <div class="lineChartHeader">
-          <span class="indicatorTitle">Previsão de ocupação de leitos</span>
+          <span class="indicatorTitle">Distribuição de Casos por Localidade</span>
           <span class="indicatorTitle max">BRASIL</span>
         </div>
         <div class="chart">
@@ -198,7 +198,7 @@
       </div>
       <div class="lineChart">
         <div class="lineChartHeader">
-          <span class="indicatorTitle">Percentual de crescimento em relação ao último ano</span>
+          <span class="indicatorTitle">Percentual de crescimento de casos em relação ao último ano</span>
         </div>
         <div class="chart">
           <canvas id="state"></canvas>
@@ -335,43 +335,220 @@ function carregarEstadoNaInterface(estado) {
   }
 }
 
-function carregarMaioresAfetados() {
-  console.log("Carregando maiores afetados...");
-
-  fetch('/usuarios/maioresAfetados', {
-    method: "GET", 
+function carregarTaxaDeIncidencia() {
+  fetch('/usuarios/taxa-incidencia', {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      anos: ['2021', '2022', '2023']
+    }),
   })
-  .then(response => {
-    console.log("Status da resposta:", response.status); // Log do status
-    if (!response.ok) {
-      throw new Error("Erro ao buscar os maiores afetados: " + response.status);
-    }
-    return response.json();
-  })
-  .then(dados => {
-    console.log("Dados recebidos:", dados);
-    if (dados && Array.isArray(dados)) {
-      const maioresAfetados = dados.sort((a, b) => b.quantidade - a.quantidade);
+  .then(function (resposta) {
+    if (resposta.ok) {
+      resposta.json().then(function (dados) {
+        const anos = dados.map(dado => dado.ano);
+        const taxaIncidencia = dados.map(dado => parseFloat(dado.taxa_incidencia)); 
 
-      const htmlMaioresAfetados = maioresAfetados.slice(0, 3).map((grupo, index) => `
-        <span class="data">
-          <span class="order">${index + 1}°</span>
-          ${grupo.grupo} - ${grupo.quantidade.toFixed(2)} milhões
-        </span>
-      `).join("");
-      
-      document.querySelector(".mostAffected .datas").innerHTML = htmlMaioresAfetados;
+        console.log("Taxa de Incidência Calculada: ", taxaIncidencia);
+
+        atualizarGraficoTaxaIncidencia(anos, taxaIncidencia);
+      });
     } else {
-      console.error("Dados inválidos recebidos do backend.");
+      console.error("Erro ao buscar dados para taxa de incidência.");
     }
   })
-  .catch(error => {
-    console.error("Erro ao carregar os dados dos maiores afetados:", error);
+  .catch(function (erro) {
+    console.error("Erro na requisição de taxa de incidência:", erro);
   });
 }
 
+function atualizarGraficoTaxaIncidencia(anos, taxaIncidencia) {
+  const chart = Chart.getChart("incidence"); 
+
+  if (chart) {
+    chart.data.labels = anos;
+    chart.data.datasets = [
+      {
+        label: "Taxa de Incidência de Dengue (por 100.000 habitantes)",
+        data: taxaIncidencia,
+        borderColor: "#193D65",
+        backgroundColor: "rgba(25, 61, 101, 0.1)",
+        fill: true, 
+        tension: 0.4, 
+        borderWidth: 2, 
+      },
+    ];
+    chart.update(); 
+    console.log("Gráfico de Taxa de Incidência atualizado com sucesso!");
+  } else {
+    console.error("Gráfico não encontrado!");
+  }
+}
+
+carregarTaxaDeIncidencia();
+atualizarCasosPorEstado2021();
+atualizarCasosPorAno();
+atualizarCasosPorRegiao();
+
+function atualizarCasosPorEstado2021() {
+  console.log("Atualizando casos de Dengue por estado no ano de 2021...");
+
+  fetch(`/usuarios/casosPorEstado`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ano: "2021",
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          const estados = [];
+          const casos = [];
+
+          dados.forEach(function (dado) {
+            estados.push(dado.estadoNotificacao); 
+            casos.push(dado.casos); 
+          });
+
+          const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
+
+          const chart = Chart.getChart("country");
+          if (chart) {
+            chart.data.labels = dadosOrdenados.map(dado => dado.estadoNotificacao); 
+            chart.data.datasets[0].data = dadosOrdenados.map(dado => dado.casos); 
+            chart.update();
+            console.log("Gráfico de casos atualizado com sucesso!");
+          } else {
+            console.error("Gráfico não encontrado!");
+          }
+        });
+      } else {
+        console.error("Erro ao buscar dados para os casos de dengue.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de casos:", erro);
+    });
+}
+
+function atualizarCasosPorAno() {
+  console.log("Atualizando casos de Dengue por ano...");
+
+  fetch(`/usuarios/casosPorAno`, {
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json", 
+    },
+    body: JSON.stringify({  
+      anos: ["2021", "2022", "2023"],
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          const anos = [];
+          const casos = [];
+
+          dados.forEach(function (dado) {
+            anos.push(dado.ano); 
+            casos.push(dado.casos); 
+          });
+
+          const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
+
+          const chart = Chart.getChart("state");
+          if (chart) {
+            chart.data.labels = dadosOrdenados.map(dado => dado.ano);  
+            chart.data.datasets[0].data = dadosOrdenados.map(dado => dado.casos); 
+            chart.update();
+            console.log("Gráfico de casos por ano atualizado com sucesso!");
+          } else {
+            console.error("Gráfico não encontrado!");
+          }
+        });
+      } else {
+        console.error("Erro ao buscar dados para os casos por ano.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de casos:", erro);
+    });
+}
+
+function atualizarCasosPorRegiao() {
+  fetch(`/usuarios/casosPorRegiao`, {
+  method: "POST", 
+  headers: {
+    "Content-Type": "application/json", 
+  },
+  body: JSON.stringify({
+    ano: "2023", 
+  }),
+})
+.then(function (resposta) {
+  if (resposta.ok) {
+    resposta.json().then(function (dados) {
+      console.log("Dados recebidos:", dados); 
+
+      const estadosPorRegiao = {
+        "Sudeste": ["São Paulo", "Minas Gerais", "Espírito Santo", "Rio de Janeiro"],
+        "Sul": ["Paraná", "Santa Catarina", "Rio Grande do Sul"],
+        "Centro Oeste": ["Mato Grosso do Sul", "Goiás", "Mato Grosso"],
+        "Nordeste": ["Maranhão", "Pernambuco", "Piauí", "Paraíba", "Bahia", "Alagoas", "Sergipe", "Ceará", "Rio Grande do Norte", "São Luís", "Ceará"],
+        "Norte": ["Pará", "Amazonas", "Acre", "Rondônia", "Roraima", "Tocantins", "Amapá"],
+        "Outros": [] 
+      };
+
+      const regioes = [];
+      const casosPorRegiao = [];
+
+      const casosAgrupadosPorRegiao = {};
+
+      dados.forEach(function (dado) {
+        const estado = dado.estadoNotificacao;
+        const casos = dado.quantidadeCasos;
+
+        for (const regiao in estadosPorRegiao) {
+          if (estadosPorRegiao[regiao].includes(estado)) {
+            if (!casosAgrupadosPorRegiao[regiao]) {
+              casosAgrupadosPorRegiao[regiao] = 0;
+            }
+            casosAgrupadosPorRegiao[regiao] += casos; 
+            break;
+          }
+        }
+      });
+
+      for (const regiao in casosAgrupadosPorRegiao) {
+        regioes.push(regiao);
+        casosPorRegiao.push(casosAgrupadosPorRegiao[regiao]);
+      }
+
+      console.log('Regiões:', regioes);
+      console.log('Casos por Região:', casosPorRegiao);
+
+      const chart = Chart.getChart("regions");
+      if (chart) {
+        chart.data.labels = regioes;  
+        chart.data.datasets[0].data = casosPorRegiao;  
+        chart.update();
+        console.log("Gráfico de casos por região atualizado com sucesso!");
+      } else {
+        console.error("Gráfico não encontrado!");
+      }
+    });
+  } else {
+    console.error("Erro ao buscar dados para os casos por região.");
+  }
+})
+.catch(function (erro) {
+  console.error("Erro na requisição de casos:", erro);
+});
+}
 
 </script>

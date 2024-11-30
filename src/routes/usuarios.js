@@ -66,8 +66,20 @@ router.get("/obterFuncionario/:id", function (req, res) {
     usuarioController.editarFuncionario(req, res);
   });
 
-  router.get("/maioresAfetados", function (req, res) {
-    usuarioController.maioresAfetados(req, res);
+  router.post("/taxa-incidencia", function (req, res) {
+    usuarioController.carregarTaxaDeIncidencia(req, res);
+});
+
+router.post("/casosPorEstado", function (req, res) {
+    usuarioController.carregarCasosPorEstado(req, res);
+  });
+  
+  router.post("/casosPorAno", function (req, res) {
+    usuarioController.carregarCasosPorAno(req, res);
+});
+
+router.post("/casosPorRegiao", function (req, res) {
+    usuarioController.carregarCasosPorRegiao(req, res);
   });
 
 module.exports = router;
