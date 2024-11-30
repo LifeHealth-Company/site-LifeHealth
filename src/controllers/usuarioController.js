@@ -425,23 +425,108 @@ function atualizarGraficoRegioes() {
     });
 }
 
-function maioresAfetados(req, res) {
-  console.log("Requisição recebida para maiores afetados.");
+function carregarTaxaDeIncidencia(req, res) {
+  const anos = ['2021', '2022', '2023'];
 
-  usuarioModel
-    .maioresAfetados()
-    .then((dados) => {
-      console.log("Dados retornados do modelo:", dados); // Log dos dados retornados
-      
-      if (!dados || dados.length === 0) {
-        return res.status(404).json({ mensagem: "Nenhum dado encontrado sobre os maiores afetados." });
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Os anos são obrigatórios.");
+  }
+
+  usuarioModel.carregarTaxaDeIncidencia(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        const taxasDeIncidencia = resultados.map((registro) => ({
+          ano: registro.ano,
+          casos: registro.casos,
+          populacao: registro.qtdPopulacao,
+          taxa_incidencia: registro.taxa_incidencia,
+        }));
+
+        res.json(taxasDeIncidencia);
+      } else {
+        res.status(404).send("Nenhum dado de taxa de incidência encontrado.");
       }
-
-      res.status(200).json(dados);
     })
-    .catch((erro) => {
-      console.error("Erro ao carregar os maiores afetados:", erro);
-      res.status(500).json({ error: "Erro ao carregar os maiores afetados" });
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de taxa de incidência.");
+    });
+}
+
+function carregarCasosPorEstado(req, res) {
+  const ano = req.body.ano;
+
+  if (!ano) {
+    return res.status(400).send("O ano é obrigatório.");
+  }
+
+  usuarioModel.carregarCasosPorEstado(ano)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        const casosPorEstado = resultados.map((registro) => ({
+          estadoNotificacao: registro.estadoNotificacao,
+          casos: registro.casos,
+        }));
+
+        res.json(casosPorEstado);
+      } else {
+        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o ano " + ano);
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de casos de Dengue.");
+    });
+}
+
+function carregarCasosPorAno(req, res) {
+  const anos = req.body.anos;
+
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Nenhum ano foi informado.");
+  }
+
+  usuarioModel.carregarCasosPorAno(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        const casosPorAno = anos.map((ano) => {
+          return {
+            ano: ano,
+            casos: resultados.filter((registro) => registro.ano === ano)
+              .reduce((acc, cur) => acc + cur.casos, 0)
+          };
+        });
+        res.json(casosPorAno);
+      } else {
+        res.status(404).send("Nenhum dado encontrado para os casos.");
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de casos por ano.");
+    });
+}
+
+function carregarCasosPorRegiao(req, res) {
+  const ano = req.body.ano; 
+
+  if (!ano) {
+    return res.status(400).send("Ano não foi informado.");
+  }
+
+  usuarioModel.carregarCasosPorRegiao(ano)
+    .then(function (resultados) {
+      console.log("Resultados obtidos:", resultados);
+
+      if (resultados.length > 0) {
+        res.json(resultados);
+      } else {
+        res.status(404).send("Nenhum dado encontrado para os casos por região.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na busca de dados:", erro);
+      res.status(500).send("Erro ao buscar dados de casos por região.");
     });
 }
 
@@ -464,5 +549,8 @@ module.exports = {
   buscarPopulacao,
   buscarFuncionarioPorId,
   atualizarGraficoRegioes,
-  maioresAfetados
+  carregarTaxaDeIncidencia,
+  carregarCasosPorEstado,
+  carregarCasosPorAno,
+  carregarCasosPorRegiao
 };

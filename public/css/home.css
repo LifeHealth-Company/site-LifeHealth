@@ -200,7 +200,7 @@ width: 100%;
     margin-top: 20px;   
 }
 #incidence{
-    width: 450px;
+    width: 450px !important;
     margin-top: 20px;   
 }
 .lineOneCharts{
