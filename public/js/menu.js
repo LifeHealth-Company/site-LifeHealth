@@ -32,6 +32,7 @@ function initializeMenuBehavior() {
   btn.onclick = function () {
     sidebar.classList.toggle('active');
   };
+ 
 }
 
 function setupDashboardLink() {

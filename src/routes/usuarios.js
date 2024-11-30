@@ -57,6 +57,15 @@ router.post("/demanda", function (req, res) {
 router.get("/:idEmpresa", function (req, res) {
     usuarioController.buscarEstadoEmpresa(req, res);
 });
+router.get("/buscarCasosPorEstado/:estado", function (req, res) {
+    usuarioController.buscarCasosPorEstado(req, res);
+});
+router.get("/buscarCasosCurados/:estado", function (req, res) {
+    usuarioController.buscarCasosCurados(req, res);
+});
+router.get("/buscarPopulacao/:estado", function (req, res) {
+    usuarioController.buscarPopulacao(req, res);
+});
 
 router.get("/obterFuncionario/:id", function (req, res) {
     usuarioController.obterFuncionario(req, res);

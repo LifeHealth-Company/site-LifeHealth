@@ -42,7 +42,9 @@ fkUsuario INT,
 CONSTRAINT telefoneUsuario FOREIGN KEY(fkUsuario) REFERENCES Usuario (idUsuario)
 );
 
+
 CREATE TABLE Casos (
+
 idCaso INT PRIMARY KEY AUTO_INCREMENT,
 ano CHAR(4),
 ufNotificacao CHAR(2),
@@ -74,13 +76,6 @@ ano INT
 CREATE TABLE Parametro (
 idParametro INT PRIMARY KEY AUTO_INCREMENT
 );
-
-
-SELECT * FROM Usuario;
-
-SELECT * FROM empresa;
-
-SELECT * FROM Populacao;
 
 
 INSERT INTO Populacao (qtdPopulacao, estado, ano)
@@ -171,3 +166,4 @@ VALUES
 (636000, 'Amapá', 2023),
 (419000, 'Roraima', 2023),
 (3180000, 'Distrito Federal', 2023);
+
