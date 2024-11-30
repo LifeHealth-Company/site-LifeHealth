@@ -95,7 +95,7 @@
           <p>0 milhões casos</p>
           <span class="indicator up">0%</span>
         </div>
-        <div class="kpi">
+        <div class="kpi" id="kpi-teste">
           <h4>Testes</h4>
           <p>0 milhões casos</p>
           <span class="indicator up">0%</span>
@@ -246,6 +246,7 @@ function buscarEstadoEmpresa() {
 
       atualizarProjecaoRepelentes(estadoSigla);
       atualizarProjecaoTestes(estadoSigla);
+      atualizarProjecaoSoro(estadoSigla)
     })
     .catch((erro) => {
       console.error("#ERRO:", erro);
@@ -376,7 +377,48 @@ function calcularMediaParacetamol(dados) {
       return;
     }
 
+
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} paracetamóis`;
+
+    const indicador = kpiCard.querySelector(".indicator");
+    animarPercentual(indicador, percentualEvolucao);
+
+    indicador.classList.toggle("up", percentualEvolucao >= 0);
+    indicador.classList.toggle("down", percentualEvolucao < 0);
+
+    if (percentualEvolucao < 0) {
+      indicador.style.color = "green";
+    } else {
+      indicador.style.color = "";
+    }
+  }
+
+  function calcularMediaTeste(dados) {
+    const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
+    const totalTeste = totalCasos * 1.5;
+    return totalTeste / dados.length;
+  }
+
+  function calcularPercentualEvolucaoTeste(dados) {
+    if (dados.length < 2) return 0;
+
+    const primeiroAnoCasos = dados[0].quantidade;
+    const ultimoAnoCasos = dados[dados.length - 1].quantidade;
+
+    const primeiroAnoTeste = primeiroAnoCasos;
+    const ultimoAnoTeste = ultimoAnoCasos;
+
+    return ((ultimoAnoTeste - primeiroAnoTeste) / primeiroAnoTeste) * 100;
+  }
+
+  function atualizarKPICardTeste(mediaDemanda, percentualEvolucao) {
+    const kpiCard = document.getElementById("kpi-teste");
+    if (!kpiCard) {
+      console.error("Elemento do KPI de teste não encontrado!");
+      return;
+    }
+
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} testes`;
 
     const indicador = kpiCard.querySelector(".indicator");
     animarPercentual(indicador, percentualEvolucao);
@@ -415,6 +457,89 @@ function calcularProjecao(ano, regressao) {
   return projRegressao;
 }
 
+
+function atualizarProjecaoSoro(estadoVar) {
+  console.log("Estado selecionado: ", estadoVar);
+
+  fetch(`/usuarios/testes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      estadoServer: estadoVar,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          var anos = [];
+          var vendas = [];
+
+          dados.forEach(function (dado) {
+            anos.push(dado.ano);
+            vendas.push(dado.quantidade);
+          });
+
+          console.log("Anos reais recebidos: ", anos);
+          console.log("Vendas reais: ", vendas);
+
+          const regressao = calcularRegressaoLinear(anos, vendas);
+
+          const anosProjetados = [2024, 2025];
+          const vendasProjetadas = anosProjetados.map((ano) =>
+          calcularProjecao(ano, regressao)
+                  );
+
+          console.log("Anos projetados: ", anosProjetados);
+          console.log("Vendas projetadas: ", vendasProjetadas);
+
+          const todosAnos = [...anos, ...anosProjetados];
+          const todasVendas = [...vendas, ...vendasProjetadas];
+
+          const chart = Chart.getChart("state2");
+          if (chart) {
+            chart.data.labels = todosAnos;
+
+            chart.data.datasets = [
+              {
+                label: "Quantidade de soro vendidos (Dados reais)",
+                data: todasVendas,
+                borderColor: "rgb(0, 82, 204)",
+                backgroundColor: "rgba(0, 82, 204, 0.1)",
+                fill: false,
+                tension: 0.4,
+                borderWidth: 2,
+                segment: {
+                  borderDash: (ctx) => {
+                    const index = ctx.p0DataIndex;
+                    return index < vendas.length - 1 ? [] : [5, 5]; 
+                  },
+                },
+              },
+              {
+                label: "Previsão",
+                data: [], 
+                borderColor: "rgb(0, 82, 204)",
+                borderWidth: 2,
+                borderDash: [5, 5], 
+              },
+            ];
+
+            chart.update();
+            console.log("Gráfico atualizado com sucesso!");
+          } else {
+            console.error("Gráfico não encontrado!");
+          }
+        });
+      } else {
+        console.error("Erro ao buscar dados para o estado.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de testes:", erro);
+    });
+}
 
 function atualizarProjecaoTestes(estadoVar) {
   console.log("Estado selecionado: ", estadoVar);
@@ -499,6 +624,8 @@ function atualizarProjecaoTestes(estadoVar) {
     });
 }
 
+
+
   function atualizarKPI(estadoVar) {
     const estadoElement = document.getElementById("modalEstado");
     const anoInicialElement = document.getElementById("modalAnoInicial");
@@ -551,9 +678,13 @@ function atualizarProjecaoTestes(estadoVar) {
         const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
         const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
 
+        const mediaDemandaTeste = calcularMediaTeste(dados);
+        const percentualEvolucaoTeste = calcularPercentualEvolucaoTeste(dados);
+
         atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
         atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
         atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
+        atualizarKPICardTeste(mediaDemandaTeste, percentualEvolucaoTeste);
     }
 })
 .catch((erro) => console.error("Erro na requisição:", erro));
@@ -592,7 +723,7 @@ function atualizarProjecaoTestes(estadoVar) {
     indicador.classList.toggle("down", percentualEvolucao < 0);
 
     if (percentualEvolucao < 0) {
-        indicador.style.color = "green";
+        indicador.style.color = "red";
     } else {
         indicador.style.color = "";
     }
@@ -614,7 +745,7 @@ function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     indicador.classList.toggle("down", percentualEvolucao < 0);
 
     if (percentualEvolucao < 0) {
-        indicador.style.color = "green";
+        indicador.style.color = "red";
     } else {
         indicador.style.color = "";
     }
@@ -646,5 +777,9 @@ setTimeout(() => atualizarKPIRepelente(80.00,  -3.25), 2000);
 
 atualizarKPICardParacetamol(75.50, -8.45);
 setTimeout(() => atualizarKPICardParacetamol(80.00, -3.25), 2000);
+
+atualizarKPICardTeste(75.50, -8.45);
+setTimeout(() => atualizarKPICardTeste(80.00, -3.25), 2000);
+
 
 </script>
