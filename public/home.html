@@ -15,55 +15,126 @@
     
     <div class="indicators">
       <div class="country">
-        <div class="countryHeader">
-          <span class="indicatorTitle">Brasil</span>
-          <div class="growth">
-            <img src="./assets/icon/arrowUp.svg" />
-            <span class="growthPercentage">7%</span>
+          <div class="countryHeader">
+              <span class="indicatorTitle">Brasil</span>
+              <div class="growth">
+                  <img src="./assets/icon/arrowUp.svg" />
+                  <span class="growthPercentage">7%</span>
+              </div>
           </div>
-        </div>
-        <div class="casesContainer">
-          <span class="cases">
-            <span class="order">6</span>
-            milhões de casos
-          </span>
-          <div class="maxCasesContainer">
-            <span class="maxCases">
-              <span class="max">MAX:</span>
-              12 milhões
-            </span>
+          <div class="casesContainer">
+              <span class="cases">
+                  <span class="order">6</span>
+                  milhões de casos
+              </span>
+              <div class="maxCasesContainer">
+                  <span class="maxCases">
+                      <span class="max">MAX:</span>
+                      12 milhões
+                  </span>
+              </div>
           </div>
-        </div>
       </div>
       <div class="mostAffected">
-        <span class="indicatorTitle">Maiores afetados</span>
-        <div class="datas">
-          <span class="data">
-            <span class="order">1°</span>
-            Gestantes - 1.600 milhões
-          </span>
-          <span class="data">
-            <span class="order">2°</span>
-            Idosos - 1.600 milhões
-          </span>
-          <span class="data">
-            <span class="order">3°</span>
-            Crianças - 1.600 milhões
-          </span>
-        </div>
+          <span class="indicatorTitle">Maiores afetados</span>
+          <div class="datas">
+              <span class="data">
+                  <span class="order">1°</span>
+                  Gestantes - 1.600 milhões
+              </span>
+              <span class="data">
+                  <span class="order">2°</span>
+                  Idosos - 1.600 milhões
+              </span>
+              <span class="data">
+                  <span class="order">3°</span>
+                  Crianças - 1.600 milhões
+              </span>
+          </div>
       </div>
-
+      <div class="filtro">
+          <div class="calendar">
+              <div class="timeIndicator">
+                  <span class="startEnd">De</span>
+                  <span class="date" id="start-date">2021</span>
+              </div>
+              <img src="../assets/icon/longArrow.svg" class="arrow" />
+              <div class="timeIndicator">
+                  <span class="startEnd">Até</span>
+                  <span class="date" id="end-date">2022</span>
+              </div>
+  
+              <img src="../assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="open-modal-btn"/>
+          </div>
+          <br>
+          <span class="indicatorTitle estadoAtual">BRASIL</span>
+      </div>
+  
+      <!-- Modal -->
+      <div id="modal" class="modal">
+          <div class="modal-content">
+              <span id="close-modal" class="close-btn">&times;</span>
+              <h2>Filtrar Dados</h2>
+              <div class="modal-input">
+                  <label for="modalAnoInicial">Ano Inicial:</label>
+                  <select id="modalAnoInicial">
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                  </select>
+              </div>
+              <div class="modal-input">
+                  <label for="modalAnoFinal">Ano Final:</label>
+                  <select id="modalAnoFinal">
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                  </select>
+              </div>
+              <div class="modal-input">
+                  <label for="modalEstado">Estado:</label>
+                  <select id="modalEstado">
+                      <option value="AL">Alagoas</option>
+                      <option value="AC">Acre</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="PA">Pará</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PI">Piauí</option>
+                      <option value="PB">Paraíba</option>
+                  </select>
+              </div>
+              <button id="search-btn">Pesquisar</button>
+          </div>
+      </div>
+  
+      <!-- ALERT CONTAINER moved inside .indicators -->
       <div class="alertContainer">
-        <div class="alert">
-          <img src="./assets/icon/alert.svg" class="alertIcon"/> 
-         <div class="alertMessage">
-          <span class="titleAlert">Possível epidemia no próximo ano</span>
-          <span class="message">Crescente de casos indica possível epidemia no próximo ano</span>
-         </div>
-        </div>
+          <div class="alert">
+              <img src="./assets/icon/alert.svg" class="alertIcon"/>
+              <div class="alertMessage">
+                  <span class="titleAlert">Possível epidemia no próximo ano</span>
+                  <span class="message">Crescente de casos indica possível epidemia no próximo ano</span>
+              </div>
+          </div>
       </div>
-
-    </div>
+  
+  </div> <!-- End of .indicators -->
+  
 
     <div class="lineOneCharts">
       <div class="lineChart">
@@ -143,3 +214,164 @@
 <script src="./js/menubehavior.js"></script>
 <script src="./js/menu.js"></script>
 <script src="./js/calendar.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  buscarEstadoEmpresa(); 
+  carregarMaioresAfetados();
+});
+
+function buscarEstadoEmpresa() {
+  const idEmpresa = sessionStorage.ID_EMPRESA;
+
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    console.error("ID da empresa não definido ou inválido.");
+    alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+    carregarEstadoNaInterface("BRASIL");
+    return;
+  }
+
+  document.querySelector("#search-btn").addEventListener("click", () => {
+    const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
+    const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
+    sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
+    carregarEstadoNaInterface(estadoCompleto);
+  });
+
+  console.log("ID da empresa:", idEmpresa);
+
+  fetch(`/usuarios/${idEmpresa}`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar os dados da empresa.";
+      }
+    })
+    .then((dadosEmpresa) => {
+      console.log("Dados da empresa:", dadosEmpresa);
+
+      const estados = {
+        "AL": "Alagoas",
+        "AC": "Acre",
+        "AP": "Amapá",
+        "AM": "Amazonas",
+        "BA": "Bahia",
+        "CE": "Ceará",
+        "DF": "(Distrito Federal)",
+        "GO": "Goiás",
+        "MA": "Maranhão",
+        "MG": "Minas Gerais",
+        "SP": "São Paulo",
+        "RS": "Rio Grande do Sul",
+        "SC": "Santa Catarina",
+        "SE": "Sergipe",
+        "TO": "Tocantins",
+        "MT": "Mato Grosso",
+        "PE": "Pernambuco",
+        "MS": "Mato Grosso do Sul",
+        "PA": "Pará",
+        "PR": "Paraná",
+        "PI": "Piauí",
+        "PB": "Paraíba"
+      };
+
+      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL"; 
+      const estadoCompleto = estados[estadoSigla] || estadoSigla;
+
+      const selectEstado = document.querySelector("#modalEstado");
+      const options = selectEstado.querySelectorAll("option");
+
+      options.forEach(option => {
+        if (option.value === estadoSigla) {
+          option.selected = true;
+        }
+      });
+
+      carregarEstadoNaInterface(estadoCompleto);
+    })
+    .catch((erro) => {
+      console.error("#ERRO:", erro);
+      carregarEstadoNaInterface("BRASIL");
+    });
+}
+
+function traduzirSiglaParaNome(sigla) {
+  const estados = {
+    "AL": "Alagoas",
+    "AC": "Acre",
+    "AP": "Amapá",
+    "AM": "Amazonas",
+    "BA": "Bahia",
+    "CE": "Ceará",
+    "DF": "(Distrito Federal)",
+    "GO": "Goiás",
+    "MA": "Maranhão",
+    "MG": "Minas Gerais",
+    "SP": "São Paulo",
+    "RS": "Rio Grande do Sul",
+    "SC": "Santa Catarina",
+    "SE": "Sergipe",
+    "TO": "Tocantins",
+    "MT": "Mato Grosso",
+    "PE": "Pernambuco",
+    "MS": "Mato Grosso do Sul",
+    "PA": "Pará",
+    "PR": "Paraná",
+    "PI": "Piauí",
+    "PB": "Paraíba"
+  };
+
+  return estados[sigla] || sigla;
+}
+
+function carregarEstadoNaInterface(estado) {
+  const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
+  
+  if (indicadorTitulo) {
+    indicadorTitulo.textContent = estado;
+  } else {
+    console.error("Elemento para estado não encontrado na interface.");
+  }
+}
+
+function carregarMaioresAfetados() {
+  console.log("Carregando maiores afetados...");
+
+  fetch('/usuarios/maioresAfetados', {
+    method: "GET", 
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(response => {
+    console.log("Status da resposta:", response.status); // Log do status
+    if (!response.ok) {
+      throw new Error("Erro ao buscar os maiores afetados: " + response.status);
+    }
+    return response.json();
+  })
+  .then(dados => {
+    console.log("Dados recebidos:", dados);
+    if (dados && Array.isArray(dados)) {
+      const maioresAfetados = dados.sort((a, b) => b.quantidade - a.quantidade);
+
+      const htmlMaioresAfetados = maioresAfetados.slice(0, 3).map((grupo, index) => `
+        <span class="data">
+          <span class="order">${index + 1}°</span>
+          ${grupo.grupo} - ${grupo.quantidade.toFixed(2)} milhões
+        </span>
+      `).join("");
+      
+      document.querySelector(".mostAffected .datas").innerHTML = htmlMaioresAfetados;
+    } else {
+      console.error("Dados inválidos recebidos do backend.");
+    }
+  })
+  .catch(error => {
+    console.error("Erro ao carregar os dados dos maiores afetados:", error);
+  });
+}
+
+
+</script>

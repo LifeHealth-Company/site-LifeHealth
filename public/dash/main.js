@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 Chart.defaults.font.size = 40;
+Chart.defaults.datasets.line.pointHoverRadius = 8;
+Chart.defaults.datasets.line.pointHitRadius = 15;
+
 
 const ctx1 = document.getElementById("state1").getContext("2d");
 

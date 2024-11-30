@@ -67,4 +67,16 @@ router.get("/buscarPopulacao/:estado", function (req, res) {
     usuarioController.buscarPopulacao(req, res);
 });
 
+router.get("/obterFuncionario/:id", function (req, res) {
+    usuarioController.obterFuncionario(req, res);
+  });
+
+  router.put("/editarFuncionario/:id", function (req, res) {
+    usuarioController.editarFuncionario(req, res);
+  });
+
+  router.get("/maioresAfetados", function (req, res) {
+    usuarioController.maioresAfetados(req, res);
+  });
+
 module.exports = router;

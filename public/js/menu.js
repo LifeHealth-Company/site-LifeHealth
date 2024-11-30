@@ -7,8 +7,19 @@ function loadMenu() {
   fetch('../menu/index.html')
     .then(response => response.text())
     .then(data => {
+
       document.getElementById('menu-container').innerHTML = data;
       initializeMenuBehavior();
+
+      const tipoUsuario = sessionStorage.TIPO_USUARIO;
+      const cargoUsuario = sessionStorage.CARGO_USUARIO;
+
+      if (tipoUsuario === "Funcionario" && cargoUsuario === "Administrador"|| tipoUsuario === "Empresa") {
+        document.getElementById("menu-usuarios").style.display = "block";
+      } else {
+        document.getElementById("menu-usuarios").style.display = "none";
+      }
+
       setupDashboardLink();
     })
     .catch(error => console.error('Error loading menu:', error));

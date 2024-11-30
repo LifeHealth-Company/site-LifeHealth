@@ -51,12 +51,29 @@
             <div class="modal-input">
               <label for="modalEstado">Estado:</label>
               <select id="modalEstado">
-                <option value="SP">São Paulo</option>
-                <option value="PB">Pernambuco</option>
-                <option value="AL">Alagóas</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="GO">Goiás</option>
-              </select>
+                                           <option value="AL">Alagoas</option>
+                                           <option value="AC">Acre</option>
+                                           <option value="AP">Amapá</option>
+                                           <option value="AM">Amazonas</option>
+                                           <option value="BA">Bahia</option>
+                                           <option value="CE">Ceará</option>
+                                           <option value="DF">Distrito Federal</option>
+                                           <option value="GO">Goiás</option>
+                                           <option value="MA">Maranhão</option>
+                                           <option value="MG">Minas Gerais</option>
+                                           <option value="SP">São Paulo</option>
+                                           <option value="RS">Rio Grande do Sul</option>
+                                           <option value="SC">Santa Catarina</option>
+                                           <option value="SE">Sergipe</option>
+                                           <option value="TO">Tocantins</option>
+                                           <option value="MT">Mato Grosso</option>
+                                           <option value="PE">Pernambuco</option>
+                                           <option value="MS">Mato Grosso do Sul</option>
+                                           <option value="PA">Pará</option>
+                                           <option value="PR">Paraná</option>
+                                           <option value="PI">Piauí</option>
+                                           <option value="PB">Paraíba</option>
+                                       </select>                    
             </div>
             <button id="search-btn">Pesquisar</button>
           </div>
@@ -73,7 +90,7 @@
           <p>0 repelentes</p>
           <span class="indicator up" data-valor-atual="0">0%</span>
       </div>
-        <div class="kpi">
+        <div class="kpi" id="kpi-paracetamol">
           <h4>Paracetamol</h4>
           <p>0 milhões casos</p>
           <span class="indicator up">0%</span>
@@ -158,170 +175,325 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
     requestAnimationFrame(atualizar);
 }
 
+function buscarEstadoEmpresa() {
+  const idEmpresa = sessionStorage.ID_EMPRESA;
 
-  function buscarEstadoEmpresa() {
-    const idEmpresa = sessionStorage.ID_EMPRESA;
-
-    if (!idEmpresa || isNaN(idEmpresa)) {
-      console.error("ID da empresa não definido ou inválido.");
-      alert(
-        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
-      );
-      return;
-    }
-
-    console.log("ID da empresa:", idEmpresa);
-
-    fetch(`/usuarios/${idEmpresa}`)
-      .then(function (resposta) {
-        console.log("Resposta da API:", resposta);
-
-        if (resposta.ok) {
-          resposta.json().then(function (dadosEmpresa) {
-            console.log("Dados da empresa:", dadosEmpresa);
-
-            const estado = dadosEmpresa[0].estado;
-
-            if (estado) {
-              atualizarProjecaoRepelentes(estado);
-              atualizarProjecaoTestes(estado);
-            } else {
-              console.error("Estado não encontrado nos dados da empresa.");
-            }
-          });
-        } else {
-          throw "Erro ao buscar os dados da empresa.";
-        }
-      })
-      .catch(function (erro) {
-        console.log("#ERRO:", erro);
-      });
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    console.error("ID da empresa não definido ou inválido.");
+    alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+    carregarEstadoNaInterface("BRASIL");
+    return;
   }
+
+  document.querySelector("#search-btn").addEventListener("click", () => {
+    const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
+    const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
+    sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
+    carregarEstadoNaInterface(estadoCompleto);
+  });
+
+  console.log("ID da empresa:", idEmpresa);
+
+  fetch(`/usuarios/${idEmpresa}`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar os dados da empresa.";
+      }
+    })
+    .then((dadosEmpresa) => {
+      console.log("Dados da empresa:", dadosEmpresa);
+
+      const estados = {
+        "AL": "Alagoas",
+        "AC": "Acre",
+        "AP": "Amapá",
+        "AM": "Amazonas",
+        "BA": "Bahia",
+        "CE": "Ceará",
+        "DF": "Distrito Federal",
+        "GO": "Goiás",
+        "MA": "Maranhão",
+        "MG": "Minas Gerais",
+        "SP": "São Paulo",
+        "RS": "Rio Grande do Sul",
+        "SC": "Santa Catarina",
+        "SE": "Sergipe",
+        "TO": "Tocantins",
+        "MT": "Mato Grosso",
+        "PE": "Pernambuco",
+        "MS": "Mato Grosso do Sul",
+        "PA": "Pará",
+        "PR": "Paraná",
+        "PI": "Piauí",
+        "PB": "Paraíba"
+      };
+
+      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL"; 
+      const estadoCompleto = estados[estadoSigla] || estadoSigla;
+
+      const selectEstado = document.querySelector("#modalEstado");
+      const options = selectEstado.querySelectorAll("option");
+
+      options.forEach(option => {
+        if (option.value === estadoSigla) {
+          option.selected = true;
+        }
+      });
+
+      carregarEstadoNaInterface(estadoCompleto);
+
+      atualizarProjecaoRepelentes(estadoSigla);
+      atualizarProjecaoTestes(estadoSigla);
+    })
+    .catch((erro) => {
+      console.error("#ERRO:", erro);
+      carregarEstadoNaInterface("BRASIL");
+    });
+}
+
+function traduzirSiglaParaNome(sigla) {
+  const estados = {
+    "AL": "Alagoas",
+    "AC": "Acre",
+    "AP": "Amapá",
+    "AM": "Amazonas",
+    "BA": "Bahia",
+    "CE": "Ceará",
+    "DF": "(Distrito Federal)",
+    "GO": "Goiás",
+    "MA": "Maranhão",
+    "MG": "Minas Gerais",
+    "SP": "São Paulo",
+    "RS": "Rio Grande do Sul",
+    "SC": "Santa Catarina",
+    "SE": "Sergipe",
+    "TO": "Tocantins",
+    "MT": "Mato Grosso",
+    "PE": "Pernambuco",
+    "MS": "Mato Grosso do Sul",
+    "PA": "Pará",
+    "PR": "Paraná",
+    "PI": "Piauí",
+    "PB": "Paraíba"
+  };
+
+  return estados[sigla] || sigla;
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  buscarEstadoEmpresa(); 
+});
+
+
+function carregarEstadoNaInterface(estado) {
+  const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
+  
+  if (indicadorTitulo) {
+    indicadorTitulo.textContent = estado;
+  } else {
+    console.error("Elemento para estado não encontrado na interface.");
+  }
+}
+
 
   function atualizarProjecaoRepelentes(estadoVar) {
-    console.log("Estado selecionado: ", estadoVar);
+  console.log("Estado selecionado: ", estadoVar);
 
-    fetch(`/usuarios/casos`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        estadoServer: estadoVar,
-      }),
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dados) {
-            var anos = [];
-            var casos = [];
-            dados.forEach(function (dado) {
-              anos.push(dado.ano);
-              casos.push(dado.quantidade);
-            });
-
-            var CAGR = calcularCAGR(casos);
-            var casos2024 = Math.round(casos[casos.length - 1] * (1 + CAGR));
-            anos.push("2024");
-            casos.push(casos2024);
-
-            const chart = Chart.getChart("state1");
-            if (chart) {
-              chart.data.labels = anos;
-              chart.data.datasets[0].data = casos;
-              chart.update();
-              console.log("Gráfico de repelentes atualizado com sucesso!");
-            } else {
-              console.error("Gráfico de repelentes não encontrado!");
-            }
+  fetch(`/usuarios/casos`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      estadoServer: estadoVar,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          var anos = [];
+          var casos = [];
+          dados.forEach(function (dado) {
+            anos.push(dado.ano);
+            casos.push(dado.quantidade);
           });
-        } else {
-          console.log(
-            "Erro ao buscar dados de casos para o estado selecionado."
-          );
-        }
-      })
-      .catch(function (erro) {
-        console.log("Erro na requisição de repelentes:", erro);
-      });
-  }
 
-  function calcularCAGR(casos) {
-    if (casos.length < 2) return 0;
+          const regressao = calcularRegressaoLinear(anos, casos);
 
-    var V_inicial = casos[0];
-    var V_final = casos[casos.length - 1];
-    var n = casos.length - 1;
+          const casos2024 = calcularProjecao(2024, regressao);
+          anos.push(2024);
+          casos.push(casos2024);
 
-    return Math.pow(V_final / V_inicial, 1 / n) - 1;
-  }
+          const casos2025 = calcularProjecao(2025, regressao);
+          anos.push(2025);
+          casos.push(casos2025);
 
-  function atualizarProjecaoTestes(estadoVar) {
-    console.log("Estado selecionado: ", estadoVar);
-
-    fetch(`/usuarios/testes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        estadoServer: estadoVar,
-      }),
+          const chart = Chart.getChart("state1");
+          if (chart) {
+            chart.data.labels = anos;
+            chart.data.datasets[0].data = casos;
+            chart.update();
+            console.log("Gráfico de repelentes atualizado com sucesso!");
+          } else {
+            console.error("Gráfico de repelentes não encontrado!");
+          }
+        });
+      } else {
+        console.log("Erro ao buscar dados de casos para o estado selecionado.");
+      }
     })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dados) {
-            var anos = [];
-            var vendasReais = [];
-            var vendasProjetadas = [];
+    .catch(function (erro) {
+      console.log("Erro na requisição de repelentes:", erro);
+    });
+}
 
-            dados.forEach(function (dado) {
-              anos.push(dado.ano);
-              vendasReais.push(dado.quantidade);
-            });
-
-            var populacaoInicial = 1000000;
-            var crescimentoPopulacional = 0.02;
-
-            for (let i = 0; i < anos.length; i++) {
-              let populacaoAno = Math.round(
-                populacaoInicial * Math.pow(1 + crescimentoPopulacional, i)
-              );
-              vendasProjetadas.push(
-                (vendasReais[i] / populacaoAno) * populacaoInicial
-              );
-            }
-
-            var CAGR = calcularCAGR(vendasReais);
-            var vendas2024 = Math.round(
-              vendasReais[vendasReais.length - 1] * (1 + CAGR)
-            );
-            var vendas2025 = Math.round(vendas2024 * (1 + CAGR));
-
-            anos.push("2024", "2025");
-            vendasProjetadas.push(vendas2024, vendas2025);
-
-            const chart = Chart.getChart("state3");
-            if (chart) {
-              chart.data.labels = anos;
-              chart.data.datasets[0].data = vendasReais;
-              chart.data.datasets[1].data = vendasProjetadas;
-              chart.update();
-              console.log("Gráfico de testes atualizado com sucesso!");
-            } else {
-              console.error("Gráfico de testes não encontrado!");
-            }
-          });
-        } else {
-          console.log(
-            "Erro ao buscar dados de testes para o estado selecionado."
-          );
-        }
-      })
-      .catch(function (erro) {
-        console.log("Erro na requisição de testes:", erro);
-      });
+function calcularMediaParacetamol(dados) {
+    const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
+    const totalParacetamol = totalCasos * 3;
+    return totalParacetamol / dados.length;
   }
+
+  function calcularPercentualEvolucaoParacetamol(dados) {
+    if (dados.length < 2) return 0;
+
+    const primeiroAnoCasos = dados[0].quantidade;
+    const ultimoAnoCasos = dados[dados.length - 1].quantidade;
+
+    const primeiroAnoParacetamol = primeiroAnoCasos;
+    const ultimoAnoParacetamol = ultimoAnoCasos;
+
+    return ((ultimoAnoParacetamol - primeiroAnoParacetamol) / primeiroAnoParacetamol) * 100;
+  }
+
+  function atualizarKPICardParacetamol(mediaDemanda, percentualEvolucao) {
+    const kpiCard = document.getElementById("kpi-paracetamol");
+    if (!kpiCard) {
+        console.error("Elemento do KPI de paracetamol não encontrado!");
+        return;
+    }
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} paracetamóis`;
+
+    const indicador = kpiCard.querySelector(".indicator");
+
+    animarPercentual(indicador, percentualEvolucao);
+
+    indicador.classList.toggle("up", percentualEvolucao >= 0);
+    indicador.classList.toggle("down", percentualEvolucao < 0);
+    
+}
+
+
+function calcularRegressaoLinear(anos, valores) {
+  const n = anos.length;
+  const mediaX = anos.reduce((soma, x) => soma + x, 0) / n;
+  const mediaY = valores.reduce((soma, y) => soma + y, 0) / n;
+
+  let numerador = 0;
+  let denominador = 0;
+
+  for (let i = 0; i < n; i++) {
+    numerador += (anos[i] - mediaX) * (valores[i] - mediaY);
+    denominador += Math.pow(anos[i] - mediaX, 2);
+  }
+
+  const m = numerador / denominador;
+  const b = mediaY - m * mediaX;
+
+  return { m, b };
+}
+
+function calcularProjecao(ano, regressao) {
+  const projRegressao = Math.round(regressao.m * ano + regressao.b);
+  return projRegressao;
+}
+
+
+function atualizarProjecaoTestes(estadoVar) {
+  console.log("Estado selecionado: ", estadoVar);
+
+  fetch(`/usuarios/testes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      estadoServer: estadoVar,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          var anos = [];
+          var vendas = [];
+
+          dados.forEach(function (dado) {
+            anos.push(dado.ano);
+            vendas.push(dado.quantidade);
+          });
+
+          console.log("Anos reais recebidos: ", anos);
+          console.log("Vendas reais: ", vendas);
+
+          const regressao = calcularRegressaoLinear(anos, vendas);
+
+          const anosProjetados = [2024, 2025];
+          const vendasProjetadas = anosProjetados.map((ano) =>
+          calcularProjecao(ano, regressao)
+                  );
+
+          console.log("Anos projetados: ", anosProjetados);
+          console.log("Vendas projetadas: ", vendasProjetadas);
+
+          const todosAnos = [...anos, ...anosProjetados];
+          const todasVendas = [...vendas, ...vendasProjetadas];
+
+          const chart = Chart.getChart("state3");
+          if (chart) {
+            chart.data.labels = todosAnos;
+
+            chart.data.datasets = [
+              {
+                label: "Quantidade de testes vendidos (Dados reais)",
+                data: todasVendas,
+                borderColor: "rgb(0, 82, 204)",
+                backgroundColor: "rgba(0, 82, 204, 0.1)",
+                fill: false,
+                tension: 0.4,
+                borderWidth: 2,
+                segment: {
+                  borderDash: (ctx) => {
+                    const index = ctx.p0DataIndex;
+                    return index < vendas.length - 1 ? [] : [5, 5]; 
+                  },
+                },
+              },
+              {
+                label: "Previsão",
+                data: [], 
+                borderColor: "rgb(0, 82, 204)",
+                borderWidth: 2,
+                borderDash: [5, 5], 
+              },
+            ];
+
+            chart.update();
+            console.log("Gráfico atualizado com sucesso!");
+          } else {
+            console.error("Gráfico não encontrado!");
+          }
+        });
+      } else {
+        console.error("Erro ao buscar dados para o estado.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de testes:", erro);
+    });
+}
 
   function atualizarKPI(estadoVar) {
     const estadoElement = document.getElementById("modalEstado");
@@ -363,25 +535,29 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
             }
         })
         .then((dados) => {
-            if (dados) {
-                console.log("Dados recebidos:", dados);
+    if (dados) {
+        console.log("Dados recebidos:", dados);
 
-                const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
-                const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
+        const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
+        const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
 
-                const mediaDemandaSoro = calcularMediaDemanda(dados);
-                const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
+        const mediaDemandaSoro = calcularMediaDemanda(dados);
+        const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
 
-                atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
-                atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
-            }
-        })
-        .catch((erro) => console.error("Erro na requisição:", erro));
-}
+        const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
+        const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
+
+        atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
+        atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
+        atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
+    }
+})
+.catch((erro) => console.error("Erro na requisição:", erro));
+  }
 
   function calcularMediaDemanda(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
-    const totalSoro = totalCasos * 7;
+    const totalSoro = totalCasos * 5;
     return totalSoro / dados.length;
   }
 
@@ -391,10 +567,9 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
     const primeiroAnoCasos = dados[0].quantidade;
     const ultimoAnoCasos = dados[dados.length - 1].quantidade;
 
-    const primeiroAnoSoro = primeiroAnoCasos * 7;
-    const ultimoAnoSoro = ultimoAnoCasos * 7;
+    const percentualEvolucao = ((ultimoAnoCasos - primeiroAnoCasos) / primeiroAnoCasos) * 100;
 
-    return ((ultimoAnoSoro - primeiroAnoSoro) / primeiroAnoSoro) * 100;
+    return percentualEvolucao;  
   }
 
   function atualizarKPICard(mediaDemanda, percentualEvolucao) {
@@ -407,17 +582,13 @@ function animarPercentual(element, valorFinal, duracao = 1000) {
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} sachês de soro`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-        indicador.style.color = "green";
-    } else {
-        indicador.style.color = "";
-    }
 }
+
 
 function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-repelente");
@@ -425,75 +596,42 @@ function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
         console.error("Elemento do KPI de repelentes não encontrado!");
         return;
     }
-
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} repelentes`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-        indicador.style.color = "green";
-    } else {
-        indicador.style.color = "";
-    }
 }
 
-  function calcularMediaDemandaRepelente(dados) {
+
+function calcularMediaDemandaRepelente(dados) {
     const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
-    const mediaRepelentes = total * 2;
-
+    const mediaRepelentes = total * 2;  
     return mediaRepelentes / dados.length;
-  }
+}
 
-  function calcularPercentualEvolucaoRepelente(dados) {
+function calcularPercentualEvolucaoRepelente(dados) {
     if (dados.length < 2) return 0;
 
     const primeiroAno = dados[0].quantidade;
     const ultimoAno = dados[dados.length - 1].quantidade;
 
-    return ((ultimoAno - primeiroAno) / primeiroAno) * 100;
-  }
+    const percentualEvolucao = ((ultimoAno - primeiroAno) / primeiroAno) * 100;
 
-  function atualizarEstadoVisualizado() {
-    const estadoSelecionado = document.getElementById('modalEstado').value;
-    const estados = document.querySelectorAll('.estadoAtual'); 
-    
-    estados.forEach(function(estadoTexto) {
-        switch(estadoSelecionado) {
-            case 'SP':
-                estadoTexto.textContent = "(São Paulo)";
-                break;
-            case 'PB':
-                estadoTexto.textContent = "(Pernambuco)";
-                break;
-            case 'AL':
-                estadoTexto.textContent = "(Alagoas)";
-                break;
-            case 'DF':
-                estadoTexto.textContent = "(Distrito Federal)";
-                break;
-            case 'GO':
-                estadoTexto.textContent = "(Goiás)";
-                break;
-            default:
-                estadoTexto.textContent = "BRASIL";
-        }
-    });
+    return percentualEvolucao;  
 }
 
-document.getElementById('modalEstado').addEventListener('change', atualizarEstadoVisualizado);
-
-
-atualizarEstadoVisualizado(); 
-  buscarEstadoEmpresa();
   atualizarKPI();
   atualizarKPICard(150.35, 12.78);
 setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
 
 atualizarKPIRepelente(75.50, -8.45);
-setTimeout(() => atualizarKPIRepelente(80.00, -3.25), 2000);
+setTimeout(() => atualizarKPIRepelente(80.00,  -3.25), 2000);
+
+atualizarKPICardParacetamol(75.50, -8.45);
+setTimeout(() => atualizarKPICardParacetamol(80.00, -3.25), 2000);
 
 </script>

@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
 const express = require("express");
 const router = express.Router();
 
@@ -22,11 +21,18 @@ function autenticar(req, res) {
 
       if (resultadoAutenticar.length === 1) {
         res.json({
-          id: resultadoAutenticar[0].id,
-          email: resultadoAutenticar[0].email,
-          nome: resultadoAutenticar[0].nome,
+          idEmpresa: resultadoAutenticar[0].idEmpresa,
+          nomeEmpresa: resultadoAutenticar[0].nomeEmpresa,
+          idUsuario: resultadoAutenticar[0].idUsuario,
+          nomeUsuario: resultadoAutenticar[0].nomeUsuario,
+          sobrenomeUsuario: resultadoAutenticar[0].sobrenomeUsuario,
+          cargoUsuario: resultadoAutenticar[0].cargoUsuario,
+          fkEmpresa: resultadoAutenticar[0].fkEmpresa,
+          emailUsuario: resultadoAutenticar[0].emailUsuario,
+          tipoUsuario: resultadoAutenticar[0].tipoUsuario,
         });
-      } else if (resultadoAutenticar.length === 0) {
+      }
+       else if (resultadoAutenticar.length === 0) {
         res.status(403).send("Email e/ou senha inválido(s)");
       } else {
         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -161,37 +167,6 @@ function buscarFuncionarios(req, res) {
       console.log(erro);
       console.log(
         "\nHouve um erro ao buscar os funcionários! Erro: ",
-        erro.sqlMessage
-      );
-      res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function editarFuncionario(req, res) {
-  const idFuncionario = req.params.id;
-  const nome = req.body.nomeServer;
-  const sobrenome = req.body.sobrenomeServer;
-  const cargo = req.body.cargoServer;
-  const email = req.body.emailServer;
-
-  if (!idFuncionario) {
-    return res.status(400).send("ID do funcionário não fornecido!");
-  }
-
-  usuarioModel
-    .editarFuncionario(idFuncionario, { nome, sobrenome, email, cargo })
-    .then(function (resultado) {
-      if (resultado.affectedRows === 0) {
-        return res
-          .status(404)
-          .send("Funcionário não encontrado para o ID fornecido.");
-      }
-      res.status(200).send("Funcionário atualizado com sucesso!");
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log(
-        "\nHouve um erro ao editar o funcionário! Erro: ",
         erro.sqlMessage
       );
       res.status(500).json(erro.sqlMessage);
@@ -379,6 +354,98 @@ function buscarPopulacao(req, res) {
     });
 }
 
+function buscarFuncionarioPorId(req, res) {
+  const idUsuario = req.params.id;
+
+  if (!idUsuario || isNaN(idUsuario)) {
+    return res.status(400).send("ID do funcionário inválido.");
+  }
+
+  usuarioModel
+    .buscarFuncionarioPorId(idUsuario)
+    .then((funcionario) => {
+      if (!funcionario) {
+        return res.status(404).json({ error: "Funcionário não encontrado." });
+      }
+      res.status(200).json(funcionario);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do funcionário:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do funcionário." });
+    });
+}
+
+function editarFuncionario(req, res) {
+  const idUsuario = req.params.id;
+  const { nomeServer, sobrenomeServer, emailServer, cargoServer } = req.body;
+
+  if (!idUsuario || isNaN(idUsuario)) {
+    return res.status(400).send("ID do funcionário inválido.");
+  }
+
+  if (!nomeServer || !sobrenomeServer || !emailServer || !cargoServer) {
+    return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+  }
+
+  usuarioModel
+    .editarFuncionario(idUsuario, nomeServer, sobrenomeServer, emailServer, cargoServer)
+    .then((resultado) => {
+      if (resultado.affectedRows === 0) {
+        return res.status(404).json({ error: "Funcionário não encontrado." });
+      }
+      res.status(200).send("Funcionário atualizado com sucesso.");
+    })
+    .catch((erro) => {
+      console.error("Erro ao atualizar o funcionário:", erro);
+      res.status(500).json({ error: "Erro ao atualizar o funcionário." });
+    });
+}
+
+
+// --------------------Estrutura de tratativa da Home-------------------------------------------------------------------------------------
+
+function atualizarGraficoRegioes() {
+  const idEmpresa = req.params.idEmpresa;
+
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    return res.status(400).send("ID da empresa inválido.");
+  }
+
+  usuarioModel
+    .buscarEstado(idEmpresa)
+    .then((empresa) => {
+      if (!empresa) {
+        return res.status(404).json({ error: "Empresa não encontrada." });
+      }
+      res.status(200).json(empresa);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados da empresa:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
+    });
+}
+
+function maioresAfetados(req, res) {
+  console.log("Requisição recebida para maiores afetados.");
+
+  usuarioModel
+    .maioresAfetados()
+    .then((dados) => {
+      console.log("Dados retornados do modelo:", dados); // Log dos dados retornados
+      
+      if (!dados || dados.length === 0) {
+        return res.status(404).json({ mensagem: "Nenhum dado encontrado sobre os maiores afetados." });
+      }
+
+      res.status(200).json(dados);
+    })
+    .catch((erro) => {
+      console.error("Erro ao carregar os maiores afetados:", erro);
+      res.status(500).json({ error: "Erro ao carregar os maiores afetados" });
+    });
+}
+
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -394,5 +461,8 @@ module.exports = {
   buscarEstadoEmpresa,
   buscarCasosPorEstado,
   buscarCasosCurados,
-  buscarPopulacao
+  buscarPopulacao,
+  buscarFuncionarioPorId,
+  atualizarGraficoRegioes,
+  maioresAfetados
 };
