@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
 const express = require("express");
 const router = express.Router();
 
@@ -22,11 +21,18 @@ function autenticar(req, res) {
 
       if (resultadoAutenticar.length === 1) {
         res.json({
-          id: resultadoAutenticar[0].id,
-          email: resultadoAutenticar[0].email,
-          nome: resultadoAutenticar[0].nome,
+          idEmpresa: resultadoAutenticar[0].idEmpresa,
+          nomeEmpresa: resultadoAutenticar[0].nomeEmpresa,
+          idUsuario: resultadoAutenticar[0].idUsuario,
+          nomeUsuario: resultadoAutenticar[0].nomeUsuario,
+          sobrenomeUsuario: resultadoAutenticar[0].sobrenomeUsuario,
+          cargoUsuario: resultadoAutenticar[0].cargoUsuario,
+          fkEmpresa: resultadoAutenticar[0].fkEmpresa,
+          emailUsuario: resultadoAutenticar[0].emailUsuario,
+          tipoUsuario: resultadoAutenticar[0].tipoUsuario,
         });
-      } else if (resultadoAutenticar.length === 0) {
+      }
+       else if (resultadoAutenticar.length === 0) {
         res.status(403).send("Email e/ou senha inválido(s)");
       } else {
         res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -167,37 +173,6 @@ function buscarFuncionarios(req, res) {
     });
 }
 
-function editarFuncionario(req, res) {
-  const idFuncionario = req.params.id;
-  const nome = req.body.nomeServer;
-  const sobrenome = req.body.sobrenomeServer;
-  const cargo = req.body.cargoServer;
-  const email = req.body.emailServer;
-
-  if (!idFuncionario) {
-    return res.status(400).send("ID do funcionário não fornecido!");
-  }
-
-  usuarioModel
-    .editarFuncionario(idFuncionario, { nome, sobrenome, email, cargo })
-    .then(function (resultado) {
-      if (resultado.affectedRows === 0) {
-        return res
-          .status(404)
-          .send("Funcionário não encontrado para o ID fornecido.");
-      }
-      res.status(200).send("Funcionário atualizado com sucesso!");
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log(
-        "\nHouve um erro ao editar o funcionário! Erro: ",
-        erro.sqlMessage
-      );
-      res.status(500).json(erro.sqlMessage);
-    });
-}
-
 function excluirFuncionario(req, res) {
   const idFuncionario = req.params.idUsuario;
 
@@ -332,6 +307,229 @@ function buscarEstadoEmpresa(req, res) {
       res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
     });
 }
+function buscarCasosPorEstado(req, res) {
+  const estado = req.params.estado;
+
+  usuarioModel
+    .buscarCasosPorEstado( estado)
+    .then((estado) => {
+      if (!estado) {
+        return res.status(404).json({ error: "Ano não encontrado." });
+      }
+      res.status(200).json(estado);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do ano:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do ano." });
+    });
+}
+function buscarCasosCurados(req, res) {
+  const estado = req.params.estado;
+  usuarioModel
+    .buscarCasosCurados( estado)
+    .then((estado) => {
+      if (!estado) {
+        return res.status(404).json({ error: "Ano não encontrado." });
+      }
+      res.status(200).json(estado);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do ano:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do ano." });
+    });
+}
+function buscarPopulacao(req, res) {
+  const estado = req.params.estado;
+  usuarioModel
+    .buscarPopulacao(estado)
+    .then((estado) => {
+      if (!estado) {
+        return res.status(404).json({ error: "Ano não encontrado." });
+      }
+      res.status(200).json(estado);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do ano:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do ano." });
+    });
+}
+
+function buscarFuncionarioPorId(req, res) {
+  const idUsuario = req.params.id;
+
+  if (!idUsuario || isNaN(idUsuario)) {
+    return res.status(400).send("ID do funcionário inválido.");
+  }
+
+  usuarioModel
+    .buscarFuncionarioPorId(idUsuario)
+    .then((funcionario) => {
+      if (!funcionario) {
+        return res.status(404).json({ error: "Funcionário não encontrado." });
+      }
+      res.status(200).json(funcionario);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados do funcionário:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados do funcionário." });
+    });
+}
+
+function editarFuncionario(req, res) {
+  const idUsuario = req.params.id;
+  const { nomeServer, sobrenomeServer, emailServer, cargoServer } = req.body;
+
+  if (!idUsuario || isNaN(idUsuario)) {
+    return res.status(400).send("ID do funcionário inválido.");
+  }
+
+  if (!nomeServer || !sobrenomeServer || !emailServer || !cargoServer) {
+    return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+  }
+
+  usuarioModel
+    .editarFuncionario(idUsuario, nomeServer, sobrenomeServer, emailServer, cargoServer)
+    .then((resultado) => {
+      if (resultado.affectedRows === 0) {
+        return res.status(404).json({ error: "Funcionário não encontrado." });
+      }
+      res.status(200).send("Funcionário atualizado com sucesso.");
+    })
+    .catch((erro) => {
+      console.error("Erro ao atualizar o funcionário:", erro);
+      res.status(500).json({ error: "Erro ao atualizar o funcionário." });
+    });
+}
+
+
+// --------------------Estrutura de tratativa da Home-------------------------------------------------------------------------------------
+
+function atualizarGraficoRegioes() {
+  const idEmpresa = req.params.idEmpresa;
+
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    return res.status(400).send("ID da empresa inválido.");
+  }
+
+  usuarioModel
+    .buscarEstado(idEmpresa)
+    .then((empresa) => {
+      if (!empresa) {
+        return res.status(404).json({ error: "Empresa não encontrada." });
+      }
+      res.status(200).json(empresa);
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar os dados da empresa:", erro);
+      res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
+    });
+}
+
+function carregarTaxaDeIncidencia(req, res) {
+  const anos = ['2021', '2022', '2023'];
+
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Os anos são obrigatórios.");
+  }
+
+  usuarioModel.carregarTaxaDeIncidencia(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        const taxasDeIncidencia = resultados.map((registro) => ({
+          ano: registro.ano,
+          casos: registro.casos,
+          populacao: registro.qtdPopulacao,
+          taxa_incidencia: registro.taxa_incidencia,
+        }));
+
+        res.json(taxasDeIncidencia);
+      } else {
+        res.status(404).send("Nenhum dado de taxa de incidência encontrado.");
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de taxa de incidência.");
+    });
+}
+
+function carregarCasosPorEstado(req, res) {
+  const ano = req.body.ano;
+
+  if (!ano) {
+    return res.status(400).send("O ano é obrigatório.");
+  }
+
+  usuarioModel.carregarCasosPorEstado(ano)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        const casosPorEstado = resultados.map((registro) => ({
+          estadoNotificacao: registro.estadoNotificacao,
+          casos: registro.casos,
+        }));
+
+        res.json(casosPorEstado);
+      } else {
+        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o ano " + ano);
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de casos de Dengue.");
+    });
+}
+
+function carregarCasosPorAno(req, res) {
+  const anos = req.body.anos;
+
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Nenhum ano foi informado.");
+  }
+
+  usuarioModel.carregarCasosPorAno(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        const casosPorAno = anos.map((ano) => {
+          return {
+            ano: ano,
+            casos: resultados.filter((registro) => registro.ano === ano)
+              .reduce((acc, cur) => acc + cur.casos, 0)
+          };
+        });
+        res.json(casosPorAno);
+      } else {
+        res.status(404).send("Nenhum dado encontrado para os casos.");
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de casos por ano.");
+    });
+}
+
+function carregarCasosPorRegiao(req, res) {
+  const ano = req.body.ano; 
+
+  if (!ano) {
+    return res.status(400).send("Ano não foi informado.");
+  }
+
+  usuarioModel.carregarCasosPorRegiao(ano)
+    .then(function (resultados) {
+      console.log("Resultados obtidos:", resultados);
+
+      if (resultados.length > 0) {
+        res.json(resultados);
+      } else {
+        res.status(404).send("Nenhum dado encontrado para os casos por região.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na busca de dados:", erro);
+      res.status(500).send("Erro ao buscar dados de casos por região.");
+    });
+}
+
 
 module.exports = {
   autenticar,
@@ -345,5 +543,14 @@ module.exports = {
   atualizarProjecaoRepelente,
   atualizarProjecaoTestes,
   buscarDemanda,
-  buscarEstadoEmpresa
+  buscarEstadoEmpresa,
+  buscarCasosPorEstado,
+  buscarCasosCurados,
+  buscarPopulacao,
+  buscarFuncionarioPorId,
+  atualizarGraficoRegioes,
+  carregarTaxaDeIncidencia,
+  carregarCasosPorEstado,
+  carregarCasosPorAno,
+  carregarCasosPorRegiao
 };

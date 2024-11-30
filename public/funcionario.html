@@ -59,12 +59,12 @@
           <div class="input-coluna">
             <div class="input-group">
               <label for="cargo">Senha</label>
-              <input type="text" id="senha" placeholder="Digite a senha" />
+              <input type="password" id="senha" placeholder="Digite a senha" />
             </div>
             <div class="input-group">
               <label for="departamento">Confirmar senha</label>
               <input
-                type="text"
+                type="password"
                 id="confirmarSenha"
                 placeholder="Digite a senha novamente"
               />
@@ -111,8 +111,16 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><img class="editar" src="./assets/icon/edit.svg" alt="Editar" /></td>
-            <td><img class="deletar" src="./assets/icon/Delete.svg" alt="Deletar" /></td>
+            <td>
+              <img class="editar" src="./assets/icon/edit.svg" alt="Editar" />
+            </td>
+            <td>
+              <img
+                class="deletar"
+                src="./assets/icon/Delete.svg"
+                alt="Deletar"
+              />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -158,7 +166,11 @@
           </div>
         </div>
         <div class="botao-container">
-          <button id="saveChanges" class="botao-cadastrar">
+          <button
+            id="saveChanges"
+            class="botao-cadastrar"
+            onclick="salvarAlteracoes()"
+          >
             Salvar Alterações
           </button>
         </div>
@@ -184,14 +196,14 @@
 
 <script>
   function abrirModalDeletar(id) {
-  const deleteModal = document.getElementById("deleteModal");
-  deleteModal.setAttribute("data-id", id); 
-  deleteModal.classList.add("show");
+    const deleteModal = document.getElementById("deleteModal");
+    deleteModal.setAttribute("data-id", id);
+    deleteModal.classList.add("show");
 
-  document.getElementById("cancelDelete").onclick = function () {
-    deleteModal.classList.remove("show");
-  };
-}
+    document.getElementById("cancelDelete").onclick = function () {
+      deleteModal.classList.remove("show");
+    };
+  }
 
   function cadastrarFuncionario() {
     let nomeVar = document.getElementById("nome").value;
@@ -248,27 +260,85 @@
   }
 
   function abrirModalEditar(id) {
-    const funcionario = funcionarios.find((func) => func.idUsuario === id);
+    fetch(`/usuarios/obterFuncionario/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resposta) => {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          throw "Erro ao buscar os dados do funcionário.";
+        }
+      })
+      .then((funcionario) => {
+  // A resposta é um array, então acessamos o primeiro item
+  const funcionarioData = funcionario[0];
 
-    if (funcionario) {
-      console.log(
-        "ID do funcionário selecionado para edição:",
-        funcionario.idUsuario
-      );
-      document.getElementById("edit-nome").value = funcionario.nome;
-      document.getElementById("edit-sobrenome").value = funcionario.sobrenome;
-      document.getElementById("edit-email").value = funcionario.email;
-      document.getElementById("edit-cargo").value = funcionario.cargo;
+  console.log("Dados do funcionário obtidos:", funcionarioData);
+  console.log("Nome do funcionário:", funcionarioData.nome);
 
-      document
-        .getElementById("saveChanges")
-        .setAttribute("data-id", funcionario.idUsuario);
+  document.getElementById("edit-nome").value = funcionarioData.nome;
+  document.getElementById("edit-sobrenome").value = funcionarioData.sobrenome;
+  document.getElementById("edit-email").value = funcionarioData.email;
+  document.getElementById("edit-cargo").value = funcionarioData.cargo;
 
-      document.getElementById("editModal").classList.add("show");
-    } else {
-      console.error("Funcionário não encontrado para o ID:", id);
-    }
+  document
+    .getElementById("saveChanges")
+    .setAttribute("data-id", funcionarioData.idUsuario);
+
+  document.getElementById("editModal").classList.add("show");
+})
+      .catch((erro) => {
+        console.error(`#ERRO: ${erro}`);
+        alert("Erro ao buscar os dados do funcionário. Tente novamente.");
+      });
   }
+
+  document.getElementById("saveChanges").onclick = function () {
+  const idUsuario = this.getAttribute("data-id"); 
+  const nome = document.getElementById("edit-nome").value;
+  const sobrenome = document.getElementById("edit-sobrenome").value;
+  const email = document.getElementById("edit-email").value;
+  const cargo = document.getElementById("edit-cargo").value;
+
+  if (!idUsuario) {
+    console.error("ID do funcionário não encontrado.");
+    return;
+  }
+
+  fetch(`/usuarios/editarFuncionario/${idUsuario}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomeServer: nome,
+      sobrenomeServer: sobrenome,
+      emailServer: email,
+      cargoServer: cargo,
+    }),
+  })
+    .then((resposta) => {
+      if (resposta.ok) {
+        alert("Funcionário atualizado com sucesso!");
+        document.getElementById("editModal").classList.remove("show");
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        throw "Erro ao atualizar as informações do funcionário.";
+      }
+    })
+    .catch((erro) => {
+      console.error(`#ERRO: ${erro}`);
+      alert("Erro ao atualizar o funcionário. Tente novamente.");
+    });
+};
+
 
   let funcionarios = [];
   let paginaAtual = 1;
@@ -354,38 +424,38 @@
   };
 
   function excluirFuncionario() {
-  const deleteModal = document.getElementById("deleteModal");
-  const idFuncionario = deleteModal.getAttribute("data-id");
+    const deleteModal = document.getElementById("deleteModal");
+    const idFuncionario = deleteModal.getAttribute("data-id");
 
-  if (!idFuncionario) {
-    console.error("ID do funcionário não encontrado para exclusão.");
-    return;
-  }
+    if (!idFuncionario) {
+      console.error("ID do funcionário não encontrado para exclusão.");
+      return;
+    }
 
-  const fkEmpresa = sessionStorage.ID_EMPRESA;
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
 
-  if (!fkEmpresa || isNaN(fkEmpresa)) {
-    console.error(
-      "ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage."
-    );
-    return;
-  }
+    if (!fkEmpresa || isNaN(fkEmpresa)) {
+      console.error(
+        "ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage."
+      );
+      return;
+    }
 
-  fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erro ao excluir funcionário.");
-      }
-      console.log("Funcionário excluído com sucesso!");
-      deleteModal.classList.remove("show");
-      buscarFuncionarios();
+    fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
+      method: "DELETE",
     })
-    .catch((error) => {
-      console.error(`#ERRO: ${error}`);
-    });
-}
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao excluir funcionário.");
+        }
+        console.log("Funcionário excluído com sucesso!");
+        deleteModal.classList.remove("show");
+        buscarFuncionarios();
+      })
+      .catch((error) => {
+        console.error(`#ERRO: ${error}`);
+      });
+  }
 
   document.getElementById("confirmDelete").onclick = function () {
     const idFuncionario = document

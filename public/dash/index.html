@@ -23,7 +23,7 @@
               <span class="date"  id="end-date">2022</span>
           </div>
           
-          <img src="../assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="open-modal-btn"/>
+          <img src="../assets/icon/calender.svg" class="iconCalendar" id="open-modal-btn"/>
 
       </div>
   </div>
@@ -212,7 +212,7 @@ function buscarEstadoEmpresa() {
         "AM": "Amazonas",
         "BA": "Bahia",
         "CE": "Ceará",
-        "DF": "(Distrito Federal)",
+        "DF": "Distrito Federal",
         "GO": "Goiás",
         "MA": "Maranhão",
         "MG": "Minas Gerais",
@@ -373,25 +373,22 @@ function calcularMediaParacetamol(dados) {
   function atualizarKPICardParacetamol(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-paracetamol");
     if (!kpiCard) {
-      console.error("Elemento do KPI de paracetamol não encontrado!");
-      return;
+        console.error("Elemento do KPI de paracetamol não encontrado!");
+        return;
     }
 
 
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} paracetamóis`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
+    
+}
 
-    if (percentualEvolucao < 0) {
-      indicador.style.color = "green";
-    } else {
-      indicador.style.color = "";
-    }
-  }
 
   function calcularMediaTeste(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -717,17 +714,12 @@ function atualizarProjecaoTestes(estadoVar) {
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} sachês de soro`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-        indicador.style.color = "red";
-    } else {
-        indicador.style.color = "";
-    }
-}
+  }
 
 function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-repelente");
@@ -735,21 +727,15 @@ function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
         console.error("Elemento do KPI de repelentes não encontrado!");
         return;
     }
-
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} repelentes`;
 
     const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-        indicador.style.color = "red";
-    } else {
-        indicador.style.color = "";
-    }
-}
+  }
 
 function calcularMediaDemandaRepelente(dados) {
     const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);

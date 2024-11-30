@@ -57,5 +57,38 @@ router.post("/demanda", function (req, res) {
 router.get("/:idEmpresa", function (req, res) {
     usuarioController.buscarEstadoEmpresa(req, res);
 });
+router.get("/buscarCasosPorEstado/:estado", function (req, res) {
+    usuarioController.buscarCasosPorEstado(req, res);
+});
+router.get("/buscarCasosCurados/:estado", function (req, res) {
+    usuarioController.buscarCasosCurados(req, res);
+});
+router.get("/buscarPopulacao/:estado", function (req, res) {
+    usuarioController.buscarPopulacao(req, res);
+});
+
+router.get("/obterFuncionario/:id", function (req, res) {
+    usuarioController.obterFuncionario(req, res);
+  });
+
+  router.put("/editarFuncionario/:id", function (req, res) {
+    usuarioController.editarFuncionario(req, res);
+  });
+
+  router.post("/taxa-incidencia", function (req, res) {
+    usuarioController.carregarTaxaDeIncidencia(req, res);
+});
+
+router.post("/casosPorEstado", function (req, res) {
+    usuarioController.carregarCasosPorEstado(req, res);
+  });
+  
+  router.post("/casosPorAno", function (req, res) {
+    usuarioController.carregarCasosPorAno(req, res);
+});
+
+router.post("/casosPorRegiao", function (req, res) {
+    usuarioController.carregarCasosPorRegiao(req, res);
+  });
 
 module.exports = router;
