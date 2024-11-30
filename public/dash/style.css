@@ -105,7 +105,6 @@ h1 {
   color: #193d65;
   margin: 5px 0;
 }
-
 .indicator {
   font-family: "Exo 2", sans-serif;
   font-size: 20px;
@@ -113,7 +112,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ff1744;
   gap: 4px;
   position: absolute;
   right: 15px;
@@ -121,17 +119,26 @@ h1 {
   transform: translateY(-50%);
 }
 
+.indicator.up {
+  color: #00ab58;
+}
+
 .indicator.up::before {
   content: "▲";
   font-size: 20px;
-  color: #ff1744; 
+  color: #00ab58;
+}
+
+.indicator.down {
+  color: #ff1744;
 }
 
 .indicator.down::before {
-  content: "▼";
+  content: "▼"; 
   font-size: 20px;
-  color: #00e676; 
+  color: #ff1744;
 }
+
 
 
 .charts-container {
@@ -173,19 +180,6 @@ h1 {
 .estadoAtual {
   text-transform: uppercase;
 }
-
-
-/* .lineChart h2 {
-  position: absolute;
-  top: 20px;
-  left: 43px;
-  color: #193d65;
-  font-family: "Exo 2", sans-serif;
-  font-weight: 600;
-  font-size: 30px;
-  margin: 0;
-  pointer-events: none;
-} */
 
 .lineChart .chart canvas {
   width: 82% !important;
