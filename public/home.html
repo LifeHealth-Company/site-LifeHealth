@@ -1,213 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="icon" href="assets/icon/mini.svg" />
+    <title>Home</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/home.css" />
-  <link rel="icon" href="assets/icon/mini.svg" />
-  <title>Home</title>
-</head>
-
-<body id="body">
-  <div id="menu-container"></div>
-  <div class="home">
-    
-    <div class="indicators">
-      <div class="country">
+  <body id="body">
+    <div id="menu-container"></div>
+    <div class="home">
+      <div class="indicators">
+        <div class="country">
           <div class="countryHeader">
-              <span class="indicatorTitle">Brasil</span>
-              <div class="growth">
-                  <img src="./assets/icon/arrowUp.svg" />
-                  <span class="growthPercentage">7%</span>
-              </div>
+            <span class="indicatorTitle">Brasil</span>
+            <div class="growth">
+              <img src="./assets/icon/arrowUp.svg" />
+              <span class="growthPercentage">7%</span>
+            </div>
           </div>
           <div class="casesContainer">
-              <span class="cases">
-                  <span class="order">6</span>
-                  milhões de casos
+            <span class="cases">
+              <span class="order">6</span>
+              milhões de casos
+            </span>
+            <div class="maxCasesContainer">
+              <span class="maxCases">
+                <span class="max">MAX:</span>
+                12 milhões
               </span>
-              <div class="maxCasesContainer">
-                  <span class="maxCases">
-                      <span class="max">MAX:</span>
-                      12 milhões
-                  </span>
-              </div>
+            </div>
           </div>
-      </div>
-      <div class="mostAffected">
+        </div>
+        <div class="mostAffected">
           <span class="indicatorTitle">Maiores afetados</span>
           <div class="datas">
-              <span class="data">
-                  <span class="order">1°</span>
-                  [grupo afetado]   - 0 milhões
-              </span>
-              <span class="data">
-                  <span class="order">2°</span>
-                  [grupo afetado]  - 0 milhões
-              </span>
-              <span class="data">
-                  <span class="order">3°</span>
-                  [grupo afetado] - 0 milhões
-              </span>
+            <span class="data">
+              <span class="order">1°</span>
+              [grupo afetado] - 0 milhões
+            </span>
+            <span class="data">
+              <span class="order">2°</span>
+              [grupo afetado] - 0 milhões
+            </span>
+            <span class="data">
+              <span class="order">3°</span>
+              [grupo afetado] - 0 milhões
+            </span>
           </div>
-      </div>
-      <div class="filtro">
+        </div>
+        <div class="filtro">
           <div class="calendar">
-              <div class="timeIndicator">
-                  <span class="startEnd">De</span>
-                  <span class="date" id="start-date">2021</span>
-              </div>
-              <img src="../assets/icon/longArrow.svg" class="arrow" />
-              <div class="timeIndicator">
-                  <span class="startEnd">Até</span>
-                  <span class="date" id="end-date">2022</span>
-              </div>
-  
-              <img src="../assets/icon/calender.svg" class="iconCalendar" onclick="openCalendar()" id="open-modal-btn"/>
+            <div class="timeIndicator">
+              <span class="startEnd">De</span>
+              <span class="date" id="start-date">2021</span>
+            </div>
+            <img src="../assets/icon/longArrow.svg" class="arrow" />
+            <div class="timeIndicator">
+              <span class="startEnd">Até</span>
+              <span class="date" id="end-date">2022</span>
+            </div>
+
+            <img
+              src="../assets/icon/calender.svg"
+              class="iconCalendar"
+              onclick="openCalendar()"
+              id="open-modal-btn"
+            />
           </div>
-          <br>
-          <span class="indicatorTitle estadoAtual">BRASIL</span>
-      </div>
-  
-      <!-- Modal -->
-      <div id="modal" class="modal">
+          <br />
+        </div>
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
           <div class="modal-content">
-              <span id="close-modal" class="close-btn">&times;</span>
-              <h2>Filtrar Dados</h2>
-              <div class="modal-input">
-                  <label for="modalAnoInicial">Ano Inicial:</label>
-                  <select id="modalAnoInicial">
-                      <option value="2021">2021</option>
-                      <option value="2022">2022</option>
-                      <option value="2023">2023</option>
-                  </select>
-              </div>
-              <div class="modal-input">
-                  <label for="modalAnoFinal">Ano Final:</label>
-                  <select id="modalAnoFinal">
-                      <option value="2021">2021</option>
-                      <option value="2022">2022</option>
-                      <option value="2023">2023</option>
-                  </select>
-              </div>
-              <div class="modal-input">
-                  <label for="modalEstado">Estado:</label>
-                  <select id="modalEstado">
-                      <option value="AL">Alagoas</option>
-                      <option value="AC">Acre</option>
-                      <option value="AP">Amapá</option>
-                      <option value="AM">Amazonas</option>
-                      <option value="BA">Bahia</option>
-                      <option value="CE">Ceará</option>
-                      <option value="DF">Distrito Federal</option>
-                      <option value="GO">Goiás</option>
-                      <option value="MA">Maranhão</option>
-                      <option value="MG">Minas Gerais</option>
-                      <option value="SP">São Paulo</option>
-                      <option value="RS">Rio Grande do Sul</option>
-                      <option value="SC">Santa Catarina</option>
-                      <option value="SE">Sergipe</option>
-                      <option value="TO">Tocantins</option>
-                      <option value="MT">Mato Grosso</option>
-                      <option value="PE">Pernambuco</option>
-                      <option value="MS">Mato Grosso do Sul</option>
-                      <option value="PA">Pará</option>
-                      <option value="PR">Paraná</option>
-                      <option value="PI">Piauí</option>
-                      <option value="PB">Paraíba</option>
-                  </select>
-              </div>
-              <button id="search-btn">Pesquisar</button>
+            <span id="close-modal" class="close-btn">&times;</span>
+            <h2>Filtrar Dados</h2>
+            <div class="modal-input">
+              <label for="modalAnoInicial">Ano Inicial:</label>
+              <select id="modalAnoInicial">
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <div class="modal-input">
+              <label for="modalAnoFinal">Ano Final:</label>
+              <select id="modalAnoFinal">
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <div class="modal-input">
+              <label for="modalEstado">Estado:</label>
+              <select id="modalEstado">
+                <option value="AL">Alagoas</option>
+                <option value="AC">Acre</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="SP">São Paulo</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="PE">Pernambuco</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="PA">Pará</option>
+                <option value="PR">Paraná</option>
+                <option value="PI">Piauí</option>
+                <option value="PB">Paraíba</option>
+              </select>
+            </div>
+            <button id="search-btn">Pesquisar</button>
           </div>
-      </div>
-  
-      <!-- ALERT CONTAINER moved inside .indicators -->
-      <div class="alertContainer">
+        </div>
+
+        <!-- ALERT CONTAINER moved inside .indicators -->
+        <div class="alertContainer">
           <div class="alert">
-              <img src="./assets/icon/alert.svg" class="alertIcon"/>
-              <div class="alertMessage">
-                  <span class="titleAlert">Possível epidemia no próximo ano</span>
-                  <span class="message">Crescente de casos indica possível epidemia no próximo ano</span>
-              </div>
+            <img src="./assets/icon/alert.svg" class="alertIcon" />
+            <div class="alertMessage">
+              <span class="titleAlert">Possível epidemia no próximo ano</span>
+              <span class="message"
+                >Crescente de casos indica possível epidemia no próximo
+                ano</span
+              >
+            </div>
           </div>
+        </div>
       </div>
-  
-  </div> <!-- End of .indicators -->
-  
+      <!-- End of .indicators -->
 
-    <div class="lineOneCharts">
-      <div class="lineChart">
-        <div class="lineChartHeader">
-          <span class="indicatorTitle">Taxa de incidência</span>
-          <span class="indicatorTitle max">BRASIL</span>
+      <div class="lineOneCharts">
+        <div class="lineChart">
+          <div class="lineChartHeader">
+            <span class="indicatorTitle">Taxa de incidência</span>
+            <span class="indicatorTitle estadoAtual max">BRASIL</span>
+          </div>
+          <div class="chart">
+            <canvas id="incidence"></canvas>
+          </div>
         </div>
-        <div class="chart">
-          <canvas id="incidence"></canvas>
+        <div class="mostCasesRegion">
+          <span class="indicatorTitle graphcAdjustment"
+            >Regiões com mais casos</span
+          >
+          <div class="chart">
+            <canvas id="regions"></canvas>
+          </div>
+        </div>
+        <div class="states">
+          <div class="state">
+            <div class="stateInfo">
+              <span class="indicatorTitle">São Paulo</span>
+              <span class="data">2 milhões de casos</span>
+            </div>
+            <div class="growth">
+              <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
+              <span class="growthPercentage stateGrowth">7%</span>
+            </div>
+          </div>
+          <div class="state">
+            <div class="stateInfo">
+              <span class="indicatorTitle">Minas Gerais</span>
+              <span class="data">1,5 milhões de casos</span>
+            </div>
+            <div class="growth">
+              <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
+              <span class="growthPercentage stateGrowth">7%</span>
+            </div>
+          </div>
+          <div class="state">
+            <div class="stateInfo">
+              <span class="indicatorTitle">Goiás</span>
+              <span class="data">1 milhões de casos</span>
+            </div>
+            <div class="growth">
+              <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
+              <span class="growthPercentage stateGrowth">7%</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="mostCasesRegion">
-        <span class="indicatorTitle graphcAdjustment">Regiões com mais casos</span>
-        <div class="chart">
-          <canvas id="regions"></canvas>
-        </div>
-      </div>
-      <div class="states">
-        <div class="state">
-          <div class="stateInfo">
-            <span class="indicatorTitle">São Paulo</span>
-            <span class="data">2 milhões de casos</span>
+
+      <div class="lineChartCases">
+        <div class="lineChart">
+          <div class="lineChartHeader">
+            <span class="indicatorTitle"
+              >Distribuição de Casos por Localidade</span
+            >
+            <span class="indicatorTitle max">BRASIL</span>
           </div>
-          <div class="growth">
-            <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
-            <span class="growthPercentage stateGrowth">7%</span>
+          <div class="chart">
+            <canvas id="country"></canvas>
           </div>
         </div>
-        <div class="state">
-          <div class="stateInfo">
-            <span class="indicatorTitle">Minas Gerais</span>
-            <span class="data">1,5 milhões de casos</span>
+        <div class="lineChart">
+          <div class="lineChartHeader">
+            <span class="indicatorTitle"
+              >Percentual de crescimento de casos em relação ao último ano</span
+            >
           </div>
-          <div class="growth">
-            <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
-            <span class="growthPercentage stateGrowth">7%</span>
-          </div>
-        </div>
-        <div class="state">
-          <div class="stateInfo">
-            <span class="indicatorTitle">Goiás</span>
-            <span class="data">1 milhões de casos</span>
-          </div>
-          <div class="growth">
-            <img src="./assets/icon/arrowUp.svg" class="stateIcon" />
-            <span class="growthPercentage stateGrowth">7%</span>
+          <div class="chart">
+            <canvas id="state"></canvas>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="lineChartCases">
-      <div class="lineChart">
-        <div class="lineChartHeader">
-          <span class="indicatorTitle">Distribuição de Casos por Localidade</span>
-          <span class="indicatorTitle max">BRASIL</span>
-        </div>
-        <div class="chart">
-          <canvas id="country"></canvas>
-        </div>
-      </div>
-      <div class="lineChart">
-        <div class="lineChartHeader">
-          <span class="indicatorTitle">Percentual de crescimento de casos em relação ao último ano</span>
-        </div>
-        <div class="chart">
-          <canvas id="state"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-
+  </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/home.js"></script>
@@ -217,155 +226,206 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-  buscarEstadoEmpresa(); 
-  carregarMaioresAfetados();
-});
-
-function buscarEstadoEmpresa() {
-  const idEmpresa = sessionStorage.ID_EMPRESA;
-
-  if (!idEmpresa || isNaN(idEmpresa)) {
-    console.error("ID da empresa não definido ou inválido.");
-    alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
-    carregarEstadoNaInterface("BRASIL");
-    return;
-  }
-
-  document.querySelector("#search-btn").addEventListener("click", () => {
-    const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
-    const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
-    sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
-    carregarEstadoNaInterface(estadoCompleto);
+    buscarEstadoEmpresa();
+    carregarMaioresAfetados();
   });
 
-  console.log("ID da empresa:", idEmpresa);
+  function buscarEstadoEmpresa() {
+    const idEmpresa = sessionStorage.ID_EMPRESA;
 
-  fetch(`/usuarios/${idEmpresa}`)
-    .then((resposta) => {
-      if (resposta.ok) {
-        return resposta.json();
-      } else {
-        throw "Erro ao buscar os dados da empresa.";
-      }
-    })
-    .then((dadosEmpresa) => {
-      console.log("Dados da empresa:", dadosEmpresa);
-
-      const estados = {
-        "AL": "Alagoas",
-        "AC": "Acre",
-        "AP": "Amapá",
-        "AM": "Amazonas",
-        "BA": "Bahia",
-        "CE": "Ceará",
-        "DF": "(Distrito Federal)",
-        "GO": "Goiás",
-        "MA": "Maranhão",
-        "MG": "Minas Gerais",
-        "SP": "São Paulo",
-        "RS": "Rio Grande do Sul",
-        "SC": "Santa Catarina",
-        "SE": "Sergipe",
-        "TO": "Tocantins",
-        "MT": "Mato Grosso",
-        "PE": "Pernambuco",
-        "MS": "Mato Grosso do Sul",
-        "PA": "Pará",
-        "PR": "Paraná",
-        "PI": "Piauí",
-        "PB": "Paraíba"
-      };
-
-      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL"; 
-      const estadoCompleto = estados[estadoSigla] || estadoSigla;
-
-      const selectEstado = document.querySelector("#modalEstado");
-      const options = selectEstado.querySelectorAll("option");
-
-      options.forEach(option => {
-        if (option.value === estadoSigla) {
-          option.selected = true;
-        }
-      });
-
-      carregarEstadoNaInterface(estadoCompleto);
-    })
-    .catch((erro) => {
-      console.error("#ERRO:", erro);
+    if (!idEmpresa || isNaN(idEmpresa)) {
+      console.error("ID da empresa não definido ou inválido.");
+      alert(
+        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
+      );
       carregarEstadoNaInterface("BRASIL");
+      return;
+    }
+
+    document.querySelector("#search-btn").addEventListener("click", () => {
+      const estadoSelecionadoSigla =
+        document.querySelector("#modalEstado").value;
+      const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
+      sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
+      carregarEstadoNaInterface(estadoCompleto);
     });
-}
 
-function traduzirSiglaParaNome(sigla) {
-  const estados = {
-    "AL": "Alagoas",
-    "AC": "Acre",
-    "AP": "Amapá",
-    "AM": "Amazonas",
-    "BA": "Bahia",
-    "CE": "Ceará",
-    "DF": "(Distrito Federal)",
-    "GO": "Goiás",
-    "MA": "Maranhão",
-    "MG": "Minas Gerais",
-    "SP": "São Paulo",
-    "RS": "Rio Grande do Sul",
-    "SC": "Santa Catarina",
-    "SE": "Sergipe",
-    "TO": "Tocantins",
-    "MT": "Mato Grosso",
-    "PE": "Pernambuco",
-    "MS": "Mato Grosso do Sul",
-    "PA": "Pará",
-    "PR": "Paraná",
-    "PI": "Piauí",
-    "PB": "Paraíba"
-  };
+    console.log("ID da empresa:", idEmpresa);
 
-  return estados[sigla] || sigla;
-}
+    fetch(`/usuarios/${idEmpresa}`)
+      .then((resposta) => {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          throw "Erro ao buscar os dados da empresa.";
+        }
+      })
+      .then((dadosEmpresa) => {
+        console.log("Dados da empresa:", dadosEmpresa);
 
-function carregarEstadoNaInterface(estado) {
-  const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
-  
-  if (indicadorTitulo) {
-    indicadorTitulo.textContent = estado;
-  } else {
-    console.error("Elemento para estado não encontrado na interface.");
+        const estados = {
+          AL: "ALAGOAS",
+          AC: "ACRE",
+          AP: "AMAPÁ",
+          AM: "AMAZONAS",
+          BA: "BAHIA",
+          CE: "CEARÁ",
+          DF: "DISTRITO FEDERAL",
+          GO: "GOIÁS",
+          MA: "MARANHÃO",
+          MG: "MINAS GERAIS",
+          SP: "SÃO PAULO",
+          RS: "RIO GRANDE DO SUL",
+          SC: "SANTA CATARINA",
+          SE: "SERGIPE",
+          TO: "TOCANTINS",
+          MT: "MATO GROSSO",
+          PE: "PERNAMBUCO",
+          MS: "MATO GROSSO DO SUL",
+          PA: "PARÁ",
+          PR: "PARANÁ",
+          PI: "PIAUÍ",
+          PB: "PARAÍBA",
+        };
+        const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
+        const estadoCompleto = estados[estadoSigla] || estadoSigla;
+
+        const selectEstado = document.querySelector("#modalEstado");
+        const options = selectEstado.querySelectorAll("option");
+
+        options.forEach((option) => {
+          if (option.value === estadoSigla) {
+            option.selected = true;
+          }
+        });
+
+        carregarEstadoNaInterface(estadoCompleto);
+      })
+      .catch((erro) => {
+        console.error("#ERRO:", erro);
+        carregarEstadoNaInterface("BRASIL");
+      });
   }
-}
 
-function carregarTaxaDeIncidencia() {
-  fetch('/usuarios/taxa-incidencia', {
+  function traduzirSiglaParaNome(sigla) {
+    const estados = {
+      AL: "ALAGOAS",
+      AC: "ACRE",
+      AP: "AMAPÁ",
+      AM: "AMAZONAS",
+      BA: "BAHIA",
+      CE: "CEARÁ",
+      DF: "DISTRITO FEDERAL",
+      GO: "GOIÁS",
+      MA: "MARANHÃO",
+      MG: "MINAS GERAIS",
+      SP: "SÃO PAULO",
+      RS: "RIO GRANDE DO SUL",
+      SC: "SANTA CATARINA",
+      SE: "SERGIPE",
+      TO: "TOCANTINS",
+      MT: "MATO GROSSO",
+      PE: "PERNAMBUCO",
+      MS: "MATO GROSSO DO SUL",
+      PA: "PARÁ",
+      PR: "PARANÁ",
+      PI: "PIAUÍ",
+      PB: "PARAÍBA",
+    };
+
+    return estados[sigla] || sigla;
+  }
+
+  function carregarEstadoNaInterface(estado) {
+    const indicadorTitulo = document.querySelector(
+      ".indicatorTitle.estadoAtual"
+    );
+
+    if (indicadorTitulo) {
+      indicadorTitulo.textContent = estado;
+    } else {
+      console.error("Elemento para estado não encontrado na interface.");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal");
+  const openModalBtn = document.getElementById("open-modal-btn");
+  const closeModalBtn = document.getElementById("close-modal");
+  const searchBtn = document.getElementById("search-btn");
+  
+  buscarEstadoEmpresa
+  openModalBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  searchBtn.addEventListener("click", () => {
+    const anoInicial = document.getElementById("modalAnoInicial").value;
+    const anoFinal = document.getElementById("modalAnoFinal").value;
+    const estado = document.getElementById("modalEstado").value;
+
+    if (parseInt(anoFinal) <= parseInt(anoInicial)) {
+      alert("O ano final não pode ser igual ou menor que o ano inicial.");
+      return; 
+    }
+
+    document.getElementById("start-date").textContent = anoInicial;
+    document.getElementById("end-date").textContent = anoFinal;
+    
+    console.log("Ano Inicial:", anoInicial);
+    console.log("Ano Final:", anoFinal);
+    console.log("Estado:", estado);
+
+    carregarTaxaDeIncidencia(estado);
+
+    modal.style.display = "none";
+  });
+});
+
+function carregarTaxaDeIncidencia(estado) {
+  fetch("/usuarios/taxa-incidencia", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      anos: ['2021', '2022', '2023']
+      anos: [2021, 2022, 2023],
+      estado: estado
     }),
   })
-  .then(function (resposta) {
-    if (resposta.ok) {
-      resposta.json().then(function (dados) {
-        const anos = dados.map(dado => dado.ano);
-        const taxaIncidencia = dados.map(dado => parseFloat(dado.taxa_incidencia)); 
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          const anos = dados.map((dado) => dado.ano);
+          const taxaIncidencia = dados.map((dado) =>
+            parseFloat(dado.taxa_incidencia)
+          );
 
-        console.log("Taxa de Incidência Calculada: ", taxaIncidencia);
+          console.log("Taxa de Incidência Calculada: ", taxaIncidencia);
 
-        atualizarGraficoTaxaIncidencia(anos, taxaIncidencia);
-      });
-    } else {
-      console.error("Erro ao buscar dados para taxa de incidência.");
-    }
-  })
-  .catch(function (erro) {
-    console.error("Erro na requisição de taxa de incidência:", erro);
-  });
+          atualizarGraficoTaxaIncidencia(anos, taxaIncidencia);
+        });
+      } else {
+        console.error("Erro ao buscar dados para taxa de incidência.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de taxa de incidência:", erro);
+    });
 }
 
 function atualizarGraficoTaxaIncidencia(anos, taxaIncidencia) {
-  const chart = Chart.getChart("incidence"); 
+  const chart = Chart.getChart("incidence");
 
   if (chart) {
     chart.data.labels = anos;
@@ -375,180 +435,211 @@ function atualizarGraficoTaxaIncidencia(anos, taxaIncidencia) {
         data: taxaIncidencia,
         borderColor: "#193D65",
         backgroundColor: "rgba(25, 61, 101, 0.1)",
-        fill: true, 
-        tension: 0.4, 
-        borderWidth: 2, 
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
       },
     ];
-    chart.update(); 
+    chart.update();
     console.log("Gráfico de Taxa de Incidência atualizado com sucesso!");
   } else {
     console.error("Gráfico não encontrado!");
   }
 }
+  carregarTaxaDeIncidencia();
+  atualizarCasosPorEstado2021();
+  atualizarCasosPorAno();
+  atualizarCasosPorRegiao();
 
-carregarTaxaDeIncidencia();
-atualizarCasosPorEstado2021();
-atualizarCasosPorAno();
-atualizarCasosPorRegiao();
+  function atualizarCasosPorEstado2021() {
+    console.log("Atualizando casos de Dengue por estado no ano de 2021...");
 
-function atualizarCasosPorEstado2021() {
-  console.log("Atualizando casos de Dengue por estado no ano de 2021...");
-
-  fetch(`/usuarios/casosPorEstado`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ano: "2021",
-    }),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (dados) {
-          const estados = [];
-          const casos = [];
-
-          dados.forEach(function (dado) {
-            estados.push(dado.estadoNotificacao); 
-            casos.push(dado.casos); 
-          });
-
-          const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
-
-          const chart = Chart.getChart("country");
-          if (chart) {
-            chart.data.labels = dadosOrdenados.map(dado => dado.estadoNotificacao); 
-            chart.data.datasets[0].data = dadosOrdenados.map(dado => dado.casos); 
-            chart.update();
-            console.log("Gráfico de casos atualizado com sucesso!");
-          } else {
-            console.error("Gráfico não encontrado!");
-          }
-        });
-      } else {
-        console.error("Erro ao buscar dados para os casos de dengue.");
-      }
+    fetch(`/usuarios/casosPorEstado`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ano: "2021",
+      }),
     })
-    .catch(function (erro) {
-      console.error("Erro na requisição de casos:", erro);
-    });
-}
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            const estados = [];
+            const casos = [];
 
-function atualizarCasosPorAno() {
-  console.log("Atualizando casos de Dengue por ano...");
+            dados.forEach(function (dado) {
+              estados.push(dado.estadoNotificacao);
+              casos.push(dado.casos);
+            });
 
-  fetch(`/usuarios/casosPorAno`, {
-    method: "POST", 
-    headers: {
-      "Content-Type": "application/json", 
-    },
-    body: JSON.stringify({  
-      anos: ["2021", "2022", "2023"],
-    }),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (dados) {
-          const anos = [];
-          const casos = [];
+            const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
 
-          dados.forEach(function (dado) {
-            anos.push(dado.ano); 
-            casos.push(dado.casos); 
-          });
-
-          const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
-
-          const chart = Chart.getChart("state");
-          if (chart) {
-            chart.data.labels = dadosOrdenados.map(dado => dado.ano);  
-            chart.data.datasets[0].data = dadosOrdenados.map(dado => dado.casos); 
-            chart.update();
-            console.log("Gráfico de casos por ano atualizado com sucesso!");
-          } else {
-            console.error("Gráfico não encontrado!");
-          }
-        });
-      } else {
-        console.error("Erro ao buscar dados para os casos por ano.");
-      }
-    })
-    .catch(function (erro) {
-      console.error("Erro na requisição de casos:", erro);
-    });
-}
-
-function atualizarCasosPorRegiao() {
-  fetch(`/usuarios/casosPorRegiao`, {
-  method: "POST", 
-  headers: {
-    "Content-Type": "application/json", 
-  },
-  body: JSON.stringify({
-    ano: "2023", 
-  }),
-})
-.then(function (resposta) {
-  if (resposta.ok) {
-    resposta.json().then(function (dados) {
-      console.log("Dados recebidos:", dados); 
-
-      const estadosPorRegiao = {
-        "Sudeste": ["São Paulo", "Minas Gerais", "Espírito Santo", "Rio de Janeiro"],
-        "Sul": ["Paraná", "Santa Catarina", "Rio Grande do Sul"],
-        "Centro Oeste": ["Mato Grosso do Sul", "Goiás", "Mato Grosso"],
-        "Nordeste": ["Maranhão", "Pernambuco", "Piauí", "Paraíba", "Bahia", "Alagoas", "Sergipe", "Ceará", "Rio Grande do Norte", "São Luís", "Ceará"],
-        "Norte": ["Pará", "Amazonas", "Acre", "Rondônia", "Roraima", "Tocantins", "Amapá"],
-        "Outros": [] 
-      };
-
-      const regioes = [];
-      const casosPorRegiao = [];
-
-      const casosAgrupadosPorRegiao = {};
-
-      dados.forEach(function (dado) {
-        const estado = dado.estadoNotificacao;
-        const casos = dado.quantidadeCasos;
-
-        for (const regiao in estadosPorRegiao) {
-          if (estadosPorRegiao[regiao].includes(estado)) {
-            if (!casosAgrupadosPorRegiao[regiao]) {
-              casosAgrupadosPorRegiao[regiao] = 0;
+            const chart = Chart.getChart("country");
+            if (chart) {
+              chart.data.labels = dadosOrdenados.map(
+                (dado) => dado.estadoNotificacao
+              );
+              chart.data.datasets[0].data = dadosOrdenados.map(
+                (dado) => dado.casos
+              );
+              chart.update();
+              console.log("Gráfico de casos atualizado com sucesso!");
+            } else {
+              console.error("Gráfico não encontrado!");
             }
-            casosAgrupadosPorRegiao[regiao] += casos; 
-            break;
-          }
+          });
+        } else {
+          console.error("Erro ao buscar dados para os casos de dengue.");
         }
+      })
+      .catch(function (erro) {
+        console.error("Erro na requisição de casos:", erro);
       });
-
-      for (const regiao in casosAgrupadosPorRegiao) {
-        regioes.push(regiao);
-        casosPorRegiao.push(casosAgrupadosPorRegiao[regiao]);
-      }
-
-      console.log('Regiões:', regioes);
-      console.log('Casos por Região:', casosPorRegiao);
-
-      const chart = Chart.getChart("regions");
-      if (chart) {
-        chart.data.labels = regioes;  
-        chart.data.datasets[0].data = casosPorRegiao;  
-        chart.update();
-        console.log("Gráfico de casos por região atualizado com sucesso!");
-      } else {
-        console.error("Gráfico não encontrado!");
-      }
-    });
-  } else {
-    console.error("Erro ao buscar dados para os casos por região.");
   }
-})
-.catch(function (erro) {
-  console.error("Erro na requisição de casos:", erro);
-});
-}
 
+  function atualizarCasosPorAno() {
+    console.log("Atualizando casos de Dengue por ano...");
+
+    fetch(`/usuarios/casosPorAno`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        anos: ["2021", "2022", "2023"],
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            const anos = [];
+            const casos = [];
+
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              casos.push(dado.casos);
+            });
+
+            const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
+
+            const chart = Chart.getChart("state");
+            if (chart) {
+              chart.data.labels = dadosOrdenados.map((dado) => dado.ano);
+              chart.data.datasets[0].data = dadosOrdenados.map(
+                (dado) => dado.casos
+              );
+              chart.update();
+              console.log("Gráfico de casos por ano atualizado com sucesso!");
+            } else {
+              console.error("Gráfico não encontrado!");
+            }
+          });
+        } else {
+          console.error("Erro ao buscar dados para os casos por ano.");
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro na requisição de casos:", erro);
+      });
+  }
+
+  function atualizarCasosPorRegiao() {
+    fetch(`/usuarios/casosPorRegiao`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ano: "2023",
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            console.log("Dados recebidos:", dados);
+
+            const estadosPorRegiao = {
+              Sudeste: [
+                "São Paulo",
+                "Minas Gerais",
+                "Espírito Santo",
+                "Rio de Janeiro",
+              ],
+              Sul: ["Paraná", "Santa Catarina", "Rio Grande do Sul"],
+              "Centro Oeste": ["Mato Grosso do Sul", "Goiás", "Mato Grosso"],
+              Nordeste: [
+                "Maranhão",
+                "Pernambuco",
+                "Piauí",
+                "Paraíba",
+                "Bahia",
+                "Alagoas",
+                "Sergipe",
+                "Ceará",
+                "Rio Grande do Norte",
+                "São Luís",
+                "Ceará",
+              ],
+              Norte: [
+                "Pará",
+                "Amazonas",
+                "Acre",
+                "Rondônia",
+                "Roraima",
+                "Tocantins",
+                "Amapá",
+              ],
+              Outros: [],
+            };
+
+            const regioes = [];
+            const casosPorRegiao = [];
+
+            const casosAgrupadosPorRegiao = {};
+
+            dados.forEach(function (dado) {
+              const estado = dado.estadoNotificacao;
+              const casos = dado.quantidadeCasos;
+
+              for (const regiao in estadosPorRegiao) {
+                if (estadosPorRegiao[regiao].includes(estado)) {
+                  if (!casosAgrupadosPorRegiao[regiao]) {
+                    casosAgrupadosPorRegiao[regiao] = 0;
+                  }
+                  casosAgrupadosPorRegiao[regiao] += casos;
+                  break;
+                }
+              }
+            });
+
+            for (const regiao in casosAgrupadosPorRegiao) {
+              regioes.push(regiao);
+              casosPorRegiao.push(casosAgrupadosPorRegiao[regiao]);
+            }
+
+            console.log("Regiões:", regioes);
+            console.log("Casos por Região:", casosPorRegiao);
+
+            const chart = Chart.getChart("regions");
+            if (chart) {
+              chart.data.labels = regioes;
+              chart.data.datasets[0].data = casosPorRegiao;
+              chart.update();
+              console.log(
+                "Gráfico de casos por região atualizado com sucesso!"
+              );
+            } else {
+              console.error("Gráfico não encontrado!");
+            }
+          });
+        } else {
+          console.error("Erro ao buscar dados para os casos por região.");
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro na requisição de casos:", erro);
+      });
+  }
 </script>

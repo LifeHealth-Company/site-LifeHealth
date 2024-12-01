@@ -424,21 +424,21 @@ function atualizarGraficoRegioes() {
       res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
     });
 }
-
 function carregarTaxaDeIncidencia(req, res) {
-  const anos = ['2021', '2022', '2023'];
+  const { anos, estado } = req.body;
 
   if (!anos || anos.length === 0) {
     return res.status(400).send("Os anos são obrigatórios.");
   }
 
-  usuarioModel.carregarTaxaDeIncidencia(anos)
+  usuarioModel.carregarTaxaDeIncidencia(anos, estado)
     .then(function (resultados) {
       if (resultados.length > 0) {
         const taxasDeIncidencia = resultados.map((registro) => ({
           ano: registro.ano,
-          casos: registro.casos,
-          populacao: registro.qtdPopulacao,
+          estado: registro.estadoNotificacao,
+          casos: registro.total_casos,
+          populacao: registro.total_populacao,
           taxa_incidencia: registro.taxa_incidencia,
         }));
 
@@ -452,7 +452,6 @@ function carregarTaxaDeIncidencia(req, res) {
       res.status(500).send("Erro ao buscar dados de taxa de incidência.");
     });
 }
-
 function carregarCasosPorEstado(req, res) {
   const ano = req.body.ano;
 

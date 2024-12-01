@@ -236,24 +236,6 @@ function editarFuncionario(idUsuario, nome, sobrenome, email, cargo) {
   return database.executar(instrucaoSql);
 }
 
-
-function maioresAfetados() {
-  console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Carregando os dados dos maiores afetados");
-
-  var instrucaoSql = `
-      SELECT
-        SUM(CASE WHEN isPacienteGestante = 'Sim' THEN 1 ELSE 0 END) AS gestantes,
-        SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente >= 60 THEN 1 ELSE 0 END) AS idosos,
-        SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente BETWEEN 0 AND 12 THEN 1 ELSE 0 END) AS criancas
-      FROM Casos
-      WHERE ufNotificacao IS NOT NULL;
-    `;
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-
-  return database.executar(instrucaoSql);
-
-}
 function buscarCasosPorEstado(estado) {
   const instrucaoSql = `
       select * from Casos where estadoNotificacao = "${estado}";
@@ -276,22 +258,30 @@ function buscarPopulacao(estado, ano) {
   return database.executar(instrucaoSql);
 }
 
-function carregarTaxaDeIncidencia(anos) {
-  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de incidência de dengue por ano.");
+function carregarTaxaDeIncidencia(anos, estado) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de incidência de dengue por ano e estado.");
 
   const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+  const estadoString = estado ? `AND c.ufNotificacao = '${estado}'` : '';
 
   const instrucaoSql = `
     SELECT 
       c.ano, 
+      c.ufNotificacao AS estadoNotificacao,
       SUM(c.idCaso) AS total_casos,
       SUM(p.qtdPopulacao) AS total_populacao,
       (SUM(c.idCaso) / SUM(p.qtdPopulacao)) * 100000 AS taxa_incidencia
-    FROM Casos c
-    JOIN Populacao p ON c.ano = p.ano
-    WHERE c.ano IN (${anosString})
-    GROUP BY c.ano
-    ORDER BY c.ano;
+    FROM 
+      Casos c
+    JOIN 
+      Populacao p 
+      ON c.ano = p.ano AND c.ufNotificacao = p.estado
+    WHERE 
+      c.ano IN (${anosString}) ${estadoString}
+    GROUP BY 
+      c.ano, c.ufNotificacao
+    ORDER BY 
+      c.ano;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -408,12 +398,9 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstado,
-
   buscarCasosPorEstado,
   buscarCasosCurados,
   buscarPopulacao,
-  maioresAfetados,
-
   carregarTaxaDeIncidencia,
   carregarCasosPorEstado,
   carregarCasosPorAno,
