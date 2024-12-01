@@ -126,7 +126,7 @@
           <!-- Grupo de gráficos à direita -->
           <div class="lineChart">
             <div class="chartHeader">
-              <p>Demanda de Testes Diagnósticos Anuais</p>
+              <p>Projeção de Consumo de Testes Diagnósticos Por Ano</p>
               <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
             </div>
             <div class="chart">
@@ -135,7 +135,7 @@
           </div>
           <div class="lineChart">
             <div class="chartHeader">
-              <p>Previsão de Demanda de Paracetamol Anual</p>
+              <p>Projeção de Consumo de Paracetamol Por Ano</p>
               <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
             </div>
             <div class="chart">
@@ -190,6 +190,9 @@ function buscarEstadoEmpresa() {
     const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
     sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
     carregarEstadoNaInterface(estadoCompleto);
+    atualizarProjecaoSoro(estadoSelecionadoSigla);
+    atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla)
+
   });
 
   console.log("ID da empresa:", idEmpresa);
@@ -246,7 +249,8 @@ function buscarEstadoEmpresa() {
 
       atualizarProjecaoRepelentes(estadoSigla);
       atualizarProjecaoTestes(estadoSigla);
-      atualizarProjecaoSoro(estadoSigla)
+      atualizarProjecaoSoro(estadoSigla);
+      atualizarPrevisaoDemandaParacetamol(estadoSigla)
     })
     .catch((erro) => {
       console.error("#ERRO:", erro);
@@ -352,6 +356,59 @@ function carregarEstadoNaInterface(estado) {
     });
 }
 
+
+function atualizarPrevisaoDemandaParacetamol(estadoVar) {
+  console.log("Estado selecionado: ", estadoVar);
+
+  fetch(`/usuarios/casos`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      estadoServer: estadoVar,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          var anos = [];
+          var casos = [];
+          dados.forEach(function (dado) {
+            anos.push(dado.ano);
+            casos.push(dado.quantidade);
+          });
+
+          const regressao = calcularRegressaoLinear(anos, casos);
+
+          const casos2024 = calcularProjecao(2024, regressao)*3;
+          anos.push(2024);
+          casos.push(casos2024);
+
+          const casos2025 = calcularProjecao(2025, regressao)*2;
+          anos.push(2025);
+          casos.push(casos2025);
+
+          const chart = Chart.getChart("state4");
+          if (chart) {
+            chart.data.labels = anos;
+            chart.data.datasets[0].data = casos;
+            chart.update();
+            console.log("Gráfico de paracetamol atualizado com sucesso!");
+          } else {
+            console.error("Gráfico de paracetamol não encontrado!");
+          }
+        });
+      } else {
+        console.log("Erro ao buscar dados de casos para o estado selecionado.");
+      }
+    })
+    .catch(function (erro) {
+      console.log("Erro na requisição de paracetamol:", erro);
+    });
+}
+
+
 function calcularMediaParacetamol(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
     const totalParacetamol = totalCasos * 3;
@@ -413,21 +470,17 @@ function calcularMediaParacetamol(dados) {
     if (!kpiCard) {
       console.error("Elemento do KPI de teste não encontrado!");
       return;
+
     }
 
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} testes`;
 
-    const indicador = kpiCard.querySelector(".indicator");
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} testes`;
+ const indicador = kpiCard.querySelector(".indicator");
+
     animarPercentual(indicador, percentualEvolucao);
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-
-    if (percentualEvolucao < 0) {
-      indicador.style.color = "green";
-    } else {
-      indicador.style.color = "";
-    }
   }
 
 function calcularRegressaoLinear(anos, valores) {
@@ -485,7 +538,7 @@ function atualizarProjecaoSoro(estadoVar) {
 
           const anosProjetados = [2024, 2025];
           const vendasProjetadas = anosProjetados.map((ano) =>
-          calcularProjecao(ano, regressao)
+          calcularProjecao(ano, regressao) *5
                   );
 
           console.log("Anos projetados: ", anosProjetados);
