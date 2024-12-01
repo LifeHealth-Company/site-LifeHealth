@@ -225,87 +225,75 @@
 <script src="./js/calendar.js"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    buscarEstadoEmpresa();
-    carregarMaioresAfetados();
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  buscarEstadoEmpresa();
+  carregarMaioresAfetados();
+  carregarTaxaDeIncidencia(sessionStorage.getItem("estadoAtual") || "BRASIL");
+});
 
-  function buscarEstadoEmpresa() {
-    const idEmpresa = sessionStorage.ID_EMPRESA;
+function buscarEstadoEmpresa() {
+  const idEmpresa = sessionStorage.ID_EMPRESA;
 
-    if (!idEmpresa || isNaN(idEmpresa)) {
-      console.error("ID da empresa não definido ou inválido.");
-      alert(
-        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
-      );
-      carregarEstadoNaInterface("BRASIL");
-      return;
-    }
-
-    document.querySelector("#search-btn").addEventListener("click", () => {
-      const estadoSelecionadoSigla =
-        document.querySelector("#modalEstado").value;
-      const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
-      sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
-      carregarEstadoNaInterface(estadoCompleto);
-    });
-
-    console.log("ID da empresa:", idEmpresa);
-
-    fetch(`/usuarios/${idEmpresa}`)
-      .then((resposta) => {
-        if (resposta.ok) {
-          return resposta.json();
-        } else {
-          throw "Erro ao buscar os dados da empresa.";
-        }
-      })
-      .then((dadosEmpresa) => {
-        console.log("Dados da empresa:", dadosEmpresa);
-
-        const estados = {
-          AL: "ALAGOAS",
-          AC: "ACRE",
-          AP: "AMAPÁ",
-          AM: "AMAZONAS",
-          BA: "BAHIA",
-          CE: "CEARÁ",
-          DF: "DISTRITO FEDERAL",
-          GO: "GOIÁS",
-          MA: "MARANHÃO",
-          MG: "MINAS GERAIS",
-          SP: "SÃO PAULO",
-          RS: "RIO GRANDE DO SUL",
-          SC: "SANTA CATARINA",
-          SE: "SERGIPE",
-          TO: "TOCANTINS",
-          MT: "MATO GROSSO",
-          PE: "PERNAMBUCO",
-          MS: "MATO GROSSO DO SUL",
-          PA: "PARÁ",
-          PR: "PARANÁ",
-          PI: "PIAUÍ",
-          PB: "PARAÍBA",
-        };
-        const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
-        const estadoCompleto = estados[estadoSigla] || estadoSigla;
-
-        const selectEstado = document.querySelector("#modalEstado");
-        const options = selectEstado.querySelectorAll("option");
-
-        options.forEach((option) => {
-          if (option.value === estadoSigla) {
-            option.selected = true;
-          }
-        });
-
-        carregarEstadoNaInterface(estadoCompleto);
-      })
-      .catch((erro) => {
-        console.error("#ERRO:", erro);
-        carregarEstadoNaInterface("BRASIL");
-      });
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    console.error("ID da empresa não definido ou inválido.");
+    alert(
+      "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
+    );
+    carregarEstadoNaInterface("BRASIL");
+    return;
   }
+
+  fetch(`/usuarios/${idEmpresa}`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar os dados da empresa.";
+      }
+    })
+    .then((dadosEmpresa) => {
+      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
+      sessionStorage.setItem("estadoAtual", estadoSigla);
+
+      const estadoCompleto = traduzirSiglaParaNome(estadoSigla);
+      carregarEstadoNaInterface(estadoCompleto);
+
+      carregarTaxaDeIncidencia(estadoSigla);
+    })
+    .catch((erro) => {
+      console.error("#ERRO:", erro);
+      carregarEstadoNaInterface("BRASIL");
+    });
+}
+
+function traduzirSiglaParaNome(sigla) {
+  const estados = {
+    AL: "ALAGOAS",
+    AC: "ACRE",
+    AP: "AMAPÁ",
+    AM: "AMAZONAS",
+    BA: "BAHIA",
+    CE: "CEARÁ",
+    DF: "DISTRITO FEDERAL",
+    GO: "GOIÁS",
+    MA: "MARANHÃO",
+    MG: "MINAS GERAIS",
+    SP: "SÃO PAULO",
+    RS: "RIO GRANDE DO SUL",
+    SC: "SANTA CATARINA",
+    SE: "SERGIPE",
+    TO: "TOCANTINS",
+    MT: "MATO GROSSO",
+    PE: "PERNAMBUCO",
+    MS: "MATO GROSSO DO SUL",
+    PA: "PARÁ",
+    PR: "PARANÁ",
+    PI: "PIAUÍ",
+    PB: "PARAÍBA",
+  };
+
+  return estados[sigla] || sigla;
+}
 
   function traduzirSiglaParaNome(sigla) {
     const estados = {
@@ -337,26 +325,28 @@
   }
 
   function carregarEstadoNaInterface(estado) {
-    const indicadorTitulo = document.querySelector(
-      ".indicatorTitle.estadoAtual"
-    );
+  const indicadorTitulo = document.querySelector(
+    ".indicatorTitle.estadoAtual"
+  );
 
-    if (indicadorTitulo) {
-      indicadorTitulo.textContent = estado;
-    } else {
-      console.error("Elemento para estado não encontrado na interface.");
-    }
+  if (indicadorTitulo) {
+    indicadorTitulo.textContent = estado;
+  } else {
+    console.error("Elemento para estado não encontrado na interface.");
   }
-
-  document.addEventListener("DOMContentLoaded", () => {
+}
+document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
   const openModalBtn = document.getElementById("open-modal-btn");
   const closeModalBtn = document.getElementById("close-modal");
   const searchBtn = document.getElementById("search-btn");
-  
-  buscarEstadoEmpresa
+
+  carregarCasosPorEstado(2021, 2023);
+  atualizarCasosPorRegiao(2021, 2023);
+
   openModalBtn.addEventListener("click", () => {
     modal.style.display = "flex";
+    modalEstadoSelect.value = estadoAtual;
   });
 
   closeModalBtn.addEventListener("click", () => {
@@ -372,25 +362,32 @@
   searchBtn.addEventListener("click", () => {
     const anoInicial = document.getElementById("modalAnoInicial").value;
     const anoFinal = document.getElementById("modalAnoFinal").value;
-    const estado = document.getElementById("modalEstado").value;
+    const siglaEstado = document.getElementById("modalEstado").value; 
 
     if (parseInt(anoFinal) <= parseInt(anoInicial)) {
       alert("O ano final não pode ser igual ou menor que o ano inicial.");
-      return; 
+      return;
     }
 
     document.getElementById("start-date").textContent = anoInicial;
     document.getElementById("end-date").textContent = anoFinal;
-    
+
+    const nomeEstado = traduzirSiglaParaNome(siglaEstado);
+
+    carregarEstadoNaInterface(nomeEstado);
+
     console.log("Ano Inicial:", anoInicial);
     console.log("Ano Final:", anoFinal);
-    console.log("Estado:", estado);
+    console.log("Estado:", siglaEstado);
 
-    carregarTaxaDeIncidencia(estado);
+    carregarTaxaDeIncidencia(siglaEstado); 
+    carregarCasosPorEstado(anoInicial, anoFinal);
+    atualizarCasosPorRegiao(anoInicial, anoFinal);
 
     modal.style.display = "none";
   });
 });
+
 
 function carregarTaxaDeIncidencia(estado) {
   fetch("/usuarios/taxa-incidencia", {
@@ -400,7 +397,7 @@ function carregarTaxaDeIncidencia(estado) {
     },
     body: JSON.stringify({
       anos: [2021, 2022, 2023],
-      estado: estado
+      estado: estado,
     }),
   })
     .then(function (resposta) {
@@ -410,8 +407,6 @@ function carregarTaxaDeIncidencia(estado) {
           const taxaIncidencia = dados.map((dado) =>
             parseFloat(dado.taxa_incidencia)
           );
-
-          console.log("Taxa de Incidência Calculada: ", taxaIncidencia);
 
           atualizarGraficoTaxaIncidencia(anos, taxaIncidencia);
         });
@@ -446,58 +441,54 @@ function atualizarGraficoTaxaIncidencia(anos, taxaIncidencia) {
     console.error("Gráfico não encontrado!");
   }
 }
-  carregarTaxaDeIncidencia();
-  atualizarCasosPorEstado2021();
   atualizarCasosPorAno();
-  atualizarCasosPorRegiao();
 
-  function atualizarCasosPorEstado2021() {
-    console.log("Atualizando casos de Dengue por estado no ano de 2021...");
+  function carregarCasosPorEstado(anoInicial, anoFinal) {
+  fetch("/usuarios/casosPorEstado", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      anoInicial: anoInicial,
+      anoFinal: anoFinal,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          const estados = [];
+          const casos = [];
 
-    fetch(`/usuarios/casosPorEstado`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ano: "2021",
-      }),
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dados) {
-            const estados = [];
-            const casos = [];
-
-            dados.forEach(function (dado) {
-              estados.push(dado.estadoNotificacao);
-              casos.push(dado.casos);
-            });
-
-            const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
-
-            const chart = Chart.getChart("country");
-            if (chart) {
-              chart.data.labels = dadosOrdenados.map(
-                (dado) => dado.estadoNotificacao
-              );
-              chart.data.datasets[0].data = dadosOrdenados.map(
-                (dado) => dado.casos
-              );
-              chart.update();
-              console.log("Gráfico de casos atualizado com sucesso!");
-            } else {
-              console.error("Gráfico não encontrado!");
-            }
+          dados.forEach(function (dado) {
+            estados.push(dado.estadoNotificacao);
+            casos.push(dado.casos);
           });
-        } else {
-          console.error("Erro ao buscar dados para os casos de dengue.");
-        }
-      })
-      .catch(function (erro) {
-        console.error("Erro na requisição de casos:", erro);
-      });
-  }
+
+          const dadosOrdenados = dados.sort((a, b) => a.casos - b.casos);
+
+          const chart = Chart.getChart("country");
+          if (chart) {
+            chart.data.labels = dadosOrdenados.map(
+              (dado) => dado.estadoNotificacao
+            );
+            chart.data.datasets[0].data = dadosOrdenados.map(
+              (dado) => dado.casos
+            );
+            chart.update();
+            console.log("Gráfico de casos atualizado com sucesso!");
+          } else {
+            console.error("Gráfico não encontrado!");
+          }
+        });
+      } else {
+        console.error("Erro ao buscar dados para os casos de dengue.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de casos:", erro);
+    });
+}
 
   function atualizarCasosPorAno() {
     console.log("Atualizando casos de Dengue por ano...");
@@ -545,101 +536,102 @@ function atualizarGraficoTaxaIncidencia(anos, taxaIncidencia) {
       });
   }
 
-  function atualizarCasosPorRegiao() {
-    fetch(`/usuarios/casosPorRegiao`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ano: "2023",
-      }),
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dados) {
-            console.log("Dados recebidos:", dados);
+  function atualizarCasosPorRegiao(anoInicial, anoFinal) {
+  fetch(`/usuarios/casosPorRegiao`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      anoInicial: anoInicial,
+      anoFinal: anoFinal,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          console.log("Dados recebidos:", dados);
 
-            const estadosPorRegiao = {
-              Sudeste: [
-                "São Paulo",
-                "Minas Gerais",
-                "Espírito Santo",
-                "Rio de Janeiro",
-              ],
-              Sul: ["Paraná", "Santa Catarina", "Rio Grande do Sul"],
-              "Centro Oeste": ["Mato Grosso do Sul", "Goiás", "Mato Grosso"],
-              Nordeste: [
-                "Maranhão",
-                "Pernambuco",
-                "Piauí",
-                "Paraíba",
-                "Bahia",
-                "Alagoas",
-                "Sergipe",
-                "Ceará",
-                "Rio Grande do Norte",
-                "São Luís",
-                "Ceará",
-              ],
-              Norte: [
-                "Pará",
-                "Amazonas",
-                "Acre",
-                "Rondônia",
-                "Roraima",
-                "Tocantins",
-                "Amapá",
-              ],
-              Outros: [],
-            };
+          const estadosPorRegiao = {
+            Sudeste: [
+              "São Paulo",
+              "Minas Gerais",
+              "Espírito Santo",
+              "Rio de Janeiro",
+            ],
+            Sul: ["Paraná", "Santa Catarina", "Rio Grande do Sul"],
+            "Centro Oeste": ["Mato Grosso do Sul", "Goiás", "Mato Grosso"],
+            Nordeste: [
+              "Maranhão",
+              "Pernambuco",
+              "Piauí",
+              "Paraíba",
+              "Bahia",
+              "Alagoas",
+              "Sergipe",
+              "Ceará",
+              "Rio Grande do Norte",
+              "São Luís",
+              "Ceará",
+            ],
+            Norte: [
+              "Pará",
+              "Amazonas",
+              "Acre",
+              "Rondônia",
+              "Roraima",
+              "Tocantins",
+              "Amapá",
+            ],
+            Outros: [],
+          };
 
-            const regioes = [];
-            const casosPorRegiao = [];
+          const regioes = [];
+          const casosPorRegiao = [];
 
-            const casosAgrupadosPorRegiao = {};
+          const casosAgrupadosPorRegiao = {};
 
-            dados.forEach(function (dado) {
-              const estado = dado.estadoNotificacao;
-              const casos = dado.quantidadeCasos;
+          dados.forEach(function (dado) {
+            const estado = dado.estadoNotificacao;
+            const casos = dado.quantidadeCasos;
 
-              for (const regiao in estadosPorRegiao) {
-                if (estadosPorRegiao[regiao].includes(estado)) {
-                  if (!casosAgrupadosPorRegiao[regiao]) {
-                    casosAgrupadosPorRegiao[regiao] = 0;
-                  }
-                  casosAgrupadosPorRegiao[regiao] += casos;
-                  break;
+            for (const regiao in estadosPorRegiao) {
+              if (estadosPorRegiao[regiao].includes(estado)) {
+                if (!casosAgrupadosPorRegiao[regiao]) {
+                  casosAgrupadosPorRegiao[regiao] = 0;
                 }
+                casosAgrupadosPorRegiao[regiao] += casos;
+                break;
               }
-            });
-
-            for (const regiao in casosAgrupadosPorRegiao) {
-              regioes.push(regiao);
-              casosPorRegiao.push(casosAgrupadosPorRegiao[regiao]);
-            }
-
-            console.log("Regiões:", regioes);
-            console.log("Casos por Região:", casosPorRegiao);
-
-            const chart = Chart.getChart("regions");
-            if (chart) {
-              chart.data.labels = regioes;
-              chart.data.datasets[0].data = casosPorRegiao;
-              chart.update();
-              console.log(
-                "Gráfico de casos por região atualizado com sucesso!"
-              );
-            } else {
-              console.error("Gráfico não encontrado!");
             }
           });
-        } else {
-          console.error("Erro ao buscar dados para os casos por região.");
-        }
-      })
-      .catch(function (erro) {
-        console.error("Erro na requisição de casos:", erro);
-      });
-  }
+
+          for (const regiao in casosAgrupadosPorRegiao) {
+            regioes.push(regiao);
+            casosPorRegiao.push(casosAgrupadosPorRegiao[regiao]);
+          }
+
+          console.log("Regiões:", regioes);
+          console.log("Casos por Região:", casosPorRegiao);
+
+          const chart = Chart.getChart("regions");
+          if (chart) {
+            chart.data.labels = regioes;
+            chart.data.datasets[0].data = casosPorRegiao;
+            chart.update();
+            console.log(
+              "Gráfico de casos por região atualizado com sucesso!"
+            );
+          } else {
+            console.error("Gráfico não encontrado!");
+          }
+        });
+      } else {
+        console.error("Erro ao buscar dados para os casos por região.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de casos:", erro);
+    });
+}
 </script>

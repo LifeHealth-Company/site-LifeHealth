@@ -295,17 +295,15 @@ function carregarTaxaDeIncidencia(anos, estado) {
 }
 
   
-function carregarCasosPorEstado(ano) {
-  console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por estado no ano ${ano}.`);
-
-  const anoString = `'${ano}'`;
+function carregarCasosPorEstado(anoInicial, anoFinal) {
+  console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por estado no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
     SELECT 
       c.estadoNotificacao, 
       COUNT(c.idCaso) AS casos
     FROM Casos c
-    WHERE c.ano = ${anoString}
+    WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
     GROUP BY c.estadoNotificacao
     ORDER BY casos ASC;
   `;
@@ -348,38 +346,26 @@ function carregarCasosPorAno(anos) {
   });
 }
 
-function carregarCasosPorRegiao(ano) {
-  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos por região.");
-
-  if (!ano) {
-    throw new Error("Ano não foi informado.");
-  }
-
-  const anoString = `'${ano}'`;
+function carregarCasosPorRegiao(anoInicial, anoFinal) {
+  console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por região no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
-      SELECT 
-          c.estadoNotificacao, 
-          COUNT(c.idCaso) AS quantidadeCasos
-      FROM Casos c
-      WHERE c.ano = ${anoString}
-      GROUP BY c.estadoNotificacao
-      ORDER BY quantidadeCasos DESC;
+    SELECT 
+      c.estadoNotificacao, 
+      COUNT(c.idCaso) AS quantidadeCasos
+    FROM Casos c
+    WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
+    GROUP BY c.estadoNotificacao
+    ORDER BY quantidadeCasos ASC;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-
+  
   return database.executar(instrucaoSql).then((resultado) => {
-    console.log("Resultado da consulta:", resultado); 
-
     if (!resultado || resultado.length === 0) {
-      throw new Error("Nenhum dado encontrado para os casos por região.");
+      throw new Error("Nenhum dado encontrado.");
     }
-
     return resultado;
-  }).catch(function (erro) {
-    console.error("Erro ao executar a consulta:", erro);
-    throw new Error("Erro ao buscar dados de casos por região.");
   });
 }
 
@@ -404,6 +390,6 @@ module.exports = {
   carregarTaxaDeIncidencia,
   carregarCasosPorEstado,
   carregarCasosPorAno,
-  carregarCasosPorRegiao
-
+  carregarCasosPorRegiao,
+  buscarFuncionarioPorId
 };

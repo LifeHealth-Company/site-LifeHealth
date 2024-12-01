@@ -453,13 +453,13 @@ function carregarTaxaDeIncidencia(req, res) {
     });
 }
 function carregarCasosPorEstado(req, res) {
-  const ano = req.body.ano;
+  const { anoInicial, anoFinal } = req.body;
 
-  if (!ano) {
-    return res.status(400).send("O ano é obrigatório.");
+  if (!anoInicial || !anoFinal) {
+    return res.status(400).send("Os anos de início e fim são obrigatórios.");
   }
 
-  usuarioModel.carregarCasosPorEstado(ano)
+  usuarioModel.carregarCasosPorEstado(anoInicial, anoFinal)
     .then(function (resultados) {
       if (resultados.length > 0) {
         const casosPorEstado = resultados.map((registro) => ({
@@ -469,7 +469,7 @@ function carregarCasosPorEstado(req, res) {
 
         res.json(casosPorEstado);
       } else {
-        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o ano " + ano);
+        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o período selecionado.");
       }
     })
     .catch(function (erro) {
@@ -507,28 +507,30 @@ function carregarCasosPorAno(req, res) {
 }
 
 function carregarCasosPorRegiao(req, res) {
-  const ano = req.body.ano; 
+  const { anoInicial, anoFinal } = req.body;
 
-  if (!ano) {
-    return res.status(400).send("Ano não foi informado.");
+  if (!anoInicial || !anoFinal) {
+    return res.status(400).send("Os anos de início e fim são obrigatórios.");
   }
 
-  usuarioModel.carregarCasosPorRegiao(ano)
+  usuarioModel.carregarCasosPorRegiao(anoInicial, anoFinal)
     .then(function (resultados) {
-      console.log("Resultados obtidos:", resultados);
-
       if (resultados.length > 0) {
-        res.json(resultados);
+        const casosPorRegiao = resultados.map((registro) => ({
+          estadoNotificacao: registro.estadoNotificacao,
+          quantidadeCasos: registro.quantidadeCasos,
+        }));
+
+        res.json(casosPorRegiao);
       } else {
-        res.status(404).send("Nenhum dado encontrado para os casos por região.");
+        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o período selecionado.");
       }
     })
     .catch(function (erro) {
-      console.error("Erro na busca de dados:", erro);
-      res.status(500).send("Erro ao buscar dados de casos por região.");
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de casos de Dengue.");
     });
 }
-
 
 module.exports = {
   autenticar,
