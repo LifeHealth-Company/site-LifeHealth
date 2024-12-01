@@ -2,6 +2,67 @@ var usuarioModel = require("../models/usuarioModel");
 const express = require("express");
 const router = express.Router();
 
+function estadosMaisAfetados(req, res) {
+    const ano = req.query.ano;
+    // Busca os estados mais afetados e o crescimento em paralelo
+    Promise.all([
+        usuarioModel.obterEstadosMaisAfetados(ano),
+        usuarioModel.calcularCrescimentoEstados(ano)
+    ])
+    .then(([estadosAfetados, crescimentoEstados]) => {
+        // Combina os dados de estados afetados e crescimento
+        const resultado = estadosAfetados.map(estado => {
+            const crescimento = crescimentoEstados.find(c => c.estado === estado.estado);
+            return {
+                ...estado,
+                crescimento: crescimento ? crescimento.crescimento : 0 // Se não houver dados de crescimento, define como 0
+            };
+        });
+
+        res.json(resultado);
+    })
+    .catch(erro => {
+        console.error("Erro ao buscar estados mais afetados:", erro);
+        res.status(500).send("Erro ao buscar estados mais afetados.");
+    });
+}
+
+
+function obterTotalCasosBrasil(req, res) {
+  usuarioModel.obterTotalCasosBrasil()
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar total de casos no Brasil.");
+    });
+}
+
+function crescimentoCasosBrasil(anoAnterior, anoAtual, res) {
+  usuarioModel.crescimentoCasosBrasil(anoAnterior, anoAtual)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao calcular crescimento de casos no Brasil.");
+    });
+}
+
+
+function obterMaioresAfetados(req, res) {
+  usuarioModel.maioresAfetados()
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar maiores afetados.");
+    });
+}
+
+
 function autenticar(req, res) {
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
@@ -552,5 +613,11 @@ module.exports = {
   carregarTaxaDeIncidencia,
   carregarCasosPorEstado,
   carregarCasosPorAno,
-  carregarCasosPorRegiao
+  carregarCasosPorRegiao,
+
+  obterTotalCasosBrasil,
+  crescimentoCasosBrasil,
+  obterMaioresAfetados,
+
+  estadosMaisAfetados
 };
