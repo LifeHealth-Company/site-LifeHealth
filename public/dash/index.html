@@ -1,31 +1,146 @@
 <!DOCTYPE html>
 <html lang="pt">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Farmacêutico</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href=".././assets/icon/mini.svg" />
-</head>
+  <body>
+    <div id="menu-container"></div>
+    <div class="header">
+      <h1>
+        Média da Evolução Anual da Demanda
+        <span class="indicatorTitle estadoAtual">BRASIL</span>
+      </h1>
+      <div class="calendar">
+        <div class="timeIndicator">
+          <span class="startEnd">De</span>
+          <span class="date" id="start-date">2021</span>
+        </div>
+        <img src="../assets/icon/longArrow.svg" class="arrow" />
+        <div class="timeIndicator">
+          <span class="startEnd">Até</span>
+          <span class="date" id="end-date">2022</span>
+        </div>
 
-<body>
-  <div id="menu-container"></div>
-  <div class="header">
-    <h1>Média da Evolução Anual da Demanda <span class="indicatorTitle estadoAtual">BRASIL</span></h1>
-    <div class="calendar">
-      <div class="timeIndicator">
-        <span class="startEnd">De</span>
-        <span class="date" id="start-date">2021</span>
+        <img
+          src="../assets/icon/calender.svg"
+          class="iconCalendar"
+          id="open-modal-btn"
+        />
       </div>
-      <img src="../assets/icon/longArrow.svg" class="arrow" />
-      <div class="timeIndicator">
-        <span class="startEnd">Até</span>
-        <span class="date" id="end-date">2022</span>
+    </div>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="close-modal" class="close-btn">&times;</span>
+        <h2>Filtrar Dados</h2>
+        <div class="modal-input">
+          <label for="modalAnoInicial">Ano Inicial:</label>
+          <select id="modalAnoInicial">
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+        <div class="modal-input">
+          <label for="modalAnoFinal">Ano Final:</label>
+          <select id="modalAnoFinal">
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+        <div class="modal-input">
+          <label for="modalEstado">Estado:</label>
+          <select id="modalEstado">
+            <option value="AL">Alagoas</option>
+            <option value="AC">Acre</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="SP">São Paulo</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="PE">Pernambuco</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="PA">Pará</option>
+            <option value="PR">Paraná</option>
+            <option value="PI">Piauí</option>
+            <option value="PB">Paraíba</option>
+          </select>
+        </div>
+        <button id="search-btn">Pesquisar</button>
       </div>
-
-      <img src="../assets/icon/calender.svg" class="iconCalendar" id="open-modal-btn" />
-
+    </div>
+    <div class="header-container">
+      <div class="kpi" id="kpi-soro">
+        <h4>Soro</h4>
+        <p>0 sachês</p>
+        <span class="indicator up" data-valor-atual="0">0%</span>
+      </div>
+      <div class="kpi" id="kpi-repelente">
+        <h4>Repelentes</h4>
+        <p>0 repelentes</p>
+        <span class="indicator up" data-valor-atual="0">0%</span>
+      </div>
+      <div class="kpi" id="kpi-paracetamol">
+        <h4>Paracetamol</h4>
+        <p>0 milhões casos</p>
+        <span class="indicator up">0%</span>
+      </div>
+      <div class="kpi" id="kpi-teste">
+        <h4>Testes</h4>
+        <p>0 milhões casos</p>
+        <span class="indicator up">0%</span>
+      </div>
+    </div>
+    <div class="charts-container">
+      <div class="chart-group">
+        <!-- Grupo de gráficos à esquerda -->
+        <div class="lineChart">
+          <div class="chartHeader">
+            <p>Projeção de Consumo de Repelentes Por Ano</p>
+          </div>
+          <div class="chart">
+            <canvas id="state1"></canvas>
+          </div>
+        </div>
+        <div class="lineChart">
+          <div class="chartHeader">
+            <p>Projeção de Consumo de Soro Por Ano</p>
+            <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
+          </div>
+          <div class="chart">
+            <canvas id="state2"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="chart-group">
+        <!-- Grupo de gráficos à direita -->
+        <div class="lineChart">
+          <div class="chartHeader">
+            <p>Projeção de Consumo de Testes Diagnósticos Por Ano</p>
+            <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
+          </div>
+          <div class="chart">
+            <canvas id="state3"></canvas>
+          </div>
+        </div>
+        <div class="lineChart">
+          <div class="chartHeader">
+            <p>Projeção de Consumo de Paracetamol Por Ano</p>
+            <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
+          </div>
+          <div class="chart">
+            <canvas id="state4"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Modal -->
@@ -154,9 +269,15 @@
 <script src="./main.js"></script>
 
 <script>
+<<<<<<< HEAD
 
   function animarPercentual(element, valorFinal, duracao = 1000) {
     const valorInicial = parseFloat(element.getAttribute("data-valor-atual")) || 0;
+=======
+  function animarPercentual(element, valorFinal, duracao = 1000) {
+    const valorInicial =
+      parseFloat(element.getAttribute("data-valor-atual")) || 0;
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
     element.setAttribute("data-valor-atual", valorFinal.toFixed(2));
 
@@ -166,7 +287,14 @@
     function atualizar() {
       valorAtual += incremento;
 
+<<<<<<< HEAD
       if ((incremento > 0 && valorAtual >= valorFinal) || (incremento < 0 && valorAtual <= valorFinal)) {
+=======
+      if (
+        (incremento > 0 && valorAtual >= valorFinal) ||
+        (incremento < 0 && valorAtual <= valorFinal)
+      ) {
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
         element.textContent = `${valorFinal.toFixed(2)}%`;
       } else {
         element.textContent = `${valorAtual.toFixed(2)}%`;
@@ -182,19 +310,34 @@
 
     if (!idEmpresa || isNaN(idEmpresa)) {
       console.error("ID da empresa não definido ou inválido.");
+<<<<<<< HEAD
       alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+=======
+      alert(
+        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
+      );
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
       carregarEstadoNaInterface("BRASIL");
       return;
     }
 
     document.querySelector("#search-btn").addEventListener("click", () => {
+<<<<<<< HEAD
       const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
+=======
+      const estadoSelecionadoSigla =
+        document.querySelector("#modalEstado").value;
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
       const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
       sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
       carregarEstadoNaInterface(estadoCompleto);
       atualizarProjecaoSoro(estadoSelecionadoSigla);
+<<<<<<< HEAD
       atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla)
 
+=======
+      atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla);
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     });
 
     console.log("ID da empresa:", idEmpresa);
@@ -211,6 +354,7 @@
         console.log("Dados da empresa:", dadosEmpresa);
 
         const estados = {
+<<<<<<< HEAD
           "AL": "Alagoas",
           "AC": "Acre",
           "AP": "Amapá",
@@ -233,6 +377,30 @@
           "PR": "Paraná",
           "PI": "Piauí",
           "PB": "Paraíba"
+=======
+          AL: "(Alagoas)",
+          AC: "(Acre)",
+          AP: "(Amapá)",
+          AM: "(Amazonas)",
+          BA: "(Bahia)",
+          CE: "(Ceará)",
+          DF: "(Distrito Federal)",
+          GO: "(Goiás)",
+          MA: "(Maranhão)",
+          MG: "(Minas Gerais)",
+          SP: "(São Paulo)",
+          RS: "(Rio Grande do Sul)",
+          SC: "(Santa Catarina)",
+          SE: "(Sergipe)",
+          TO: "(Tocantins)",
+          MT: "(Mato Grosso)",
+          PE: "(Pernambuco)",
+          MS: "(Mato Grosso do Sul)",
+          PA: "(Pará)",
+          PR: "(Paraná)",
+          PI: "(Piauí)",
+          PB: "(Paraíba)",
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
         };
 
         const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
@@ -241,7 +409,11 @@
         const selectEstado = document.querySelector("#modalEstado");
         const options = selectEstado.querySelectorAll("option");
 
+<<<<<<< HEAD
         options.forEach(option => {
+=======
+        options.forEach((option) => {
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
           if (option.value === estadoSigla) {
             option.selected = true;
           }
@@ -252,7 +424,11 @@
         atualizarProjecaoRepelentes(estadoSigla);
         atualizarProjecaoTestes(estadoSigla);
         atualizarProjecaoSoro(estadoSigla);
+<<<<<<< HEAD
         atualizarPrevisaoDemandaParacetamol(estadoSigla)
+=======
+        atualizarPrevisaoDemandaParacetamol(estadoSigla);
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
       })
       .catch((erro) => {
         console.error("#ERRO:", erro);
@@ -262,6 +438,7 @@
 
   function traduzirSiglaParaNome(sigla) {
     const estados = {
+<<<<<<< HEAD
       "AL": "Alagoas",
       "AC": "Acre",
       "AP": "Amapá",
@@ -284,28 +461,66 @@
       "PR": "Paraná",
       "PI": "Piauí",
       "PB": "Paraíba"
+=======
+      AL: "(Alagoas)",
+      AC: "(Acre)",
+      AP: "(Amapá)",
+      AM: "(Amazonas)",
+      BA: "(Bahia)",
+      CE: "(Ceará)",
+      DF: "(Distrito Federal)",
+      GO: "(Goiás)",
+      MA: "(Maranhão)",
+      MG: "(Minas Gerais)",
+      SP: "(São Paulo)",
+      RS: "(Rio Grande do Sul)",
+      SC: "(Santa Catarina)",
+      SE: "(Sergipe)",
+      TO: "(Tocantins)",
+      MT: "(Mato Grosso)",
+      PE: "(Pernambuco)",
+      MS: "(Mato Grosso do Sul)",
+      PA: "(Pará)",
+      PR: "(Paraná)",
+      PI: "(Piauí)",
+      PB: "(Paraíba)",
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     };
 
     return estados[sigla] || sigla;
   }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
   document.addEventListener("DOMContentLoaded", () => {
     buscarEstadoEmpresa();
   });
 
+<<<<<<< HEAD
 
   function carregarEstadoNaInterface(estado) {
     const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
 
+=======
+  function carregarEstadoNaInterface(estado) {
+    const indicadorTitulo = document.querySelector(
+      ".indicatorTitle.estadoAtual"
+    );
+
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     if (indicadorTitulo) {
       indicadorTitulo.textContent = estado;
     } else {
       console.error("Elemento para estado não encontrado na interface.");
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
   function atualizarProjecaoRepelentes(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
@@ -324,6 +539,7 @@
           resposta.json().then(function (dados) {
             var anos = [];
             var casos = [];
+<<<<<<< HEAD
             dados.forEach(function (dado) {
               anos.push(dado.ano);
               casos.push(dado.quantidade);
@@ -338,11 +554,39 @@
             const casos2025 = calcularProjecao(2025, regressao);
             anos.push(2025);
             casos.push(casos2025);
+=======
+            var cores = [];
+
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              casos.push(dado.quantidade);
+              cores.push("#75A8E1");
+            });
+
+            const regressao = calcularRegressaoLinear(anos, casos);
+
+            const casos2024 = calcularProjecao(2024, regressao) * 3;
+            anos.push(2024);
+            casos.push(casos2024);
+            cores.push("#193D65");
+
+            const casos2025 = calcularProjecao(2025, regressao) * 2;
+            anos.push(2025);
+            casos.push(casos2025);
+            cores.push("#193D65");
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
             const chart = Chart.getChart("state1");
             if (chart) {
               chart.data.labels = anos;
+<<<<<<< HEAD
               chart.data.datasets[0].data = casos;
+=======
+
+              chart.data.datasets[0].data = casos;
+              chart.data.datasets[0].backgroundColor = cores;
+
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
               chart.update();
               console.log("Gráfico de repelentes atualizado com sucesso!");
             } else {
@@ -350,7 +594,13 @@
             }
           });
         } else {
+<<<<<<< HEAD
           console.log("Erro ao buscar dados de casos para o estado selecionado.");
+=======
+          console.log(
+            "Erro ao buscar dados de casos para o estado selecionado."
+          );
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
         }
       })
       .catch(function (erro) {
@@ -358,10 +608,16 @@
       });
   }
 
+<<<<<<< HEAD
 
   function atualizarPrevisaoDemandaParacetamol(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
 
+=======
+  function atualizarPrevisaoDemandaParacetamol(estadoVar) {
+    console.log("Estado selecionado: ", estadoVar);
+
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     fetch(`/usuarios/casos`, {
       method: "POST",
       headers: {
@@ -376,6 +632,7 @@
           resposta.json().then(function (dados) {
             var anos = [];
             var casos = [];
+<<<<<<< HEAD
             dados.forEach(function (dado) {
               anos.push(dado.ano);
               casos.push(dado.quantidade);
@@ -409,8 +666,55 @@
         console.log("Erro na requisição de paracetamol:", erro);
       });
   }
+=======
+            var cores = [];
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              casos.push(dado.quantidade);
+              cores.push("#75A8E1");
+            });
 
+<<<<<<< HEAD
+=======
+            const regressao = calcularRegressaoLinear(anos, casos);
+
+            const casos2024 = calcularProjecao(2024, regressao) * 4;
+            anos.push(2024);
+            casos.push(casos2024);
+            cores.push("#193D65");
+
+            const casos2025 = calcularProjecao(2025, regressao) * 2;
+            anos.push(2025);
+            casos.push(casos2025);
+            cores.push("#193D65");
+
+            const chart = Chart.getChart("state4");
+            if (chart) {
+              chart.data.labels = anos;
+
+              chart.data.datasets[0].data = casos;
+              chart.data.datasets[0].backgroundColor = cores;
+
+              chart.update();
+              console.log("Gráfico de paracetamol atualizado com sucesso!");
+            } else {
+              console.error("Gráfico de paracetamol não encontrado!");
+            }
+          });
+        } else {
+          console.log(
+            "Erro ao buscar dados de casos para o estado selecionado."
+          );
+        }
+      })
+      .catch(function (erro) {
+        console.log("Erro na requisição de paracetamol:", erro);
+      });
+  }
+
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
   function calcularMediaParacetamol(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
     const totalParacetamol = totalCasos * 3;
@@ -426,7 +730,11 @@
     const primeiroAnoParacetamol = primeiroAnoCasos;
     const ultimoAnoParacetamol = ultimoAnoCasos;
 
-    return ((ultimoAnoParacetamol - primeiroAnoParacetamol) / primeiroAnoParacetamol) * 100;
+    return (
+      ((ultimoAnoParacetamol - primeiroAnoParacetamol) /
+        primeiroAnoParacetamol) *
+      100
+    );
   }
 
   function atualizarKPICardParacetamol(mediaDemanda, percentualEvolucao) {
@@ -436,8 +744,9 @@
       return;
     }
 
-
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} paracetamóis`;
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
+      2
+    )} paracetamóis`;
 
     const indicador = kpiCard.querySelector(".indicator");
 
@@ -445,9 +754,13 @@
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
+<<<<<<< HEAD
 
   }
 
+=======
+  }
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
   function calcularMediaTeste(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -472,11 +785,16 @@
     if (!kpiCard) {
       console.error("Elemento do KPI de teste não encontrado!");
       return;
-
     }
 
+<<<<<<< HEAD
 
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} testes`;
+=======
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
+      2
+    )} testes`;
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     const indicador = kpiCard.querySelector(".indicator");
 
     animarPercentual(indicador, percentualEvolucao);
@@ -508,8 +826,34 @@
     const projRegressao = Math.round(regressao.m * ano + regressao.b);
     return projRegressao;
   }
+<<<<<<< HEAD
+=======
 
+  function atualizarProjecaoSoro(estadoVar) {
+    console.log("Estado selecionado: ", estadoVar);
 
+    fetch(`/usuarios/testes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var vendas = [];
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
+
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              vendas.push(dado.quantidade);
+            });
+
+<<<<<<< HEAD
   function atualizarProjecaoSoro(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
 
@@ -553,6 +897,28 @@
             if (chart) {
               chart.data.labels = todosAnos;
 
+=======
+            console.log("Anos reais recebidos: ", anos);
+            console.log("Vendas reais: ", vendas);
+
+            const regressao = calcularRegressaoLinear(anos, vendas);
+
+            const anosProjetados = [2024, 2025];
+            const vendasProjetadas = anosProjetados.map(
+              (ano) => calcularProjecao(ano, regressao) * 5
+            );
+
+            console.log("Anos projetados: ", anosProjetados);
+            console.log("Vendas projetadas: ", vendasProjetadas);
+
+            const todosAnos = [...anos, ...anosProjetados];
+            const todasVendas = [...vendas, ...vendasProjetadas];
+
+            const chart = Chart.getChart("state2");
+            if (chart) {
+              chart.data.labels = todosAnos;
+
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
               chart.data.datasets = [
                 {
                   label: "Quantidade de soro vendidos (Dados reais)",
@@ -622,8 +988,13 @@
             const regressao = calcularRegressaoLinear(anos, vendas);
 
             const anosProjetados = [2024, 2025];
+<<<<<<< HEAD
             const vendasProjetadas = anosProjetados.map((ano) =>
               calcularProjecao(ano, regressao)
+=======
+            const vendasProjetadas = anosProjetados.map(
+              (ano) => calcularProjecao(ano, regressao) * 2
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
             );
 
             console.log("Anos projetados: ", anosProjetados);
@@ -660,6 +1031,7 @@
                   borderDash: [5, 5],
                 },
               ];
+<<<<<<< HEAD
 
               chart.update();
               console.log("Gráfico atualizado com sucesso!");
@@ -676,7 +1048,23 @@
       });
   }
 
+=======
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
+              chart.update();
+              console.log("Gráfico atualizado com sucesso!");
+            } else {
+              console.error("Gráfico não encontrado!");
+            }
+          });
+        } else {
+          console.error("Erro ao buscar dados para o estado.");
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro na requisição de testes:", erro);
+      });
+  }
 
   function atualizarKPI(estadoVar) {
     const estadoElement = document.getElementById("modalEstado");
@@ -722,12 +1110,18 @@
           console.log("Dados recebidos:", dados);
 
           const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
+<<<<<<< HEAD
           const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
+=======
+          const percentualEvolucaoRepelente =
+            calcularPercentualEvolucaoRepelente(dados);
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
           const mediaDemandaSoro = calcularMediaDemanda(dados);
           const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
 
           const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
+<<<<<<< HEAD
           const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
 
           const mediaDemandaTeste = calcularMediaTeste(dados);
@@ -736,6 +1130,24 @@
           atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
           atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
           atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
+=======
+          const percentualEvolucaoParacetamol =
+            calcularPercentualEvolucaoParacetamol(dados);
+
+          const mediaDemandaTeste = calcularMediaTeste(dados);
+          const percentualEvolucaoTeste =
+            calcularPercentualEvolucaoTeste(dados);
+
+          atualizarKPIRepelente(
+            mediaDemandaRepelente,
+            percentualEvolucaoRepelente
+          );
+          atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
+          atualizarKPICardParacetamol(
+            mediaDemandaParacetamol,
+            percentualEvolucaoParacetamol
+          );
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
           atualizarKPICardTeste(mediaDemandaTeste, percentualEvolucaoTeste);
         }
       })
@@ -754,7 +1166,8 @@
     const primeiroAnoCasos = dados[0].quantidade;
     const ultimoAnoCasos = dados[dados.length - 1].quantidade;
 
-    const percentualEvolucao = ((ultimoAnoCasos - primeiroAnoCasos) / primeiroAnoCasos) * 100;
+    const percentualEvolucao =
+      ((ultimoAnoCasos - primeiroAnoCasos) / primeiroAnoCasos) * 100;
 
     return percentualEvolucao;
   }
@@ -766,7 +1179,9 @@
       return;
     }
 
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} sachês de soro`;
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
+      2
+    )} sachês de soro`;
 
     const indicador = kpiCard.querySelector(".indicator");
 
@@ -782,7 +1197,9 @@
       console.error("Elemento do KPI de repelentes não encontrado!");
       return;
     }
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} repelentes`;
+    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
+      2
+    )} repelentes`;
 
     const indicador = kpiCard.querySelector(".indicator");
 
@@ -811,6 +1228,7 @@
 
   atualizarKPI();
   atualizarKPICard(150.35, 12.78);
+<<<<<<< HEAD
   setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
 
   atualizarKPIRepelente(75.50, -8.45);
@@ -821,6 +1239,20 @@
 
   atualizarKPICardTeste(75.50, -8.45);
   setTimeout(() => atualizarKPICardTeste(80.00, -3.25), 2000);
+=======
+  setTimeout(() => atualizarKPICard(160.5, 20.45), 2000);
 
+  atualizarKPIRepelente(75.5, -8.45);
+  setTimeout(() => atualizarKPIRepelente(80.0, -3.25), 2000);
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
+  atualizarKPICardParacetamol(75.5, -8.45);
+  setTimeout(() => atualizarKPICardParacetamol(80.0, -3.25), 2000);
+
+<<<<<<< HEAD
 </script>
+=======
+  atualizarKPICardTeste(75.5, -8.45);
+  setTimeout(() => atualizarKPICardTeste(80.0, -3.25), 2000);
+</script>
+>>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
