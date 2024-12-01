@@ -1,3 +1,13 @@
+let dados2021 = []
+let dados2022 = []
+let dados2023 = []
+let dados2024 = []
+let dados2025 = []
+
+let dadosCura2021 = []
+let dadosCura2022 = []
+let dadosCura2023 = []
+let searchState = false
 const modal = document.querySelector('#modal')
 const valorIncidencia = document.querySelector('#valorIncidencia')
 const valorCrescimento = document.querySelector('#valorCrescimento')
@@ -6,6 +16,7 @@ const valorCasos = document.querySelector('#valorCasos')
 const curaIcon = document.querySelector('#curaIcon')
 const casosIcon = document.querySelector('#casosIcon')
 const crescimentoIcon = document.querySelector('#crescimentoIcon')
+const state = document.querySelector('#state')
 
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
@@ -27,154 +38,229 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-    searchBtn.addEventListener("click", () => {
-      const anoInicial = document.getElementById("modalAnoInicial").value;
-      const anoFinal = document.getElementById("modalAnoFinal").value;
-      const estado = document.getElementById("modalEstado").value;
+  searchBtn.addEventListener("click", () => {
+    const anoInicial = document.getElementById("modalAnoInicial").value;
+    const anoFinal = document.getElementById("modalAnoFinal").value;
+    const estado = document.getElementById("modalEstado").value;
 
-      if (parseInt(anoFinal) <= parseInt(anoInicial)) {
-        alert("O ano final não pode ser igual ou menor que o ano inicial.");
-        return; 
+    if (parseInt(anoFinal) <= parseInt(anoInicial)) {
+      alert("O ano final não pode ser igual ou menor que o ano inicial.");
+      return;
     }
 
-      document.getElementById("start-date").textContent = anoInicial;
-      document.getElementById("end-date").textContent = anoFinal;
-
-      buscarPopulacao(parseInt(anoInicial), parseInt(anoFinal));
-      buscarCasosCurados(parseInt(anoInicial), parseInt(anoFinal));
-      calcularDiferencaSoro(parseInt(anoInicial), parseInt(anoFinal));
-      modal.style.display = "none";
-    });
+    document.getElementById("start-date").textContent = anoInicial;
+    document.getElementById("end-date").textContent = anoFinal;
+    buscarCasos(estado)
+    searchState = true
+    buscarPopulacao(parseInt(anoInicial), parseInt(anoFinal), estado);
+    buscarCasosCurados(parseInt(anoInicial), parseInt(anoFinal), estado);
+    calcularDiferencaSoro(parseInt(anoInicial), parseInt(anoFinal));
+    
+    modal.style.display = "none";
+  });
 });
 
-let dados2021 = []
-let dados2022 = []
-let dados2023 = []
-let dados2024 = []
-let dados2025 = []
-
-let dadosCura2021 = []
-let dadosCura2022 = []
-let dadosCura2023 = []
+let lineforecastOfIncreaseInCasesChart;
+let linePredictedSerumUseChart;
+let lineBedEstimateForNextYearChart;
+let linePercentageOfBedOccupancyInRelationToTheLastYearChart;
 
 
 
-fetch(`/usuarios/buscarCasosPorEstado/${"São Paulo"}`, {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-})
-  .then((resposta) => {
-    if (resposta.ok) {
-      return resposta.json();
-    } else {
-      console.error("Erro ao buscar dados da demanda.");
-      return null;
-    }
+buscarEstadoEmpresa()
+function buscarEstadoEmpresa() {
+  const idEmpresa = sessionStorage.ID_EMPRESA;
+
+  if (!idEmpresa || isNaN(idEmpresa)) {
+    console.error("ID da empresa não definido ou inválido.");
+    alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+    carregarEstadoNaInterface("BRASIL");
+    return;
+  }
+
+  document.querySelector("#search-btn").addEventListener("click", () => {
+    const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
+    const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
+    sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
+    carregarEstadoNaInterface(estadoCompleto);
+    atualizarProjecaoSoro(estadoSelecionadoSigla);
+    atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla)
+
+  });
+
+   fetch(`/usuarios/${idEmpresa}`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw "Erro ao buscar os dados da empresa.";
+      }
+    })
+    .then((dadosEmpresa) => {
+      const estados = {
+        "AL": "Alagoas",
+        "AC": "Acre",
+        "AP": "Amapá",
+        "AM": "Amazonas",
+        "BA": "Bahia",
+        "CE": "Ceará",
+        "DF": "Distrito Federal",
+        "GO": "Goiás",
+        "MA": "Maranhão",
+        "MG": "Minas Gerais",
+        "SP": "São Paulo",
+        "RS": "Rio Grande do Sul",
+        "SC": "Santa Catarina",
+        "SE": "Sergipe",
+        "TO": "Tocantins",
+        "MT": "Mato Grosso",
+        "PE": "Pernambuco",
+        "MS": "Mato Grosso do Sul",
+        "PA": "Pará",
+        "PR": "Paraná",
+        "PI": "Piauí",
+        "PB": "Paraíba"
+      };
+
+      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
+      const estadoCompleto = estados[estadoSigla] || estadoSigla;
+
+      const selectEstado = document.querySelector("#modalEstado");
+      const options = selectEstado.querySelectorAll("option");
+
+      options.forEach(option => {
+        if (option.value === estadoSigla) {
+          option.selected = true;
+        }
+      });
+       buscarCasos(estadoCompleto)
+       state.textContent = estadoCompleto
+        })
+    .catch((erro) => {
+      console.error("#ERRO:", erro);
+      carregarEstadoNaInterface("BRASIL");
+    });
+}
+function buscarCasos(Estado) {
+  fetch(`/usuarios/buscarCasosPorEstado/${Estado}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
-  .then((dados) => {
-    if (dados) {
-      for (let i = 0; i < dados.length; i++) {
-        switch (dados[i].ano) {
-          case "2021":
-            dados2021.push(dados[i])
-            break;
-          case "2022":
-            dados2022.push(dados[i])
-            break;
-          case "2023":
-            dados2023.push(dados[i])
-            break;
+    .then((resposta) => {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        console.error("Erro ao buscar dados da demanda.");
+        return null;
+      }
+    })
+    .then((dados) => {
+        if (dados) {
+        for (let i = 0; i < dados.length; i++) {
+          switch (dados[i].ano) {
+            case "2021":
+              dados2021.push(dados[i])
+              break;
+            case "2022":
+              dados2022.push(dados[i])
+              break;
+            case "2023":
+              dados2023.push(dados[i])
+              break;
+          }
+        }
+        let anos = [2021, 2022, 2023]
+        let casos = [dados2021.length, dados2022.length, dados2023.length]
 
+
+
+        const regressao = calcularRegressaoLinear(anos, casos)
+
+        const casos2024 = calcularProjecao(2024, regressao);
+        dados2024.push(casos2024);
+
+        const casos2025 = calcularProjecao(2025, regressao);
+        dados2025.push(casos2025);
+
+        loadLineForecastOfIncreaseInCasesChart()
+        loadLinePredictedSerumUseChart()
+        loadLineBedEstimateForNextYearChart();
+
+        if(!searchState){
+          buscarPopulacao(2021, 2023, "São Paulo")
+          buscarCasosCurados(2021, 2023, "São Paulo")
+          calcularDiferencaSoro(2021, 2023)
         }
       }
-      let anos = [2021, 2022, 2023]
-      let casos = [dados2021.length, dados2022.length, dados2023.length]
+    })
+    .catch((erro) => console.error("Erro na requisição:", erro));
+}
 
-
-
-      const regressao = calcularRegressaoLinear(anos, casos)
-
-      const casos2024 = calcularProjecao(2024, regressao);
-      dados2024.push(casos2024);
-
-      const casos2025 = calcularProjecao(2025, regressao);
-      dados2025.push(casos2025);
-
-      loadLineForecastOfIncreaseInCasesChart()
-      loadLinePredictedSerumUseChart()
-      loadLineBedEstimateForNextYearChart();
-      buscarPopulacao(2021, 2023)
-      buscarCasosCurados(2021, 2023)
-      calcularDiferencaSoro(2021, 2023)
-    }
-  })
-  .catch((erro) => console.error("Erro na requisição:", erro));
-
-function buscarPopulacao(dataInicial, dataFinal){
+function buscarPopulacao(dataInicial, dataFinal, estado) {
   let incidencia = 0
   let incidenciaInicial = 0
   let incidenciaFinal = 0
-  fetch(`/usuarios/buscarPopulacao/${"São Paulo"}`,{
+  fetch(`/usuarios/buscarPopulacao/${estado}`, {
     method: "Get",
     headers: {
       "Content-Type": "application/json",
     }
   }).then((response) => {
-    if(response){
+    if (response) {
       return response.json()
-      } else {
-        console.error("Erro ao buscar dados da demanda.");
-        return null;
-      }
+    } else {
+      console.error("Erro ao buscar dados da demanda.");
+      return null;
+    }
   }).then((dados) => {
-       incidenciaInicial = ((dados2021.length / dados[0].qtdPopulacao) * 100000).toFixed(3)
-      switch (dataInicial){
-        case 2021:
+    incidenciaInicial = ((dados2021.length / dados[0].qtdPopulacao) * 100000).toFixed(3)
+    switch (dataInicial) {
+      case 2021:
         incidenciaInicial = ((dados2021.length / dados[0].qtdPopulacao) * 100000).toFixed(3)
         break;
-        case 2022:
+      case 2022:
         incidenciaInicial = ((dados2022.length / dados[0].qtdPopulacao) * 100000).toFixed(3)
         break;
-      }
-      
-      switch (dataFinal){
-        case 2021:
+    }
+
+    switch (dataFinal) {
+      case 2021:
         incidencia = ((dados2021.length / dados[0].qtdPopulacao) * 100000).toFixed(3)
         break;
-        case 2022:
+      case 2022:
         incidencia = ((dados2022.length / dados[1].qtdPopulacao) * 100000).toFixed(3)
         incidenciaFinal = ((dados2022.length / dados[0].qtdPopulacao) * 100000).toFixed(3)
         break;
-        case 2023:
+      case 2023:
         incidencia = ((dados2023.length / dados[2].qtdPopulacao) * 100000).toFixed(3)
         incidenciaFinal = ((dados2023.length / dados[1].qtdPopulacao) * 100000).toFixed(3)
         break;
-      }
-      
-      valorIncidencia.textContent = incidencia
-      if(calcularDiferencaPercentual(incidenciaInicial, incidenciaFinal) < 0
-      ){
-        valorCrescimento.classList.add("positive")
-        crescimentoIcon.src = "./assets/icon/arrowDown.svg"
-      }
-        valorCrescimento.textContent = `${calcularDiferencaPercentual(incidenciaInicial, incidenciaFinal)}%`
+    }
+
+    valorIncidencia.textContent = incidencia
+    if (calcularDiferencaPercentual(incidenciaInicial, incidenciaFinal) < 0
+    ) {
+      valorCrescimento.classList.add("positive")
+      crescimentoIcon.src = "./assets/icon/arrowDown.svg"
+    }
+    valorCrescimento.textContent = `${calcularDiferencaPercentual(incidenciaInicial, incidenciaFinal)}%`
   })
 }
 
-function calcularDiferencaPercentual(valorInicial, valorFinal){
+function calcularDiferencaPercentual(valorInicial, valorFinal) {
   let diferenca = valorFinal - valorInicial
   let variacaoRelativa = diferenca / valorInicial
   let percentual = variacaoRelativa * 100
-  
+
   return `${percentual.toFixed(2)}`
 }
 
-function buscarCasosCurados(dataInicial, dataFinal){
+function buscarCasosCurados(dataInicial, dataFinal, estado) {
   let valorInicial = 0
   let valorFinal = 0
-  fetch(`/usuarios/buscarCasosCurados/${"São Paulo"}`, {
+  fetch(`/usuarios/buscarCasosCurados/${estado}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -201,32 +287,34 @@ function buscarCasosCurados(dataInicial, dataFinal){
             case "2023":
               dadosCura2023.push(dados[i].cura)
               break;
-  
+
           }
         }
-  
-        switch (dataInicial){
+
+        switch (dataInicial) {
           case 2021:
-          valorInicial = (dadosCura2021[0] / dados2021.length) * 100
-         
-          break;
+            valorInicial = (dadosCura2021[0] / dados2021.length) * 100
+
+            break;
           case 2022:
-          valorInicial = (dadosCura2022[0] / dados2022.length) * 100
-          break;
+            valorInicial = (dadosCura2022[0] / dados2022.length) * 100
+            break;
         }
-        
-        switch (dataFinal){
+
+        switch (dataFinal) {
           case 2022:
             valorFinal = (dadosCura2022[0] / dados2022.length) * 100
-          break;
+            break;
           case 2023:
-          valorFinal = (dadosCura2023[0] / dados2023.length) * 100
-          break;
+            valorFinal = (dadosCura2023[0] / dados2023.length) * 100
+            break;
         }
         diferenca = valorFinal - valorInicial
+
+        console.log(valorFinal,valorInicial)
         curaIcon.src = "./assets/icon/positiveUp.svg"
         valorCrescimentoCura.classList.add('positive')
-        if(diferenca < 0){
+        if (diferenca < 0) {
           curaIcon.src = "./assets/icon/negativeDown.svg"
         }
         valorCrescimentoCura.textContent = `${diferenca.toFixed(2)}%`
@@ -236,7 +324,7 @@ function buscarCasosCurados(dataInicial, dataFinal){
     .catch((erro) => console.error("Erro na requisição:", erro));
 
 }
-function calcularDiferencaSoro(dataInicial, dataFinal){
+function calcularDiferencaSoro(dataInicial, dataFinal) {
   let valorInicial = 0
   let valorFinal = 0
 
@@ -244,32 +332,31 @@ function calcularDiferencaSoro(dataInicial, dataFinal){
   let bolsas2022 = (dados2022.length * 0.04) * 2
   let bolsas2023 = (dados2023.length * 0.04) * 2
 
-        switch (dataInicial){
-          case 2021:
-          valorInicial = bolsas2021
-          break;
-          case 2022:
-          valorInicial =  bolsas2022
-          break;
-        }
-        
-        switch (dataFinal){
-          case 2022:
-            valorFinal = bolsas2022
-          break;
-          case 2023:
-          valorFinal = bolsas2023
-          break;
-        }
-        valorCasos.textContent = `${calcularDiferencaPercentual(valorInicial, valorFinal)}%`
+  switch (dataInicial) {
+    case 2021:
+      valorInicial = bolsas2021
+      break;
+    case 2022:
+      valorInicial = bolsas2022
+      break;
+  }
 
-        if(calcularDiferencaPercentual(valorInicial, valorFinal) < 0){
-          valorCasos.classList.add('positive')
-          casosIcon.src = "./assets/icon/arrowDown.svg"
-        }
-        console.log(valorInicial, valorFinal)
-        valorCasos.textContent = `${calcularDiferencaPercentual(valorInicial, valorFinal)}%`
-      }
+  switch (dataFinal) {
+    case 2022:
+      valorFinal = bolsas2022
+      break;
+    case 2023:
+      valorFinal = bolsas2023
+      break;
+  }
+  valorCasos.textContent = `${calcularDiferencaPercentual(valorInicial, valorFinal)}%`
+
+  if (calcularDiferencaPercentual(valorInicial, valorFinal) < 0) {
+    valorCasos.classList.add('positive')
+    casosIcon.src = "./assets/icon/arrowDown.svg"
+  }
+  valorCasos.textContent = `${calcularDiferencaPercentual(valorInicial, valorFinal)}%`
+}
 
 function calcularRegressaoLinear(anos, valores) {
   const n = anos.length;
@@ -297,7 +384,9 @@ function calcularProjecao(ano, regressao) {
 
 
 function loadLineForecastOfIncreaseInCasesChart() {
-
+  if (lineforecastOfIncreaseInCasesChart) {
+    lineforecastOfIncreaseInCasesChart.destroy();
+  }
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -316,7 +405,7 @@ function loadLineForecastOfIncreaseInCasesChart() {
       label: 'My First Dataset',
       data: [dados2021.length, dados2022.length, dados2023.length, dados2024, dados2025],
       fill: false,
-      borderColor:  [
+      borderColor: [
         '#193D65',
       ],
       tension: 0.1,
@@ -348,12 +437,15 @@ function loadLineForecastOfIncreaseInCasesChart() {
     }
   };
 
-  const lineforecastOfIncreaseInCasesChart = new Chart(
+lineforecastOfIncreaseInCasesChart = new Chart(
     document.getElementById('forecastOfIncreaseInCases'),
     config
   );
 }
 function loadLinePredictedSerumUseChart() {
+  if (linePredictedSerumUseChart) {
+    linePredictedSerumUseChart.destroy();
+  }
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -378,7 +470,7 @@ function loadLinePredictedSerumUseChart() {
       label: 'My First Dataset',
       data: [bolsas2021, bolsas2022, bolsas2023, bolsas2024, bolsas2025],
       fill: false,
-      borderColor:  [
+      borderColor: [
         '#193D65',
       ],
       tension: 0.1,
@@ -410,12 +502,15 @@ function loadLinePredictedSerumUseChart() {
     }
   };
 
-  const linePredictedSerumUseChart = new Chart(
+  linePredictedSerumUseChart = new Chart(
     document.getElementById('PredictedSerumUse'),
     config
   );
 }
 function loadLineBedEstimateForNextYearChart() {
+  if (lineBedEstimateForNextYearChart) {
+    lineBedEstimateForNextYearChart.destroy();
+  }
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -463,7 +558,7 @@ function loadLineBedEstimateForNextYearChart() {
     }
   };
 
-  const lineBedEstimateForNextYearChart = new Chart(
+  lineBedEstimateForNextYearChart = new Chart(
     document.getElementById('BedEstimateForNextYear'),
     config
   );
@@ -471,6 +566,11 @@ function loadLineBedEstimateForNextYearChart() {
 
 
 function loadLinePercentageOfBedOccupancyInRelationToTheLastYearChart() {
+
+  if (linePercentageOfBedOccupancyInRelationToTheLastYearChart) {
+    linePercentageOfBedOccupancyInRelationToTheLastYearChart.destroy();
+  }
+
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -484,13 +584,13 @@ function loadLinePercentageOfBedOccupancyInRelationToTheLastYearChart() {
     labels: labels,
     datasets: [{
       label: 'My First Dataset',
-      data: [dadosCura2021,dadosCura2022, dadosCura2023],
+      data: [dadosCura2021, dadosCura2022, dadosCura2023],
       fill: false,
       borderColor: '#193D65',
       tension: 0.1,
       backgroundColor: [
         '#193D65',
-        
+
       ],
     }]
   };
@@ -516,57 +616,10 @@ function loadLinePercentageOfBedOccupancyInRelationToTheLastYearChart() {
     }
   };
 
-  const linePercentageOfBedOccupancyInRelationToTheLastYearChart = new Chart(
+  linePercentageOfBedOccupancyInRelationToTheLastYearChart = new Chart(
     document.getElementById('PercentageOfBedOccupancyInRelationToTheLastYear'),
     config
   );
 }
 
-function atualizarKPI(estadoVar) {
-  const estadoElement = document.getElementById("modalEstado");
-  const anoInicialElement = document.getElementById("modalAnoInicial");
-  const anoFinalElement = document.getElementById("modalAnoFinal");
 
-  if (!estadoElement || !anoInicialElement || !anoFinalElement) {
-    console.error("Um ou mais elementos do modal não foram encontrados!");
-    return;
-  }
-
-  const estado = estadoElement.value;
-  const anoInicial = anoInicialElement.value || "2022";
-  const anoFinal = anoFinalElement.value || "2023";
-
-
-  fetch(`/usuarios/demanda`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      estadoServer: estado,
-      anoInicialServer: anoInicial,
-      anoFinalServer: anoFinal,
-    }),
-  })
-    .then((resposta) => {
-      if (resposta.ok) {
-        return resposta.json();
-      } else {
-        console.error("Erro ao buscar dados da demanda.");
-        return null;
-      }
-    })
-    .then((dados) => {
-      if (dados) {
-        const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
-        const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
-
-        const mediaDemandaSoro = calcularMediaDemanda(dados);
-        const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
-
-        atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
-        atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
-      }
-    })
-    .catch((erro) => console.error("Erro na requisição:", erro));
-}

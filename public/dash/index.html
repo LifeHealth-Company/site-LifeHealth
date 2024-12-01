@@ -1,150 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Farmacêutico</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href=".././assets/icon/mini.svg" />
-  </head>
 
-  <body>
-    <div id="menu-container"></div>
-      <div class="header">
-        <h1>Média da Evolução Anual da Demanda <span class="indicatorTitle estadoAtual">BRASIL</span></h1>
-        <div class="calendar">
-          <div class="timeIndicator">
-              <span class="startEnd">De</span>
-              <span class="date"  id="start-date">2021</span>
-          </div>
-          <img src="../assets/icon/longArrow.svg" class="arrow" />
-          <div class="timeIndicator">
-              <span class="startEnd">Até</span>
-              <span class="date"  id="end-date">2022</span>
-          </div>
-          
-          <img src="../assets/icon/calender.svg" class="iconCalendar" id="open-modal-btn"/>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Farmacêutico</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href=".././assets/icon/mini.svg" />
+</head>
 
+<body>
+  <div id="menu-container"></div>
+  <div class="header">
+    <h1>Média da Evolução Anual da Demanda <span class="indicatorTitle estadoAtual">BRASIL</span></h1>
+    <div class="calendar">
+      <div class="timeIndicator">
+        <span class="startEnd">De</span>
+        <span class="date" id="start-date">2021</span>
       </div>
-  </div>
-        <!-- Modal -->
-        <div id="modal" class="modal">
-          <div class="modal-content">
-            <span id="close-modal" class="close-btn">&times;</span>
-            <h2>Filtrar Dados</h2>
-            <div class="modal-input">
-              <label for="modalAnoInicial">Ano Inicial:</label>
-              <select id="modalAnoInicial">
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-              </select>
-            </div>
-            <div class="modal-input">
-              <label for="modalAnoFinal">Ano Final:</label>
-              <select id="modalAnoFinal">
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-              </select>
-            </div>
-            <div class="modal-input">
-              <label for="modalEstado">Estado:</label>
-              <select id="modalEstado">
-                                           <option value="AL">Alagoas</option>
-                                           <option value="AC">Acre</option>
-                                           <option value="AP">Amapá</option>
-                                           <option value="AM">Amazonas</option>
-                                           <option value="BA">Bahia</option>
-                                           <option value="CE">Ceará</option>
-                                           <option value="DF">Distrito Federal</option>
-                                           <option value="GO">Goiás</option>
-                                           <option value="MA">Maranhão</option>
-                                           <option value="MG">Minas Gerais</option>
-                                           <option value="SP">São Paulo</option>
-                                           <option value="RS">Rio Grande do Sul</option>
-                                           <option value="SC">Santa Catarina</option>
-                                           <option value="SE">Sergipe</option>
-                                           <option value="TO">Tocantins</option>
-                                           <option value="MT">Mato Grosso</option>
-                                           <option value="PE">Pernambuco</option>
-                                           <option value="MS">Mato Grosso do Sul</option>
-                                           <option value="PA">Pará</option>
-                                           <option value="PR">Paraná</option>
-                                           <option value="PI">Piauí</option>
-                                           <option value="PB">Paraíba</option>
-                                       </select>                    
-            </div>
-            <button id="search-btn">Pesquisar</button>
-          </div>
-        </div>
+      <img src="../assets/icon/longArrow.svg" class="arrow" />
+      <div class="timeIndicator">
+        <span class="startEnd">Até</span>
+        <span class="date" id="end-date">2022</span>
       </div>
-      <div class="header-container">
-        <div class="kpi" id="kpi-soro">
-          <h4>Soro</h4>
-          <p>0 sachês</p>
-          <span class="indicator up" data-valor-atual="0">0%</span>
-      </div>
-      <div class="kpi" id="kpi-repelente">
-          <h4>Repelentes</h4>
-          <p>0 repelentes</p>
-          <span class="indicator up" data-valor-atual="0">0%</span>
-      </div>
-        <div class="kpi" id="kpi-paracetamol">
-          <h4>Paracetamol</h4>
-          <p>0 milhões casos</p>
-          <span class="indicator up">0%</span>
-        </div>
-        <div class="kpi" id="kpi-teste">
-          <h4>Testes</h4>
-          <p>0 milhões casos</p>
-          <span class="indicator up">0%</span>
-        </div>
-      </div>
-      <div class="charts-container">
-        <div class="chart-group">
-          <!-- Grupo de gráficos à esquerda -->
-          <div class="lineChart">
-            <div class="chartHeader">
-              <p>Projeção de Consumo de Repelentes Por Ano</p>
-            </div>
-            <div class="chart">
-              <canvas id="state1"></canvas>
-            </div>
-          </div>                  
-          <div class="lineChart">
-            <div class="chartHeader">
-              <p>Projeção de Consumo de Soro Por Ano</p>
-              <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
-            </div>
-            <div class="chart">
-              <canvas id="state2"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="chart-group">
-          <!-- Grupo de gráficos à direita -->
-          <div class="lineChart">
-            <div class="chartHeader">
-              <p>Projeção de Consumo de Testes Diagnósticos Por Ano</p>
-              <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
-            </div>
-            <div class="chart">
-              <canvas id="state3"></canvas>
-            </div>
-          </div>
-          <div class="lineChart">
-            <div class="chartHeader">
-              <p>Projeção de Consumo de Paracetamol Por Ano</p>
-              <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
-            </div>
-            <div class="chart">
-              <canvas id="state4"></canvas>
-            </div>
-          </div>
-        </div>
+
+      <img src="../assets/icon/calender.svg" class="iconCalendar" id="open-modal-btn" />
+
     </div>
-  </body>
+  </div>
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" class="close-btn">&times;</span>
+      <h2>Filtrar Dados</h2>
+      <div class="modal-input">
+        <label for="modalAnoInicial">Ano Inicial:</label>
+        <select id="modalAnoInicial">
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <div class="modal-input">
+        <label for="modalAnoFinal">Ano Final:</label>
+        <select id="modalAnoFinal">
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <div class="modal-input">
+        <label for="modalEstado">Estado:</label>
+        <select id="modalEstado">
+          <option value="AL">Alagoas</option>
+          <option value="AC">Acre</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="SP">São Paulo</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="PE">Pernambuco</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="PA">Pará</option>
+          <option value="PR">Paraná</option>
+          <option value="PI">Piauí</option>
+          <option value="PB">Paraíba</option>
+        </select>
+      </div>
+      <button id="search-btn">Pesquisar</button>
+    </div>
+  </div>
+  </div>
+  <div class="header-container">
+    <div class="kpi" id="kpi-soro">
+      <h4>Soro</h4>
+      <p>0 sachês</p>
+      <span class="indicator up" data-valor-atual="0">0%</span>
+    </div>
+    <div class="kpi" id="kpi-repelente">
+      <h4>Repelentes</h4>
+      <p>0 repelentes</p>
+      <span class="indicator up" data-valor-atual="0">0%</span>
+    </div>
+    <div class="kpi" id="kpi-paracetamol">
+      <h4>Paracetamol</h4>
+      <p>0 milhões casos</p>
+      <span class="indicator up">0%</span>
+    </div>
+    <div class="kpi" id="kpi-teste">
+      <h4>Testes</h4>
+      <p>0 milhões casos</p>
+      <span class="indicator up">0%</span>
+    </div>
+  </div>
+  <div class="charts-container">
+    <div class="chart-group">
+      <!-- Grupo de gráficos à esquerda -->
+      <div class="lineChart">
+        <div class="chartHeader">
+          <p>Projeção de Consumo de Repelentes Por Ano</p>
+        </div>
+        <div class="chart">
+          <canvas id="state1"></canvas>
+        </div>
+      </div>
+      <div class="lineChart">
+        <div class="chartHeader">
+          <p>Projeção de Consumo de Soro Por Ano</p>
+          <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
+        </div>
+        <div class="chart">
+          <canvas id="state2"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="chart-group">
+      <!-- Grupo de gráficos à direita -->
+      <div class="lineChart">
+        <div class="chartHeader">
+          <p>Projeção de Consumo de Testes Diagnósticos Por Ano</p>
+          <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
+        </div>
+        <div class="chart">
+          <canvas id="state3"></canvas>
+        </div>
+      </div>
+      <div class="lineChart">
+        <div class="chartHeader">
+          <p>Projeção de Consumo de Paracetamol Por Ano</p>
+          <!-- <span class="indicatorTitle estadoAtual">BRASIL</span> -->
+        </div>
+        <div class="chart">
+          <canvas id="state4"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/menubehavior.js"></script>
@@ -153,263 +155,263 @@
 
 <script>
 
-function animarPercentual(element, valorFinal, duracao = 1000) {
+  function animarPercentual(element, valorFinal, duracao = 1000) {
     const valorInicial = parseFloat(element.getAttribute("data-valor-atual")) || 0;
 
     element.setAttribute("data-valor-atual", valorFinal.toFixed(2));
 
-    const incremento = (valorFinal - valorInicial) / (duracao / 16); 
+    const incremento = (valorFinal - valorInicial) / (duracao / 16);
     let valorAtual = valorInicial;
 
     function atualizar() {
-        valorAtual += incremento;
+      valorAtual += incremento;
 
-        if ((incremento > 0 && valorAtual >= valorFinal) || (incremento < 0 && valorAtual <= valorFinal)) {
-            element.textContent = `${valorFinal.toFixed(2)}%`;
-        } else {
-            element.textContent = `${valorAtual.toFixed(2)}%`;
-            requestAnimationFrame(atualizar);
-        }
+      if ((incremento > 0 && valorAtual >= valorFinal) || (incremento < 0 && valorAtual <= valorFinal)) {
+        element.textContent = `${valorFinal.toFixed(2)}%`;
+      } else {
+        element.textContent = `${valorAtual.toFixed(2)}%`;
+        requestAnimationFrame(atualizar);
+      }
     }
 
     requestAnimationFrame(atualizar);
-}
-
-function buscarEstadoEmpresa() {
-  const idEmpresa = sessionStorage.ID_EMPRESA;
-
-  if (!idEmpresa || isNaN(idEmpresa)) {
-    console.error("ID da empresa não definido ou inválido.");
-    alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
-    carregarEstadoNaInterface("BRASIL");
-    return;
   }
 
-  document.querySelector("#search-btn").addEventListener("click", () => {
-    const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
-    const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
-    sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
-    carregarEstadoNaInterface(estadoCompleto);
-    atualizarProjecaoSoro(estadoSelecionadoSigla);
-    atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla)
+  function buscarEstadoEmpresa() {
+    const idEmpresa = sessionStorage.ID_EMPRESA;
 
+    if (!idEmpresa || isNaN(idEmpresa)) {
+      console.error("ID da empresa não definido ou inválido.");
+      alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
+      carregarEstadoNaInterface("BRASIL");
+      return;
+    }
+
+    document.querySelector("#search-btn").addEventListener("click", () => {
+      const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
+      const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
+      sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
+      carregarEstadoNaInterface(estadoCompleto);
+      atualizarProjecaoSoro(estadoSelecionadoSigla);
+      atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla)
+
+    });
+
+    console.log("ID da empresa:", idEmpresa);
+
+    fetch(`/usuarios/${idEmpresa}`)
+      .then((resposta) => {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          throw "Erro ao buscar os dados da empresa.";
+        }
+      })
+      .then((dadosEmpresa) => {
+        console.log("Dados da empresa:", dadosEmpresa);
+
+        const estados = {
+          "AL": "Alagoas",
+          "AC": "Acre",
+          "AP": "Amapá",
+          "AM": "Amazonas",
+          "BA": "Bahia",
+          "CE": "Ceará",
+          "DF": "Distrito Federal",
+          "GO": "Goiás",
+          "MA": "Maranhão",
+          "MG": "Minas Gerais",
+          "SP": "São Paulo",
+          "RS": "Rio Grande do Sul",
+          "SC": "Santa Catarina",
+          "SE": "Sergipe",
+          "TO": "Tocantins",
+          "MT": "Mato Grosso",
+          "PE": "Pernambuco",
+          "MS": "Mato Grosso do Sul",
+          "PA": "Pará",
+          "PR": "Paraná",
+          "PI": "Piauí",
+          "PB": "Paraíba"
+        };
+
+        const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
+        const estadoCompleto = estados[estadoSigla] || estadoSigla;
+
+        const selectEstado = document.querySelector("#modalEstado");
+        const options = selectEstado.querySelectorAll("option");
+
+        options.forEach(option => {
+          if (option.value === estadoSigla) {
+            option.selected = true;
+          }
+        });
+
+        carregarEstadoNaInterface(estadoCompleto);
+
+        atualizarProjecaoRepelentes(estadoSigla);
+        atualizarProjecaoTestes(estadoSigla);
+        atualizarProjecaoSoro(estadoSigla);
+        atualizarPrevisaoDemandaParacetamol(estadoSigla)
+      })
+      .catch((erro) => {
+        console.error("#ERRO:", erro);
+        carregarEstadoNaInterface("BRASIL");
+      });
+  }
+
+  function traduzirSiglaParaNome(sigla) {
+    const estados = {
+      "AL": "Alagoas",
+      "AC": "Acre",
+      "AP": "Amapá",
+      "AM": "Amazonas",
+      "BA": "Bahia",
+      "CE": "Ceará",
+      "DF": "(Distrito Federal)",
+      "GO": "Goiás",
+      "MA": "Maranhão",
+      "MG": "Minas Gerais",
+      "SP": "São Paulo",
+      "RS": "Rio Grande do Sul",
+      "SC": "Santa Catarina",
+      "SE": "Sergipe",
+      "TO": "Tocantins",
+      "MT": "Mato Grosso",
+      "PE": "Pernambuco",
+      "MS": "Mato Grosso do Sul",
+      "PA": "Pará",
+      "PR": "Paraná",
+      "PI": "Piauí",
+      "PB": "Paraíba"
+    };
+
+    return estados[sigla] || sigla;
+  }
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    buscarEstadoEmpresa();
   });
 
-  console.log("ID da empresa:", idEmpresa);
 
-  fetch(`/usuarios/${idEmpresa}`)
-    .then((resposta) => {
-      if (resposta.ok) {
-        return resposta.json();
-      } else {
-        throw "Erro ao buscar os dados da empresa.";
-      }
-    })
-    .then((dadosEmpresa) => {
-      console.log("Dados da empresa:", dadosEmpresa);
+  function carregarEstadoNaInterface(estado) {
+    const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
 
-      const estados = {
-        "AL": "Alagoas",
-        "AC": "Acre",
-        "AP": "Amapá",
-        "AM": "Amazonas",
-        "BA": "Bahia",
-        "CE": "Ceará",
-        "DF": "Distrito Federal",
-        "GO": "Goiás",
-        "MA": "Maranhão",
-        "MG": "Minas Gerais",
-        "SP": "São Paulo",
-        "RS": "Rio Grande do Sul",
-        "SC": "Santa Catarina",
-        "SE": "Sergipe",
-        "TO": "Tocantins",
-        "MT": "Mato Grosso",
-        "PE": "Pernambuco",
-        "MS": "Mato Grosso do Sul",
-        "PA": "Pará",
-        "PR": "Paraná",
-        "PI": "Piauí",
-        "PB": "Paraíba"
-      };
-
-      const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL"; 
-      const estadoCompleto = estados[estadoSigla] || estadoSigla;
-
-      const selectEstado = document.querySelector("#modalEstado");
-      const options = selectEstado.querySelectorAll("option");
-
-      options.forEach(option => {
-        if (option.value === estadoSigla) {
-          option.selected = true;
-        }
-      });
-
-      carregarEstadoNaInterface(estadoCompleto);
-
-      atualizarProjecaoRepelentes(estadoSigla);
-      atualizarProjecaoTestes(estadoSigla);
-      atualizarProjecaoSoro(estadoSigla);
-      atualizarPrevisaoDemandaParacetamol(estadoSigla)
-    })
-    .catch((erro) => {
-      console.error("#ERRO:", erro);
-      carregarEstadoNaInterface("BRASIL");
-    });
-}
-
-function traduzirSiglaParaNome(sigla) {
-  const estados = {
-    "AL": "Alagoas",
-    "AC": "Acre",
-    "AP": "Amapá",
-    "AM": "Amazonas",
-    "BA": "Bahia",
-    "CE": "Ceará",
-    "DF": "(Distrito Federal)",
-    "GO": "Goiás",
-    "MA": "Maranhão",
-    "MG": "Minas Gerais",
-    "SP": "São Paulo",
-    "RS": "Rio Grande do Sul",
-    "SC": "Santa Catarina",
-    "SE": "Sergipe",
-    "TO": "Tocantins",
-    "MT": "Mato Grosso",
-    "PE": "Pernambuco",
-    "MS": "Mato Grosso do Sul",
-    "PA": "Pará",
-    "PR": "Paraná",
-    "PI": "Piauí",
-    "PB": "Paraíba"
-  };
-
-  return estados[sigla] || sigla;
-}
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  buscarEstadoEmpresa(); 
-});
-
-
-function carregarEstadoNaInterface(estado) {
-  const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
-  
-  if (indicadorTitulo) {
-    indicadorTitulo.textContent = estado;
-  } else {
-    console.error("Elemento para estado não encontrado na interface.");
+    if (indicadorTitulo) {
+      indicadorTitulo.textContent = estado;
+    } else {
+      console.error("Elemento para estado não encontrado na interface.");
+    }
   }
-}
 
 
   function atualizarProjecaoRepelentes(estadoVar) {
-  console.log("Estado selecionado: ", estadoVar);
+    console.log("Estado selecionado: ", estadoVar);
 
-  fetch(`/usuarios/casos`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      estadoServer: estadoVar,
-    }),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (dados) {
-          var anos = [];
-          var casos = [];
-          dados.forEach(function (dado) {
-            anos.push(dado.ano);
-            casos.push(dado.quantidade);
-          });
-
-          const regressao = calcularRegressaoLinear(anos, casos);
-
-          const casos2024 = calcularProjecao(2024, regressao);
-          anos.push(2024);
-          casos.push(casos2024);
-
-          const casos2025 = calcularProjecao(2025, regressao);
-          anos.push(2025);
-          casos.push(casos2025);
-
-          const chart = Chart.getChart("state1");
-          if (chart) {
-            chart.data.labels = anos;
-            chart.data.datasets[0].data = casos;
-            chart.update();
-            console.log("Gráfico de repelentes atualizado com sucesso!");
-          } else {
-            console.error("Gráfico de repelentes não encontrado!");
-          }
-        });
-      } else {
-        console.log("Erro ao buscar dados de casos para o estado selecionado.");
-      }
+    fetch(`/usuarios/casos`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
     })
-    .catch(function (erro) {
-      console.log("Erro na requisição de repelentes:", erro);
-    });
-}
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var casos = [];
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              casos.push(dado.quantidade);
+            });
 
+            const regressao = calcularRegressaoLinear(anos, casos);
 
-function atualizarPrevisaoDemandaParacetamol(estadoVar) {
-  console.log("Estado selecionado: ", estadoVar);
+            const casos2024 = calcularProjecao(2024, regressao);
+            anos.push(2024);
+            casos.push(casos2024);
 
-  fetch(`/usuarios/casos`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      estadoServer: estadoVar,
-    }),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (dados) {
-          var anos = [];
-          var casos = [];
-          dados.forEach(function (dado) {
-            anos.push(dado.ano);
-            casos.push(dado.quantidade);
+            const casos2025 = calcularProjecao(2025, regressao);
+            anos.push(2025);
+            casos.push(casos2025);
+
+            const chart = Chart.getChart("state1");
+            if (chart) {
+              chart.data.labels = anos;
+              chart.data.datasets[0].data = casos;
+              chart.update();
+              console.log("Gráfico de repelentes atualizado com sucesso!");
+            } else {
+              console.error("Gráfico de repelentes não encontrado!");
+            }
           });
+        } else {
+          console.log("Erro ao buscar dados de casos para o estado selecionado.");
+        }
+      })
+      .catch(function (erro) {
+        console.log("Erro na requisição de repelentes:", erro);
+      });
+  }
 
-          const regressao = calcularRegressaoLinear(anos, casos);
 
-          const casos2024 = calcularProjecao(2024, regressao)*3;
-          anos.push(2024);
-          casos.push(casos2024);
+  function atualizarPrevisaoDemandaParacetamol(estadoVar) {
+    console.log("Estado selecionado: ", estadoVar);
 
-          const casos2025 = calcularProjecao(2025, regressao)*2;
-          anos.push(2025);
-          casos.push(casos2025);
-
-          const chart = Chart.getChart("state4");
-          if (chart) {
-            chart.data.labels = anos;
-            chart.data.datasets[0].data = casos;
-            chart.update();
-            console.log("Gráfico de paracetamol atualizado com sucesso!");
-          } else {
-            console.error("Gráfico de paracetamol não encontrado!");
-          }
-        });
-      } else {
-        console.log("Erro ao buscar dados de casos para o estado selecionado.");
-      }
+    fetch(`/usuarios/casos`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
     })
-    .catch(function (erro) {
-      console.log("Erro na requisição de paracetamol:", erro);
-    });
-}
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var casos = [];
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              casos.push(dado.quantidade);
+            });
+
+            const regressao = calcularRegressaoLinear(anos, casos);
+
+            const casos2024 = calcularProjecao(2024, regressao) * 3;
+            anos.push(2024);
+            casos.push(casos2024);
+
+            const casos2025 = calcularProjecao(2025, regressao) * 2;
+            anos.push(2025);
+            casos.push(casos2025);
+
+            const chart = Chart.getChart("state4");
+            if (chart) {
+              chart.data.labels = anos;
+              chart.data.datasets[0].data = casos;
+              chart.update();
+              console.log("Gráfico de paracetamol atualizado com sucesso!");
+            } else {
+              console.error("Gráfico de paracetamol não encontrado!");
+            }
+          });
+        } else {
+          console.log("Erro ao buscar dados de casos para o estado selecionado.");
+        }
+      })
+      .catch(function (erro) {
+        console.log("Erro na requisição de paracetamol:", erro);
+      });
+  }
 
 
-function calcularMediaParacetamol(dados) {
+  function calcularMediaParacetamol(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
     const totalParacetamol = totalCasos * 3;
     return totalParacetamol / dados.length;
@@ -430,8 +432,8 @@ function calcularMediaParacetamol(dados) {
   function atualizarKPICardParacetamol(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-paracetamol");
     if (!kpiCard) {
-        console.error("Elemento do KPI de paracetamol não encontrado!");
-        return;
+      console.error("Elemento do KPI de paracetamol não encontrado!");
+      return;
     }
 
 
@@ -443,8 +445,8 @@ function calcularMediaParacetamol(dados) {
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-    
-}
+
+  }
 
 
   function calcularMediaTeste(dados) {
@@ -475,7 +477,7 @@ function calcularMediaParacetamol(dados) {
 
 
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} testes`;
- const indicador = kpiCard.querySelector(".indicator");
+    const indicador = kpiCard.querySelector(".indicator");
 
     animarPercentual(indicador, percentualEvolucao);
 
@@ -483,196 +485,196 @@ function calcularMediaParacetamol(dados) {
     indicador.classList.toggle("down", percentualEvolucao < 0);
   }
 
-function calcularRegressaoLinear(anos, valores) {
-  const n = anos.length;
-  const mediaX = anos.reduce((soma, x) => soma + x, 0) / n;
-  const mediaY = valores.reduce((soma, y) => soma + y, 0) / n;
+  function calcularRegressaoLinear(anos, valores) {
+    const n = anos.length;
+    const mediaX = anos.reduce((soma, x) => soma + x, 0) / n;
+    const mediaY = valores.reduce((soma, y) => soma + y, 0) / n;
 
-  let numerador = 0;
-  let denominador = 0;
+    let numerador = 0;
+    let denominador = 0;
 
-  for (let i = 0; i < n; i++) {
-    numerador += (anos[i] - mediaX) * (valores[i] - mediaY);
-    denominador += Math.pow(anos[i] - mediaX, 2);
+    for (let i = 0; i < n; i++) {
+      numerador += (anos[i] - mediaX) * (valores[i] - mediaY);
+      denominador += Math.pow(anos[i] - mediaX, 2);
+    }
+
+    const m = numerador / denominador;
+    const b = mediaY - m * mediaX;
+
+    return { m, b };
   }
 
-  const m = numerador / denominador;
-  const b = mediaY - m * mediaX;
-
-  return { m, b };
-}
-
-function calcularProjecao(ano, regressao) {
-  const projRegressao = Math.round(regressao.m * ano + regressao.b);
-  return projRegressao;
-}
+  function calcularProjecao(ano, regressao) {
+    const projRegressao = Math.round(regressao.m * ano + regressao.b);
+    return projRegressao;
+  }
 
 
-function atualizarProjecaoSoro(estadoVar) {
-  console.log("Estado selecionado: ", estadoVar);
+  function atualizarProjecaoSoro(estadoVar) {
+    console.log("Estado selecionado: ", estadoVar);
 
-  fetch(`/usuarios/testes`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      estadoServer: estadoVar,
-    }),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (dados) {
-          var anos = [];
-          var vendas = [];
+    fetch(`/usuarios/testes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var vendas = [];
 
-          dados.forEach(function (dado) {
-            anos.push(dado.ano);
-            vendas.push(dado.quantidade);
-          });
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              vendas.push(dado.quantidade);
+            });
 
-          console.log("Anos reais recebidos: ", anos);
-          console.log("Vendas reais: ", vendas);
+            console.log("Anos reais recebidos: ", anos);
+            console.log("Vendas reais: ", vendas);
 
-          const regressao = calcularRegressaoLinear(anos, vendas);
+            const regressao = calcularRegressaoLinear(anos, vendas);
 
-          const anosProjetados = [2024, 2025];
-          const vendasProjetadas = anosProjetados.map((ano) =>
-          calcularProjecao(ano, regressao) *5
-                  );
+            const anosProjetados = [2024, 2025];
+            const vendasProjetadas = anosProjetados.map((ano) =>
+              calcularProjecao(ano, regressao) * 5
+            );
 
-          console.log("Anos projetados: ", anosProjetados);
-          console.log("Vendas projetadas: ", vendasProjetadas);
+            console.log("Anos projetados: ", anosProjetados);
+            console.log("Vendas projetadas: ", vendasProjetadas);
 
-          const todosAnos = [...anos, ...anosProjetados];
-          const todasVendas = [...vendas, ...vendasProjetadas];
+            const todosAnos = [...anos, ...anosProjetados];
+            const todasVendas = [...vendas, ...vendasProjetadas];
 
-          const chart = Chart.getChart("state2");
-          if (chart) {
-            chart.data.labels = todosAnos;
+            const chart = Chart.getChart("state2");
+            if (chart) {
+              chart.data.labels = todosAnos;
 
-            chart.data.datasets = [
-              {
-                label: "Quantidade de soro vendidos (Dados reais)",
-                data: todasVendas,
-                borderColor: "rgb(0, 82, 204)",
-                backgroundColor: "rgba(0, 82, 204, 0.1)",
-                fill: false,
-                tension: 0.4,
-                borderWidth: 2,
-                segment: {
-                  borderDash: (ctx) => {
-                    const index = ctx.p0DataIndex;
-                    return index < vendas.length - 1 ? [] : [5, 5]; 
+              chart.data.datasets = [
+                {
+                  label: "Quantidade de soro vendidos (Dados reais)",
+                  data: todasVendas,
+                  borderColor: "rgb(0, 82, 204)",
+                  backgroundColor: "rgba(0, 82, 204, 0.1)",
+                  fill: false,
+                  tension: 0.4,
+                  borderWidth: 2,
+                  segment: {
+                    borderDash: (ctx) => {
+                      const index = ctx.p0DataIndex;
+                      return index < vendas.length - 1 ? [] : [5, 5];
+                    },
                   },
                 },
-              },
-              {
-                label: "Previsão",
-                data: [], 
-                borderColor: "rgb(0, 82, 204)",
-                borderWidth: 2,
-                borderDash: [5, 5], 
-              },
-            ];
+                {
+                  label: "Previsão",
+                  data: [],
+                  borderColor: "rgb(0, 82, 204)",
+                  borderWidth: 2,
+                  borderDash: [5, 5],
+                },
+              ];
 
-            chart.update();
-            console.log("Gráfico atualizado com sucesso!");
-          } else {
-            console.error("Gráfico não encontrado!");
-          }
-        });
-      } else {
-        console.error("Erro ao buscar dados para o estado.");
-      }
-    })
-    .catch(function (erro) {
-      console.error("Erro na requisição de testes:", erro);
-    });
-}
-
-function atualizarProjecaoTestes(estadoVar) {
-  console.log("Estado selecionado: ", estadoVar);
-
-  fetch(`/usuarios/testes`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      estadoServer: estadoVar,
-    }),
-  })
-    .then(function (resposta) {
-      if (resposta.ok) {
-        resposta.json().then(function (dados) {
-          var anos = [];
-          var vendas = [];
-
-          dados.forEach(function (dado) {
-            anos.push(dado.ano);
-            vendas.push(dado.quantidade);
+              chart.update();
+              console.log("Gráfico atualizado com sucesso!");
+            } else {
+              console.error("Gráfico não encontrado!");
+            }
           });
+        } else {
+          console.error("Erro ao buscar dados para o estado.");
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro na requisição de testes:", erro);
+      });
+  }
 
-          console.log("Anos reais recebidos: ", anos);
-          console.log("Vendas reais: ", vendas);
+  function atualizarProjecaoTestes(estadoVar) {
+    console.log("Estado selecionado: ", estadoVar);
 
-          const regressao = calcularRegressaoLinear(anos, vendas);
+    fetch(`/usuarios/testes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estadoVar,
+      }),
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (dados) {
+            var anos = [];
+            var vendas = [];
 
-          const anosProjetados = [2024, 2025];
-          const vendasProjetadas = anosProjetados.map((ano) =>
-          calcularProjecao(ano, regressao)
-                  );
+            dados.forEach(function (dado) {
+              anos.push(dado.ano);
+              vendas.push(dado.quantidade);
+            });
 
-          console.log("Anos projetados: ", anosProjetados);
-          console.log("Vendas projetadas: ", vendasProjetadas);
+            console.log("Anos reais recebidos: ", anos);
+            console.log("Vendas reais: ", vendas);
 
-          const todosAnos = [...anos, ...anosProjetados];
-          const todasVendas = [...vendas, ...vendasProjetadas];
+            const regressao = calcularRegressaoLinear(anos, vendas);
 
-          const chart = Chart.getChart("state3");
-          if (chart) {
-            chart.data.labels = todosAnos;
+            const anosProjetados = [2024, 2025];
+            const vendasProjetadas = anosProjetados.map((ano) =>
+              calcularProjecao(ano, regressao)
+            );
 
-            chart.data.datasets = [
-              {
-                label: "Quantidade de testes vendidos (Dados reais)",
-                data: todasVendas,
-                borderColor: "rgb(0, 82, 204)",
-                backgroundColor: "rgba(0, 82, 204, 0.1)",
-                fill: false,
-                tension: 0.4,
-                borderWidth: 2,
-                segment: {
-                  borderDash: (ctx) => {
-                    const index = ctx.p0DataIndex;
-                    return index < vendas.length - 1 ? [] : [5, 5]; 
+            console.log("Anos projetados: ", anosProjetados);
+            console.log("Vendas projetadas: ", vendasProjetadas);
+
+            const todosAnos = [...anos, ...anosProjetados];
+            const todasVendas = [...vendas, ...vendasProjetadas];
+
+            const chart = Chart.getChart("state3");
+            if (chart) {
+              chart.data.labels = todosAnos;
+
+              chart.data.datasets = [
+                {
+                  label: "Quantidade de testes vendidos (Dados reais)",
+                  data: todasVendas,
+                  borderColor: "rgb(0, 82, 204)",
+                  backgroundColor: "rgba(0, 82, 204, 0.1)",
+                  fill: false,
+                  tension: 0.4,
+                  borderWidth: 2,
+                  segment: {
+                    borderDash: (ctx) => {
+                      const index = ctx.p0DataIndex;
+                      return index < vendas.length - 1 ? [] : [5, 5];
+                    },
                   },
                 },
-              },
-              {
-                label: "Previsão",
-                data: [], 
-                borderColor: "rgb(0, 82, 204)",
-                borderWidth: 2,
-                borderDash: [5, 5], 
-              },
-            ];
+                {
+                  label: "Previsão",
+                  data: [],
+                  borderColor: "rgb(0, 82, 204)",
+                  borderWidth: 2,
+                  borderDash: [5, 5],
+                },
+              ];
 
-            chart.update();
-            console.log("Gráfico atualizado com sucesso!");
-          } else {
-            console.error("Gráfico não encontrado!");
-          }
-        });
-      } else {
-        console.error("Erro ao buscar dados para o estado.");
-      }
-    })
-    .catch(function (erro) {
-      console.error("Erro na requisição de testes:", erro);
-    });
-}
+              chart.update();
+              console.log("Gráfico atualizado com sucesso!");
+            } else {
+              console.error("Gráfico não encontrado!");
+            }
+          });
+        } else {
+          console.error("Erro ao buscar dados para o estado.");
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro na requisição de testes:", erro);
+      });
+  }
 
 
 
@@ -682,62 +684,62 @@ function atualizarProjecaoTestes(estadoVar) {
     const anoFinalElement = document.getElementById("modalAnoFinal");
 
     if (!estadoElement || !anoInicialElement || !anoFinalElement) {
-        console.error("Um ou mais elementos do modal não foram encontrados!");
-        return;
+      console.error("Um ou mais elementos do modal não foram encontrados!");
+      return;
     }
 
     const estado = estadoElement.value;
-    const anoInicial = anoInicialElement.value || "2022"; 
-    const anoFinal = anoFinalElement.value || "2023"; 
+    const anoInicial = anoInicialElement.value || "2022";
+    const anoFinal = anoFinalElement.value || "2023";
 
     console.log("Dados a serem enviados:", {
-        estadoServer: estado,
-        anoInicialServer: anoInicial,
-        anoFinalServer: anoFinal,
+      estadoServer: estado,
+      anoInicialServer: anoInicial,
+      anoFinalServer: anoFinal,
     });
 
     fetch(`/usuarios/demanda`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            estadoServer: estado,
-            anoInicialServer: anoInicial,
-            anoFinalServer: anoFinal,
-        }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        estadoServer: estado,
+        anoInicialServer: anoInicial,
+        anoFinalServer: anoFinal,
+      }),
     })
-        .then((resposta) => {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                console.error("Erro ao buscar dados da demanda.");
-                return null;
-            }
-        })
-        .then((dados) => {
-    if (dados) {
-        console.log("Dados recebidos:", dados);
+      .then((resposta) => {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          console.error("Erro ao buscar dados da demanda.");
+          return null;
+        }
+      })
+      .then((dados) => {
+        if (dados) {
+          console.log("Dados recebidos:", dados);
 
-        const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
-        const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
+          const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
+          const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
 
-        const mediaDemandaSoro = calcularMediaDemanda(dados);
-        const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
+          const mediaDemandaSoro = calcularMediaDemanda(dados);
+          const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
 
-        const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
-        const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
+          const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
+          const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
 
-        const mediaDemandaTeste = calcularMediaTeste(dados);
-        const percentualEvolucaoTeste = calcularPercentualEvolucaoTeste(dados);
+          const mediaDemandaTeste = calcularMediaTeste(dados);
+          const percentualEvolucaoTeste = calcularPercentualEvolucaoTeste(dados);
 
-        atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
-        atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
-        atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
-        atualizarKPICardTeste(mediaDemandaTeste, percentualEvolucaoTeste);
-    }
-})
-.catch((erro) => console.error("Erro na requisição:", erro));
+          atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
+          atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
+          atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
+          atualizarKPICardTeste(mediaDemandaTeste, percentualEvolucaoTeste);
+        }
+      })
+      .catch((erro) => console.error("Erro na requisição:", erro));
   }
 
   function calcularMediaDemanda(dados) {
@@ -754,14 +756,14 @@ function atualizarProjecaoTestes(estadoVar) {
 
     const percentualEvolucao = ((ultimoAnoCasos - primeiroAnoCasos) / primeiroAnoCasos) * 100;
 
-    return percentualEvolucao;  
+    return percentualEvolucao;
   }
 
   function atualizarKPICard(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-soro");
     if (!kpiCard) {
-        console.error("Elemento do KPI de soro não encontrado!");
-        return;
+      console.error("Elemento do KPI de soro não encontrado!");
+      return;
     }
 
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} sachês de soro`;
@@ -774,11 +776,11 @@ function atualizarProjecaoTestes(estadoVar) {
     indicador.classList.toggle("down", percentualEvolucao < 0);
   }
 
-function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
+  function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     const kpiCard = document.getElementById("kpi-repelente");
     if (!kpiCard) {
-        console.error("Elemento do KPI de repelentes não encontrado!");
-        return;
+      console.error("Elemento do KPI de repelentes não encontrado!");
+      return;
     }
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} repelentes`;
 
@@ -790,13 +792,13 @@ function atualizarKPIRepelente(mediaDemanda, percentualEvolucao) {
     indicador.classList.toggle("down", percentualEvolucao < 0);
   }
 
-function calcularMediaDemandaRepelente(dados) {
+  function calcularMediaDemandaRepelente(dados) {
     const total = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
-    const mediaRepelentes = total * 2;  
+    const mediaRepelentes = total * 2;
     return mediaRepelentes / dados.length;
-}
+  }
 
-function calcularPercentualEvolucaoRepelente(dados) {
+  function calcularPercentualEvolucaoRepelente(dados) {
     if (dados.length < 2) return 0;
 
     const primeiroAno = dados[0].quantidade;
@@ -804,21 +806,21 @@ function calcularPercentualEvolucaoRepelente(dados) {
 
     const percentualEvolucao = ((ultimoAno - primeiroAno) / primeiroAno) * 100;
 
-    return percentualEvolucao;  
-}
+    return percentualEvolucao;
+  }
 
   atualizarKPI();
   atualizarKPICard(150.35, 12.78);
-setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
+  setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
 
-atualizarKPIRepelente(75.50, -8.45);
-setTimeout(() => atualizarKPIRepelente(80.00,  -3.25), 2000);
+  atualizarKPIRepelente(75.50, -8.45);
+  setTimeout(() => atualizarKPIRepelente(80.00, -3.25), 2000);
 
-atualizarKPICardParacetamol(75.50, -8.45);
-setTimeout(() => atualizarKPICardParacetamol(80.00, -3.25), 2000);
+  atualizarKPICardParacetamol(75.50, -8.45);
+  setTimeout(() => atualizarKPICardParacetamol(80.00, -3.25), 2000);
 
-atualizarKPICardTeste(75.50, -8.45);
-setTimeout(() => atualizarKPICardTeste(80.00, -3.25), 2000);
+  atualizarKPICardTeste(75.50, -8.45);
+  setTimeout(() => atualizarKPICardTeste(80.00, -3.25), 2000);
 
 
 </script>
