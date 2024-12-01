@@ -312,14 +312,13 @@ function buscarCasosCurados(dataInicial, dataFinal, estado) {
             valorFinal = (dadosCura2023[0] / dados2023.length) * 100
             break;
         }
-        console.log(dadosCura2021[0], dados2021.length)
-        console.log(valorInicial.toFixed(2), valorFinal.toFixed(2), valorFinal.toFixed(2) - valorInicial.toFixed(2))
         diferenca = valorFinal - valorInicial
 
         curaIcon.src = "./assets/icon/positiveUp.svg"
         valorCrescimentoCura.classList.add('positive')
         if (diferenca < 0) {
           curaIcon.src = "./assets/icon/negativeDown.svg"
+          valorCrescimentoCura.classList.remove('positive')
         }
         valorCrescimentoCura.textContent = `${diferenca.toFixed(2)}%`
         loadLinePercentageOfBedOccupancyInRelationToTheLastYearChart()
