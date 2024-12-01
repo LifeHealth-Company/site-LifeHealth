@@ -103,7 +103,7 @@ function loadLineStateChart(){
     const data = {
       labels: labels,
       datasets: [{
-        label: 'My First Dataset',
+        label: 'Total de casos',
         data: [20, 15, 7, 18],
         fill: false,
         borderColor: '#193D65',

@@ -50,6 +50,29 @@
             </span>
           </div>
         </div>
+        <div class="mostAffected" id="mediaCasosPorDia">
+          <span class="indicatorTitle">Média de Casos por dia</span>
+          <div class="datas">
+            <!-- Os dados do ranking serão inseridos aqui pela função carregarMediaCasosPorAno -->
+          </div>
+        </div>
+        <div class="mostAffected">
+          <span class="indicatorTitle">Maiores afetados</span>
+          <div class="datas">
+            <span class="data">
+              <span class="order">1°</span>
+              [grupo afetado] - 0 milhões
+            </span>
+            <span class="data">
+              <span class="order">2°</span>
+              [grupo afetado] - 0 milhões
+            </span>
+            <span class="data">
+              <span class="order">3°</span>
+              [grupo afetado] - 0 milhões
+            </span>
+          </div>
+        </div>
         <div class="filtro">
           <div class="calendar">
             <div class="timeIndicator">
@@ -59,7 +82,7 @@
             <img src="../assets/icon/longArrow.svg" class="arrow" />
             <div class="timeIndicator">
               <span class="startEnd">Até</span>
-              <span class="date" id="end-date">2022</span>
+              <span class="date" id="end-date">2023</span>
             </div>
 
             <img
@@ -125,7 +148,7 @@
         </div>
 
         <!-- ALERT CONTAINER moved inside .indicators -->
-        <div class="alertContainer">
+        <!-- <div class="alertContainer">
           <div class="alert">
             <img src="./assets/icon/alert.svg" class="alertIcon" />
             <div class="alertMessage">
@@ -136,7 +159,7 @@
               >
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- End of .indicators -->
 
@@ -207,8 +230,9 @@
         <div class="lineChart">
           <div class="lineChartHeader">
             <span class="indicatorTitle"
-              >Percentual de crescimento de casos em relação ao último ano</span
+              >Crescimento Anual de Casos</span
             >
+            <span class="indicatorTitle estadoAtual max">BRASIL</span>
           </div>
           <div class="chart">
             <canvas id="state"></canvas>
@@ -225,11 +249,14 @@
 <script src="./js/calendar.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
   buscarEstadoEmpresa();
   carregarMaioresAfetados();
   carregarTaxaDeIncidencia(sessionStorage.getItem("estadoAtual") || "BRASIL");
 });
+
+carregarMediaCasosPorAno([2021, 2022, 2023]);
+
 
 function buscarEstadoEmpresa() {
   const idEmpresa = sessionStorage.ID_EMPRESA;
@@ -335,6 +362,7 @@ function traduzirSiglaParaNome(sigla) {
     console.error("Elemento para estado não encontrado na interface.");
   }
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
   const openModalBtn = document.getElementById("open-modal-btn");
@@ -343,6 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   carregarCasosPorEstado(2021, 2023);
   atualizarCasosPorRegiao(2021, 2023);
+  
 
   openModalBtn.addEventListener("click", () => {
     modal.style.display = "flex";
@@ -632,6 +661,40 @@ function atualizarGraficoTaxaIncidencia(anos, taxaIncidencia) {
     })
     .catch(function (erro) {
       console.error("Erro na requisição de casos:", erro);
+    });
+}
+
+function carregarMediaCasosPorAno(anos) {
+  fetch("/usuarios/mediaCasosPorAno", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ anos: anos }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          const rankingContainer = document.querySelector("#mediaCasosPorDia .datas");
+          rankingContainer.innerHTML = "";
+
+          dados.forEach((dado, index) => {
+            const mediaCasosPorDia = Math.round(parseFloat(dado.mediaCasosPorDia));
+                       const rankingItem = document.createElement("span");
+            rankingItem.classList.add("data");
+            rankingItem.innerHTML = `
+              <span class="order">${index + 1}°</span>
+              ${dado.ano} - ${mediaCasosPorDia} casos por dia
+            `;
+            rankingContainer.appendChild(rankingItem);
+          });
+        });
+      } else {
+        console.error("Erro ao buscar dados de média de casos por ano.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de média de casos:", erro);
     });
 }
 </script>

@@ -370,6 +370,32 @@ function carregarCasosPorRegiao(anoInicial, anoFinal) {
 }
 
 
+function buscarMediaCasosPorAno(anos) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando média de casos por ano.");
+
+  const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+
+  const instrucaoSql = `
+    SELECT 
+      ano, 
+      COUNT(idCaso) AS totalCasos,
+      COUNT(idCaso) / 365 AS mediaCasosPorDia
+    FROM Casos
+    WHERE ano IN (${anosString})
+    GROUP BY ano
+    ORDER BY totalCasos DESC;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  
+  return database.executar(instrucaoSql).then((resultado) => {
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado.");
+    }
+    return resultado;
+  });
+}
+
 
 module.exports = {
   autenticar,
@@ -391,5 +417,6 @@ module.exports = {
   carregarCasosPorEstado,
   carregarCasosPorAno,
   carregarCasosPorRegiao,
-  buscarFuncionarioPorId
+  buscarFuncionarioPorId,
+  buscarMediaCasosPorAno
 };

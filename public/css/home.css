@@ -248,7 +248,8 @@ width: 100%;
 
 .filtro {
     margin-left: 20px;
-    position: relative; /* Garantir que o modal se posicione corretamente */
+    position: relative; 
+    margin: 0 auto;
 }
 
 /* Estilo do Modal */

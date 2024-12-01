@@ -91,4 +91,9 @@ router.post("/casosPorRegiao", function (req, res) {
     usuarioController.carregarCasosPorRegiao(req, res);
   });
 
+  router.post("/mediaCasosPorAno", function (req, res) {
+    usuarioController.buscarMediaCasosPorAno(req, res);
+  });
+
+  
 module.exports = router;
