@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     buscarPopulacao(parseInt(anoInicial), parseInt(anoFinal), estado);
     buscarCasosCurados(parseInt(anoInicial), parseInt(anoFinal), estado);
     calcularDiferencaSoro(parseInt(anoInicial), parseInt(anoFinal));
-    
+
     modal.style.display = "none";
   });
 });
@@ -88,7 +88,7 @@ function buscarEstadoEmpresa() {
 
   });
 
-   fetch(`/usuarios/${idEmpresa}`)
+  fetch(`/usuarios/${idEmpresa}`)
     .then((resposta) => {
       if (resposta.ok) {
         return resposta.json();
@@ -133,9 +133,9 @@ function buscarEstadoEmpresa() {
           option.selected = true;
         }
       });
-       buscarCasos(estadoCompleto)
-       state.textContent = estadoCompleto
-        })
+      buscarCasos(estadoCompleto)
+      state.textContent = estadoCompleto
+    })
     .catch((erro) => {
       console.error("#ERRO:", erro);
       carregarEstadoNaInterface("BRASIL");
@@ -157,20 +157,23 @@ function buscarCasos(Estado) {
       }
     })
     .then((dados) => {
-        if (dados) {
-        for (let i = 0; i < dados.length; i++) {
-          switch (dados[i].ano) {
-            case "2021":
-              dados2021.push(dados[i])
-              break;
-            case "2022":
-              dados2022.push(dados[i])
-              break;
-            case "2023":
-              dados2023.push(dados[i])
-              break;
+      if (dados) {
+        if (dados2021.length === 0 && dados2022.length === 0 && dados2023.length === 0) {
+          for (let i = 0; i < dados.length; i++) {
+            switch (dados[i].ano) {
+              case "2021":
+                dados2021.push(dados[i])
+                break;
+              case "2022":
+                dados2022.push(dados[i])
+                break;
+              case "2023":
+                dados2023.push(dados[i])
+                break;
+            }
           }
         }
+
         let anos = [2021, 2022, 2023]
         let casos = [dados2021.length, dados2022.length, dados2023.length]
 
@@ -188,7 +191,7 @@ function buscarCasos(Estado) {
         loadLinePredictedSerumUseChart()
         loadLineBedEstimateForNextYearChart();
 
-        if(!searchState){
+        if (!searchState) {
           buscarPopulacao(2021, 2023, "São Paulo")
           buscarCasosCurados(2021, 2023, "São Paulo")
           calcularDiferencaSoro(2021, 2023)
@@ -309,9 +312,10 @@ function buscarCasosCurados(dataInicial, dataFinal, estado) {
             valorFinal = (dadosCura2023[0] / dados2023.length) * 100
             break;
         }
+        console.log(dadosCura2021[0], dados2021.length)
+        console.log(valorInicial.toFixed(2), valorFinal.toFixed(2), valorFinal.toFixed(2) - valorInicial.toFixed(2))
         diferenca = valorFinal - valorInicial
 
-        console.log(valorFinal,valorInicial)
         curaIcon.src = "./assets/icon/positiveUp.svg"
         valorCrescimentoCura.classList.add('positive')
         if (diferenca < 0) {
@@ -384,9 +388,9 @@ function calcularProjecao(ano, regressao) {
 
 
 function loadLineForecastOfIncreaseInCasesChart() {
-  if (lineforecastOfIncreaseInCasesChart) {
-    lineforecastOfIncreaseInCasesChart.destroy();
-  }
+  // if (lineforecastOfIncreaseInCasesChart) {
+  //   lineforecastOfIncreaseInCasesChart.destroy();
+  // }
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -437,15 +441,15 @@ function loadLineForecastOfIncreaseInCasesChart() {
     }
   };
 
-lineforecastOfIncreaseInCasesChart = new Chart(
+  lineforecastOfIncreaseInCasesChart = new Chart(
     document.getElementById('forecastOfIncreaseInCases'),
     config
   );
 }
 function loadLinePredictedSerumUseChart() {
-  if (linePredictedSerumUseChart) {
-    linePredictedSerumUseChart.destroy();
-  }
+  // if (linePredictedSerumUseChart) {
+  //   linePredictedSerumUseChart.destroy();
+  // }
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -508,9 +512,9 @@ function loadLinePredictedSerumUseChart() {
   );
 }
 function loadLineBedEstimateForNextYearChart() {
-  if (lineBedEstimateForNextYearChart) {
-    lineBedEstimateForNextYearChart.destroy();
-  }
+  // if (lineBedEstimateForNextYearChart) {
+  //   lineBedEstimateForNextYearChart.destroy();
+  // }
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
   Chart.defaults.plugins.legend.position = 'right';
@@ -567,9 +571,9 @@ function loadLineBedEstimateForNextYearChart() {
 
 function loadLinePercentageOfBedOccupancyInRelationToTheLastYearChart() {
 
-  if (linePercentageOfBedOccupancyInRelationToTheLastYearChart) {
-    linePercentageOfBedOccupancyInRelationToTheLastYearChart.destroy();
-  }
+  // if (linePercentageOfBedOccupancyInRelationToTheLastYearChart) {
+  //   linePercentageOfBedOccupancyInRelationToTheLastYearChart.destroy();
+  // }
 
   Chart.defaults.color = "#193D65";
   Chart.defaults.font.size = 20;
@@ -622,4 +626,31 @@ function loadLinePercentageOfBedOccupancyInRelationToTheLastYearChart() {
   );
 }
 
+function traduzirSiglaParaNome(sigla) {
+  const estados = {
+    AL: "(Alagoas)",
+    AC: "(Acre)",
+    AP: "(Amapá)",
+    AM: "(Amazonas)",
+    BA: "(Bahia)",
+    CE: "(Ceará)",
+    DF: "(Distrito Federal)",
+    GO: "(Goiás)",
+    MA: "(Maranhão)",
+    MG: "(Minas Gerais)",
+    SP: "(São Paulo)",
+    RS: "(Rio Grande do Sul)",
+    SC: "(Santa Catarina)",
+    SE: "(Sergipe)",
+    TO: "(Tocantins)",
+    MT: "(Mato Grosso)",
+    PE: "(Pernambuco)",
+    MS: "(Mato Grosso do Sul)",
+    PA: "(Pará)",
+    PR: "(Paraná)",
+    PI: "(Piauí)",
+    PB: "(Paraíba)",
+  };
 
+  return estados[sigla] || sigla;
+}

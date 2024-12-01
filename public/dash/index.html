@@ -269,15 +269,9 @@
 <script src="./main.js"></script>
 
 <script>
-<<<<<<< HEAD
-
-  function animarPercentual(element, valorFinal, duracao = 1000) {
-    const valorInicial = parseFloat(element.getAttribute("data-valor-atual")) || 0;
-=======
   function animarPercentual(element, valorFinal, duracao = 1000) {
     const valorInicial =
       parseFloat(element.getAttribute("data-valor-atual")) || 0;
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
     element.setAttribute("data-valor-atual", valorFinal.toFixed(2));
 
@@ -287,14 +281,10 @@
     function atualizar() {
       valorAtual += incremento;
 
-<<<<<<< HEAD
-      if ((incremento > 0 && valorAtual >= valorFinal) || (incremento < 0 && valorAtual <= valorFinal)) {
-=======
       if (
         (incremento > 0 && valorAtual >= valorFinal) ||
         (incremento < 0 && valorAtual <= valorFinal)
       ) {
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
         element.textContent = `${valorFinal.toFixed(2)}%`;
       } else {
         element.textContent = `${valorAtual.toFixed(2)}%`;
@@ -310,34 +300,21 @@
 
     if (!idEmpresa || isNaN(idEmpresa)) {
       console.error("ID da empresa não definido ou inválido.");
-<<<<<<< HEAD
-      alert("Erro: ID da empresa não encontrado. Por favor, faça login novamente.");
-=======
       alert(
         "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
       );
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
       carregarEstadoNaInterface("BRASIL");
       return;
     }
 
     document.querySelector("#search-btn").addEventListener("click", () => {
-<<<<<<< HEAD
-      const estadoSelecionadoSigla = document.querySelector("#modalEstado").value;
-=======
       const estadoSelecionadoSigla =
         document.querySelector("#modalEstado").value;
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
       const estadoCompleto = traduzirSiglaParaNome(estadoSelecionadoSigla);
       sessionStorage.setItem("estadoAtual", estadoSelecionadoSigla);
       carregarEstadoNaInterface(estadoCompleto);
       atualizarProjecaoSoro(estadoSelecionadoSigla);
-<<<<<<< HEAD
-      atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla)
-
-=======
       atualizarPrevisaoDemandaParacetamol(estadoSelecionadoSigla);
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     });
 
     console.log("ID da empresa:", idEmpresa);
@@ -354,30 +331,6 @@
         console.log("Dados da empresa:", dadosEmpresa);
 
         const estados = {
-<<<<<<< HEAD
-          "AL": "Alagoas",
-          "AC": "Acre",
-          "AP": "Amapá",
-          "AM": "Amazonas",
-          "BA": "Bahia",
-          "CE": "Ceará",
-          "DF": "Distrito Federal",
-          "GO": "Goiás",
-          "MA": "Maranhão",
-          "MG": "Minas Gerais",
-          "SP": "São Paulo",
-          "RS": "Rio Grande do Sul",
-          "SC": "Santa Catarina",
-          "SE": "Sergipe",
-          "TO": "Tocantins",
-          "MT": "Mato Grosso",
-          "PE": "Pernambuco",
-          "MS": "Mato Grosso do Sul",
-          "PA": "Pará",
-          "PR": "Paraná",
-          "PI": "Piauí",
-          "PB": "Paraíba"
-=======
           AL: "(Alagoas)",
           AC: "(Acre)",
           AP: "(Amapá)",
@@ -400,7 +353,6 @@
           PR: "(Paraná)",
           PI: "(Piauí)",
           PB: "(Paraíba)",
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
         };
 
         const estadoSigla = dadosEmpresa[0]?.estado || "BRASIL";
@@ -409,11 +361,7 @@
         const selectEstado = document.querySelector("#modalEstado");
         const options = selectEstado.querySelectorAll("option");
 
-<<<<<<< HEAD
-        options.forEach(option => {
-=======
         options.forEach((option) => {
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
           if (option.value === estadoSigla) {
             option.selected = true;
           }
@@ -424,11 +372,7 @@
         atualizarProjecaoRepelentes(estadoSigla);
         atualizarProjecaoTestes(estadoSigla);
         atualizarProjecaoSoro(estadoSigla);
-<<<<<<< HEAD
-        atualizarPrevisaoDemandaParacetamol(estadoSigla)
-=======
         atualizarPrevisaoDemandaParacetamol(estadoSigla);
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
       })
       .catch((erro) => {
         console.error("#ERRO:", erro);
@@ -438,30 +382,6 @@
 
   function traduzirSiglaParaNome(sigla) {
     const estados = {
-<<<<<<< HEAD
-      "AL": "Alagoas",
-      "AC": "Acre",
-      "AP": "Amapá",
-      "AM": "Amazonas",
-      "BA": "Bahia",
-      "CE": "Ceará",
-      "DF": "(Distrito Federal)",
-      "GO": "Goiás",
-      "MA": "Maranhão",
-      "MG": "Minas Gerais",
-      "SP": "São Paulo",
-      "RS": "Rio Grande do Sul",
-      "SC": "Santa Catarina",
-      "SE": "Sergipe",
-      "TO": "Tocantins",
-      "MT": "Mato Grosso",
-      "PE": "Pernambuco",
-      "MS": "Mato Grosso do Sul",
-      "PA": "Pará",
-      "PR": "Paraná",
-      "PI": "Piauí",
-      "PB": "Paraíba"
-=======
       AL: "(Alagoas)",
       AC: "(Acre)",
       AP: "(Amapá)",
@@ -484,43 +404,26 @@
       PR: "(Paraná)",
       PI: "(Piauí)",
       PB: "(Paraíba)",
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     };
 
     return estados[sigla] || sigla;
   }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
   document.addEventListener("DOMContentLoaded", () => {
     buscarEstadoEmpresa();
   });
 
-<<<<<<< HEAD
-
-  function carregarEstadoNaInterface(estado) {
-    const indicadorTitulo = document.querySelector(".indicatorTitle.estadoAtual");
-
-=======
   function carregarEstadoNaInterface(estado) {
     const indicadorTitulo = document.querySelector(
       ".indicatorTitle.estadoAtual"
     );
 
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     if (indicadorTitulo) {
       indicadorTitulo.textContent = estado;
     } else {
       console.error("Elemento para estado não encontrado na interface.");
     }
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
   function atualizarProjecaoRepelentes(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
@@ -539,22 +442,6 @@
           resposta.json().then(function (dados) {
             var anos = [];
             var casos = [];
-<<<<<<< HEAD
-            dados.forEach(function (dado) {
-              anos.push(dado.ano);
-              casos.push(dado.quantidade);
-            });
-
-            const regressao = calcularRegressaoLinear(anos, casos);
-
-            const casos2024 = calcularProjecao(2024, regressao);
-            anos.push(2024);
-            casos.push(casos2024);
-
-            const casos2025 = calcularProjecao(2025, regressao);
-            anos.push(2025);
-            casos.push(casos2025);
-=======
             var cores = [];
 
             dados.forEach(function (dado) {
@@ -574,19 +461,14 @@
             anos.push(2025);
             casos.push(casos2025);
             cores.push("#193D65");
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
             const chart = Chart.getChart("state1");
             if (chart) {
               chart.data.labels = anos;
-<<<<<<< HEAD
-              chart.data.datasets[0].data = casos;
-=======
 
               chart.data.datasets[0].data = casos;
               chart.data.datasets[0].backgroundColor = cores;
 
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
               chart.update();
               console.log("Gráfico de repelentes atualizado com sucesso!");
             } else {
@@ -594,13 +476,9 @@
             }
           });
         } else {
-<<<<<<< HEAD
-          console.log("Erro ao buscar dados de casos para o estado selecionado.");
-=======
           console.log(
             "Erro ao buscar dados de casos para o estado selecionado."
           );
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
         }
       })
       .catch(function (erro) {
@@ -608,16 +486,9 @@
       });
   }
 
-<<<<<<< HEAD
-
   function atualizarPrevisaoDemandaParacetamol(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
 
-=======
-  function atualizarPrevisaoDemandaParacetamol(estadoVar) {
-    console.log("Estado selecionado: ", estadoVar);
-
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     fetch(`/usuarios/casos`, {
       method: "POST",
       headers: {
@@ -632,43 +503,7 @@
           resposta.json().then(function (dados) {
             var anos = [];
             var casos = [];
-<<<<<<< HEAD
-            dados.forEach(function (dado) {
-              anos.push(dado.ano);
-              casos.push(dado.quantidade);
-            });
-
-            const regressao = calcularRegressaoLinear(anos, casos);
-
-            const casos2024 = calcularProjecao(2024, regressao) * 3;
-            anos.push(2024);
-            casos.push(casos2024);
-
-            const casos2025 = calcularProjecao(2025, regressao) * 2;
-            anos.push(2025);
-            casos.push(casos2025);
-
-            const chart = Chart.getChart("state4");
-            if (chart) {
-              chart.data.labels = anos;
-              chart.data.datasets[0].data = casos;
-              chart.update();
-              console.log("Gráfico de paracetamol atualizado com sucesso!");
-            } else {
-              console.error("Gráfico de paracetamol não encontrado!");
-            }
-          });
-        } else {
-          console.log("Erro ao buscar dados de casos para o estado selecionado.");
-        }
-      })
-      .catch(function (erro) {
-        console.log("Erro na requisição de paracetamol:", erro);
-      });
-  }
-=======
             var cores = [];
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
             dados.forEach(function (dado) {
               anos.push(dado.ano);
@@ -676,8 +511,6 @@
               cores.push("#75A8E1");
             });
 
-<<<<<<< HEAD
-=======
             const regressao = calcularRegressaoLinear(anos, casos);
 
             const casos2024 = calcularProjecao(2024, regressao) * 4;
@@ -714,7 +547,6 @@
       });
   }
 
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
   function calcularMediaParacetamol(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
     const totalParacetamol = totalCasos * 3;
@@ -754,13 +586,7 @@
 
     indicador.classList.toggle("up", percentualEvolucao >= 0);
     indicador.classList.toggle("down", percentualEvolucao < 0);
-<<<<<<< HEAD
-
   }
-
-=======
-  }
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
   function calcularMediaTeste(dados) {
     const totalCasos = dados.reduce((acc, curr) => acc + curr.quantidade, 0);
@@ -787,14 +613,9 @@
       return;
     }
 
-<<<<<<< HEAD
-
-    kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(2)} testes`;
-=======
     kpiCard.querySelector("p").textContent = `${mediaDemanda.toFixed(
       2
     )} testes`;
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
     const indicador = kpiCard.querySelector(".indicator");
 
     animarPercentual(indicador, percentualEvolucao);
@@ -826,34 +647,7 @@
     const projRegressao = Math.round(regressao.m * ano + regressao.b);
     return projRegressao;
   }
-<<<<<<< HEAD
-=======
 
-  function atualizarProjecaoSoro(estadoVar) {
-    console.log("Estado selecionado: ", estadoVar);
-
-    fetch(`/usuarios/testes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        estadoServer: estadoVar,
-      }),
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dados) {
-            var anos = [];
-            var vendas = [];
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
-
-            dados.forEach(function (dado) {
-              anos.push(dado.ano);
-              vendas.push(dado.quantidade);
-            });
-
-<<<<<<< HEAD
   function atualizarProjecaoSoro(estadoVar) {
     console.log("Estado selecionado: ", estadoVar);
 
@@ -877,27 +671,6 @@
               vendas.push(dado.quantidade);
             });
 
-            console.log("Anos reais recebidos: ", anos);
-            console.log("Vendas reais: ", vendas);
-
-            const regressao = calcularRegressaoLinear(anos, vendas);
-
-            const anosProjetados = [2024, 2025];
-            const vendasProjetadas = anosProjetados.map((ano) =>
-              calcularProjecao(ano, regressao) * 5
-            );
-
-            console.log("Anos projetados: ", anosProjetados);
-            console.log("Vendas projetadas: ", vendasProjetadas);
-
-            const todosAnos = [...anos, ...anosProjetados];
-            const todasVendas = [...vendas, ...vendasProjetadas];
-
-            const chart = Chart.getChart("state2");
-            if (chart) {
-              chart.data.labels = todosAnos;
-
-=======
             console.log("Anos reais recebidos: ", anos);
             console.log("Vendas reais: ", vendas);
 
@@ -918,7 +691,6 @@
             if (chart) {
               chart.data.labels = todosAnos;
 
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
               chart.data.datasets = [
                 {
                   label: "Quantidade de soro vendidos (Dados reais)",
@@ -988,13 +760,8 @@
             const regressao = calcularRegressaoLinear(anos, vendas);
 
             const anosProjetados = [2024, 2025];
-<<<<<<< HEAD
-            const vendasProjetadas = anosProjetados.map((ano) =>
-              calcularProjecao(ano, regressao)
-=======
             const vendasProjetadas = anosProjetados.map(
               (ano) => calcularProjecao(ano, regressao) * 2
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
             );
 
             console.log("Anos projetados: ", anosProjetados);
@@ -1031,25 +798,6 @@
                   borderDash: [5, 5],
                 },
               ];
-<<<<<<< HEAD
-
-              chart.update();
-              console.log("Gráfico atualizado com sucesso!");
-            } else {
-              console.error("Gráfico não encontrado!");
-            }
-          });
-        } else {
-          console.error("Erro ao buscar dados para o estado.");
-        }
-      })
-      .catch(function (erro) {
-        console.error("Erro na requisição de testes:", erro);
-      });
-  }
-
-=======
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
               chart.update();
               console.log("Gráfico atualizado com sucesso!");
@@ -1110,27 +858,13 @@
           console.log("Dados recebidos:", dados);
 
           const mediaDemandaRepelente = calcularMediaDemandaRepelente(dados);
-<<<<<<< HEAD
-          const percentualEvolucaoRepelente = calcularPercentualEvolucaoRepelente(dados);
-=======
           const percentualEvolucaoRepelente =
             calcularPercentualEvolucaoRepelente(dados);
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
           const mediaDemandaSoro = calcularMediaDemanda(dados);
           const percentualEvolucaoSoro = calcularPercentualEvolucao(dados);
 
           const mediaDemandaParacetamol = calcularMediaParacetamol(dados);
-<<<<<<< HEAD
-          const percentualEvolucaoParacetamol = calcularPercentualEvolucaoParacetamol(dados);
-
-          const mediaDemandaTeste = calcularMediaTeste(dados);
-          const percentualEvolucaoTeste = calcularPercentualEvolucaoTeste(dados);
-
-          atualizarKPIRepelente(mediaDemandaRepelente, percentualEvolucaoRepelente);
-          atualizarKPICard(mediaDemandaSoro, percentualEvolucaoSoro);
-          atualizarKPICardParacetamol(mediaDemandaParacetamol, percentualEvolucaoParacetamol);
-=======
           const percentualEvolucaoParacetamol =
             calcularPercentualEvolucaoParacetamol(dados);
 
@@ -1147,7 +881,6 @@
             mediaDemandaParacetamol,
             percentualEvolucaoParacetamol
           );
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
           atualizarKPICardTeste(mediaDemandaTeste, percentualEvolucaoTeste);
         }
       })
@@ -1228,31 +961,14 @@
 
   atualizarKPI();
   atualizarKPICard(150.35, 12.78);
-<<<<<<< HEAD
-  setTimeout(() => atualizarKPICard(160.50, 20.45), 2000);
-
-  atualizarKPIRepelente(75.50, -8.45);
-  setTimeout(() => atualizarKPIRepelente(80.00, -3.25), 2000);
-
-  atualizarKPICardParacetamol(75.50, -8.45);
-  setTimeout(() => atualizarKPICardParacetamol(80.00, -3.25), 2000);
-
-  atualizarKPICardTeste(75.50, -8.45);
-  setTimeout(() => atualizarKPICardTeste(80.00, -3.25), 2000);
-=======
   setTimeout(() => atualizarKPICard(160.5, 20.45), 2000);
 
   atualizarKPIRepelente(75.5, -8.45);
   setTimeout(() => atualizarKPIRepelente(80.0, -3.25), 2000);
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
 
   atualizarKPICardParacetamol(75.5, -8.45);
   setTimeout(() => atualizarKPICardParacetamol(80.0, -3.25), 2000);
 
-<<<<<<< HEAD
-</script>
-=======
   atualizarKPICardTeste(75.5, -8.45);
   setTimeout(() => atualizarKPICardTeste(80.0, -3.25), 2000);
 </script>
->>>>>>> 8d5a96999b1d1f2aa97b2cf926cf5bbdc21396f6
