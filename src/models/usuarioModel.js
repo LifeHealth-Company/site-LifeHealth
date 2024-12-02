@@ -394,7 +394,7 @@ function carregarTaxaDeIncidencia(anos, estado) {
 }
 
   
-function carregarcasosPorEstado(anoInicial, anoFinal) {
+function carregarCasosPorEstado(anoInicial, anoFinal) {
   console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por estado no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
@@ -417,7 +417,7 @@ function carregarcasosPorEstado(anoInicial, anoFinal) {
   });
 }
 
-function carregarcasosPorAno(anos) {
+function carregarCasosPorAno(anos) {
   console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos por ano.");
 
   const anosString = anos.map((ano) => `'${ano}'`).join(", ");
@@ -445,7 +445,7 @@ function carregarcasosPorAno(anos) {
   });
 }
 
-function carregarcasosPorRegiao(anoInicial, anoFinal) {
+function carregarCasosPorRegiao(anoInicial, anoFinal) {
   console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por região no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
@@ -469,7 +469,7 @@ function carregarcasosPorRegiao(anoInicial, anoFinal) {
 }
 
 
-function buscarMediacasosPorAno(anos) {
+function buscarMediaCasosPorAno(anos) {
   console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando média de casos por ano.");
 
   const anosString = anos.map((ano) => `'${ano}'`).join(", ");
@@ -551,7 +551,7 @@ function calcularCrescimentoEstados(ano) {
      `;
       return database.executar(instrucaoSql);
 }
-function obterTotalcasosBrasil() {
+function obterTotalCasosBrasil() {
   var instrucaoSql = `SELECT COUNT(*) AS totalcasos FROM casos;`;
   return database.executar(instrucaoSql);
 }
@@ -571,7 +571,7 @@ function maioresAfetados() {
   return database.executar(instrucaoSql);
 }
 
-function crescimentocasosBrasil(anoAnterior, anoAtual) {
+function crescimentoCasosBrasil(anoAnterior, anoAtual) {
   var instrucaoSql = `
     SELECT 
         (
@@ -599,15 +599,15 @@ module.exports = {
   buscarcasosCurados,
   buscarPopulacao,
   carregarTaxaDeIncidencia,
-  carregarcasosPorEstado,
-  carregarcasosPorAno,
-  carregarcasosPorRegiao,
+  carregarCasosPorEstado,
+  carregarCasosPorAno,
+  carregarCasosPorRegiao,
   buscarFuncionarioPorId,
-  buscarMediacasosPorAno,
+  buscarMediaCasosPorAno,
   buscarTaxaMortalidade,
-  obterTotalcasosBrasil,
+  obterTotalCasosBrasil,
   maioresAfetados,
-  crescimentocasosBrasil,
+  crescimentoCasosBrasil,
   obterEstadosMaisAfetados,
   calcularCrescimentoEstados,
   buscarPorEmail,
