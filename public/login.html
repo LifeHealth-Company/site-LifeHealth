@@ -53,7 +53,7 @@
                     id="input_senha_login"
                     placeholder="Insira sua senha"
                   />
-                  <b><li class="loginClick2">Esqueceu sua senha?</li></b>
+                  <b><li onclick="esqueciMinhaSenha()" class="loginClick2">Esqueceu sua senha?</li></b>
                 </div>
               </div>
 
@@ -239,6 +239,12 @@
   </body>
 </html>
 <script>
+
+function esqueciMinhaSenha() {
+  window.location.href = "esqueciSenha.html";
+}
+
+
   function selecionarOpcao(opcao) {
     window.location.href = `cadastro.html?selectedOption=${opcao}`;
   }
