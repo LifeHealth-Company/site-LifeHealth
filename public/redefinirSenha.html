@@ -16,35 +16,36 @@
 
   <body>
     <div id="inicio">
-      <div class="content-register">
-        <div class="cadastro-container">
-          <div class="cadastro-text">
-            <h1>Esqueci minha senha</h1>
-            <p>
-              Informe seu e-mail para receber um link de recuperação de senha.
-            </p>
-            <form class="cadastro-form" id="resetPasswordForm">
-              <div class="input-wrapper">
-                <div class="inputs-step1">
-                  <label for="email">E-mail</label>
-                  <input type="email" id="email" placeholder="Enter your email" required>
-                </div>
-              </div>
-
-              <button
-              type="submit"
-                class="btnContinuar2"
-                onclick="enviarLinkRecuperacao()"
-                id="btnContinuar"
-              >
-                Enviar link de recuperação
-              </button>
-
-              <p class="cadastro-texto-secundario">
-                Lembrou sua senha? <a href="login.html">Voltar para o login</a>
-              </p>
-            </form>
-          </div>
+            <div class="cadastro-container">
+              <div class="cadastro-text">
+                <h1>Redefinir Senha</h1>
+                <p>Crie uma nova senha para sua conta.</p>
+                <form class="cadastro-form">
+                  <div class="input-wrapper">
+                    <label for="nova-senha">Nova Senha</label>
+                    <input
+                      type="password"
+                      id="input_nova_senha"
+                      placeholder="Digite sua nova senha"
+                    />
+                  </div>
+                  <div class="input-wrapper">
+                    <label for="confirmar-senha">Confirmar Senha</label>
+                    <input
+                      type="password"
+                      id="input_confirmar_senha"
+                      placeholder="Confirme sua nova senha"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    class="btnContinuar2"
+                    onclick="redefinirSenha()"
+                  >
+                    Redefinir Senha
+                  </button>
+                </form>
+              </div>          
           <div class="slideshow-container">
             <div class="slideshow">
                 <img src="./assets/services/chart.svg" class="chartImage" alt="Chart Icon">
@@ -113,35 +114,6 @@
     </div>
     <script src="js/script.js"></script>
 <script>
- function sendVerificationEmail(event) {
-    event.preventDefault();  
-    const email = document.getElementById('email').value;
-
-    fetch('/send-verification-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email })
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error('Falha no envio do e-mail');
-        }
-    })
-    .then(data => {
-        alert(data);
-        window.location.href = '/verificarToken.html';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ocorreu um erro. Tente novamente!');
-    });
-}
-
-document.getElementById('resetPasswordForm').addEventListener('submit', sendVerificationEmail);
 
 </script>
        
