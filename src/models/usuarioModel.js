@@ -303,24 +303,6 @@ function editarFuncionario(idUsuario, nome, sobrenome, email, cargo) {
   return database.executar(instrucaoSql);
 }
 
-
-function maioresAfetados() {
-  console.log("ACESSEI O USUARIO MODEL \n\n\t\t >> Carregando os dados dos maiores afetados");
-
-  var instrucaoSql = `
-      SELECT
-        SUM(CASE WHEN isPacienteGestante = 'Sim' THEN 1 ELSE 0 END) AS gestantes,
-        SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente >= 60 THEN 1 ELSE 0 END) AS idosos,
-        SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente BETWEEN 0 AND 12 THEN 1 ELSE 0 END) AS criancas
-      FROM Casos
-      WHERE ufNotificacao IS NOT NULL;
-    `;
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-
-  return database.executar(instrucaoSql);
-
-}
 function buscarCasosPorEstado(estado) {
   const instrucaoSql = `
       select * from Casos where estadoNotificacao = "${estado}";
@@ -343,22 +325,30 @@ function buscarPopulacao(estado, ano) {
   return database.executar(instrucaoSql);
 }
 
-function carregarTaxaDeIncidencia(anos) {
-  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de incidência de dengue por ano.");
+function carregarTaxaDeIncidencia(anos, estado) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de incidência de dengue por ano e estado.");
 
   const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+  const estadoString = estado ? `AND c.ufNotificacao = '${estado}'` : '';
 
   const instrucaoSql = `
     SELECT 
       c.ano, 
+      c.ufNotificacao AS estadoNotificacao,
       SUM(c.idCaso) AS total_casos,
       SUM(p.qtdPopulacao) AS total_populacao,
       (SUM(c.idCaso) / SUM(p.qtdPopulacao)) * 100000 AS taxa_incidencia
-    FROM Casos c
-    JOIN Populacao p ON c.ano = p.ano
-    WHERE c.ano IN (${anosString})
-    GROUP BY c.ano
-    ORDER BY c.ano;
+    FROM 
+      Casos c
+    JOIN 
+      Populacao p 
+      ON c.ano = p.ano AND c.ufNotificacao = p.estado
+    WHERE 
+      c.ano IN (${anosString}) ${estadoString}
+    GROUP BY 
+      c.ano, c.ufNotificacao
+    ORDER BY 
+      c.ano;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -377,12 +367,16 @@ function carregarCasosPorEstado(ano) {
 
   const anoString = `'${ano}'`;
 
+  
+function carregarCasosPorEstado(anoInicial, anoFinal) {
+  console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por estado no período de ${anoInicial} a ${anoFinal}.`);
+
   const instrucaoSql = `
     SELECT 
       c.estadoNotificacao, 
       COUNT(c.idCaso) AS casos
     FROM Casos c
-    WHERE c.ano = ${anoString}
+    WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
     GROUP BY c.estadoNotificacao
     ORDER BY casos ASC;
   `;
@@ -425,42 +419,86 @@ function carregarCasosPorAno(anos) {
   });
 }
 
-function carregarCasosPorRegiao(ano) {
-  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos por região.");
-
-  if (!ano) {
-    throw new Error("Ano não foi informado.");
-  }
-
-  const anoString = `'${ano}'`;
+function carregarCasosPorRegiao(anoInicial, anoFinal) {
+  console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por região no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
-      SELECT 
-          c.estadoNotificacao, 
-          COUNT(c.idCaso) AS quantidadeCasos
-      FROM Casos c
-      WHERE c.ano = ${anoString}
-      GROUP BY c.estadoNotificacao
-      ORDER BY quantidadeCasos DESC;
+    SELECT 
+      c.estadoNotificacao, 
+      COUNT(c.idCaso) AS quantidadeCasos
+    FROM Casos c
+    WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
+    GROUP BY c.estadoNotificacao
+    ORDER BY quantidadeCasos ASC;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-
+  
   return database.executar(instrucaoSql).then((resultado) => {
-    console.log("Resultado da consulta:", resultado);
-
     if (!resultado || resultado.length === 0) {
-      throw new Error("Nenhum dado encontrado para os casos por região.");
+      throw new Error("Nenhum dado encontrado.");
     }
-
     return resultado;
-  }).catch(function (erro) {
-    console.error("Erro ao executar a consulta:", erro);
-    throw new Error("Erro ao buscar dados de casos por região.");
   });
 }
 
 
+function buscarMediaCasosPorAno(anos) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando média de casos por ano.");
+
+  const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+
+  const instrucaoSql = `
+    SELECT 
+      ano, 
+      COUNT(idCaso) AS totalCasos,
+      COUNT(idCaso) / 365 AS mediaCasosPorDia
+    FROM Casos
+    WHERE ano IN (${anosString})
+    GROUP BY ano
+    ORDER BY totalCasos DESC;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  
+  return database.executar(instrucaoSql).then((resultado) => {
+
+    console.log("Resultado da consulta:", resultado);
+
+
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado.");
+    }
+    return resultado;
+  });
+}
+
+function buscarTaxaMortalidade(anos) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de mortalidade.");
+
+  const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+
+  const instrucaoSql = `
+    SELECT 
+      ano,
+      COUNT(*) AS totalCasos,
+      SUM(CASE WHEN evolucaoCaso = 'Óbito' OR evolucaoCaso IS NULL OR TRIM(evolucaoCaso) = '' THEN 1 ELSE 0 END) AS totalObitos,
+      ROUND((SUM(CASE WHEN evolucaoCaso = 'Óbito' OR evolucaoCaso IS NULL OR TRIM(evolucaoCaso) = '' THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 2) AS taxaMortalidade
+    FROM Casos
+    WHERE ano IN (${anosString})
+    GROUP BY ano
+    ORDER BY taxaMortalidade DESC;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  
+  return database.executar(instrucaoSql).then((resultado) => {
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado.");
+    }
+    return resultado;
+  });
+}
 
 module.exports = {
   autenticar,
@@ -475,12 +513,9 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstado,
-
   buscarCasosPorEstado,
   buscarCasosCurados,
   buscarPopulacao,
-  maioresAfetados,
-
   carregarTaxaDeIncidencia,
   carregarCasosPorEstado,
   carregarCasosPorAno,
@@ -492,5 +527,10 @@ module.exports = {
 
   obterEstadosMaisAfetados,
   calcularCrescimentoEstados
+
+
+  buscarFuncionarioPorId,
+  buscarMediaCasosPorAno,
+  buscarTaxaMortalidade
 
 };

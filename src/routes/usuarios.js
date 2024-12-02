@@ -110,4 +110,12 @@ router.post("/casosPorRegiao", function (req, res) {
     usuarioController.carregarCasosPorRegiao(req, res);
   });
 
+  router.post("/mediaCasosPorAno", function (req, res) {
+    usuarioController.buscarMediaCasosPorAno(req, res);
+  });
+
+  router.post("/taxaMortalidade", function (req, res) {
+    usuarioController.buscarTaxaMortalidade(req, res);
+  });
+
 module.exports = router;

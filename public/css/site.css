@@ -809,7 +809,31 @@ select {
 }
 
 @media (max-width: 480px) {
-  .cadastro-container {
+  .cadastro-form input,
+  .cadastro-form select {
+    width: 350px;
+    height: 40px;
+  }
+
+  .loginClick2 {
+    margin-top: 10px;
+    color: #0450a7;
+    font-size: medium;
+    margin-left: 172px;
+    cursor: pointer;
+  }
+
+  .btnContinuar {
+    width: 376px;
+    height: 40px;
+  }
+
+  .btnContinuar2 {
+    width: 350px;
+    height: 40px;
+  }
+
+  .inp .cadastro-container {
     padding: 5px;
     margin-top: 180px;
   }
@@ -828,6 +852,10 @@ select {
 
   .btnEntrar {
     font-size: 16px;
+  }
+
+  .slideshow-container {
+    display: none !important;
   }
 }
 
@@ -959,7 +987,7 @@ p {
   align-items: center;
 }
 .top-bar a {
-  color: black;  
+  color: black;
   text-decoration: none;
   font-size: 16px;
   display: flex;
@@ -967,6 +995,6 @@ p {
 }
 .top-bar i {
   margin-right: 8px;
-  font-size: 18px;  
-  color: black;  
+  font-size: 18px;
+  color: black;
 }

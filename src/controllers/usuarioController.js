@@ -485,21 +485,21 @@ function atualizarGraficoRegioes() {
       res.status(500).json({ error: "Erro ao buscar os dados da empresa." });
     });
 }
-
 function carregarTaxaDeIncidencia(req, res) {
-  const anos = ['2021', '2022', '2023'];
+  const { anos, estado } = req.body;
 
   if (!anos || anos.length === 0) {
     return res.status(400).send("Os anos são obrigatórios.");
   }
 
-  usuarioModel.carregarTaxaDeIncidencia(anos)
+  usuarioModel.carregarTaxaDeIncidencia(anos, estado)
     .then(function (resultados) {
       if (resultados.length > 0) {
         const taxasDeIncidencia = resultados.map((registro) => ({
           ano: registro.ano,
-          casos: registro.casos,
-          populacao: registro.qtdPopulacao,
+          estado: registro.estadoNotificacao,
+          casos: registro.total_casos,
+          populacao: registro.total_populacao,
           taxa_incidencia: registro.taxa_incidencia,
         }));
 
@@ -513,15 +513,14 @@ function carregarTaxaDeIncidencia(req, res) {
       res.status(500).send("Erro ao buscar dados de taxa de incidência.");
     });
 }
-
 function carregarCasosPorEstado(req, res) {
-  const ano = req.body.ano;
+  const { anoInicial, anoFinal } = req.body;
 
-  if (!ano) {
-    return res.status(400).send("O ano é obrigatório.");
+  if (!anoInicial || !anoFinal) {
+    return res.status(400).send("Os anos de início e fim são obrigatórios.");
   }
 
-  usuarioModel.carregarCasosPorEstado(ano)
+  usuarioModel.carregarCasosPorEstado(anoInicial, anoFinal)
     .then(function (resultados) {
       if (resultados.length > 0) {
         const casosPorEstado = resultados.map((registro) => ({
@@ -531,7 +530,7 @@ function carregarCasosPorEstado(req, res) {
 
         res.json(casosPorEstado);
       } else {
-        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o ano " + ano);
+        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o período selecionado.");
       }
     })
     .catch(function (erro) {
@@ -569,28 +568,73 @@ function carregarCasosPorAno(req, res) {
 }
 
 function carregarCasosPorRegiao(req, res) {
-  const ano = req.body.ano; 
+  const { anoInicial, anoFinal } = req.body;
 
-  if (!ano) {
-    return res.status(400).send("Ano não foi informado.");
+  if (!anoInicial || !anoFinal) {
+    return res.status(400).send("Os anos de início e fim são obrigatórios.");
   }
 
-  usuarioModel.carregarCasosPorRegiao(ano)
+  usuarioModel.carregarCasosPorRegiao(anoInicial, anoFinal)
     .then(function (resultados) {
-      console.log("Resultados obtidos:", resultados);
-
       if (resultados.length > 0) {
-        res.json(resultados);
+        const casosPorRegiao = resultados.map((registro) => ({
+          estadoNotificacao: registro.estadoNotificacao,
+          quantidadeCasos: registro.quantidadeCasos,
+        }));
+
+        res.json(casosPorRegiao);
       } else {
-        res.status(404).send("Nenhum dado encontrado para os casos por região.");
+        res.status(404).send("Nenhum dado de casos de Dengue encontrado para o período selecionado.");
       }
     })
     .catch(function (erro) {
-      console.error("Erro na busca de dados:", erro);
-      res.status(500).send("Erro ao buscar dados de casos por região.");
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de casos de Dengue.");
     });
 }
 
+
+function buscarMediaCasosPorAno(req, res) {
+  const { anos } = req.body;
+
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Os anos são obrigatórios.");
+  }
+
+  usuarioModel.buscarMediaCasosPorAno(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        res.json(resultados);
+      } else {
+        res.status(404).send("Nenhum dado de média de casos encontrado.");
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de média de casos.");
+    });
+}
+
+function buscarTaxaMortalidade(req, res) {
+  const { anos } = req.body;
+
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Os anos são obrigatórios.");
+  }
+
+  usuarioModel.buscarTaxaMortalidade(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        res.json(resultados);
+      } else {
+        res.status(404).send("Nenhum dado de taxa de mortalidade encontrado.");
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de taxa de mortalidade.");
+    });
+}
 
 module.exports = {
   autenticar,
@@ -615,9 +659,13 @@ module.exports = {
   carregarCasosPorAno,
   carregarCasosPorRegiao,
 
+
   obterTotalCasosBrasil,
   crescimentoCasosBrasil,
   obterMaioresAfetados,
 
   estadosMaisAfetados
+
+  buscarMediaCasosPorAno,
+  buscarTaxaMortalidade
 };
