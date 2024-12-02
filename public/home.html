@@ -56,21 +56,10 @@
             <!-- Os dados do ranking serão inseridos aqui pela função carregarMediaCasosPorAno -->
           </div>
         </div>
-        <div class="mostAffected">
-          <span class="indicatorTitle">Maiores afetados</span>
+        <div class="mostAffected" id="taxaMortalidade">
+          <span class="indicatorTitle">Taxa de Mortalidade</span>
           <div class="datas">
-            <span class="data">
-              <span class="order">1°</span>
-              [grupo afetado] - 0 milhões
-            </span>
-            <span class="data">
-              <span class="order">2°</span>
-              [grupo afetado] - 0 milhões
-            </span>
-            <span class="data">
-              <span class="order">3°</span>
-              [grupo afetado] - 0 milhões
-            </span>
+            <!-- Os dados do ranking serão inseridos aqui pela função carregarTaxaMortalidade -->
           </div>
         </div>
         <div class="filtro">
@@ -256,6 +245,7 @@
 });
 
 carregarMediaCasosPorAno([2021, 2022, 2023]);
+carregarTaxaMortalidade([2021, 2022, 2023]);
 
 
 function buscarEstadoEmpresa() {
@@ -684,7 +674,7 @@ function carregarMediaCasosPorAno(anos) {
             rankingItem.classList.add("data");
             rankingItem.innerHTML = `
               <span class="order">${index + 1}°</span>
-              ${dado.ano} - ${mediaCasosPorDia} casos por dia
+              <strong>${dado.ano}</strong> - ${mediaCasosPorDia} casos por dia
             `;
             rankingContainer.appendChild(rankingItem);
           });
@@ -695,6 +685,38 @@ function carregarMediaCasosPorAno(anos) {
     })
     .catch(function (erro) {
       console.error("Erro na requisição de média de casos:", erro);
+    });
+}
+
+function carregarTaxaMortalidade(anos) {
+  fetch("/usuarios/taxaMortalidade", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ anos: anos }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then(function (dados) {
+          const rankingContainer = document.querySelector("#taxaMortalidade .datas");
+          rankingContainer.innerHTML = ""; 
+          dados.forEach((dado, index) => {
+            const rankingItem = document.createElement("span");
+            rankingItem.classList.add("data");
+            rankingItem.innerHTML = `
+              <span class="order">${index + 1}°</span>
+             <strong> ${dado.ano} </strong> - ${dado.taxaMortalidade}% - Óbitos: ${dado.totalObitos}
+            `;
+            rankingContainer.appendChild(rankingItem);
+          });
+        });
+      } else {
+        console.error("Erro ao buscar dados de taxa de mortalidade.");
+      }
+    })
+    .catch(function (erro) {
+      console.error("Erro na requisição de taxa de mortalidade:", erro);
     });
 }
 </script>

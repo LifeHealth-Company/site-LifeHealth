@@ -396,6 +396,32 @@ function buscarMediaCasosPorAno(anos) {
   });
 }
 
+function buscarTaxaMortalidade(anos) {
+  console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando taxa de mortalidade.");
+
+  const anosString = anos.map((ano) => `'${ano}'`).join(", ");
+
+  const instrucaoSql = `
+    SELECT 
+      ano,
+      COUNT(*) AS totalCasos,
+      SUM(CASE WHEN evolucaoCaso = 'Óbito' OR evolucaoCaso IS NULL OR TRIM(evolucaoCaso) = '' THEN 1 ELSE 0 END) AS totalObitos,
+      ROUND((SUM(CASE WHEN evolucaoCaso = 'Óbito' OR evolucaoCaso IS NULL OR TRIM(evolucaoCaso) = '' THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 2) AS taxaMortalidade
+    FROM Casos
+    WHERE ano IN (${anosString})
+    GROUP BY ano
+    ORDER BY taxaMortalidade DESC;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  
+  return database.executar(instrucaoSql).then((resultado) => {
+    if (!resultado || resultado.length === 0) {
+      throw new Error("Nenhum dado encontrado.");
+    }
+    return resultado;
+  });
+}
 
 module.exports = {
   autenticar,
@@ -418,5 +444,6 @@ module.exports = {
   carregarCasosPorAno,
   carregarCasosPorRegiao,
   buscarFuncionarioPorId,
-  buscarMediaCasosPorAno
+  buscarMediaCasosPorAno,
+  buscarTaxaMortalidade
 };

@@ -247,9 +247,8 @@ width: 100%;
 }
 
 .filtro {
-    margin-left: 20px;
     position: relative; 
-    margin: 0 auto;
+margin-top: 4%;    
 }
 
 /* Estilo do Modal */

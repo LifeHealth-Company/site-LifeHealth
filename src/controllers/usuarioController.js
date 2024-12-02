@@ -554,6 +554,27 @@ function buscarMediaCasosPorAno(req, res) {
     });
 }
 
+function buscarTaxaMortalidade(req, res) {
+  const { anos } = req.body;
+
+  if (!anos || anos.length === 0) {
+    return res.status(400).send("Os anos são obrigatórios.");
+  }
+
+  usuarioModel.buscarTaxaMortalidade(anos)
+    .then(function (resultados) {
+      if (resultados.length > 0) {
+        res.json(resultados);
+      } else {
+        res.status(404).send("Nenhum dado de taxa de mortalidade encontrado.");
+      }
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      res.status(500).send("Erro ao buscar dados de taxa de mortalidade.");
+    });
+}
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -576,5 +597,6 @@ module.exports = {
   carregarCasosPorEstado,
   carregarCasosPorAno,
   carregarCasosPorRegiao,
-  buscarMediaCasosPorAno
+  buscarMediaCasosPorAno,
+  buscarTaxaMortalidade
 };
