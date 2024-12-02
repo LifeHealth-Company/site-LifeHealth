@@ -2,6 +2,109 @@ var usuarioModel = require("../models/usuarioModel");
 const express = require("express");
 const router = express.Router();
 
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+
+// Configuração do transporter do Nodemailer
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "lifehealthcomp@gmail.com",
+    pass: "tsyd wrca lsbe eome",
+  },
+});
+
+function gerarToken(req, res) {
+  const email = req.body.email;
+
+  if (!email) {
+    res.status(400).send("Email não informado!");
+    return;
+  }
+
+  usuarioModel.buscarPorEmail(email)
+    .then((resultado) => {
+      if (resultado.length === 0) {
+        res.status(404).send("Email não encontrado!");
+      } else {
+        const token = crypto.randomBytes(64).toString("hex");
+
+        usuarioModel.salvarToken(email, token)
+          .then(() => {
+            const mailOptions = {
+              from: "lifehealthcomp@gmail.com",
+              to: email,
+              subject: "Recuperação de Senha - Token",
+              text: `Olá, você solicitou a recuperação de senha. Use o seguinte token para prosseguir: ${token}`,
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.error("Erro ao enviar e-mail:", error);
+                res.status(500).send("Erro ao enviar o e-mail com o token.");
+                return;
+              }
+              console.log("E-mail enviado:", info.response);
+              res.status(200).send(`Token gerado e enviado para o e-mail: ${email}`);
+            });
+          })
+          .catch((erro) => {
+            console.error("Erro ao salvar token:", erro);
+            res.status(500).send("Erro ao salvar token.");
+          });
+      }
+    })
+    .catch((erro) => {
+      console.error("Erro ao buscar email no banco:", erro);
+      res.status(500).send("Erro ao buscar email no banco.");
+    });
+}
+
+function verificarToken(req, res) {
+  const { token } = req.body;
+
+  if (!token) {
+      return res.status(400).send({ success: false, message: 'Token não informado!' });
+  }
+
+  usuarioModel.validarToken(token)
+      .then((usuario) => {
+          if (!usuario) {
+              return res.status(404).send({ success: false, message: 'Token inválido ou expirado' });
+          }
+
+          return res.status(200).send({
+              success: true,
+              message: 'Token validado com sucesso!',
+              email: usuario.email 
+          });
+      })
+      .catch((erro) => {
+          console.error("Erro ao validar token:", erro);
+          res.status(500).send({ success: false, message: 'Erro ao validar token.' });
+      });
+}
+
+
+
+function redefinirSenha(req, res) {
+  const { email, novaSenha } = req.body;
+
+  if (!email || !novaSenha) {
+      return res.status(400).send({ success: false, message: 'Email e nova senha são obrigatórios.' });
+  }
+
+  usuarioModel.atualizarSenha(email, novaSenha)
+      .then(() => {
+          res.status(200).send({ success: true, message: 'Senha atualizada com sucesso!' });
+      })
+      .catch((erro) => {
+          console.error('Erro ao atualizar a senha:', erro);
+          res.status(500).send({ success: false, message: 'Erro ao atualizar a senha.' });
+      });
+}
+
+
 function autenticar(req, res) {
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
@@ -16,7 +119,7 @@ function autenticar(req, res) {
   usuarioModel
     .autenticar(email, senha)
     .then(function (resultadoAutenticar) {
-      console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+      console.log(`Resultados encontrados: ${resultadoAutenticar.length}`);
       console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`);
 
       if (resultadoAutenticar.length === 1) {
@@ -649,5 +752,8 @@ module.exports = {
   obterTotalCasosBrasil,
   crescimentoCasosBrasil,
   obterMaioresAfetados,
-  estadosMaisAfetados
+  estadosMaisAfetados,
+  gerarToken,
+  verificarToken,
+  redefinirSenha
 };

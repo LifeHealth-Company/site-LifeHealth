@@ -132,4 +132,13 @@ router.get('/crescimentoCasosBrasil', function(req, res) {
     const anoAtual = req.query.anoAtual;
     usuarioController.crescimentoCasosBrasil(anoAnterior, anoAtual, res);
 });
+
+
+router.post("/gerar-token", usuarioController.gerarToken);
+
+router.post("/verificar-token", usuarioController.verificarToken);
+
+router.post("/redefinir-senha", usuarioController.redefinirSenha);
+
+
 module.exports = router;

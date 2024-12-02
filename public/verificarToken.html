@@ -22,21 +22,21 @@
               <p>Insira o token enviado para o seu e-mail para continuar.</p>
               <form class="cadastro-form">
                 <div class="input-wrapper">
-                  <label for="token">Token</label>
-                  <input
-                    type="text"
-                    id="input_token"
-                    placeholder="Insira seu token"
-                  />
+                    <label for="token">Token</label>
+                    <input
+                        type="text"
+                        id="input_token"
+                        placeholder="Insira seu token"
+                    />
                 </div>
                 <button
-                  type="button"
-                  class="btnContinuar2"
-                  onclick="verificarToken()"
+                    type="button"
+                    class="btnContinuar2"
+                    onclick="verificarToken()"
                 >
-                  Verificar Token
+                    Verificar Token
                 </button>
-              </form>
+            </form>
             </div>
           <div class="slideshow-container">
             <div class="slideshow">
@@ -105,9 +105,39 @@
       </div>
     </div>
     <script src="js/script.js"></script>
-<script>
- 
-</script>
+    <script>
+  function verificarToken() {
+    const token = document.getElementById('input_token').value;
+
+    fetch('/usuarios/verificar-token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Token inválido ou expirado');
+        }
+    })
+    .then(data => {
+        alert(data.message); 
+        if (data.success) {
+            localStorage.setItem('email', data.email); 
+            console.log('Email armazenado no localStorage:', data.email); 
+            window.location.href = '/redefinirSenha.html'; 
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Token inválido, insira o token enviado no seu email!');
+    });
+}
+
+    </script>
        
   </body>
 </html>

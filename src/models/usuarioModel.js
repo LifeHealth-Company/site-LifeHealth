@@ -1,6 +1,105 @@
 var database = require("../database/config");
 const express = require("express");
+const { gerarToken } = require("../controllers/usuarioController");
 const router = express.Router();
+
+function buscarPorEmail(email) {
+  const instrucaoSql = `
+    (SELECT idUsuario AS id, email, nome, 'usuario' AS tipo
+    FROM Usuario u
+    WHERE u.email = '${email}')
+    UNION ALL
+    (SELECT idEmpresa AS id, email, nomeinstituicao AS nome, 'empresa' AS tipo
+    FROM Empresa e
+    WHERE e.email = '${email}')`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
+function salvarToken(email, token) {
+  const verificarEmailSql = `
+    SELECT 
+      CASE
+        WHEN EXISTS (SELECT 1 FROM usuario WHERE email = '${email}') THEN 'usuario'
+        WHEN EXISTS (SELECT 1 FROM empresa WHERE email = '${email}') THEN 'empresa'
+        ELSE 'inexistente'
+      END AS tipo
+  `;
+
+  console.log("Executando a instrução SQL para verificar o tipo de email: \n" + verificarEmailSql);
+
+  return database.executar(verificarEmailSql)
+    .then(resultado => {
+      if (resultado.length === 0 || resultado[0].tipo === 'inexistente') {
+        throw new Error('Email não encontrado!');
+      }
+
+      const tipo = resultado[0].tipo;
+
+      if (tipo === 'usuario') {
+        const atualizarTokenUsuarioSql = `UPDATE usuario SET token = '${token}' WHERE email = '${email}'`;
+        console.log("Executando a instrução SQL para atualizar o token do usuário: \n" + atualizarTokenUsuarioSql);
+        return database.executar(atualizarTokenUsuarioSql);
+      } else if (tipo === 'empresa') {
+        const atualizarTokenEmpresaSql = `UPDATE empresa SET token = '${token}' WHERE email = '${email}'`;
+        console.log("Executando a instrução SQL para atualizar o token da empresa: \n" + atualizarTokenEmpresaSql);
+        return database.executar(atualizarTokenEmpresaSql);
+      }
+    })
+    .catch(erro => {
+      console.error("Erro ao salvar o token:", erro);
+      throw erro; 
+    });
+}
+
+
+
+function validarToken(token) {
+  const instrucaoSql = `
+    (SELECT idUsuario AS id, email, token, 'usuario' AS tipo
+     FROM usuario
+     WHERE token = '${token}' AND token IS NOT NULL)
+    UNION
+    (SELECT idEmpresa AS id, email, token, 'empresa' AS tipo
+     FROM empresa
+     WHERE token = '${token}' AND token IS NOT NULL)
+  `;
+  
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  
+  return database.executar(instrucaoSql)
+    .then(resultado => {
+      if (resultado.length === 0) {
+        return null; 
+      }
+      return resultado[0];
+    });
+}
+
+function atualizarSenha(email, novaSenha) {
+  const instrucaoSql = `
+      UPDATE usuario u
+      SET u.senha = '${novaSenha}'
+      WHERE u.email = '${email}'
+  `;
+
+  const instrucaoSqlEmpresa = `
+      UPDATE empresa e
+      SET e.senha = '${novaSenha}'
+      WHERE e.email = '${email}'
+  `;
+
+  console.log("Executando a instrução SQL para atualizar a senha: \n" + instrucaoSql);
+  return database.executar(instrucaoSql)
+      .then(() => {
+          console.log("Executando a instrução SQL para atualizar a senha da empresa: \n" + instrucaoSqlEmpresa);
+          return database.executar(instrucaoSqlEmpresa);
+      });
+}
+
+
 
 function autenticar(email, senha) {
   console.log("Realizando autenticação para o email:", email);
@@ -510,5 +609,9 @@ module.exports = {
   maioresAfetados,
   crescimentoCasosBrasil,
   obterEstadosMaisAfetados,
-  calcularCrescimentoEstados
+  calcularCrescimentoEstados,
+  buscarPorEmail,
+  salvarToken,
+  validarToken,
+  atualizarSenha
 };

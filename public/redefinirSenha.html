@@ -114,6 +114,46 @@
     </div>
     <script src="js/script.js"></script>
 <script>
+function redefinirSenha() {
+    const novaSenha = document.getElementById('input_nova_senha').value;
+    const confirmarSenha = document.getElementById('input_confirmar_senha').value;
+
+    const email = localStorage.getItem('email');
+
+    if (novaSenha !== confirmarSenha) {
+        alert('As senhas não coincidem! Tente novamente.');
+        return;
+    }
+
+    if (!novaSenha) {
+        alert('Por favor, digite a nova senha.');
+        return;
+    }
+
+    if (!email) {
+        alert('Ocorreu um erro. Email não encontrado!');
+        return;
+    }
+
+    fetch('/usuarios/redefinir-senha', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, novaSenha })  
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            window.location.href = '/login.html';
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao redefinir a senha:', error);
+        alert('Ocorreu um erro ao tentar redefinir a senha. Tente novamente!');
+    });
+}
 
 </script>
        
