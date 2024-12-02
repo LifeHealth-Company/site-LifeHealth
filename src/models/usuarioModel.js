@@ -263,7 +263,7 @@ function atualizarProjecaoRepelente(estado) {
 
   var instrucaoSql = `
         SELECT ano, COUNT(*) AS quantidade
-        FROM Casos
+        FROM casos
         WHERE ufNotificacao = '${estado}'
         GROUP BY ano
         ORDER BY ano;
@@ -281,7 +281,7 @@ function atualizarProjecaoRepelente(estado) {
 
     var instrucaoSql = `
       SELECT ano, COUNT(*) AS quantidade
-      FROM Casos
+      FROM casos
       WHERE ufNotificacao = '${estado}'
       GROUP BY ano
       ORDER BY ano;
@@ -294,7 +294,7 @@ function atualizarProjecaoRepelente(estado) {
 function buscarDemanda(estado, anoInicial, anoFinal) {
   const instrucaoSql = `
         SELECT ano, COUNT(*) AS quantidade
-        FROM Casos
+        FROM casos
         WHERE ufNotificacao = '${estado}' AND ano BETWEEN '${anoInicial}' AND '${anoFinal}'
         GROUP BY ano
         ORDER BY ano;
@@ -335,14 +335,14 @@ function editarFuncionario(idUsuario, nome, sobrenome, email, cargo) {
   return database.executar(instrucaoSql);
 }
 
-function buscarCasosPorEstado(estado) {
+function buscarcasosPorEstado(estado) {
   const instrucaoSql = `
-      select * from Casos where estadoNotificacao = "${estado}";
+      select * from casos where estadoNotificacao = "${estado}";
     `;
 
   return database.executar(instrucaoSql);
 }
-function buscarCasosCurados(estado) {
+function buscarcasosCurados(estado) {
   const instrucaoSql = `
    select ano, count(evolucaoCaso) as cura from casos where evolucaoCaso = "Cura" and estadoNotificacao = "${estado}" group by ano;
     `;
@@ -371,7 +371,7 @@ function carregarTaxaDeIncidencia(anos, estado) {
       SUM(p.qtdPopulacao) AS total_populacao,
       (SUM(c.idCaso) / SUM(p.qtdPopulacao)) * 100000 AS taxa_incidencia
     FROM 
-      Casos c
+      casos c
     JOIN 
       Populacao p 
       ON c.ano = p.ano AND c.ufNotificacao = p.estado
@@ -394,14 +394,14 @@ function carregarTaxaDeIncidencia(anos, estado) {
 }
 
   
-function carregarCasosPorEstado(anoInicial, anoFinal) {
+function carregarcasosPorEstado(anoInicial, anoFinal) {
   console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por estado no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
     SELECT 
       c.estadoNotificacao, 
       COUNT(c.idCaso) AS casos
-    FROM Casos c
+    FROM casos c
     WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
     GROUP BY c.estadoNotificacao
     ORDER BY casos ASC;
@@ -417,7 +417,7 @@ function carregarCasosPorEstado(anoInicial, anoFinal) {
   });
 }
 
-function carregarCasosPorAno(anos) {
+function carregarcasosPorAno(anos) {
   console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos por ano.");
 
   const anosString = anos.map((ano) => `'${ano}'`).join(", ");
@@ -426,7 +426,7 @@ function carregarCasosPorAno(anos) {
       SELECT 
           c.ano, 
           COUNT(c.idCaso) AS casos
-      FROM Casos c
+      FROM casos c
       WHERE c.ano IN (${anosString})
       GROUP BY c.ano
       ORDER BY c.ano;
@@ -445,17 +445,17 @@ function carregarCasosPorAno(anos) {
   });
 }
 
-function carregarCasosPorRegiao(anoInicial, anoFinal) {
+function carregarcasosPorRegiao(anoInicial, anoFinal) {
   console.log(`ACESSEI O DADOS MODEL \n\n\t\t >> Buscando casos de Dengue por região no período de ${anoInicial} a ${anoFinal}.`);
 
   const instrucaoSql = `
     SELECT 
       c.estadoNotificacao, 
-      COUNT(c.idCaso) AS quantidadeCasos
-    FROM Casos c
+      COUNT(c.idCaso) AS quantidadecasos
+    FROM casos c
     WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
     GROUP BY c.estadoNotificacao
-    ORDER BY quantidadeCasos ASC;
+    ORDER BY quantidadecasos ASC;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -469,7 +469,7 @@ function carregarCasosPorRegiao(anoInicial, anoFinal) {
 }
 
 
-function buscarMediaCasosPorAno(anos) {
+function buscarMediacasosPorAno(anos) {
   console.log("ACESSEI O DADOS MODEL \n\n\t\t >> Buscando média de casos por ano.");
 
   const anosString = anos.map((ano) => `'${ano}'`).join(", ");
@@ -477,12 +477,12 @@ function buscarMediaCasosPorAno(anos) {
   const instrucaoSql = `
     SELECT 
       ano, 
-      COUNT(idCaso) AS totalCasos,
-      COUNT(idCaso) / 365 AS mediaCasosPorDia
-    FROM Casos
+      COUNT(idCaso) AS totalcasos,
+      COUNT(idCaso) / 365 AS mediacasosPorDia
+    FROM casos
     WHERE ano IN (${anosString})
     GROUP BY ano
-    ORDER BY totalCasos DESC;
+    ORDER BY totalcasos DESC;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -503,10 +503,10 @@ function buscarTaxaMortalidade(anos) {
   const instrucaoSql = `
     SELECT 
       ano,
-      COUNT(*) AS totalCasos,
+      COUNT(*) AS totalcasos,
       SUM(CASE WHEN evolucaoCaso = 'Óbito' OR evolucaoCaso IS NULL OR TRIM(evolucaoCaso) = '' THEN 1 ELSE 0 END) AS totalObitos,
       ROUND((SUM(CASE WHEN evolucaoCaso = 'Óbito' OR evolucaoCaso IS NULL OR TRIM(evolucaoCaso) = '' THEN 1 ELSE 0 END) * 100.0) / COUNT(*), 2) AS taxaMortalidade
-    FROM Casos
+    FROM casos
     WHERE ano IN (${anosString})
     GROUP BY ano
     ORDER BY taxaMortalidade DESC;
@@ -525,7 +525,7 @@ function buscarTaxaMortalidade(anos) {
 function obterEstadosMaisAfetados(ano) {
   var instrucaoSql = `
       SELECT estadoNotificacao AS estado, COUNT(*) AS casos
-      FROM Casos
+      FROM casos
       WHERE ano = '${ano}'
       GROUP BY estadoNotificacao
       ORDER BY casos DESC
@@ -544,15 +544,15 @@ function calcularCrescimentoEstados(ano) {
              c.estadoNotificacao AS estado,
              COUNT(CASE WHEN c.ano = '${ano}' THEN 1 END) AS casosAtual,
              COUNT(CASE WHEN c.ano = '${anoAnterior}' THEN 1 END) AS casosAnterior
-         FROM Casos c
+         FROM casos c
          WHERE c.ano IN ('${ano}', '${anoAnterior}')
          GROUP BY c.estadoNotificacao
      ) AS subquery;
      `;
       return database.executar(instrucaoSql);
 }
-function obterTotalCasosBrasil() {
-  var instrucaoSql = `SELECT COUNT(*) AS totalCasos FROM Casos;`;
+function obterTotalcasosBrasil() {
+  var instrucaoSql = `SELECT COUNT(*) AS totalcasos FROM casos;`;
   return database.executar(instrucaoSql);
 }
 function maioresAfetados() {
@@ -563,7 +563,7 @@ function maioresAfetados() {
       SUM(CASE WHEN isPacienteGestante NOT IN ('Ignorado', 'Não', 'Não se aplica') THEN 1 ELSE 0 END) AS gestantes,
       SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente >= 60 THEN 1 ELSE 0 END) AS idosos,
       SUM(CASE WHEN YEAR(CURDATE()) - anoNascPaciente BETWEEN 0 AND 12 THEN 1 ELSE 0 END) AS criancas
-    FROM Casos
+    FROM casos
     WHERE ufNotificacao IS NOT NULL;
   `;
 
@@ -571,13 +571,13 @@ function maioresAfetados() {
   return database.executar(instrucaoSql);
 }
 
-function crescimentoCasosBrasil(anoAnterior, anoAtual) {
+function crescimentocasosBrasil(anoAnterior, anoAtual) {
   var instrucaoSql = `
     SELECT 
         (
-            (SELECT COUNT(*) FROM Casos WHERE ano = '${anoAtual}') - 
-            (SELECT COUNT(*) FROM Casos WHERE ano = '${anoAnterior}')
-        ) * 100.0 / (SELECT COUNT(*) FROM Casos WHERE ano = '${anoAnterior}') AS crescimento
+            (SELECT COUNT(*) FROM casos WHERE ano = '${anoAtual}') - 
+            (SELECT COUNT(*) FROM casos WHERE ano = '${anoAnterior}')
+        ) * 100.0 / (SELECT COUNT(*) FROM casos WHERE ano = '${anoAnterior}') AS crescimento
     ;`;
   return database.executar(instrucaoSql);
 }
@@ -595,19 +595,19 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstado,
-  buscarCasosPorEstado,
-  buscarCasosCurados,
+  buscarcasosPorEstado,
+  buscarcasosCurados,
   buscarPopulacao,
   carregarTaxaDeIncidencia,
-  carregarCasosPorEstado,
-  carregarCasosPorAno,
-  carregarCasosPorRegiao,
+  carregarcasosPorEstado,
+  carregarcasosPorAno,
+  carregarcasosPorRegiao,
   buscarFuncionarioPorId,
-  buscarMediaCasosPorAno,
+  buscarMediacasosPorAno,
   buscarTaxaMortalidade,
-  obterTotalCasosBrasil,
+  obterTotalcasosBrasil,
   maioresAfetados,
-  crescimentoCasosBrasil,
+  crescimentocasosBrasil,
   obterEstadosMaisAfetados,
   calcularCrescimentoEstados,
   buscarPorEmail,
