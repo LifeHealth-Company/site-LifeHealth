@@ -13,57 +13,6 @@ body {
   transition: .5s ;
 }
 
-<<<<<<< HEAD
-body.dark{
-  background-color: #000000;
-}
-body.dark h1{
-  color: #d9d9d9;
-}
-
-
-
-.trilho {
-  width: 85px;
-  height: 40px;
-  background-color: #3f3f3f;
-  border-radius: 150px;
-  position: relative;
-  cursor: pointer;
-}
-
-.trilho .indicador {
-  width: 40px;
-  height: 40px;
-  background-color: #000000;
-  border-radius: 50%;
-  transform: scale(.9);
-  position: absolute;
-  left: 0;
-  transition: .8s;
-}
-
-.trilho.dark{
-background-color: #fff;
-}
-
-.trilho.dark .indicador{
-left: 50px;
-transform: scale(.9);
-background-color: #d9d9d9;
-=======
-body.dark {
-  background-color: #212121;
-  color: #ffffff;
-}
-
-.sidebar.dark {
-  background-color: #242424;
-  border-color: #4e4e4e;
-
->>>>>>> main
-}
-
 .logo img {
   width: 150px;
 }
@@ -183,12 +132,10 @@ a img {
 }
 
 .sidebar ul li a:hover {
-<<<<<<< HEAD
+
   background-color: #00abab38;
   ;
-=======
-  background-color: #80838333;
->>>>>>> main
+
 }
 
 .sidebar ul li a {
@@ -229,7 +176,6 @@ a img {
   display: none;
 }
 
-<<<<<<< HEAD
 .sidebar.active ~ .main-content{
   left: 250px;
   width: calc(100% - 250px);
@@ -237,56 +183,10 @@ a img {
 
 .main-content{
   position: relative;
-  /* min-height: 160vh; */
   top: 0;
   left: 80px;
   transition: all 0.5s ease;
   width: calc(100% - 80px);
   padding: 1rem;
   overflow-x: hidden;
-=======
-.trilho {
-  width: 70px;
-  height: 35px;
-  background-color: rgb(180, 179, 179);
-  position: relative;
-  cursor: pointer;
-  border-radius: 150px;
-  transition: 1s ease-in-out;
-}
-
-.trilho.dark {
-  background-color: rgb(46, 45, 45);
-}
-
-.trilho.dark .indicador {
-  left: 35px;
-  transform: scale(0.9);
-  background-color: #1d1b1bc3;
-}
-
-.trilho .indicador {
-  width: 35px;
-  height: 35px;
-  background-color: rgb(255, 255, 255);
-  transform: scale(0.9);
-  position: absolute;
-  left: 0px;
-  border-radius: 50%;
-  transition: 0.8s;
-}
-
-.main-content {
-  position: relative;
-  top: 0px;
-  left: 80px;
-  width: calc(100% - 80px);
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding: 1rem;
-}
-
-.sidebar.sidebar.active .trilho {
-  left: 20px;
->>>>>>> main
 }

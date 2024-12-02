@@ -2,67 +2,6 @@ var usuarioModel = require("../models/usuarioModel");
 const express = require("express");
 const router = express.Router();
 
-function estadosMaisAfetados(req, res) {
-    const ano = req.query.ano;
-    // Busca os estados mais afetados e o crescimento em paralelo
-    Promise.all([
-        usuarioModel.obterEstadosMaisAfetados(ano),
-        usuarioModel.calcularCrescimentoEstados(ano)
-    ])
-    .then(([estadosAfetados, crescimentoEstados]) => {
-        // Combina os dados de estados afetados e crescimento
-        const resultado = estadosAfetados.map(estado => {
-            const crescimento = crescimentoEstados.find(c => c.estado === estado.estado);
-            return {
-                ...estado,
-                crescimento: crescimento ? crescimento.crescimento : 0 // Se não houver dados de crescimento, define como 0
-            };
-        });
-
-        res.json(resultado);
-    })
-    .catch(erro => {
-        console.error("Erro ao buscar estados mais afetados:", erro);
-        res.status(500).send("Erro ao buscar estados mais afetados.");
-    });
-}
-
-
-function obterTotalCasosBrasil(req, res) {
-  usuarioModel.obterTotalCasosBrasil()
-    .then(function (resultado) {
-      res.json(resultado);
-    })
-    .catch(function (erro) {
-      console.error(erro);
-      res.status(500).send("Erro ao buscar total de casos no Brasil.");
-    });
-}
-
-function crescimentoCasosBrasil(anoAnterior, anoAtual, res) {
-  usuarioModel.crescimentoCasosBrasil(anoAnterior, anoAtual)
-    .then(function (resultado) {
-      res.json(resultado);
-    })
-    .catch(function (erro) {
-      console.error(erro);
-      res.status(500).send("Erro ao calcular crescimento de casos no Brasil.");
-    });
-}
-
-
-function obterMaioresAfetados(req, res) {
-  usuarioModel.maioresAfetados()
-    .then(function (resultado) {
-      res.json(resultado);
-    })
-    .catch(function (erro) {
-      console.error(erro);
-      res.status(500).send("Erro ao buscar maiores afetados.");
-    });
-}
-
-
 function autenticar(req, res) {
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
@@ -415,13 +354,11 @@ function buscarPopulacao(req, res) {
     });
 }
 
-function buscarFuncionarioPorId(req, res) {
+function obterFuncionario(req, res) {
   const idUsuario = req.params.id;
-
   if (!idUsuario || isNaN(idUsuario)) {
     return res.status(400).send("ID do funcionário inválido.");
   }
-
   usuarioModel
     .buscarFuncionarioPorId(idUsuario)
     .then((funcionario) => {
@@ -435,19 +372,15 @@ function buscarFuncionarioPorId(req, res) {
       res.status(500).json({ error: "Erro ao buscar os dados do funcionário." });
     });
 }
-
 function editarFuncionario(req, res) {
   const idUsuario = req.params.id;
   const { nomeServer, sobrenomeServer, emailServer, cargoServer } = req.body;
-
   if (!idUsuario || isNaN(idUsuario)) {
     return res.status(400).send("ID do funcionário inválido.");
   }
-
   if (!nomeServer || !sobrenomeServer || !emailServer || !cargoServer) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios." });
   }
-
   usuarioModel
     .editarFuncionario(idUsuario, nomeServer, sobrenomeServer, emailServer, cargoServer)
     .then((resultado) => {
@@ -461,7 +394,6 @@ function editarFuncionario(req, res) {
       res.status(500).json({ error: "Erro ao atualizar o funcionário." });
     });
 }
-
 
 // --------------------Estrutura de tratativa da Home-------------------------------------------------------------------------------------
 
@@ -636,6 +568,60 @@ function buscarTaxaMortalidade(req, res) {
     });
 }
 
+function estadosMaisAfetados(req, res) {
+  const ano = req.query.ano;
+  // Busca os estados mais afetados e o crescimento em paralelo
+  Promise.all([
+      usuarioModel.obterEstadosMaisAfetados(ano),
+      usuarioModel.calcularCrescimentoEstados(ano)
+  ])
+  .then(([estadosAfetados, crescimentoEstados]) => {
+      // Combina os dados de estados afetados e crescimento
+      const resultado = estadosAfetados.map(estado => {
+          const crescimento = crescimentoEstados.find(c => c.estado === estado.estado);
+          return {
+              ...estado,
+              crescimento: crescimento ? crescimento.crescimento : 0 // Se não houver dados de crescimento, define como 0
+          };
+      });
+      res.json(resultado);
+  })
+  .catch(erro => {
+      console.error("Erro ao buscar estados mais afetados:", erro);
+      res.status(500).send("Erro ao buscar estados mais afetados.");
+  });
+}
+function obterTotalCasosBrasil(req, res) {
+usuarioModel.obterTotalCasosBrasil()
+  .then(function (resultado) {
+    res.json(resultado);
+  })
+  .catch(function (erro) {
+    console.error(erro);
+    res.status(500).send("Erro ao buscar total de casos no Brasil.");
+  });
+}
+function crescimentoCasosBrasil(anoAnterior, anoAtual, res) {
+usuarioModel.crescimentoCasosBrasil(anoAnterior, anoAtual)
+  .then(function (resultado) {
+    res.json(resultado);
+  })
+  .catch(function (erro) {
+    console.error(erro);
+    res.status(500).send("Erro ao calcular crescimento de casos no Brasil.");
+  });
+}
+function obterMaioresAfetados(req, res) {
+usuarioModel.maioresAfetados()
+  .then(function (resultado) {
+    res.json(resultado);
+  })
+  .catch(function (erro) {
+    console.error(erro);
+    res.status(500).send("Erro ao buscar maiores afetados.");
+  });
+}
+
 module.exports = {
   autenticar,
   cadastrar,
@@ -652,20 +638,16 @@ module.exports = {
   buscarCasosPorEstado,
   buscarCasosCurados,
   buscarPopulacao,
-  buscarFuncionarioPorId,
+  obterFuncionario,
   atualizarGraficoRegioes,
   carregarTaxaDeIncidencia,
   carregarCasosPorEstado,
   carregarCasosPorAno,
   carregarCasosPorRegiao,
-
-
+  buscarMediaCasosPorAno,
+  buscarTaxaMortalidade,
   obterTotalCasosBrasil,
   crescimentoCasosBrasil,
   obterMaioresAfetados,
-
   estadosMaisAfetados
-
-  buscarMediaCasosPorAno,
-  buscarTaxaMortalidade
 };
