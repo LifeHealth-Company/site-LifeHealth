@@ -451,11 +451,11 @@ function carregarCasosPorRegiao(anoInicial, anoFinal) {
   const instrucaoSql = `
     SELECT 
       c.estadoNotificacao, 
-      COUNT(c.idCaso) AS quantidadecasos
+      COUNT(c.idCaso) AS quantidadeCasos
     FROM casos c
     WHERE c.ano BETWEEN '${anoInicial}' AND '${anoFinal}'
     GROUP BY c.estadoNotificacao
-    ORDER BY quantidadecasos ASC;
+    ORDER BY quantidadeCasos ASC;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -477,12 +477,12 @@ function buscarMediaCasosPorAno(anos) {
   const instrucaoSql = `
     SELECT 
       ano, 
-      COUNT(idCaso) AS totalcasos,
-      COUNT(idCaso) / 365 AS mediacasosPorDia
+      COUNT(idCaso) AS totalCasos,
+      COUNT(idCaso) / 365 AS mediaCasosPorDia
     FROM casos
     WHERE ano IN (${anosString})
     GROUP BY ano
-    ORDER BY totalcasos DESC;
+    ORDER BY totalCasos DESC;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -552,7 +552,7 @@ function calcularCrescimentoEstados(ano) {
       return database.executar(instrucaoSql);
 }
 function obterTotalCasosBrasil() {
-  var instrucaoSql = `SELECT COUNT(*) AS totalcasos FROM casos;`;
+  var instrucaoSql = `SELECT COUNT(*) AS totalCasos FROM casos;`;
   return database.executar(instrucaoSql);
 }
 function maioresAfetados() {

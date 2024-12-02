@@ -762,13 +762,8 @@ function carregarCrescimentoCasosBrasil() {
         .then(dados => {
             const crescimentoElement = document.getElementById('crescimentoBrasil');
             if (crescimentoElement) {
-                if (dados && dados.length > 0 && dados[0].hasOwnProperty('crescimento')) {
-                    const crescimento = dados[0].crescimento;
-                    crescimentoElement.textContent = isNaN(crescimento) ? "0%" : `${crescimento.toFixed(2)}%`;
-                } else {
-                    crescimentoElement.textContent = "0%";
-                    console.error("Dados de crescimento inválidos ou não encontrados.");
-                }
+                const crescimento = dados[0].crescimento;
+                crescimentoElement.textContent = isNaN(crescimento) ? "0%" : `${crescimento.toFixed(2)}%`; // Adiciona tratamento para NaN
             } else {
                 console.error("Elemento 'crescimentoBrasil' não encontrado.");
             }
