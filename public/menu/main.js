@@ -9,6 +9,13 @@ let btn = document.querySelector('#btn');
   trilho.addEventListener('click', () =>{
     trilho.classList.toggle('dark')
     body.classList.toggle('dark')
+<<<<<<< HEAD
+
+  })
+
+  
+=======
     sidebar.classList.toggle('dark')
 
   })
+>>>>>>> main

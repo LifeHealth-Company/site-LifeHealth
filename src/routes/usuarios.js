@@ -3,6 +3,25 @@ var router = express.Router();
 
 var usuarioController = require("../controllers/usuarioController");
 
+router.get('/estadosMaisAfetados', usuarioController.estadosMaisAfetados);
+
+// ... outras rotas
+
+router.get('/totalCasosBrasil', function(req, res) {
+    usuarioController.obterTotalCasosBrasil(req, res);
+});
+
+router.get('/maioresAfetados', function(req, res) {
+    usuarioController.obterMaioresAfetados(req, res);
+});
+
+router.get('/crescimentoCasosBrasil', function(req, res) {
+    const anoAnterior = req.query.anoAnterior;
+    const anoAtual = req.query.anoAtual;
+    usuarioController.crescimentoCasosBrasil(anoAnterior, anoAtual, res);
+});
+
+
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);

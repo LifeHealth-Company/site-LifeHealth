@@ -10,8 +10,48 @@
 body {
   background-color: var(--bgColorSystemLight);
   font-family: "Exo 2";
+  transition: .5s ;
 }
 
+<<<<<<< HEAD
+body.dark{
+  background-color: #000000;
+}
+body.dark h1{
+  color: #d9d9d9;
+}
+
+
+
+.trilho {
+  width: 85px;
+  height: 40px;
+  background-color: #3f3f3f;
+  border-radius: 150px;
+  position: relative;
+  cursor: pointer;
+}
+
+.trilho .indicador {
+  width: 40px;
+  height: 40px;
+  background-color: #000000;
+  border-radius: 50%;
+  transform: scale(.9);
+  position: absolute;
+  left: 0;
+  transition: .8s;
+}
+
+.trilho.dark{
+background-color: #fff;
+}
+
+.trilho.dark .indicador{
+left: 50px;
+transform: scale(.9);
+background-color: #d9d9d9;
+=======
 body.dark {
   background-color: #212121;
   color: #ffffff;
@@ -21,6 +61,7 @@ body.dark {
   background-color: #242424;
   border-color: #4e4e4e;
 
+>>>>>>> main
 }
 
 .logo img {
@@ -142,7 +183,12 @@ a img {
 }
 
 .sidebar ul li a:hover {
+<<<<<<< HEAD
+  background-color: #00abab38;
+  ;
+=======
   background-color: #80838333;
+>>>>>>> main
 }
 
 .sidebar ul li a {
@@ -183,6 +229,22 @@ a img {
   display: none;
 }
 
+<<<<<<< HEAD
+.sidebar.active ~ .main-content{
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+.main-content{
+  position: relative;
+  /* min-height: 160vh; */
+  top: 0;
+  left: 80px;
+  transition: all 0.5s ease;
+  width: calc(100% - 80px);
+  padding: 1rem;
+  overflow-x: hidden;
+=======
 .trilho {
   width: 70px;
   height: 35px;
@@ -226,4 +288,5 @@ a img {
 
 .sidebar.sidebar.active .trilho {
   left: 20px;
+>>>>>>> main
 }
