@@ -414,7 +414,7 @@ function buscarCasosPorEstado(req, res) {
   const estado = req.params.estado;
 
   usuarioModel
-    .buscarCasosPorEstado( estado)
+    .buscarCasosPorEstado(estado)
     .then((estado) => {
       if (!estado) {
         return res.status(404).json({ error: "Ano não encontrado." });

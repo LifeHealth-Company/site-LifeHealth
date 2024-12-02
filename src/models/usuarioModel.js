@@ -335,14 +335,14 @@ function editarFuncionario(idUsuario, nome, sobrenome, email, cargo) {
   return database.executar(instrucaoSql);
 }
 
-function buscarcasosPorEstado(estado) {
+function buscarCasosPorEstado(estado) {
   const instrucaoSql = `
       select * from casos where estadoNotificacao = "${estado}";
     `;
 
   return database.executar(instrucaoSql);
 }
-function buscarcasosCurados(estado) {
+function buscarCasosCurados(estado) {
   const instrucaoSql = `
    select ano, count(evolucaoCaso) as cura from casos where evolucaoCaso = "Cura" and estadoNotificacao = "${estado}" group by ano;
     `;
@@ -595,8 +595,8 @@ module.exports = {
   atualizarProjecaoTestes,
   buscarDemanda,
   buscarEstado,
-  buscarcasosPorEstado,
-  buscarcasosCurados,
+  buscarCasosPorEstado,
+  buscarCasosCurados,
   buscarPopulacao,
   carregarTaxaDeIncidencia,
   carregarCasosPorEstado,

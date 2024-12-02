@@ -192,7 +192,7 @@ function buscarCasos(Estado) {
         loadLineBedEstimateForNextYearChart();
 
         if (!searchState) {
-          buscarPopulacao(2021, 2023, "São Paulo")
+          buscarPopulacao(2021, 2023, "SP")
           buscarCasosCurados(2021, 2023, "São Paulo")
           calcularDiferencaSoro(2021, 2023)
         }
