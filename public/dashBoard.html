@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" href="assets/icon/mini.svg">
+</head>
+
+<body>
+    <div id="menu-container"></div>
+    <div class="mainClass">
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close-btn">&times;</span>
+                <h2>Filtrar Dados</h2>
+                <div class="modal-input">
+                    <label for="modalAnoInicial">Ano Inicial:</label>
+                    <select id="modalAnoInicial">
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="modal-input">
+                    <label for="modalAnoFinal">Ano Final:</label>
+                    <select id="modalAnoFinal">
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="modal-input">
+                    <label for="modalEstado">Estado:</label>
+                    <select id="modalEstado">
+                        <option value="SP">São Paulo</option>
+                        <option value="PB">Pernambuco</option>
+                        <option value="AL">Alagóas</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="GO">Goiás</option>
+                    </select>
+                </div>
+                <button id="search-btn">Pesquisar</button>
+            </div>
+        </div>
+
+        <div class="indicators">
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Incidência a cada 100.000 habitantes</span>
+                    <span class="descIndicator" id="valorIncidencia"></span>
+                </div>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" id="crescimentoIcon" />
+                    <span class="growthPercentage" id="valorCrescimento"></span>
+                </div>
+            </div>
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Taxa de cura em relação ao ultimo ano</span>
+                    <span class="descIndicator"></span>
+                </div>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" id="curaIcon" />
+                    <span class="growthPercentage" id="valorCrescimentoCura"></span>
+                </div>
+            </div>
+            <div class="indicatorContainer">
+                <div class="indicatorInfo">
+                    <span class="titleIndicator">Taxa de uso de soro </span>
+                    <span class="descIndicator"></span>
+                </div>
+                <div class="growth">
+                    <img src="./assets/icon/arrowUp.svg" id="casosIcon" />
+                    <span class="growthPercentage" id="valorCasos">7%</span>
+                </div>
+            </div>
+            <div class="options">
+                <div class="calendar">
+                    <div class="timeIndicator">
+                        <span class="startEnd">De</span>
+                        <span class="date" id="start-date">2021</span>
+                    </div>
+                    <img src="../assets/icon/longArrow.svg" class="arrow" />
+                    <div class="timeIndicator">
+                        <span class="startEnd">Até</span>
+                        <span class="date" id="end-date">2023</span>
+                    </div>
+    
+                    <img src="../assets/icon/calender.svg" class="iconCalendar" id="open-modal-btn" />
+    
+                </div>
+
+                
+            </div>
+        </div>
+        <div class="LineOfCharts">
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Previsão de aumento de casos</span>
+                </div>
+                <div class="chart">
+                    <canvas id="forecastOfIncreaseInCases"></canvas>
+                </div>
+            </div>
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Evolução dos casos curados</span>
+                </div>
+                <div class="chart">
+                    <canvas id="PercentageOfBedOccupancyInRelationToTheLastYear"></canvas>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="LineOfCharts">
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Estimativa de leitos para o próximo ano</span>
+                </div>
+                <div class="chart">
+                    <canvas id="BedEstimateForNextYear"></canvas>
+                </div>
+            </div>
+            <div class="lineChart">
+                <div class="lineChartHeader">
+                    <span class="indicatorTitle">Previsão de uso de sashês de soro</span>
+                </div>
+                <div class="chart">
+                    <canvas id="PredictedSerumUse"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="./js/menubehavior.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/dashboard.js"></script>
+</body>
+
+</html>

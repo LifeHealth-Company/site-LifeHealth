@@ -1,297 +1,861 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('./variaveis.css');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("./variaveis.css");
+
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
-body{
-    height: 100vh;
-    width: 100%;
+body {
+  height: 100vh;
+  width: 100%;
 }
 
-#inicio{
-    height: 100vh;
-    width: 100%;
-    position: absolute; 
-}
-#sobre{
-    height: 100vh;
-    width: 100%;
-
-}
-.header{
-    width: 100%;
-    position: fixed;
-    z-index: 1;
-}
-.mainHeader{
-    display: flex;
-    height: 100px;
-    width: 100%;
-    box-shadow: 0 .5px 4px #939393 ;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--header);
+#inicio {
+  height: 100vh;
+  width: 100%;
 }
 
-.options{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 0;
-    display: none;
- }
- .option{
-    font-family: "Exo 2";
-    font-weight: 600;
-    font-size: 18px;
-    transition: all .4s ease-in-out;
-    color: #939393;
-    cursor: pointer;
-    margin-bottom: 10px;
- }
- .option:hover{
-    color: var(--primaria);
-  }
- 
-  .menu{
-    width: 100%;
-    visibility: hidden;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px 0;
-    box-shadow: 0 .5px 4px #939393;
-    background-color: var(--header);
-    transform : translateX(380px);
-    transition: transform .6s ease-in-out; 
+#sobre {
+  height: 100vh;
+  width: 100%;
 }
 
-
-.headerLogo{
-    width: 50%;
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 20px;
+.header {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
 }
 
-.btnLogin{
-    display: none;
-}
-.btnLoginMobile{
-    width: 80px;
-    height: 30px;
-    background-color: var(--botton);
-    border-radius:5px;
-    border: 0;
-    color: #FFF;
-    box-shadow: #939393 1px 1px 4px;
-    transition: all .4s ease-in-out;
-    font-family: "Exo 2";
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-}
-.btnLoginMobile:hover{
-   background-color: var(--primaria);
-}
-.btnLoginMobile:active{
-    transform: scale(.95);
+.mainHeader {
+  display: flex;
+  height: 100px;
+  width: 100%;
+  box-shadow: 0 0.5px 4px #939393;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header);
 }
 
-.divisor{
-    font-family: "Exo 2";
-    font-weight: 200;
-    font-size:0px;
-    padding: 10px;
-    color: #939393;
-}
-.mobileMenu{
-    width: 30%;
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 20px;
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  display: none;
 }
 
-.icon{
-    font-size: 20px;
+.option {
+  font-family: "Exo 2";
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.4s ease-in-out;
+  color: #939393;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.healthStyled{
-    background-color: var(--primaria);
-    width: 110px;
-    height: 30px;
-    border-top-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-    color: #FFF;
-    box-shadow: #292929 0 2px 4px;
-}
-.welcome{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-}
-.Apresentation{
-    display: flex;
-    align-items: center;
-    color: #292929;
-    font-family: "Exo 2";
-    font-weight: 600;
-    font-size: 26px;
-}
-.desc{
-    font-family: "Exo 2";
-    font-weight: 600;
-    font-size: 16px;
-    color: #5e5e5e;
-    width: 300px;
-    text-align: center;
-    margin-top: 20px;
+.option:hover {
+  color: var(--primaria);
 }
 
-.Start{
-    width: 200px;
-    height: 40px;
-    border: none;
-    background-color: var(--primaria);
-    border-radius: 6px;
-    font-family: "Exo 2";
-    font-weight: 600;
-    font-size: 20px;
-    color: #FFF;
-    box-shadow: #292929 0 2px 4px;
-    transition: all ease-in-out .4s;
-    cursor: pointer;
-    display: none;
-    }
-
-.moreContainer{
-    position: absolute;
-    height: 90vh;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+.menu {
+  width: 100%;
+  visibility: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+  box-shadow: 0 0.5px 4px #939393;
+  background-color: var(--header);
+  transform: translateX(380px);
+  transition: transform 0.6s ease-in-out;
 }
 
-.descricaoEmpresa{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+.headerLogo {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 20px;
 }
 
-.textos{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-}
-#title{
-    font-family: "Exo 2";
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--primaria);
+.btnLogin {
+  display: none;
 }
 
-#descricao{
-    font-family: "Exo 2";
-    font-size: 14px;
-    font-weight: 400;
-    color: #292929;
-    margin-top: 20px;
-    text-align: justify;
+.btnLoginMobile {
+  width: 80px;
+  height: 30px;
+  background-color: var(--botton);
+  border-radius: 5px;
+  border: 0;
+  color: #fff;
+  box-shadow: #939393 1px 1px 4px;
+  transition: all 0.4s ease-in-out;
+  font-family: "Exo 2";
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.buttons{
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+.btnLoginMobile:hover {
+  background-color: var(--primaria);
 }
 
-.btnSobre{
-    margin-top: 20px;
-    width: 200px;
-    height: 40px;
-    border: none;
-    background-color: #FFF;
-    border-radius: 4px;
-    box-shadow: 0 1px 4px #112a47;
-    color: var(--botton);
-    font-family: "Exo 2";
-    font-size: 14px;
-    font-weight: 600;
-}
-.active{
-    background-color: var(--primaria);
-    color: #FFF
+.btnLoginMobile:active {
+  transform: scale(0.95);
 }
 
+.divisor {
+  font-family: "Exo 2";
+  font-weight: 200;
+  font-size: 0px;
+  padding: 10px;
+  color: #939393;
+}
+
+.mobileMenu {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.healthStyled {
+  background-color: var(--primaria);
+  width: 110px;
+  height: 30px;
+  padding: 5px;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  color: #fff;
+  box-shadow: #292929 0 2px 4px;
+}
+
+.welcome {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+.Apresentation {
+  display: flex;
+  align-items: center;
+  color: #292929;
+  font-family: "Exo 2";
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.desc {
+  font-family: "Exo 2";
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #5e5e5e;
+  width: 300px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.Start {
+  width: 200px;
+  height: 30px;
+  border: none;
+  background-color: var(--primaria);
+  border-radius: 6px;
+  font-family: "Exo 2";
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  box-shadow: #292929 0 2px 4px;
+  transition: all ease-in-out 0.4s;
+  cursor: pointer;
+  display: none;
+}
+
+.moreContainer {
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.descricaoEmpresa {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -30px;
+  align-items: center;
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+#title {
+  font-family: "Exo 2";
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primaria);
+}
+
+#descricao {
+  font-family: "Exo 2";
+  font-size: 1rem;
+  font-weight: 400;
+  color: #292929;
+  margin-top: 20px;
+  text-align: justify;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.btnSobre {
+  margin-top: 20px;
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px #112a47;
+  color: var(--botton);
+  font-family: "Exo 2";
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.active {
+  background-color: var(--primaria);
+  color: #fff;
+}
+
+/* Seção de Valores */
 #valores {
-    width: 100%;
-    padding: 60px 0;
-    background-color: #f1f1f1;
+  width: 100%;
+  padding: 60px 0;
+  /* background-color: #f1f1f1; */
+  position: relative; /* Adiciona contexto de empilhamento */
 }
 
 .valoresContainer {
-    width: 90%;
-    margin: 0 auto;
-    text-align: center; 
-    height: 65%; 
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  height: auto; /* Ajuste a altura para auto */
 }
 
 .valoresTitle {
-    font-family: "Exo 2", sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    color: var(--primaria);
-    margin-bottom: 40px;
+  font-family: "Exo 2", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--primaria);
+  margin-bottom: 40px;
 }
 
 .valoresItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.valorItem {
+  background-color: var(--primaria);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1;
+  min-width: 90%;
+  max-width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  box-shadow: #3b236c 0 2px 4px;
+}
+
+.valorItem:hover {
+  transform: translateY(-5px);
+}
+
+.valorName {
+  font-family: "Exo 2", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.valorDesc {
+  font-family: "Exo 2", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #e0e0e0;
+}
+
+/* Seção de Serviços */
+#servicos {
+  width: 100%;
+  padding: 60px 0; /* Adiciona espaçamento suficiente para evitar sobreposição */
+  background-color: #f1f1f1;
+  clear: both; /* Garante que a seção de serviços comece abaixo da seção de valores */
+}
+#servico {
+  height: 50%;
+  width: 100%;
+  margin-top: 150%;
+}
+
+.infoServicos {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+#titulo {
+  font-size: 1.5rem;
+  color: var(--botton);
+  max-width: 90vw;
+  font-weight: 600;
+}
+
+#descricaoServico {
+  font-size: 1.1rem;
+  color: var(--primaria);
+  width: 90vw;
+  text-align: justify;
+}
+
+.circleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 13rem;
+
+  overflow: hidden;
+  position: absolute;
+}
+
+#circulo {
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #292929 0%, #8f8f8f 100%);
+  transition: transform 0.5s ease-in-out;
+  position: absolute;
+
+  margin: 0 auto;
+  left: 0;
+  top: 100px;
+  right: 0;
+  display: flex;
+  transform: rotate(45deg);
+}
+.circle-image {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#image1 {
+  top: 0;
+  left: 0;
+  transform: rotate(-45deg);
+}
+
+#image2 {
+  top: 0;
+  right: 0;
+  transform: rotate(-315deg);
+}
+
+#image3 {
+  bottom: 0;
+  left: 0;
+  transform: rotate(225deg);
+}
+
+#image4 {
+  bottom: 0;
+  right: 0;
+  transform: rotate(135deg);
+}
+.btnCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #939393;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  background: "transparent";
+  transition: all 0.6s ease-in-out;
+}
+
+.icon {
+  font-size: 20px;
+  color: #939393;
+  transition: color 0.6s ease-in-out;
+}
+.btnCircle:hover {
+  background: var(--sobre);
+  .icon {
+    color: var(--barraHeader);
+  }
+}
+
+.servicosContainer {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.servicosItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Responsividade para as imagens */
+.servicoItem img {
+  width: 100%; /* Ajusta a largura da imagem para ocupar 100% do espaço do item */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+/* RESPONSIVO DA PARTE CONTATOS */
+#contato {
+  padding: 100px 0;
+  /* background-color: #f0f4f8; */
+  text-align: center;
+  margin-top: 250px;
+  font-family: "Exo 2", sans-serif;
+}
+
+.contatoTitle {
+  font-size: 1.5rem;
+  color: #193d65;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.contatoDesc {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 50px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.contatoWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contatoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contatoItem {
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  flex: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 90vw;
+  position: relative;
+  min-width: 300px;
+}
+
+.contatoItem:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.contatoIcon {
+  font-size: 2rem;
+  color: #327bcb;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+.contatoSubtitle {
+  font-size: 1.1rem;
+  color: #193d65;
+  margin-bottom: 10px;
+}
+
+.contatoText {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.contatoFormContainer {
+  flex: 1;
+  max-width: 70vw;
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px 30px;
+}
+
+.contatoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
+}
+
+.contatoForm input,
+.contatoForm textarea {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contatoForm input:focus,
+.contatoForm textarea:focus {
+  border-color: #327bcb;
+  box-shadow: 0 0 8px rgba(50, 123, 203, 0.2);
+  outline: none;
+}
+
+.contatoForm button {
+  padding: 10px;
+  background-color: #327bcb;
+  color: #fff;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contatoForm button:hover {
+  background-color: #193d65;
+}
+
+.contatoForm button:active {
+  transform: scale(0.96);
+}
+
+/* Media Query para telas menores */
+@media (max-width: 375px) {
+  .servicosTitle {
+    font-size: 24px; /* Ajusta o tamanho da fonte para telas pequenas */
+  }
+  .servicoItem {
+    max-width: 100%; /* Assegura que os itens ocupem toda a largura disponível */
+  }
+  .servicoName {
+    font-size: 20px; /* Ajusta o tamanho da fonte para o nome do serviço */
+  }
+  .servicoDesc {
+    font-size: 14px; /* Ajusta o tamanho da fonte para a descrição do serviço */
+  }
+  .valoresTitle {
+    font-size: 1.1rem;
+  }
+  .valorName {
+    font-family: "Exo 2", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .valorDesc {
+    font-family: "Exo 2", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #e0e0e0;
+  }
+
+  .mainHeader {
+    height: 80px; /* Reduz a altura do cabeçalho */
+  }
+
+  .btnLoginMobile {
+    width: 60px; /* Ajusta a largura do botão de login móvel */
+    height: 25px; /* Ajusta a altura do botão de login móvel */
+    font-size: 12px; /* Ajusta o tamanho da fonte do botão de login móvel */
+  }
+
+  .desc {
+    width: 90%; /* Aumenta a largura da descrição para melhor ajuste */
+    font-size: 14px; /* Ajusta o tamanho da fonte */
+  }
+
+  .valorItem {
+    min-width: 90%; /* Faz com que os itens de valor ocupem 90% da largura */
+    max-width: 100%; /* Permite que ocupem 100% se necessário */
+  }
+
+  .servicosItems,
+  .contatoItems {
+    flex-direction: column; /* Mantém a coluna para serviços e contato em telas pequenas */
+    align-items: center; /* Alinha os itens ao centro */
+  }
+
+  .servicoItem {
+    max-width: 90%; /* Limita a largura dos itens de serviço */
+    padding: 10px; /* Adiciona um pouco de padding */
+    margin: 10px 0; /* Adiciona margens para espaçamento */
+  }
+
+  /* Responsividade para as imagens */
+  .servicoItem img,
+  .contatoItem img {
+    max-width: 100%; /* A imagem ocupará no máximo a largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+    object-fit: cover; /* Ajusta a imagem para caber no contêiner sem distorção */
+  }
+
+  .servicosTitle,
+  .valoresTitle {
+    font-size: 20px; /* Ajusta o tamanho da fonte do título de serviços e valores */
+    margin: 20px 0; /* Adiciona margem em volta dos títulos */
+  }
+
+  #descricao {
+    font-size: 0.9rem; /* Ajusta o tamanho da fonte da descrição */
+  }
+
+  .Apresentation {
+    font-size: 20px; /* Ajusta o tamanho da fonte da apresentação */
+  }
+
+  .buttons {
+    margin-top: 10px; /* Ajusta a margem superior para melhor espaçamento */
+  }
+  .sobre {
+    height: 50%;
+  }
+
+  .btnSobre {
+    width: 150px; /* Ajusta a largura do botão sobre */
+    height: 35px; /* Ajusta a altura do botão sobre */
+    font-size: 12px; /* Ajusta o tamanho da fonte do botão sobre */
+  }
+
+  /* Ajustes de padding e margin para melhor visualização */
+  .valoresContainer,
+  .servicosContainer,
+  .contatoContainer {
+    padding: 0 10px; /* Adiciona padding horizontal */
+    width: 90%; /* Limita a largura total */
+    margin: 0 auto; /* Centraliza os contêineres */
+  }
+
+  /* Seção de Contato */
+  #contato {
+    width: 100%;
+    padding: 40px 0; /* Espaçamento superior e inferior */
+    margin-top: 50%;
+  }
+
+  /* Ajustes de texto e layout */
+  .contatoDesc {
+    font-size: 14px; /* Ajusta o tamanho da fonte da descrição */
+    margin: 10px 0; /* Adiciona margem para espaçamento */
+  }
+
+  .servicoName,
+  .servicoDesc {
+    font-size: 14px; /* Ajusta o tamanho da fonte para o nome e descrição do serviço */
+    margin: 5px 0; /* Adiciona margens para espaçamento */
+  }
+
+  .contatoItem {
+    min-width: 50vw; /* Ajusta tamanho do card*/
+
+    padding: 15px;
+  }
+  /* PARTE ANIMACAO CIRCULO */
+
+  #servicos {
+    width: 100%;
+    padding: 60px 0; /* Adiciona espaçamento suficiente para evitar sobreposição */
+    background-color: #f1f1f1;
+    clear: both; /* Garante que a seção de serviços comece abaixo da seção de valores */
+  }
+  #servico {
+    height: 50%;
+    width: 100%;
+    margin-top: 200%;
+  }
+
+  .infoServicos {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  #titulo {
+    font-size: 1rem;
+    color: var(--botton);
+    max-width: 90vw;
+    font-weight: 600;
+  }
+
+  #descricaoServico {
+    font-size: 0.9rem;
+    color: var(--primaria);
+    width: 90vw;
+    text-align: justify;
+  }
+
+  .circleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    height: 11rem;
+
+    overflow: hidden;
+    position: absolute;
+  }
+
+  #circulo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #292929 0%, #8f8f8f 100%);
+    transition: transform 0.5s ease-in-out;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    top: 100px;
+    right: 0;
+    display: flex;
+    transform: rotate(45deg);
+  }
+  .circle-image {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  #image1 {
+    top: 0;
+    left: 0;
+    transform: rotate(-45deg);
+  }
+
+  #image2 {
+    top: 0;
+    right: 0;
+    transform: rotate(-315deg);
+  }
+
+  #image3 {
+    bottom: 0;
+    left: 0;
+    transform: rotate(225deg);
+  }
+
+  #image4 {
+    bottom: 0;
+    right: 0;
+    transform: rotate(135deg);
+  }
+  .btnCircle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #939393;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    background: "transparent";
+    transition: all 0.6s ease-in-out;
+  }
+
+  .icon {
+    font-size: 20px;
+    color: #939393;
+    transition: color 0.6s ease-in-out;
+  }
+  .btnCircle:hover {
+    background: var(--sobre);
+    .icon {
+      color: var(--barraHeader);
+    }
+  }
+
+  .servicosContainer {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .servicosItems {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
     width: 100%;
+  }
+
+  /* Responsividade para as imagens */
+  .servicoItem img {
+    width: 100%; /* Ajusta a largura da imagem para ocupar 100% do espaço do item */
+    height: auto; /* Mantém a proporção da imagem */
+  }
 }
 
-.valorItem {
-    background-color: var(--primaria);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    flex: 1;
-    min-width: 220px;
-    max-width: 30%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    box-shadow: #3b236c 0 2px 4px;
-}
-
-.valorItem:hover {
-    transform: translateY(-5px);
-}
-
-.valorName {
-    font-family: "Exo 2", sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.valorDesc {
-    font-family: "Exo 2", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #e0e0e0;
+@media (max-height: 400px) {
+  .welcome {
+    margin-top: 10%;
+  }
 }

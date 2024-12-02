@@ -52,7 +52,7 @@ body {
 .option {
   font-family: "Exo 2";
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   transition: all 0.4s ease-in-out;
   color: #939393;
   cursor: pointer;
@@ -74,23 +74,19 @@ body {
   justify-content: flex-end;
 }
 
-.loginClick
-{
+.loginClick {
   color: #0450a7;
   font-size: medium;
- cursor: pointer;
+  cursor: pointer;
 }
 
-.loginClick2
-{
+.loginClick2 {
   margin-top: 10px;
   color: #0450a7;
   font-size: medium;
- margin-left: 190px;
- cursor: pointer;
+  margin-left: 190px;
+  cursor: pointer;
 }
-
-
 
 .btnLogin {
   width: 130px;
@@ -175,6 +171,7 @@ body {
   border-radius: 6px;
   font-family: "Exo 2";
   font-weight: 600;
+  margin-top: 30px;
   font-size: 26px;
   color: #fff;
   box-shadow: #193d65 0 2px 4px;
@@ -210,14 +207,14 @@ body {
 
 #title {
   font-family: "Exo 2";
-  font-size: 60px;
+  font-size: 70px;
   font-weight: 600;
   color: var(--primaria);
 }
 
 #descricao {
   font-family: "Exo 2";
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 400;
   color: var(--letras);
   margin-top: 20px;
@@ -239,7 +236,7 @@ body {
   box-shadow: 0 2px 4px #327bcb;
   color: var(--botton);
   font-family: "Exo 2";
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 600;
 }
 
@@ -300,14 +297,14 @@ body {
 
 .valorName {
   font-family: "Exo 2", sans-serif;
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 .valorDesc {
   font-family: "Exo 2", sans-serif;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   color: #e0e0e0;
 }
@@ -322,20 +319,20 @@ body {
 
 #contato {
   padding: 100px 0;
-  background-color: #f0f4f8;
   text-align: center;
   font-family: "Exo 2", sans-serif;
+  margin-top: 10%;
 }
 
 .contatoTitle {
-  font-size: 48px;
+  font-size: 3rem;
   color: #193d65;
   margin-bottom: 20px;
   animation: fadeInDown 1s ease-in-out;
 }
 
 .contatoDesc {
-  font-size: 20px;
+  font-size: 2rem;
   color: #666;
   margin-bottom: 50px;
   line-height: 1.6;
@@ -386,13 +383,13 @@ body {
 }
 
 .contatoSubtitle {
-  font-size: 24px;
+  font-size: 2rem;
   color: #193d65;
   margin-bottom: 10px;
 }
 
 .contatoText {
-  font-size: 16px;
+  font-size: 2rem;
   color: #666;
   line-height: 1.6;
 }
@@ -403,7 +400,7 @@ body {
   background-color: #ffffff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  padding: 40px;
+  padding: 80px;
 }
 
 .contatoForm {
@@ -418,7 +415,7 @@ body {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1.8rem;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -434,7 +431,7 @@ body {
   padding: 15px;
   background-color: #327bcb;
   color: #fff;
-  font-size: 18px;
+  font-size: 1.6rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -495,7 +492,8 @@ body {
 
 #servico {
   width: 100%;
-  height: 100vh;
+
+  height: 100%;
   position: relative;
 }
 
@@ -581,7 +579,7 @@ body {
 }
 
 .infoServicos {
-  padding-top: 14%;
+  padding-top: 12%;
   display: flex;
   justify-content: space-around;
 }
@@ -695,7 +693,7 @@ select {
   outline: none;
 }
 
-.btnContinuar {
+.btnContinuar2 {
   width: 376px;
   height: 40px;
   box-sizing: border-box;
@@ -709,6 +707,19 @@ select {
   transition: background-color 0.3s ease;
 }
 
+.btnContinuar {
+  width: 376px;
+  height: 40px;
+  box-sizing: border-box;
+  background-color: #193d65;
+  color: white;
+  letter-spacing: 2px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 50%;
+  transition: background-color 0.3s ease;
+}
 
 .input-wrapper {
   position: relative;
@@ -718,7 +729,6 @@ select {
 .input-wrapper2 {
   position: relative;
   height: 90px;
- 
 }
 
 .cadastro-container,
@@ -751,7 +761,7 @@ select {
 }
 
 .dots-container2 {
-  display:flex;
+  display: flex;
   justify-content: center;
   flex-direction: column;
   gap: 10px;
@@ -771,14 +781,12 @@ select {
   background-color: #193d65;
 }
 
-
 .dot2 {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   transition: background-color 0.3s ease;
- 
 }
 
 .dot2.active {
@@ -823,90 +831,142 @@ select {
   }
 }
 
-.carousel-container {
-  width: 780px;
-  height: 580px;
-  border: 2px solid #ccc;
-  margin-right: 8%;
-  overflow: hidden;
-  border-radius: 5px;
-  position: relative;
-  margin-top: 114px;
+.slideshow-container {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 510px;
+  margin-right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  flex-direction: column;
 }
 
-.carousel {
-  display: flex;
-  width: 300%;
+.slideshow {
+  width: 100%;
   height: 100%;
-  transition: transform 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
 .slide {
-  min-width: 100%;
+  position: absolute;
+  width: 100%;
   height: 100%;
-  background-color: lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
   background-size: cover;
   background-position: center;
 }
 
-.prev,
-.next {
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide.previous {
+  transform: translateX(-100%);
+}
+.chartImage {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 1;
-  font-size: 18px;
-  transition: background-color 0.3s;
-}
-
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
-}
-
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.carousel-container .dot-container {
-  position: absolute;
-  bottom: 10px;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
+  z-index: 10;
+  width: 450px;
+  opacity: 0.9;
+  animation: float 3s ease-in-out infinite;
 }
 
-.carousel-container .dot {
-  width: 12px;
-  height: 12px;
-  background-color: #ccc;
+@keyframes float {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -10px);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+.text-container {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+}
+
+.custom-dots-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+p {
+  font-size: 1rem;
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+.custom-dots-container {
+  margin-top: 20px;
+}
+
+.custom-dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  background-color: #bbb;
   border-radius: 50%;
+  display: inline-block;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.carousel-container .dot.active {
-  background-color: #333;
+.custom-dot-active {
+  background-color: #717171;
 }
 
-.teste {
-  width: 100%;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.top-bar {
+  padding: 40px 20px;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  align-items: center;
 }
-
-.content-register {
+.top-bar a {
+  color: black;  
+  text-decoration: none;
+  font-size: 16px;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+}
+.top-bar i {
+  margin-right: 8px;
+  font-size: 18px;  
+  color: black;  
 }

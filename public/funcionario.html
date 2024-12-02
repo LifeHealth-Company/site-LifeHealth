@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/funcionario.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="icon" href="assets/icon/mini.svg" />
+    <title>Cadastrar Funcionário</title>
+  </head>
+
+  <body>
+    <div id="menu-container"></div>
+
+    <div class="Inicial">
+      <h1 class="titulo-incial">Cadastro de Funcionários</h1>
+    </div>
+
+    <div class="container">
+      <div class="retangulo">
+        <div class="form-container">
+          <div class="input-coluna">
+            <div class="input-group">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" placeholder="Digite o nome" />
+            </div>
+            <div class="input-group">
+              <label for="sobrenome">Sobrenome</label>
+              <input
+                type="text"
+                id="sobrenome"
+                placeholder="Digite o sobrenome"
+              />
+            </div>
+          </div>
+          <div class="input-coluna">
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Digite o email" />
+            </div>
+            <div class="input-group">
+              <label for="cargo">Cargo</label>
+              <select id="cargo">
+                <option value="" disabled selected>
+                  Selecione o seu cargo
+                </option>
+                <option value="Funcionário comum">Funcionário Comum</option>
+                <option value="Administrador">Administrador</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-coluna">
+            <div class="input-group">
+              <label for="cargo">Senha</label>
+              <input type="password" id="senha" placeholder="Digite a senha" />
+            </div>
+            <div class="input-group">
+              <label for="departamento">Confirmar senha</label>
+              <input
+                type="password"
+                id="confirmarSenha"
+                placeholder="Digite a senha novamente"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Botão de Cadastrar -->
+        <div class="botao-container">
+          <button onclick="cadastrarFuncionario()" class="botao-cadastrar">
+            Cadastrar
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Texto e Botão Pesquisar alinhados -->
+    <div class="texto-pesquisar-container">
+      <p class="texto-inferior">Funcionários cadastrados</p>
+      <div class="pesquisa-container">
+        <input
+          type="text"
+          id="pesquisarInput"
+          placeholder="Pesquise um funcionário..."
+        />
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome do funcionário</th>
+            <th>Sobrenome do funcionário</th>
+            <th>Email funcionário</th>
+            <th>Cargo funcionário</th>
+            <th>Data de cadastro</th>
+            <th>Editar usuário</th>
+            <th>Excluir usuário</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <img class="editar" src="./assets/icon/edit.svg" alt="Editar" />
+            </td>
+            <td>
+              <img
+                class="deletar"
+                src="./assets/icon/Delete.svg"
+                alt="Deletar"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button id="prevPage" onclick="mudarPagina(-1)">❮</button>
+      <span id="pageCounter">1</span>
+      <button id="nextPage" onclick="mudarPagina(1)">❯</button>
+    </div>
+
+    <!-- Modal editar -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Editar Funcionário</h2>
+        <br />
+        <div class="input-coluna">
+          <div class="input-group">
+            <label for="edit-nome">Nome</label>
+            <input type="text" id="edit-nome" placeholder="Digite o nome" />
+          </div>
+          <div class="input-group">
+            <label for="edit-sobrenome">Sobrenome</label>
+            <input
+              type="text"
+              id="edit-sobrenome"
+              placeholder="Digite o sobrenome"
+            />
+          </div>
+        </div>
+        <div class="input-coluna">
+          <div class="input-group">
+            <label for="edit-email">Email</label>
+            <input type="email" id="edit-email" placeholder="Digite o email" />
+          </div>
+          <div class="input-group">
+            <label for="edit-cargo">Cargo</label>
+            <select id="edit-cargo">
+              <option value="Funcionário comum">Funcionário Comum</option>
+              <option value="Administrador">Administrador</option>
+            </select>
+          </div>
+        </div>
+        <div class="botao-container">
+          <button
+            id="saveChanges"
+            class="botao-cadastrar"
+            onclick="salvarAlteracoes()"
+          >
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+      <div class="modal-content-delete">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir este funcionário?</p>
+        <div class="modal-buttons">
+          <button id="cancelDelete" class="cancel-btn">Cancelar</button>
+          <button id="confirmDelete" class="delete-btn">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/menubehavior.js"></script>
+<script src="./js/menu.js"></script>
+
+<script>
+  function abrirModalDeletar(id) {
+    const deleteModal = document.getElementById("deleteModal");
+    deleteModal.setAttribute("data-id", id);
+    deleteModal.classList.add("show");
+
+    document.getElementById("cancelDelete").onclick = function () {
+      deleteModal.classList.remove("show");
+    };
+  }
+
+  function cadastrarFuncionario() {
+    let nomeVar = document.getElementById("nome").value;
+    let sobrenomeVar = document.getElementById("sobrenome").value;
+    let emailVar = document.getElementById("email").value;
+    let cargoVar = document.getElementById("cargo").value;
+    let senhaVar = document.getElementById("senha").value;
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
+
+    if (!fkEmpresa || isNaN(fkEmpresa)) {
+      console.error(
+        "ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage."
+      );
+      alert(
+        "Erro: ID da empresa não encontrado. Por favor, faça login novamente."
+      );
+      return;
+    }
+
+    console.log(nomeVar, sobrenomeVar, emailVar, cargoVar, senhaVar, fkEmpresa);
+
+    fetch("/usuarios/cadastrarFuncionario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        sobrenomeServer: sobrenomeVar,
+        emailServer: emailVar,
+        cargoServer: cargoVar,
+        senhaServer: senhaVar,
+        fkEmpresaServer: fkEmpresa,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          console.log(
+            "Cadastro realizado com sucesso! Recarregando a página..."
+          );
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function abrirModalEditar(id) {
+    fetch(`/usuarios/obterFuncionario/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resposta) => {
+        if (resposta.ok) {
+          return resposta.json();
+        } else {
+          throw "Erro ao buscar os dados do funcionário.";
+        }
+      })
+      .then((funcionario) => {
+  // A resposta é um array, então acessamos o primeiro item
+  const funcionarioData = funcionario[0];
+
+  console.log("Dados do funcionário obtidos:", funcionarioData);
+  console.log("Nome do funcionário:", funcionarioData.nome);
+
+  document.getElementById("edit-nome").value = funcionarioData.nome;
+  document.getElementById("edit-sobrenome").value = funcionarioData.sobrenome;
+  document.getElementById("edit-email").value = funcionarioData.email;
+  document.getElementById("edit-cargo").value = funcionarioData.cargo;
+
+  document
+    .getElementById("saveChanges")
+    .setAttribute("data-id", funcionarioData.idUsuario);
+
+  document.getElementById("editModal").classList.add("show");
+})
+      .catch((erro) => {
+        console.error(`#ERRO: ${erro}`);
+        alert("Erro ao buscar os dados do funcionário. Tente novamente.");
+      });
+  }
+
+  document.getElementById("saveChanges").onclick = function () {
+  const idUsuario = this.getAttribute("data-id"); 
+  const nome = document.getElementById("edit-nome").value;
+  const sobrenome = document.getElementById("edit-sobrenome").value;
+  const email = document.getElementById("edit-email").value;
+  const cargo = document.getElementById("edit-cargo").value;
+
+  if (!idUsuario) {
+    console.error("ID do funcionário não encontrado.");
+    return;
+  }
+
+  fetch(`/usuarios/editarFuncionario/${idUsuario}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomeServer: nome,
+      sobrenomeServer: sobrenome,
+      emailServer: email,
+      cargoServer: cargo,
+    }),
+  })
+    .then((resposta) => {
+      if (resposta.ok) {
+        alert("Funcionário atualizado com sucesso!");
+        document.getElementById("editModal").classList.remove("show");
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        throw "Erro ao atualizar as informações do funcionário.";
+      }
+    })
+    .catch((erro) => {
+      console.error(`#ERRO: ${erro}`);
+      alert("Erro ao atualizar o funcionário. Tente novamente.");
+    });
+};
+
+
+  let funcionarios = [];
+  let paginaAtual = 1;
+  const funcionariosPorPagina = 3;
+
+  function buscarFuncionarios() {
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
+
+    if (!fkEmpresa || isNaN(fkEmpresa)) {
+      console.error(
+        "ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage."
+      );
+      return;
+    }
+
+    fetch(`/usuarios/buscarFuncionarios?idEmpresa=${fkEmpresa}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao buscar funcionários");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        funcionarios = data;
+        renderizarTabela();
+      })
+      .catch((error) => {
+        console.error(`#ERRO: ${error}`);
+      });
+  }
+
+  function renderizarTabela() {
+    const tbody = document.querySelector("table tbody");
+    tbody.innerHTML = "";
+
+    const totalFuncionarios = funcionarios.length;
+    const totalPaginas = Math.ceil(totalFuncionarios / funcionariosPorPagina);
+    const inicio = (paginaAtual - 1) * funcionariosPorPagina;
+    const fim = inicio + funcionariosPorPagina;
+    const funcionariosPagados = funcionarios.slice(inicio, fim);
+
+    funcionariosPagados.forEach((funcionario) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+   <td>${funcionario.nome}</td>
+   <td>${funcionario.sobrenome}</td>
+   <td>${funcionario.email}</td>
+   <td>${funcionario.cargo}</td>
+   <td>${funcionario.dataCadastroFuncionario}</td>
+   <td><img class="editar" src="./assets/icon/edit.svg" onclick="abrirModalEditar(${funcionario.idUsuario})" /></td>
+   <td><img class="deletar" src="./assets/icon/Delete.svg" onclick="abrirModalDeletar(${funcionario.idUsuario})" /></td>
+`;
+
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById(
+      "pageCounter"
+    ).innerText = `${paginaAtual} / ${totalPaginas}`;
+  }
+
+  function mudarPagina(direcao) {
+    const totalPaginas = Math.ceil(funcionarios.length / funcionariosPorPagina);
+
+    if (paginaAtual + direcao >= 1 && paginaAtual + direcao <= totalPaginas) {
+      paginaAtual += direcao;
+      renderizarTabela();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", buscarFuncionarios);
+
+  window.onclick = function (event) {
+    const modal = document.getElementById("editModal");
+    if (event.target === modal) {
+      modal.classList.remove("show");
+    }
+  };
+
+  function excluirFuncionario() {
+    const deleteModal = document.getElementById("deleteModal");
+    const idFuncionario = deleteModal.getAttribute("data-id");
+
+    if (!idFuncionario) {
+      console.error("ID do funcionário não encontrado para exclusão.");
+      return;
+    }
+
+    const fkEmpresa = sessionStorage.ID_EMPRESA;
+
+    if (!fkEmpresa || isNaN(fkEmpresa)) {
+      console.error(
+        "ID da empresa não definido ou inválido. Verifique se está logado e o ID está presente no sessionStorage."
+      );
+      return;
+    }
+
+    fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao excluir funcionário.");
+        }
+        console.log("Funcionário excluído com sucesso!");
+        deleteModal.classList.remove("show");
+        buscarFuncionarios();
+      })
+      .catch((error) => {
+        console.error(`#ERRO: ${error}`);
+      });
+  }
+
+  document.getElementById("confirmDelete").onclick = function () {
+    const idFuncionario = document
+      .getElementById("deleteModal")
+      .getAttribute("data-id");
+
+    if (idFuncionario) {
+      excluirFuncionario(idFuncionario);
+    } else {
+      console.error("ID não encontrado");
+    }
+  };
+</script>

@@ -1,26 +1,22 @@
-// var ambiente_processo = 'producao';
-var ambiente_processo = 'desenvolvimento';
-
-var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
-// Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
-// A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
-
+let caminho_env = '.env.dev';
 require("dotenv").config({ path: caminho_env });
 
-var express = require("express");
-var cors = require("cors");
-var path = require("path");
-var PORTA_APP = process.env.APP_PORT;
-var HOST_APP = process.env.APP_HOST;
+let express = require("express");
+let cors = require("cors");
+let path = require("path");
 
-var app = express();
+let LOCAL_PORT = process.env.APP_PORT;
+let LOCAL_HOST = process.env.DB_HOST || "localhost";
 
-var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
-var aquariosRouter = require("./src/routes/aquarios");
-var empresasRouter = require("./src/routes/empresas");
+let DOCKER_HOST = process.env.APP_HOST;
+let DOCKER_PORT = process.env.APP_PORT;
+
+let app = express();
+
+let indexRouter = require("./src/routes/index");
+let usuarioRouter = require("./src/routes/usuarios");
+let avisosRouter = require("./src/routes/avisos");
+let empresasRouter = require("./src/routes/empresas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,14 +27,13 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
-app.use("/medidas", medidasRouter);
-app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 
-app.listen(PORTA_APP, function () {
+app.listen(LOCAL_PORT, function () {
     console.log(`
               
-    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
+    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${LOCAL_HOST}:${LOCAL_PORT} :. \n\n
+    Caso esteja acessando pelo ambiente da nuvem, acesse o caminho : http://${DOCKER_HOST}:${DOCKER_PORT} :. \n\n
     Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:`);
 });
 

@@ -1,21 +1,21 @@
 :root{
     --primaria: #193D65;
+    --primariaLight: #193c6568;
     --sobre: linear-gradient(180deg, rgba(50,123,203,1) 2%, rgba(25,61,101,1) 86%);
     --header: #f1f1f1;
     --botton: #327BCB;
     --letras: #292929;
     --barraHeader: #ffffff;
-
+    --boxDash: background: linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(212,212,212,1) 100%);
     --bgColorSystemLight: #F6F6F6;
     --titleSystemLight: #193D65;
-    --bgColorIndicatorsLight: linear-gradient(130deg, rgba(255,255,255,1) 47%, rgba(215,215,215,1) 91%);
-
+    --bgColorIndicatorsLight: linear-gradient(130deg, rgba(255,255,255,1) 47%, rgb(232, 232, 232) 91%);
     --bgColorSystemDark: #212121;
     --titleSystemDark: #FFF;
     --bgColorIndicatorsDark: #292929;
+    --default-bgColor: #F6F6F6;
+    --borderColor: #8d8787;
+    --negative: #C01333;
+    --positive:#50C878;
+
  }
- /* cor valores: #864ef2
-     cor primaria: #6c3ac5
-     cor header: #f1f1f1
-     cor botton: #FF88EE
- */

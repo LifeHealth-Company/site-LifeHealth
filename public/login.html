@@ -12,6 +12,7 @@
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <link rel="stylesheet" media="screen" href="css/style.css" />
+    <link rel="stylesheet" media="screen" href="css/modal.css" />
     <link rel="stylesheet" href="css/site.css" />
     <link rel="icon" href="assets/icon/mini.svg" />
     <link
@@ -23,103 +24,283 @@
 
   <body>
     <div id="inicio">
-      <div class="header">
-        <div class="mainHeader">
-          <ul class="options">
-            <a href="#inicio">
-              <li class="option">Início</li>
-            </a>
-            <li class="divisor">/</li>
-            <a href="#sobre">
-              <li class="option">Sobre</li>
-            </a>
-            <li class="divisor">/</li>
-            <a href="#servico">
-              <li class="option">Serviços</li>
-            </a>
-            <li class="divisor">/</li>
-            <a href="#contato">
-              <li class="option">Contato</li>
-            </a>
-          </ul>
-
-          <div class="headerLogo">
-            <img src="./assets/icon/headerLogo.svg" class="headerLogo" />
-          </div>
-          <div class="loginContainer">
-          </div>
-        </div>
-      </div>
       <div class="content-register">
         <div class="cadastro-container">
           <div class="cadastro-text">
             <h1>Bem vindo!</h1>
-            <p>Ainda não tem cadastro? <b class="loginClick">Crie uma conta.</b> </p>
+            <p>
+              Ainda não tem cadastro?
+              <b class="loginClick" onclick="openModal()">Crie uma conta.</b>
+            </p>
             <form class="cadastro-form">
               <!-- Passo 1 -->
               <div class="input-wrapper">
-                <div id="inputContainer" class="inputs-step1">
-                    <label for="email">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="Insira seu email"/>
+                <div class="inputs-step1">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="input_email_login"
+                    placeholder="Insira seu email"
+                  />
                 </div>
-               </div>
-                 <!-- Passo 2 -->
-                 <div class="input-wrapper">
-                    <div id="inputContainer" class="inputs-step1">
-                        <label for="email">Senha</label>
-                        <input
-                          type="password"
-                          id="senha"
-                          placeholder="*****"/>
-                          <b><li class="loginClick2">Esqueceu sua senha?</li></b>
-                    </div>
-                  
-                 </div>
-              
-              
+              </div>
+              <!-- Passo 2 -->
+              <div class="input-wrapper">
+                <div class="inputs-step1">
+                  <label for="email">Senha</label>
+                  <input
+                    type="password"
+                    id="input_senha_login"
+                    placeholder="Insira sua senha"
+                  />
+                  <b><li class="loginClick2">Esqueceu sua senha?</li></b>
+                </div>
+              </div>
 
-              <button type="button" class="btnContinuar" id="btnContinuar">
+              <button
+                type="button"
+                class="btnContinuar2"
+                onclick="entrar()"
+                id="btnContinuar"
+              >
                 Entrar
               </button>
-              <div class="dots-container2"></div>
-                <div class="dot2" id="dot1"></div>
-                <div class="dot2" id="dot2"></div>
-                <div class="dot2" id="dot3"></div>
-                <div class="dot2" id="dot4"></div>
             </form>
           </div>
-        </div>
-        <div class="teste">
-          <div class="carousel-container">
-            <div class="carousel">
+          <div class="slideshow-container">
+            <div class="slideshow">
+              <img
+                src="./assets/services/chart.svg"
+                class="chartImage"
+                alt="Chart Icon"
+              />
               <div
-                class="slide"
+                class="slide active"
                 style="
                   background-image: url('https://images.unsplash.com/photo-1562619425-c307bb83bc42?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
                 "
-              ></div>
+              >
+                <div class="text-container">
+                  <h1>Gráficos simples e fáceis de entender!</h1>
+                  <p>
+                    Visualizações claras para monitorar e prever epidemias.
+                    Proteja sua comunidade hoje!
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="slide"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1579267217516-b73084bd79a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                "
+              >
+                <div class="text-container">
+                  <h1>Gráficos precisos e detalhados!</h1>
+                  <p>
+                    Dados apresentados de maneira eficiente para tomadas de
+                    decisão rápidas.
+                  </p>
+                </div>
+              </div>
+
               <div
                 class="slide"
                 style="
                   background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
                 "
-              ></div>
+              >
+                <div class="text-container">
+                  <h1>Gráficos interativos!</h1>
+                  <p>
+                    Interaja com os dados em tempo real e descubra insights
+                    valiosos.
+                  </p>
+                </div>
+              </div>
+
               <div
                 class="slide"
                 style="
-                  background-image: url('https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                  background-image: url('https://images.unsplash.com/photo-1598557470924-a2979fcdf017?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
                 "
-              ></div>
+              >
+                <div class="text-container">
+                  <h1>Gráficos avançados e personalizados!</h1>
+                  <p>
+                    Gráficos que se adaptam às suas necessidades com alta
+                    precisão e detalhes.
+                  </p>
+                </div>
+              </div>
+              <!-- Dots fora dos slides individuais -->
+              <div class="custom-dots-container">
+                <span class="custom-dot"></span>
+                <span class="custom-dot"></span>
+                <span class="custom-dot"></span>
+                <span class="custom-dot"></span>
+              </div>
             </div>
-            <button class="prev" >❮</button>
-            <button class="next">❯</button>
           </div>
         </div>
       </div>
-    
+    </div>
+    <div class="modal" style="display: none">
+      <div class="glass-effect"></div>
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">
+          <img
+            src="./assets/icon/close.svg"
+            alt="Close"
+            width="18"
+            height="18"
+          />
+        </button>
+        <div class="modal-header">
+          <div class="header-square">
+            <img src="./assets/services/Vector.svg" alt="" />
+          </div>
+          <div class="header-container">
+            <h2 class="header-text">Selecione como deseja se cadastrar</h2>
+            <p class="header-description">
+              Simples e flexível para atender suas necessidades
+            </p>
+          </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="opcoes">
+          <div class="opcao-quadrado" id="option1">
+            <div
+              class="select-circle"
+              onclick="selecionarOpcao('option1')"
+            ></div>
+            <div class="main-text">
+              <span class="opcao-description">Esta opção inclui</span>
+              <span class="opcao-title">Instituição Hospitalar</span>
+              <span class="opcao-description"
+                >Este tipo de cadastro é ideal para hospitais e clínicas</span
+              >
+            </div>
+            <ul class="opcao-list">
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Monitoramento
+                de surtos em tempo real
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Gerenciamento
+                de recursos e equipes de saúde
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Relatórios
+                personalizados para análise de dados
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Acesso a
+                gráficos interativos para visualização de dados
+              </li>
+            </ul>
+          </div>
+          <div class="opcao-quadrado" id="option2">
+            <div
+              class="select-circle"
+              onclick="selecionarOpcao('option2')"
+            ></div>
+            <div class="main-text">
+              <span class="opcao-description">Esta opção inclui</span>
+              <span class="opcao-title">Instituição Farmacêutica</span>
+              <span class="opcao-description"
+                >Este cadastro é voltado para empresas farmacêuticas</span
+              >
+            </div>
+            <ul class="opcao-list">
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Acesso a
+                dados clínicos de surtos e epidemias
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Ferramentas
+                de pesquisa para desenvolvimento de medicamentos
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Análise de
+                padrões de doença para previsões mais precisas
+              </li>
+              <li>
+                <img src="./assets/icon/option-check.svg" alt="" />Visualização
+                de gráficos detalhados sobre dados de saúde pública
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="js/script.js"></script>
   </body>
 </html>
+<script>
+  function selecionarOpcao(opcao) {
+    window.location.href = `cadastro.html?selectedOption=${opcao}`;
+  }
+
+  function entrar() {
+    var emailVar = input_email_login.value;
+    var senhaVar = input_senha_login.value;
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch(`/usuarios/autenticar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!");
+
+        if (resposta.ok) {
+          resposta.json().then((json) => {
+            console.log("Dados retornados:", json);
+
+            if (json.idEmpresa && !json.idUsuario) {
+    sessionStorage.ID_EMPRESA = json.idEmpresa;
+    sessionStorage.TIPO_USUARIO = "Empresa";
+} else if (json.idUsuario) {
+    sessionStorage.ID_USUARIO = json.idUsuario;
+    sessionStorage.ID_EMPRESA = json.fkEmpresa;
+    sessionStorage.TIPO_USUARIO = "Funcionario";
+    sessionStorage.CARGO_USUARIO = json.cargoUsuario; 
+}
+
+console.log(sessionStorage.ID_EMPRESA);  
+console.log(sessionStorage.TIPO_USUARIO);  
+console.log(sessionStorage.ID_USUARIO);
+console.log(sessionStorage.CARGO_USUARIO);
+
+
+
+            console.log("Session storage atualizado:", sessionStorage);
+
+            setTimeout(function () {
+              window.location = "home.html";
+            }, 1000);
+          });
+        } else {
+          console.log("Houve um erro ao tentar realizar o login!");
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
+  }
+</script>
